@@ -86,11 +86,10 @@
             <p>
               <span
                 class="numbered-title"
-              >Definition 
+              >Definition
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-                 
-              </span>
-               Seien $A$ und $B$
+                </span>
+              Seien $A$ und $B$
               zwei Mengen. Wir schreiben $A \leq B$, wenn es eine injektive
               Funktion $f : A \rightarrow B$ gibt. Falls $A \leq B$ und $A \not
               \approx B$ gilt, so schreiben wir $A \lt B$.
@@ -108,9 +107,9 @@
             suggestiven Notation $\leq$ verführen! $A \leq B$ und $B \leq A$
             heißen, dass es injektive Funktion $f : A \rightarrow B$ und $g : B
             \rightarrow A$ gibt. Um daraus zu folgern, dass $A \approx B$ gilt,
-            müssen wir diese zu 
+            müssen wir diese zu
             <i>einer</i>
-             bijektiven Funktion $h: A
+            bijektiven Funktion $h: A
             \rightarrow B$ kombinieren. Geht das immer?
           </p>
           <div
@@ -119,11 +118,11 @@
             <p>
               <span
                 class="numbered-title"
-              >Theorem 
+              >Theorem
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-                 
-              </span><b>(Schröder-Bernstein-Theorem).</b>
-               Seien $A$ und $B$
+                </span>
+              <b>(Schröder-Bernstein-Theorem).</b>
+              Seien $A$ und $B$
               zwei Mengen. Wenn $A \leq B$ und $B \leq A$ gilt, dann gilt $A
               \approx B$. In Worten: wenn es injektive Funktionen $f: A
               \rightarrow B$ und $g : B\rightarrow A$ gibt, dann gibt es auch eine
@@ -342,9 +341,9 @@
                 X</i>1, \dots$, sodass $X<i>{2i} \subseteq B$ und $X</i>{2i+1} \subseteq A$
               für alle $i \geq 0$ gilt:
             </p>
-            $$\begin{align*} X_0&amp;:= B \setminus {\rm img} (f) \\ X_{2i+1}&amp;:=
-            g(X_{2i}) \\ X_{2i+2}&amp;:= f(X_{2i+1})\\ A'&amp;:= X_1 \cup X_ 3 \cup
-            X_5 \cup X_7 \cup \dots \ . \end{align*}$$
+            \begin{align*} X<i>0&amp;:= B \setminus {\rm img} (f) \\ X</i>{2i+1}&amp;:=
+            g(X<i>{2i}) \\ X</i>{2i+2}&amp;:= f(X<i>{2i+1})\\ A'&amp;:= X</i>1 \cup X_ 3 \cup
+            X<i>5 \cup X</i>7 \cup \dots \ . \end{align*}
             <p>
               In Worten: $X<i>0$ sind die $B$-Punkte, die keine eingehende $f$-Kante
                 haben. $X</i>i$ sind dann diejenigen Knoten, die auf einem Pfad vom Typ
@@ -353,9 +352,9 @@
               Typ-(2)-Komponente liegen. Wir können nun unsere Bijektion $h : A
               \rightarrow B$ definieren:
             </p>
-            $$\begin{align*} h : A&amp;\rightarrow A\\ a&amp;\mapsto \begin{cases} f(a)
+            \begin{align*} h : A&amp;\rightarrow A\\ a&amp;\mapsto \begin{cases} f(a)
             &amp;\textnormal{ if $a \in A \setminus A'$} \\ g^{-1}(a)&amp;\textnormal{
-            if $a \in A'$.} \end{cases} \end{align*}$$
+            if $a \in A'$.} \end{cases} \end{align*}
             <p>
               Wir müssen nun zeigen, dass $h$ bijektiv ist (falls das noch nicht
               klar sein sollte).
@@ -366,10 +365,10 @@
               <p>
                 <span
                   class="numbered-title"
-                >Behauptung 
+                >Behauptung
                   <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-                    1.</span>
-                 $g^{-1}(a)$ ist
+                  1.</span>
+                $g^{-1}(a)$ ist
                 definiert für jedes $a \in A'$.
               </p>
             </div>
@@ -398,10 +397,10 @@
               <p>
                 <span
                   class="numbered-title"
-                >Behauptung 
+                >Behauptung
                   <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-                    2.</span>
-                 $h$ ist
+                  2.</span>
+                $h$ ist
                 injektiv.
               </p>
             </div>
@@ -436,10 +435,10 @@
               <p>
                 <span
                   class="numbered-title"
-                >Behauptung 
+                >Behauptung
                   <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-                    3.</span>
-                 $h$ ist
+                  3.</span>
+                $h$ ist
                 surjektiv.
               </p>
             </div>

@@ -5,9 +5,9 @@ import desugarer_library as dl
 pub fn html_pipeline() -> List(Desugarer) {
   [
     dl.identity(),
-    dl.find_replace_in_descendants_of([#("div", [#("<", "&lt;"), #(">", "&gt;")])]),
+    // dl.find_replace_in_descendants_of([#("div", [#("<", "&lt;"), #(">", "&gt;")])]),
     dl.remove_chapter_number_from_title(),
-    dl.trim_spaces_around_newlines(),
+    dl.trim_spaces_around_newlines(["pre"]),
     dl.replace_multiple_spaces_by_one(),
     dl.extract_starting_and_ending_spaces(["i", "b", "strong", "em", "code"]),
     dl.insert_bookend_text_if_no_attributes([
@@ -56,5 +56,6 @@ pub fn html_pipeline() -> List(Desugarer) {
     )),
     dl.surround_elements_by(#(["NumberedTitle"], "go23_xU", "go23_xU")),
     dl.fold_tags_into_text([#("go23_xU", " ")]),
+    dl.find_replace(#([#("&amp;", "&"), #("&lt;", "<"), #("&gt;", ">"), #("&ensp;", "\\ ")], [])),
   ]
 }

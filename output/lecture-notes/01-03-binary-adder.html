@@ -76,7 +76,7 @@
             sind, dann
             höchstwahrscheinlich auch in Ihrem Blut). Grund genug, sich diese genauer anzuschauen.
             Genau wie bei der Addition von Dezimalzahlen gibt es pro Stelle ein Ergebnis und einen
-            Übertrag (Englisch 
+            Übertrag (Englisch
             <i>carry</i>); beispielsweise ergibt
             "sechs plus acht plus sieben = eins, zwei gemerkt", und die 2 muss dann zu den links daneben
             stehenden Ziffern addiert werden. Binär ist alles viel einfacher, weil man sich nur 0 oder 1
@@ -93,9 +93,9 @@
           $$
           <p>
             Das Carry wird dann der eins weiter links stehenden Stelle zur Addition weitergegeben.
-            Aber halt! Das heißt doch, dass wir in der nächsten Stelle 
+            Aber halt! Das heißt doch, dass wir in der nächsten Stelle
             <i>drei</i>
-             Bits addieren
+            Bits addieren
             müssen:
             das von \(x\), das von \(y\), und das eingehende Carry \(\cin\). Daraus berechnet
             sich das Output-Bit \(s\) und das ausgehende Carry \(\cout\), das nach links weitergegeben
@@ -117,10 +117,10 @@
           $$
           <p>
             Glücklicherweise muss man sich diese Tabelle nicht merken, es gilt nämlich
-            $$\begin{align*}
+            \begin{align*}
             s&amp;= x \oplus y \oplus \cin \\
             \cout&amp;= {\rm Maj} (x, y, \cin) \ .
-            \end{align*}$$
+            \end{align*}
             Die Funktion Maj haben wir schon oben kennengelernt; sie gibt 1 aus, wenn mindestens zwei
             ihrer drei Input-Bits 1 sind. Wir kürzen Sie im folgenden mit \(M\) ab. Hier ist nun
             unser \(n\)-Bit-Addierer:
@@ -143,7 +143,7 @@
             werden).
           </p>
           <p>
-            Wie groß ist dieser Schaltkreis? Wenn wir jedes \(\oplus\)- und \(M\)-Gate als 
+            Wie groß ist dieser Schaltkreis? Wenn wir jedes \(\oplus\)- und \(M\)-Gate als
             <i>ein</i>
             Gate
             zählen, so haben wir insgesamt \(2n\) innere Gates und \(2n\) Input-Gates.
@@ -155,12 +155,11 @@
           >
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-               
-            </span>Bauen Sie einen Schaltkreis 
+              </span>Bauen Sie einen Schaltkreis
             <tt>oneBitAdder:</tt>
-             \( \{0,1\}^3 \rightarrow \{0,1\}^2\) für
+            \( \{0,1\}^3 \rightarrow \{0,1\}^2\) für
             folgende Funktionalität:
             <figure>
               <img
@@ -194,7 +193,7 @@
             <i>ripple-carry adder</i>.
           </p>
           <p>
-            Geringere Tiefe erreicht man mit 
+            Geringere Tiefe erreicht man mit
             <i>Carry Lookahead</i>. Hier versuchen wir,
             im Voraus bereits das Carry auf Position \(i\) zu berechnen, ohne erst das auf Position
             \(i-1\) abzuwarten. Es lohnt, ein paar Dinge formaler zu definieren:
@@ -203,10 +202,10 @@
             \(c_i\) ist das Carry, das von Position \(i-1\) an Position \(i\) übergeben wird;
             \(s_i\) ist das \(i\)-te Bit der Summe (von rechts nach links zählend, bei 0 beginnend).
             Es gilt also \(c_0 = 0\) und
-            $$\begin{align*}
-            s_i&amp;= x_i \oplus y_i \oplus c_i \\
-            c_{i+1}&amp;= M(x_i, y_i, c_i) \ ,
-            \end{align*}$$
+            \begin{align*}
+            s<i>i&amp;= x</i>i \oplus y<i>i \oplus c</i>i \\
+            c<i>{i+1}&amp;= M(x</i>i, y<i>i, c</i>i) \ ,
+            \end{align*}
             und das Ergebnis ist dann \(c_{n} s_{n-1} s_{n-2} \dots, s_2 s_1 s_0\).
             Bauen wir uns doch mal einen Schaltkreis, der \(c_{k+1}\) berechnet; wir können
             zum Beispiel den obigen Ripple-Carry-Adder nehmen und alles löschen, was nicht
@@ -227,10 +226,10 @@
             \(x_i \ne y_i\) ist, dann schaltet das \(M\)-Gate einfach \(c_i\) unverändert durch.
             Dies motiviert die folgenden Definitionen:
           </p>
-          $$\begin{align*}
-          g_i&amp;:= x_i \wedge y_i \tag{carry-generate} \\
-          p_i&amp;:= x_i \vee y_i \tag{carry-propagate}
-          \end{align*}$$
+          \begin{align*}
+          g<i>i&amp;:= x</i>i \wedge y<i>i \tag{carry-generate} \\
+            p</i>i&amp;:= x<i>i \vee y</i>i \tag{carry-propagate}
+          \end{align*}
           <p>
             Jetzt können wir \(c_{k+1}\) wie folgt berechnen: an Stelle \(k\) wird ein Carry
             ausgegeben, wenn es eine Stelle \(i \leq k\) gibt, wo \(x_i = y_i=1\) gilt, das
@@ -260,9 +259,9 @@
           </h3>
           <p>
             Effizientere Lösungen beginnen oft mit einer guten Definition. In diesem Falle ist das die
-            Verallgemeinerung von 
+            Verallgemeinerung von
             <i>Carry Generate \(g_i\)</i>
-             und 
+            und
             <i>Carry Propagate \(p_i\)</i>
             von Indizes auf Intervalle. Für ein Interval
             \([a,b] := \{a, a+1, \dots, b\}\) definieren wir Funktionen
@@ -280,9 +279,9 @@
           >
             <span
               class="numbered-title"
-            >Definition 
+            >Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-                (Carry propagate / generate für Intervalle)</span>Sei \(I = \{a,a+1, \dots, b\}\) ein Intervall natürlicher Zahlen. Die Werte
+              (Carry propagate / generate für Intervalle)</span>Sei \(I = \{a,a+1, \dots, b\}\) ein Intervall natürlicher Zahlen. Die Werte
             \(p_I\) und \(g_I\) sind wie folgt definiert:
             <ul>
               <li>
@@ -310,13 +309,13 @@
           <p>
             Hier sind Boolesche Formeln (in DNF) für \(p_{[a,b]}\) und \(g_{[a,b]}\):
           </p>
-          $$\begin{align*}
-          g_{[a,b]}&amp;:= g_b \vee (g_{b-1} \wedge p_b) \vee (g_{b-2} \wedge p_{b-1} \wedge p_b)
-          \vee \dots \vee (g_a \wedge p_{a+1} \wedge \dots \wedge p_b) \ , \\
-          p_{[a,b]}&amp;:= g_b \vee (g_{b-1} \wedge p_b) \vee (g_{b-2} \wedge p_{b-1} \wedge p_b)
-          \vee \dots \vee (g_{a+1} \wedge p_{a+2} \wedge \dots \wedge p_b)
-          \vee (p_a \wedge p_{a+1} \wedge \dots \wedge p_b) \ ,
-          \end{align*}$$
+          \begin{align*}
+          g<i>{[a,b]}&amp;:= g</i>b \vee (g<i>{b-1} \wedge p</i>b) \vee (g<i>{b-2} \wedge p</i>{b-1} \wedge p<i>b)
+            \vee \dots \vee (g</i>a \wedge p<i>{a+1} \wedge \dots \wedge p</i>b) \ , \\
+          p<i>{[a,b]}&amp;:= g</i>b \vee (g<i>{b-1} \wedge p</i>b) \vee (g<i>{b-2} \wedge p</i>{b-1} \wedge p<i>b)
+            \vee \dots \vee (g</i>{a+1} \wedge p<i>{a+2} \wedge \dots \wedge p</i>b)
+          \vee (p<i>a \wedge p</i>{a+1} \wedge \dots \wedge p_b) \ ,
+          \end{align*}
           <p>
             und hier ein Bild zur Illustration:
           </p>
@@ -348,14 +347,13 @@
           >
             <span
               class="numbered-title"
-            >Beobachtung 
+            >Beobachtung
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-               
-            </span>Wenn wir \([a,b] = [a,i] \cup [i+1,b] \) schreiben für \(a \lt i \lt b\), dann gilt
-            $$\begin{align*}
-            p_{[a,b]}&amp;= g_{[i+1,b]} \vee (p_{[a,i]} \wedge p_{[i+1,b]}) \ , \\
-            g_{[a,b]}&amp;= g_{[i+1,b]} \vee (g_{[a,i]} \wedge p_{[i+1,b]}) \ . \\
-            \end{align*}$$
+              </span>Wenn wir \([a,b] = [a,i] \cup [i+1,b] \) schreiben für \(a \lt i \lt b\), dann gilt
+            \begin{align*}
+            p<i>{[a,b]}&amp;= g</i>{[i+1,b]} \vee (p<i>{[a,i]} \wedge p</i>{[i+1,b]}) \ , \\
+            g<i>{[a,b]}&amp;= g</i>{[i+1,b]} \vee (g<i>{[a,i]} \wedge p</i>{[i+1,b]}) \ . \\
+            \end{align*}
           </div>
           <p>
             Überzeugen Sie sich von der Richtigkeit entweder durch Nachdenken (z.B. "damit im Interval
@@ -380,10 +378,9 @@
           >
             <span
               class="numbered-title"
-            >Definition 
+            >Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-               
-            </span>Ein Binärintervall ist eine Menge natürlicher Zahlen der Form
+              </span>Ein Binärintervall ist eine Menge natürlicher Zahlen der Form
             $$
             \{ c \cdot 2^d, c \cdot 2^d + 1, \dots, c \cdot 2^{d} + 2^{d} - 1\}
             $$
@@ -396,19 +393,19 @@
             Beispielsweise ist \(12,13,14,15\) ein Binärintervall mit \(c=3\) und \(d=2\); in der
             Binärdarstellung
             ist das \(1100, 1101, 1110, 1111\). Wir können es also auch mit
-            in 
+            in
             <i>Sternchennotation</i>
-             mit [11<b></b>] notieren.
+            mit [11<b>
+              </b>] notieren.
           </p>
           <div
             class="well well-lg numbered-exercise container"
           >
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-               
-            </span>Seit \(n = 2^d-1\). Wie viele Binärintervalle gibt es in
+              </span>Seit \(n = 2^d-1\). Wie viele Binärintervalle gibt es in
             \(\{0,\dots,n-1\}\)?
           </div>
           <div
@@ -416,10 +413,9 @@
           >
             <span
               class="numbered-title"
-            >Lemma 
+            >Lemma
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-               
-            </span>Es gibt einen Schaltkreis mit Input-Gates \(x_0,\dots,x_{n-1}, y_0, \dots, y_{n-1}\) mit
+              </span>Es gibt einen Schaltkreis mit Input-Gates \(x_0,\dots,x_{n-1}, y_0, \dots, y_{n-1}\) mit
             Größe \(6n - 4 \in O(n)\) und Tiefe \(2\, \ceil{\log_2 n} + 1 \ \in O(\log n)\) und
             Output-Gates
             \(p_{I}, g_I\) für jedes Binärinterval \(I\).
@@ -436,10 +432,10 @@
             $$
             Ganz allgemein gilt \([c*^{k+1}] = [c0*^k] \cup [c1*^k]\) und somit,
             mit Hilfe von Beobachtung 1.10:
-            $$\begin{align*}
-            p_{[c*^{k+1}]}&amp;= g_{[c1*^k]} \vee (p_{c0*^k} \wedge p_{c1*^k})\\
-            g_{[c*^{k+1}]}&amp;= g_{[c1*^k]} \vee (g_{c0*^k} \wedge p_{c1*^k}) \ .
-            \end{align*}$$
+            \begin{align*}
+            p<i>{[c*^{k+1}]}&amp;= g</i>{[c1<b>^k]} \vee (p<i>{c0*^k} \wedge p</i>{c1</b>^k})\\
+            g<i>{[c*^{k+1}]}&amp;= g</i>{[c1<b>^k]} \vee (g<i>{c0*^k} \wedge p</i>{c1</b>^k}) \ .
+            \end{align*}
             Wir basteln uns also am Besten ein "\(pg\)-Gate" mit vier Inputs und zwei Outputs:
             <figure>
               <img
@@ -500,18 +496,18 @@
           <p>
             Eine anschließende Bemerkung: der Schaltkreis
             besteht ausschließlich aus AND- und OR-Gates; er enthält
-            keine NOT-Gates und ist somit ein 
+            keine NOT-Gates und ist somit ein
             <i>monotoner Schaltkreis.</i>
+            
           </p>
           <div
             class="well container theorem"
           >
             <span
               class="numbered-title"
-            >Lemma 
+            >Lemma
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-               
-            </span>Es gibt einen Schaltkreis der Größe \(2n\) und
+              </span>Es gibt einen Schaltkreis der Größe \(2n\) und
             Tiefe \(2 \ceil{\log_2 n} - 2 = O(\log n)\), der die \(p_I, g_I\) für Binärintervalle
             als Inputs nimmt und daraus \(g_{[0,k]}\) berechnet für jedes
             \(k=0,\dots,n-1\), also insgesamt \(n\) Output-Gates.
@@ -522,21 +518,21 @@
             <b>Beweis.</b>
             Die Idee ist, dass wir jedes \([0,k]\) als Vereinigung
             von wenigen Binärintervallen schreiben können, zum Beispiel
-            $$\begin{align*}
+            \begin{align*}
             [0,9]&amp;= [0,7] \cup [8,9] \ , \\
             [0,12]&amp;= [0,7] \cup [8,11] \cup [12] \ .
-            \end{align*}$$
+            \end{align*}
             Wie kann man das formalisieren?
             <p>
               <b>1. Fall.</b>
-               Wenn \(k\) die Form \(k = 2^d-1\) hat, dann ist
+              Wenn \(k\) die Form \(k = 2^d-1\) hat, dann ist
               \([0,k]\) bereits ein Binärintervall; dies passiert, wenn
               die Binärdarstellung von \(k\) die Form \(k = (1^b)_2 \) hat (wobei \(b=0\)
               sein kann, in welchem Fall \(k=0\) ist).
             </p>
             <p>
               <b>2. Fall.</b>
-               Wenn \(k\) nicht die Form \(k = 2^d-1\) hat,
+              Wenn \(k\) nicht die Form \(k = 2^d-1\) hat,
               dann hat die Binärdarstellung von \(k\) nicht die Form \(1^b\); sie
               enthält also auch nicht-führende Nullen (beachten Sie, dass \((0111)_2\) und \((111)_2\)
               die
@@ -547,9 +543,10 @@
               Definieren
               wir \(l := (\alpha 0 1^a 1^b)_2 \). Dann gilt
               \(l+1 = (\alpha 1 0^a 0^b)_2\). Es gilt also
-              $$\begin{align*}
-              [l+1, k] = [(\alpha 1 0^a 0^b)_2, (\alpha 1 0^a 1^b)_2] = [\alpha 1 0^a *^b] \ ,
-              \end{align*}$$
+              \begin{align*}
+              [l+1, k] = [(\alpha 1 0^a 0^b)<i>2, (\alpha 1 0^a 1^b)</i>2] = [\alpha 1 0^a
+              <b>^b] \ ,
+                \end{align</b>}
             </p>
             <p>
             </p>
@@ -583,10 +580,10 @@
               Binärdarstellung
               also von \(b\) auf \(a+b \geq b+1\) gewachsen ist. Hier ist ein Beispiel
               für \(n = 32, k = 28\), in Dezimal- und Binärdarstellung:
-              $$\begin{align*}
+              \begin{align*}
               [0,28]&amp;= [0,15] \cup [16,23] \cup [24,27] \cup [28] \\
               [00000, 11100]&amp;= [00000,01111] \cup [10000,10111] \cup [11000, 11011] \cup [11100] \ .
-              \end{align*}$$
+              \end{align*}
               Beachten wir die Folge \(28, 27, 23, 15\), also immer die Endpunkte der betreffenden
               Intervalle; wir haben gesehen, dass die Anzahl der schließenden 1en von Element zu Element
               in dieser Folge strikt zunimmt (im Allgemeinen
@@ -594,7 +591,7 @@
               Die Anzahl schließender 1en ist mindestens 0 (trivialierweise) und höchstens \(d\);
               ein genauerer Blick zeigt, dass sie sogar höchstens \(d-1\) ist: wäre sie genau \(d\),
               dann hätten wir es mit der Zahl \( (1^d)_2 = 2^d-1 \geq n-1 \) zu tun; da aber
-              die Folge der Zahlen 
+              die Folge der Zahlen
               <i>abnimmt</i>, müsste bereits \(k = 2^d-1\) gelten, und wir
               wären in Fall 1, bzw. bereits fertig, weil \([0,k]\) bereits in Binärintervall wäre.
               Der Wert von \(b\), der Anzahl schließender 1en, kann also höchstens
@@ -618,15 +615,15 @@
             </p>
             <p>
               <b>Tiefe.</b>
-               Jedes \(pg\)-Gate hat Tiefe 2,
+              Jedes \(pg\)-Gate hat Tiefe 2,
               und somit erreichen \(d-1\) solche Gates hintereinander
-              zusammen eine Tiefe von \(2 (d-1) = 2 \ceil{\log_2 n} - 2\). 
+              zusammen eine Tiefe von \(2 (d-1) = 2 \ceil{\log_2 n} - 2\).
             </p>
             <p>
             </p>
             <p>
               <b>Größe.</b>
-               Zählen wir die Anzahl von \(pg\)-Gates in unserem
+              Zählen wir die Anzahl von \(pg\)-Gates in unserem
               Schaltkreis. Wir haben bereits gesehen, dass die Berechnung von \(g_{[0,k]}\) höchstens
               \(d-1\) viele \(pg\)-Gates braucht. Es scheint also, als bräuchten wir für alle \(n\)
               Werte
@@ -636,7 +633,7 @@
               würde auch eine genauere Rechnung \(\Theta(n \log n) \)) ergeben; das ist nicht
               schlecht,
               allerdings asymptotisch deutlich schlechter als der Ripple-Through-Addierer, und eben
-              auch nicht das, was wir im Lemma behaupten. 
+              auch nicht das, was wir im Lemma behaupten.
             </p>
             <p>
             </p>
@@ -681,7 +678,7 @@
               >
             </figure>
             <p>
-              Es reichen also in der Tat \(2n\) Basis-Gates aus. 
+              Es reichen also in der Tat \(2n\) Basis-Gates aus.
               <span
                 class="qed"
               >\(\square\)</span>
@@ -715,19 +712,18 @@
           >
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-               
-            </span>Bauen Sie einen Schaltkreis für die Boolesche Funktion
+              </span>Bauen Sie einen Schaltkreis für die Boolesche Funktion
             "less-than":
-            $$\begin{align*}
+            \begin{align*}
             LT : \{0,1\}^{n} \times \{0,1\}^n \rightarrow \{0,1\} \\
             LT(\mathbf{x}, \mathbf{y}) =
             \begin{cases}
-            1&amp;\textnormal{ wenn $(\mathbf{x})_2 \lt (\mathbf{y})_2$, } \\
+            1&amp;\textnormal{ wenn $(\mathbf{x})<i>2 \lt (\mathbf{y})</i>2$, } \\
             0&amp;\textnormal{ sonst.}
             \end{cases}
-            \end{align*}$$
+            \end{align*}
             der also \(\mathbf{x}, \mathbf{y}\) als \(n\)-stellige
             Binärzahlen interpretiert und ausgibt, ob
             die erste kleiner ist als die zweite.

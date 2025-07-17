@@ -71,15 +71,15 @@
             $mit
             Eingabealphabet $\Sigma$ codieren können als
           </p>
-          $$\begin{align*}
+          \begin{align*}
           \enc(M) \in \Lambda^* \ ,
-          \end{align*}$$
+          \end{align*}
           <p>
             also als String über dem Codierungsalphabet
           </p>
-          $$\begin{align*}
+          \begin{align*}
           \Lambda := \writelambda
-          \end{align*}$$
+          \end{align*}
           <p>
             Diese Codierungsschema enthält implizit Codierungsfunktionen
             $\enc<i>Q : Q \rightarrow \{0,1\}^+$ und $\enc</i>\Gamma: \Gamma \rightarrow
@@ -89,39 +89,40 @@
             übersetzen.
             Für eine Konfiguration
           </p>
-          $$\begin{align*}
-          C = u_1 \dots u_m q v_1 \dots v_n
-          \end{align*}$$
+          \begin{align*}
+          C = u<i>1 \dots u</i>m q v<i>1 \dots v</i>n
+          \end{align*}
           <p>
             der Maschine $M$ definieren wir die Codierung von $C$ als
           </p>
-          $$\begin{align*}
-          \enc(C) := \enc_\Gamma(u_1) \texttt{#} \enc_\Gamma(u_2) \dots \texttt{#}
-          \enc_\Gamma(u_m)\texttt{#}
-          \enc_Q(q) \texttt{#} \enc_\Gamma(v_1)\texttt{#} \dots \texttt{#}
-          \enc_\Gamma(v_n) \in \Lambda^* \ .
-          \end{align*}$$
+          \begin{align*}
+          \enc(C) := \enc<i>\Gamma(u</i>1) \texttt{#} \enc<i>\Gamma(u</i>2) \dots \texttt{#}
+          \enc<i>\Gamma(u</i>m)\texttt{#}
+          \enc<i>Q(q) \texttt{#} \enc</i>\Gamma(v<i>1)\texttt{#} \dots \texttt{#}
+            \enc</i>\Gamma(v_n) \in \Lambda^* \ .
+          \end{align*}
           <p>
             Das ist alles nicht besonders tiefgründig und dient allein dazu,
             sicherzustellen, dass wir
             die Konfigurationen von $M$ darstellen können in dem Alphabet $\Lambda$,
             das
             <i>unabhängig</i>
-             von $M$ ist. Dass wir also 
+            von $M$ ist. Dass wir also
             <i>jede</i>
             Turingmaschine
-            $M$ mit Eingabealphabet $\Sigma$ und 
+            $M$ mit Eingabealphabet $\Sigma$ und
             <i>jede</i>
-             ihrer Konfigurationen
-            als Strings über 
+            ihrer Konfigurationen
+            als Strings über
             <i>einem</i>
-             festen Alphabet $\Lambda$ darstellen
+            festen Alphabet $\Lambda$ darstellen
             können.
           </p>
           <p>
             Eine Turingmaschine simulieren heißt nun, einen String
             $\enc(M)\texttt{;}w$ mit $w \in \Sigma^<b>$ zu lesen und
-              daraus den String $\enc(\hat{\delta}^</b><i>M (w))$ zu berechnen, also
+              daraus den String $\enc(\hat{\delta}^</b>
+            <i>M (w))$ zu berechnen, also
               das Ergebnis $\hat{\delta}^*</i>M(w)$, passend codiert über dem Alphabet
             $\Lambda$.
             Das zentrale Ergebnis dieses Teilkapitels ist, dass wir diese Simulation
@@ -133,14 +134,12 @@
             <p>
               <span
                 class="numbered-title"
-              >Theorem 
+              >Theorem
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-                 
-              </span>
-               
+                </span>
               <b>(Universelle
                 Turingmaschine).</b>
-               Zu
+              Zu
               jedem
               endlichen Eingabealphabet $\Sigma$ sei
               $\Lambda := \writelambda$ das Codierungsalphabet. Es gibt es
@@ -184,10 +183,10 @@
             <p>
               $U$ akzeptiert also die Sprache
             </p>
-            $$\begin{align*}
+            \begin{align*}
             \{ c w \ | \ w \in \Sigma^* \textnormal{ und } c = \enc(M) \textnormal{
             und $M$ akzeptiert $w$} \} \ .
-            \end{align*}$$
+            \end{align*}
           </div>
           <div
             style="margin-bottom:1em"
@@ -195,8 +194,8 @@
           >
             <p>
               <b>Ein technischer aber letztendlich irrelevanter Punkt:
-                </b>
-               die Mengen
+              </b>
+              die Mengen
               $Q$ und $\Gamma$ der Turingmaschine $M$ können ja beliebige
               (endliche) Mengen sein,
               und weder $\Lambda$ noch die Turingmaschine $U$ haben "Kenntnis"

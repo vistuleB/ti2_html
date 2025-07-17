@@ -73,25 +73,25 @@
             scheinen (wie die Fibonacci-Zahlen), ja sogar Dinge, die über den
             Bereich der natürlichen Zahlen hinausgehen, wie zum Beispiel das Sortieren
             eines beliebig langen Arrays. Kernpunkt war die Erkenntnis, dass wir
-            komplexere "Datenstrukturen" wie 
+            komplexere "Datenstrukturen" wie
             <i>Paare von natürlichen Zahlen</i>
-            als 
+            als
             <i>eine</i>
-             natürliche Zahl codieren können und somit
+            natürliche Zahl codieren können und somit
             der primitiven Rekursion zugänglich machen können.
           </p>
           <p>
             Es liegt also Nahe, zu vermuten, dass primitive Rekursion bereits
             den Berechenbarkeitsbegriff zufriedenstellend formalisiert: das also
             alles "Berechenbare" auch primitiv rekursiv sei.
-            Der 
+            Der
             <a
               href="https://de.wikipedia.org/wiki/Ackermannfunktion"
             >Wikipedia-Artikel
               über die Ackermann-Funktion</a>
-             schreibt, dass der deutsche Mathematiker
+            schreibt, dass der deutsche Mathematiker
             David Hilbert dies auch vermutete. Im Jahre 1926
-            jedoch definierte 
+            jedoch definierte
             <a
               href="https://de.wikipedia.org/wiki/Wilhelm_Ackermann_(Mathematiker)"
             >Wilhelm Ackermann</a>eine Funktion, die "offensichtlich berechenbar", jedoch nicht primitiv rekursiv ist.
@@ -99,7 +99,7 @@
             eine vereinfachte Version, die 1935 von der ungarischen Mathematikerin<a
               href="https://de.wikipedia.org/wiki/Rózsa_Péter"
             >Rózsa Péter</a>
-             gefunden wurde (obwohl
+            gefunden wurde (obwohl
             der letztere Artikel das Jahr 1955 nennt).
           </p>
           <div
@@ -107,63 +107,63 @@
           >
             <span
               class="numbered-title"
-            >Definition 
+            >Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-               
-            </span><b>(Péter-Ackermann-Funktion).</b>
-            $$\begin{align*}
+              </span>
+            <b>(Péter-Ackermann-Funktion).</b>
+            \begin{align*}
             A(m,n)&amp;:= \begin{cases}
             n+1&amp;\textnormal{ if $m=0$,} \\
             A(m-1,1)&amp;\textnormal{ if $m \geq 1, n=0$} \\
             A(m-1, A(m,n-1))&amp;\textnormal{ if $m,n \geq 1$} \ .
             \end{cases}
-            \end{align*}$$
+            \end{align*}
             Manchmal sehen Sie in der Literatur auch die äquivalente, vielleicht lesbarere Definition:
-            $$\begin{align*}
+            \begin{align*}
             A(0,n)&amp;:= n+1 \\
             A(m+1, 0)&amp;:= A(m,1) \\
             A(m+1, n+1)&amp;:= A(m, A(m+1,n))
-            \end{align*}$$
+            \end{align*}
             Für festes \(m\in \N\) schreiben wir auch \(A_m\) für die ein-parametrige
             Funktion
-            $$\begin{align*}
+            \begin{align*}
             A_m :&amp;\N \rightarrow \N \\
             n&amp;\mapsto A(m,n) \ .
-            \end{align*}$$
+            \end{align*}
           </div>
           <p>
             Es lohnt sich, diese Funktion für kleine Werte von \(m\) zu untersuchen.
             Aus der Definition geht unmittelbar hervor, dass
             \(A_0(n) = n+1\) ist.
             Für \(A_1 (n)\) rechnen wir
-            $$\begin{align*}
-            A_1 (n)&amp;= A_0 ( A_1 (n-1)) =
-            A_0 (A_0(A_1(n-2))) = \dots =
-            \underbrace{A_0 (A_0 (...(A_0}_{i \textnormal{ mal}}(A_1(n-i)))...)) \\
-            &amp;=
-            \underbrace{A_0 (A_0 (...(A_0}_{n \textnormal{ mal}}(A_1(0)))...)) \\
-            &amp;= \underbrace{A_0 (A_0 (...(A_0}_{n+1 \textnormal{ mal}}(1))...)) \\
+            \begin{align*}
+            A<i>1 (n)&amp;= A</i>0 ( A<i>1 (n-1)) =
+              A</i>0 (A<i>0(A</i>1(n-2))) = \dots =
+            \underbrace{A<i>0 (A</i>0 (...(A<i>0}</i>{i \textnormal{ mal}}(A<i>1(n-i)))...)) \\
+              &amp;=
+              \underbrace{A</i>0 (A<i>0 (...(A</i>0}<i>{n \textnormal{ mal}}(A</i>1(0)))...)) \\
+            &amp;= \underbrace{A<i>0 (A</i>0 (...(A<i>0}</i>{n+1 \textnormal{ mal}}(1))...)) \\
             &amp;= n+2 \ .
-            \end{align*}$$
+            \end{align*}
             Soweit schaut die Funktion nicht besonders beindruckend aus. \(A_2\) bekommen iwr
             nach dem gleichen Schema:
-            $$\begin{align*}
-            A_2 (n)&amp;= \underbrace{A_1 (A_1 (...(A_1}_{n+1 \textnormal{ mal}}(1))...)) \ , \\
-            \end{align*}$$
-            wir fangen also mit \(1\) an und zählen \(n+1\) mal eine 2 drauf. Wir erhalten
-            \(2n + 3\), also
-            $$\begin{align*}
-            A_2 (n)&amp;= 2n + 3 \ .
-            \end{align*}$$
+            \begin{align*}
+            A<i>2 (n)&amp;= \underbrace{A</i>1 (A<i>1 (...(A</i>1}<i>{n+1 \textnormal{ mal}}(1))...)) \ , \\
+              \end{align*}
+              wir fangen also mit \(1\) an und zählen \(n+1\) mal eine 2 drauf. Wir erhalten
+              \(2n + 3\), also
+              \begin{align*}
+              A</i>2 (n)&amp;= 2n + 3 \ .
+            \end{align*}
             \(A_3\) wird etwas unangenehmer, weil wir keine gute Intuition haben, was
             "\(n+1\) mal verdoppeln und jedes Mal 3 draufzählen" ergibt. Mit 1 beginnend erhalten wir also
-            $$\begin{align*}
-            1 \stackrel{A_2}{\rightarrow} 5
-            \stackrel{A_2}{\rightarrow} 13
-            \stackrel{A_2}{\rightarrow} 29
-            \stackrel{A_2}{\rightarrow} 61
+            \begin{align*}
+            1 \stackrel{A<i>2}{\rightarrow} 5
+              \stackrel{A</i>2}{\rightarrow} 13
+            \stackrel{A<i>2}{\rightarrow} 29
+              \stackrel{A</i>2}{\rightarrow} 61
             \stackrel{A_2}{\rightarrow} 125
-            \end{align*}$$
+            \end{align*}
             Das ist schon genug, um eine Vermutung zu formulieren:
             \(A_3(n) = 2^{n+3} - 3\) und diese dann per Indution zu beweisen.
           </p>
@@ -175,10 +175,9 @@
           >
             <span
               class="numbered-title"
-            >Theorem 
+            >Theorem
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-               
-            </span>Sei \(m \in \N\) gegeben. Die Funktion \(A_m\) ist primitiv rekursiv.
+              </span>Sei \(m \in \N\) gegeben. Die Funktion \(A_m\) ist primitiv rekursiv.
           </div>
           <div
             class="well container"
@@ -186,30 +185,30 @@
             <b>Beweis.</b>
             Wir verwenden Induktion über \(m\). Für \(m=0\) gilt \(A_0(n)= n+1\) und somit
             \(A_0 = \succ\). Sei nun also \(m \geq 1\). Wir sehen, dass
-            $$\begin{align*}
-            A_m(t) = A_{m-1} (A(m,t-1)) \ .
-            \end{align*}$$
+            \begin{align*}
+            A<i>m(t) = A</i>{m-1} (A(m,t-1)) \ .
+            \end{align*}
             Ich schreibe nun \(t\) anstatt \(n\) als Parameter, um mich der Notation
             der primitiven Rekursion anzunähern. Wir wissen bereits, dass
             \(A_{m-1}\) primitiv rekursiv ist. Wir können \(A_m(t)\) also schreiben als
-            $$\begin{align*}
-            A_m(t)&amp;= \begin{cases}
-            A_{m-1} (1)&amp;\textnormal{ if $t=0$} \\
-            A_{m-1} (A_m(t-1))&amp;\textnormal{ if $t \geq 1$.}
+            \begin{align*}
+            A<i>m(t)&amp;= \begin{cases}
+              A</i>{m-1} (1)&amp;\textnormal{ if $t=0$} \\
+            A<i>{m-1} (A</i>m(t-1))&amp;\textnormal{ if $t \geq 1$.}
             \end{cases}
-            \end{align*}$$
+            \end{align*}
             Wir können also \(h = \comp (A_{m-1}, \pi^3_1)\) wählen. Was ist \(g\)?
             Der Startwert soll \(g(\vec{x})\) sein, wir haben aber kein \(\vec{x}\), bzw. dies
             ist der "leere Vektor". Wir brauchen eine Funktion
             \(C\), die null Argumente nimmt und \(A_{m-1}(1)\) zurückgibt. Also:
             \(g = \comp(A_{m-1}, {\rm one})\). Wir könnten sogar noch frecher sein
             und \(g = \comp(\succ, \comp(\succ, \comp(... \comp(\succ, \zero))))\) schreiben,
-            einfach \(A_{m-1}(1)\) mal hintereinander; diesen Wert also 
+            einfach \(A_{m-1}(1)\) mal hintereinander; diesen Wert also
             <i>hard-coden</i>.
             Allerdings ist die erste Variante einfacher, und somit
-            $$\begin{align*}
-            A_m&amp;= \primrec(\comp (A_{m-1}, {\rm one}), \comp (A_{m-1}, \pi^3_1)) \ .
-            \end{align*}$$
+            \begin{align*}
+            A<i>m&amp;= \primrec(\comp (A</i>{m-1}, {\rm one}), \comp (A<i>{m-1}, \pi^3</i>1)) \ .
+            \end{align*}
             Wir sehen also: jedes \(A_m\), betrachtet als Funktion mit einem
             Eingabeparameter, ist primitiv rekursiv.<span
               class="qed"
@@ -217,15 +216,15 @@
           </div>
           <p>
             Wir haben also gezeigt, dass jedes \(A_m\) primitiv rekursiv ist.
-            Heißt das auch, dass die zwei-parametrige Funktion \(A(m,n)\) 
+            Heißt das auch, dass die zwei-parametrige Funktion \(A(m,n)\)
             <i>berechenbar</i>
-             ist?
+            ist?
             In der primitiven Rekursion haben wir keine Möglichkeit, den Index \(m\) als
             Eingabewert zu lesen und dann aus dem unendlichen Array primitiv rekursiver Funktionen
             \([A_0, A_1, A_2, \dots]\) den Eintrag \(A_m\) auszulesen.
-            Aber 
+            Aber
             <i>berechenbar</i>
-             in einem ganz allgemeinen Sinn? Diese Frage können wir
+            in einem ganz allgemeinen Sinn? Diese Frage können wir
             zu diesem Zeitpunkt nicht formal beantworten, weil wir den Begriff
             allgemeiner Berechenbarkeit noch gar nicht definiert haben. Es ist allerdings
             an der Definition von \(A(m,n)\) nichts magisches, und intuitiv würden wir
@@ -240,10 +239,9 @@
           >
             <span
               class="numbered-title"
-            >Theorem 
+            >Theorem
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-               
-            </span>Die Ackermann-Péter-Funktion ist nicht primitiv rekursiv.
+              </span>Die Ackermann-Péter-Funktion ist nicht primitiv rekursiv.
           </div>
           Mein Beweis paraphrasiert im Wesentlichen den auf<a
             href="https://planetmath.org/ackermannfunctionisnotprimitiverecursive"
@@ -251,16 +249,16 @@
           <p>
             <b>Die Aussage verstehen</b>. Beachten Sie, dass Theorem 3.3.3 nicht mit
             Theorem 3.3.2 im Widerspruch steht. Theorem 3.3.3 besagt, dass \(A_m\) primitiv rekursiv ist,
-            für jedes \(m\). Die Zahl \(m\) ist hier also 
+            für jedes \(m\). Die Zahl \(m\) ist hier also
             <i>Teil der Aussage</i>, nicht
-            Eingabeparameter der Funktion; die Funktion \(A_m\) hat nur 
+            Eingabeparameter der Funktion; die Funktion \(A_m\) hat nur
             <i>einen</i>
-             Eingabeparameter.
-            Theorem 3.3.3 hingegen macht eine Aussage über 
+            Eingabeparameter.
+            Theorem 3.3.3 hingegen macht eine Aussage über
             <i>eine</i>
-             Funktion \(A(m,n)\) mit
+            Funktion \(A(m,n)\) mit
             <i>zwei</i>
-             Eingabeparametern, und \(m\) ist nun einer dieser beiden.
+            Eingabeparametern, und \(m\) ist nun einer dieser beiden.
           </p>
           <p>
             Anders ausgedrückt: sie können zwar jedes einzelne \(A_m\) in der "Programmiersprache" der
@@ -273,11 +271,11 @@
             <b>Beweisidee.</b>
             Für jedes feste \(m\) ist die ein-parametrige Funktion \(A_m := n \mapsto A(m,n)\)
             primitiv rekursiv und
-            kann als Funktion mit \(m\) verschachtelten 
+            kann als Funktion mit \(m\) verschachtelten
             <code>for</code>-Schleifen betrachtet werden.
             Es wird sich herausstellen, dass \(A_m\) in gewisser Weise die am schnellsten wachsende
             aller solcher Funktionen ist. Wäre also \(A(m,n)\) primitiv-rekursiv, dann könnten
-            wir es mit \(d\) verschachtelten 
+            wir es mit \(d\) verschachtelten
             <code>for</code>-Schleifen berechnen; was ein
             Widerspruch ist, weil bereits \(A_{d+1}\) schneller wächst als jede primitiv-rekursive
             Funktion mit \(d\) verschachtelten Schleifen.
@@ -296,15 +294,15 @@
             >
               <span
                 class="numbered-title"
-              >Definition 
+              >Definition
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-                 .</span>Sei \(f: \N \rightarrow \N\) und \(g: \N^k \rightarrow \N\). Die Funktion
-              \(f\) 
+                .</span>Sei \(f: \N \rightarrow \N\) und \(g: \N^k \rightarrow \N\). Die Funktion
+              \(f\)
               <i>majorisiert</i>
-               \(g\), wenn
-              $$\begin{align*}
-              f (\max(x_1,\dots,x_k) \gt g(x_1, \dots, x_k) \ .
-              \end{align*}$$
+              \(g\), wenn
+              \begin{align*}
+              f (\max(x<i>1,\dots,x</i>k) \gt g(x<i>1, \dots, x</i>k) \ .
+              \end{align*}
               für alle \(x_1,\dots,x_k \in \N\) gilt.
               Wir schreiben auch kurzerhand \(f \gt g\).
             </div>
@@ -323,10 +321,9 @@
             >
               <span
                 class="numbered-title"
-              >Lemma 
+              >Lemma
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-                 
-              </span>Für jede primitiv rekursive Funktion \(f: \N^k \rightarrow \N\) gibt
+                </span>Für jede primitiv rekursive Funktion \(f: \N^k \rightarrow \N\) gibt
               es ein \(r \in \N\), so dass \(f\) von \(A_r\) majorisiert wird.
             </div>
             <p>
@@ -334,13 +331,13 @@
               primitiv rekursiv sein kann. Wäre es dies, dann gäbe es ja ein
               \(r\), so dass das ein-parametrige \(A_r\) die zwei-parametrige Funktion
               \(A(m,n)\) majorisieren würde:
-              $$\begin{align*}
-              A_r (\max(m,n)) \gt A(m,n)
-              \end{align*}$$
-              für alle Werte \(m,n \in \N\) und somit insbesondere
-              $$\begin{align*}
-              A_r (r) \gt A(r,r) \ ,
-              \end{align*}$$
+              \begin{align*}
+              A<i>r (\max(m,n)) \gt A(m,n)
+                \end{align*}
+                für alle Werte \(m,n \in \N\) und somit insbesondere
+                \begin{align*}
+                A</i>r (r) \gt A(r,r) \ ,
+              \end{align*}
               was offensichtlich ein Widerspruch ist, da beide Seiten gleich sind.
             </p>
             <p>
@@ -352,17 +349,16 @@
             </p>
             <p>
               <b>Induktionsbasis.</b>
-               
-               Wir betrachten wir die Basisfunktionen
+              Wir betrachten wir die Basisfunktionen
               \(\zero, \succ, \pi^n_k\).
               Wir wissen bereits, dass \(A_0(n) = n+1\) ist, also \(A_0 = \succ\).
               Leider majorisiert \(A_0\) also \(\succ\) nicht. Wie steht es mit
               \(A_1\)? Es gilt \(A_1(n) = n+2\), und somit ist
-              $$\begin{align*}
-              \zero(\vec{x})&amp;= 0 \lt 1 \lt A_1(x) \\
-              \succ(x)&amp;= x+1 \lt x+2 = A_1(x) \\
-              \pi^n_k (\vec{x})&amp;= x_k \leq x \lt x + 2 = A_1(x) \ ,
-              \end{align*}$$
+              \begin{align*}
+              \zero(\vec{x})&amp;= 0 \lt 1 \lt A<i>1(x) \\
+                \succ(x)&amp;= x+1 \lt x+2 = A</i>1(x) \\
+              \pi^n<i>k (\vec{x})&amp;= x</i>k \leq x \lt x + 2 = A_1(x) \ ,
+              \end{align*}
               wobei wir die Schreibweise \(x = \max(\vec{x}) = \max(x_1,\dots,x_n)\) verwenden.
               Wir schlussfolgern: \(A_2\) majorisiert jede Basisfunktion.
             </p>
@@ -374,41 +370,41 @@
             </p>
             <p>
               <b>Komposition:</b>
-               \(f(\vec{x}) = g(h_1(\vec{x}), \dots, h_k(\vec{x}))\),
+              \(f(\vec{x}) = g(h_1(\vec{x}), \dots, h_k(\vec{x}))\),
               für primitiv rekursive Funktionen \(g, h_1, \dots, h_k\). Jede dieser Funktionen
-              wurde mit 
+              wurde mit
               <i>weniger</i>
-               Kombinatoren konstruiert; somit wird jede dieser Funktionen
+              Kombinatoren konstruiert; somit wird jede dieser Funktionen
               von einem \(A_r\) majorisiert:
               \(A_r \gt g, A_{s_1} \gt h_1, \dots, A_{s_k} \gt h_k\). Für einen Eingabevektor \(\vec{x}\)
               schreiben wir \(x := \max(x_1,\dots,x_n)\) und rechnen:
-              $$\begin{align*}
-              f(\vec{x})&amp;= g(h_1(\vec{x}), \dots, h_k(\vec{x})) \\
-              &amp;\lt A_r (\max (h_1(\vec{x}), \dots, h_k(\vec{x}))) \tag{weil \(A_q \gt g\)} \\
-              &amp;\leq A_r ( \max (A_{s_1}(x), A_{s_2}(x), \dots, A_{s_k}(x))) \tag{weil \(A_r\) monoton und
+              \begin{align*}
+              f(\vec{x})&amp;= g(h<i>1(\vec{x}), \dots, h</i>k(\vec{x})) \\
+              &amp;\lt A<i>r (\max (h</i>1(\vec{x}), \dots, h<i>k(\vec{x}))) \tag{weil \(A_q \gt g\)} \\
+                &amp;\leq A</i>r ( \max (A<i>{s</i>1}(x), A<i>{s</i>2}(x), \dots, A<i>{s</i>k}(x))) \tag{weil \(A_r\) monoton und
               \(A_{s_i} \gt h_i\)}
-              \end{align*}$$
+              \end{align*}
               Wir setzen nun \(q := \max(r, s_1, \dots, s_k)\). Dann ist der obige Wert höchstens:
-              $$\begin{align*}
-              \dots&amp;\leq A_q (A_q(x)) \\
-              &amp;\leq A_{q} (A_{q+1} (x)) = A_{q+1} (x+1) \ .
-              \end{align*}$$
-              Schlussendlich behaupte ich, dass \(A_{q+1}(x+1) \leq A_{q+2}(x)\) gilt:
-              $$\begin{align*}
-              A_{q+2}(x)&amp;= A_{q+1} (A_{q+2}(x-1)) \geq A_{q+1} (A_2 (x-1)) = A_{q+1} (x+1) \ .
-              \end{align*}$$
+              \begin{align*}
+              \dots&amp;\leq A<i>q (A</i>q(x)) \\
+              &amp;\leq A<i>{q} (A</i>{q+1} (x)) = A<i>{q+1} (x+1) \ .
+                \end{align*}
+                Schlussendlich behaupte ich, dass \(A_{q+1}(x+1) \leq A_{q+2}(x)\) gilt:
+                \begin{align*}
+                A</i>{q+2}(x)&amp;= A<i>{q+1} (A</i>{q+2}(x-1)) \geq A<i>{q+1} (A</i>2 (x-1)) = A_{q+1} (x+1) \ .
+              \end{align*}
               Also: \(A_{q+2}\) majorisiert \(f\).
             </p>
             <p>
               <b>Primitive Rekursion:</b>
-               \(f = \primrec (g,h)\), also
-              $$\begin{align*}
+              \(f = \primrec (g,h)\), also
+              \begin{align*}
               f(t, \vec{x})&amp;=
               \begin{cases}
               g(\vec{x})&amp;\textnormal{ if $t=0$} \\
               h(f(t-1,\vec{x}), t-1, \vec{x})&amp;\textnormal{ if $t \geq 1$}
               \end{cases} \ ,
-              \end{align*}$$
+              \end{align*}
               wobei \(g, h\) bereits mit weniger Kombinatoren konstruierte primitiv rekursive Funktionen
               sind. Daher gibt es ein \(q \in \N\) mit \(A_q \gt g\) und \(A_q \gt h\).
             </p>
@@ -417,10 +413,9 @@
             >
               <span
                 class="numbered-title"
-              >Behauptung 
+              >Behauptung
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
-                 
-              </span>\(f(t, \vec{x}) \leq A_{q+1} (t+x)\), wobei
+                </span>\(f(t, \vec{x}) \leq A_{q+1} (t+x)\), wobei
               \(x = \max(\vec{x}) = \max(x_1,\dots,x_n)\).
             </div>
             <div
@@ -429,22 +424,22 @@
               <b>Beweis.</b>
               Wir verwenden Induktion über \(t\). Wenn \(t=0\) ist,
               dann gilt
-              $$\begin{align*}
-              f(0,\vec{x})&amp;= g(\vec{x}) \lt A_q (x) \leq A_{q+1} (x) \ .
-              \end{align*}$$
+              \begin{align*}
+              f(0,\vec{x})&amp;= g(\vec{x}) \lt A<i>q (x) \leq A</i>{q+1} (x) \ .
+              \end{align*}
               Wenn \(t \geq 1\) ist, dann gilt
-              $$\begin{align*}
+              \begin{align*}
               \hspace{-3cm}
-              f(t, \vec{x})&= h(f(t-1,\vec{x}), t-1, \vec{x}) \\
-              &amp;\lt A_{q} (\max(f(t-1, \vec{x}), t-1, x_1, \dots, x_n)) \tag {weil \(A_q \gt h\)}
+              f(t, \vec{x})&amp;= h(f(t-1,\vec{x}), t-1, \vec{x}) \\
+              &amp;\lt A<i>{q} (\max(f(t-1, \vec{x}), t-1, x</i>1, \dots, x<i>n)) \tag {weil \(A_q \gt h\)}
+                \\
+                &amp;\lt A</i>{q} (\max(f(t-1, \vec{x}), t-1, x)) \tag {für \(x := \max(x_1,\dots,x_n)\)}
               \\
-              &amp;\lt A_{q} (\max(f(t-1, \vec{x}), t-1, x)) \tag {für \(x := \max(x_1,\dots,x_n)\)}
-              \\
-              &amp;\leq A_q (\max(A_{q+1} (t-1+x), t-1, x)) \tag{ per Induktionshypothese für $t-1$} \\
-              &amp;= A_q (A_{q+1}(t-1+x)) % \tag{weil \(\max(t-1,x) \leq t-1+x \leq A_{q+1}(t-1+x)\)}
+              &amp;\leq A<i>q (\max(A</i>{q+1} (t-1+x), t-1, x)) \tag{ per Induktionshypothese für $t-1$} \\
+              &amp;= A<i>q (A</i>{q+1}(t-1+x)) % \tag{weil \(\max(t-1,x) \leq t-1+x \leq A_{q+1}(t-1+x)\)}
               \\
               &amp;= A_{q+1}(t+x) \ .
-              \end{align*}$$
+              \end{align*}
               Somit ist die Behauptung bewiesen.<span
                 class="qed"
               >\(\square\)</span>
@@ -457,28 +452,29 @@
               eine Funktion in einem Parameter brauchen, nämlich \(\max(t, \vec{x})\).
               Sei also \(z := \max(t,x) = \max(t, x_1,\dots,x_n)\). Dann gilt
             </p>
-            $$\begin{align*}
-            A_{q+1} (x+t)&amp;\leq A_{q+1} (2z) \leq A_{q+1} (2(z-1) + 3) \\
-            &amp;= A_{q+1} (A_2(z-1)) \tag{da $A_2(n) = 2n+3$}\\
-            &amp;\leq A_{q+1} (A_{q+2}(z-1)) \\
+            \begin{align*}
+            A<i>{q+1} (x+t)&amp;\leq A</i>{q+1} (2z) \leq A<i>{q+1} (2(z-1) + 3) \\
+              &amp;= A</i>{q+1} (A<i>2(z-1)) \tag{da $A</i>2(n) = 2n+3$}\\
+            &amp;\leq A<i>{q+1} (A</i>{q+2}(z-1)) \\
             &amp;= A_{q+2}(z) \ .
-            \end{align*}$$
+            \end{align*}
             Es gilt also \(A_{q+2} \gt f\) und das Lemma ist bewiesen.<span
               class="qed"
             >\(\square\)</span>
           </div>
           <p>
-            In der Vorlesung am 7. Mai 2024 hatte ich den 
+            In der Vorlesung am 7. Mai 2024 hatte ich den
             <i>Grad</i>
-             einer primitiv-rekursiven Funktion
+            einer primitiv-rekursiven Funktion
             definiert. Das ist in etwa die "Verschachtelungstiefe" von $f$. Betrachten wir beispielsweise
             die Funktion $\pair(x,y) = {x + y + 1 \choose 2} + x$ und dröseln auf, wie wir diese
             als primitiv-rekursive Funktion konstruiert haben:
           </p>
-<pre>
-pair = Comp(add, p0, Comp(choose2,Comp(add,p0,Comp(succ,p1))))
-choose2 = PrimRec(zero, Comp(add,p0,p1))
-add = PrimRec (p0, Comp(succ, p0))
+<pre
+  pair="Comp(add, p0, Comp(choose2,Comp(add,p0,Comp(succ,p1))))"
+  choose2="PrimRec(zero, Comp(add,p0,p1))"
+  add="PrimRec (p0, Comp(succ, p0))"
+>
 </pre>
           <p>
             dann können wir das auf Baum darstellen:

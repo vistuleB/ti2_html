@@ -77,9 +77,9 @@
           </ol>
           Der zweite Punkt ist keine echte Beschränkung, wie wir gesehen haben: wenn wir zwei lokale
           Variablen \(a,b\) führen wollen, können wir die via der Bijektion
-          \({\rm pair} : \N^2 \rightarrow \N\) in 
+          \({\rm pair} : \N^2 \rightarrow \N\) in
           <i>eine</i>
-           natürliche Zahl codieren.
+          natürliche Zahl codieren.
           Der erste Punkt allerdings scheint eine echte Beschränkung zu sein: wir wissen schließlich nicht
           immer, wie oft wir eine Tätigkeit wiederholen müssen, bis wir fertig sind,
           und ob wir überhaupt jemals fertig werden. Sie kennen vielleicht die Collatz-Vermutung.
@@ -89,27 +89,27 @@
           <p>
             Wir definieren eine Funktion $f: \N<i>+ \rightarrow \N</i>+$ wie folgt:
           </p>
-          $$\begin{align*}
-          f : \N_+&amp;\rightarrow \N_+ \\
+          \begin{align*}
+          f : \N<i>+&amp;\rightarrow \N</i>+ \\
           n&amp;\mapsto
           \begin{cases}
           n/2&amp;\textnormal{ if $n$ even} \\
           3n+1&amp;\textnormal{ if $n$ odd.}
           \end{cases}
-          \end{align*}$$
+          \end{align*}
           <p>
             Für eine natürliche Zahl $n$ können wir dann die Collatz-Folge definieren:
             $n, f(n), f(f(n)), ...$. Man sieht leicht, dass diese Folge in einer Schleife
             landen kann:
           </p>
-          $$\begin{align*}
+          \begin{align*}
           13 \mapsto 40 \mapsto 20 \mapsto 10 \mapsto 5 \mapsto 16 \mapsto 8 \mapsto 4 \mapsto 2 \mapsto 1
           \mapsto 4 \mapsto 2 \mapsto 1 \dots
-          \end{align*}$$
+          \end{align*}
           <p>
             Wir beenden die Sequenz daher üblicherweise, wenn wir bei 1 (und somit in dieser Dreierschleife)
             gelandet sind.
-            Es kann allerdings etwas länger dauern: 
+            Es kann allerdings etwas länger dauern:
           </p>
           <figure>
             7, 22, 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1.
@@ -124,15 +124,15 @@
             122, 61, 184, 92, 46, 23, 70, 35, 106, 53, 160, 80, 40, 20, 10, 5, 16, 8, 4, 2, 1
           </figure>
           <p>
-            Experimentieren Sie! Ich habe dafür die Html-Seite 
+            Experimentieren Sie! Ich habe dafür die Html-Seite
             <a
               href="../code/primitive-recursion/collatz.html"
             >collatz.html</a>
-             erstellt.
+            erstellt.
             Es scheint: egal, wo Sie anfangen, Sie enden immer bei 1. Allerdings wissen wir nicht
-            im Voraus, 
+            im Voraus,
             <i>wie oft</i>
-             wir die Funktion $f$ anwenden müssen. Und wir wissen nicht einmal,
+            wir die Funktion $f$ anwenden müssen. Und wir wissen nicht einmal,
             ob man immer bei 1 ankommt, ob es andere Zyklen gibt oder ob es Startwerte gibt, für die die
             Folge einfach nach Unendlich divergiert. Bis zum heutigen Tage (Stand 30. April 2024) hat sich
             die Collatz-Vermutung zahlreichen Lösungsversuchung widersetzt und demonstriert eindrucksvoll,
@@ -171,15 +171,14 @@
             <p>
               <span
                 class="numbered-title"
-              >Übungsaufgabe 
+              >Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-                 
-              </span>Schreiben Sie mit Hilfe von 
-              <code>While</code>, 
+                </span>Schreiben Sie mit Hilfe von
+              <code>While</code>,
               <code>PrimRec</code>
-               und 
+              und
               <code>Comp</code>
-              eine Funktion 
+              eine Funktion
               <code>collatzList</code>, die aus einer Zahl
               die Collatz-Folge baut, also
             </p>

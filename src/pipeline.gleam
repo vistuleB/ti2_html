@@ -8,7 +8,7 @@ pub fn our_pipeline() -> List(Desugarer) {
     [
       dl.find_replace(#([#("&ensp;", " ")], []))
     ],
-    pp.normalize_begin_end_align(infra.DoubleDollar),
+    // pp.normalize_begin_end_align(infra.DoubleDollar),
     pp.create_mathblock_and_math_elements(
       #([infra.DoubleDollar], infra.DoubleDollar),
       #([infra.BackslashParenthesis], infra.BackslashParenthesis)
@@ -28,7 +28,7 @@ pub fn our_pipeline() -> List(Desugarer) {
       dl.handles_generate_ids(),
       dl.handles_generate_dictionary([#("section", "path")]),
       dl.identity(),
-      dl.handles_substitute([]),
+      // dl.handles_substitute(),
       dl.concatenate_text_nodes(),
       dl.unwrap_tags_when_no_child_meets_condition(#(["p"], infra.is_text_or_is_one_of(_, ["b", "i", "a", "span"]))),
       dl.unwrap_when_child_of([#("p", ["span", "code", "tt", "figcaption", "em"])]),

@@ -8,22 +8,18 @@
         id=link-to-toc
         |> a
             href=../vorlesungsskript.html
-
             Inhaltsverzeichnis
         |> a
             href=03-04-mu-recursion.html
-
             &lt;&lt; Kapitel 3.4
     |> div
         id=link-to-overview
         style=text-align: end
         |> a
             href=/
-
             zur Kursübersicht
         |> a
             href=04-01-regular-grammars.html
-
             Kapitel 4.1 &gt;&gt;
     |> div
         id=rightSideWrapper
@@ -35,51 +31,41 @@
                     class=hidden-title
                     |> span
                         class=chapterTitle
-
                         ::++ChapterCtr.
                         Formale Sprachen - Einführung und Beispiele
                 |> div
                     class=subChapter
                     |> p
-
                         Hier sehen Sie einige Beispiele für gültige und ungültige Email-Adressen. Mit _gültig_
                         meine ich, dass sie syntaktisch korrekt sind, ungeachtet, ob ein Konto mit dieser Email-Adresse
                         besteht.
                     |> pre
                         class=container
-
                         thomas.schmitz@hszg.de                              
                         |> span
                             class=comment
-
                             Gültig
                         dominik@cs.sjtu.edu.cn                              
                         |> span
                             class=comment
-
                             Gültig
                         raffaela@mayer@gmail.com                            
                         |> span
                             class=comment
-
                             Ungültig: @ kommt zweimal vor
                         lorenz.klein@greatest/company/in/the/world.com      
                         |> span
                             class=comment
-
                             Ungültig: Domain-Name darf kein / enthalten
                         .schlaumeier@gmail.com                              
                         |> span
                             class=comment
-
                             Ungültig: Google will kein . an erster Stelle
                     |> p
-
                         Hier sehen Sie den Teil eines HTML-Dokuments. Beachten Sie die typische
                         hierarchisch-geschachtelte
                         Struktur (sie müssen es nicht im Detail lesen):
                     |> style
-
                         .StartTag,
                         .EndTag {
                         color: blue;
@@ -98,23 +84,18 @@
                         class=container
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             div
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             class
                         |> span
                             class=WaitingForValue
@@ -122,23 +103,18 @@
                             =
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=AttributeValueSingleQuote
-
                             carousel-inner
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             style
                         |> span
                             class=WaitingForValue
@@ -146,41 +122,32 @@
                             =
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=AttributeValueSingleQuote
-
                             display:inline-block
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             div
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             class
                         |> span
                             class=WaitingForValue
@@ -188,69 +155,53 @@
                             =
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=AttributeValueSingleQuote
-
                             item active
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             p
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=RawText
-
                             \(110 x + 794\)
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=EndTag
-
                             /p
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             img
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             loading
                         |> span
                             class=WaitingForValue
@@ -258,23 +209,18 @@
                             =
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             lazy
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             src
                         |> span
                             class=WaitingForValue
@@ -282,59 +228,46 @@
                             =
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=AttributeValueSingleQuote
-
                             ../img/hash/hashfunction_110_794.svg
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=EndTag
-
                             /div
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             div
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             class
                         |> span
                             class=WaitingForValue
@@ -342,69 +275,53 @@
                             =
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=AttributeValueSingleQuote
-
                             item
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             p
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=RawText
-
                             \(502 x + 121\)
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=EndTag
-
                             /p
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             img
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             loading
                         |> span
                             class=WaitingForValue
@@ -412,23 +329,18 @@
                             =
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             lazy
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             src
                         |> span
                             class=WaitingForValue
@@ -436,59 +348,46 @@
                             =
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=AttributeValueSingleQuote
-
                             ../img/hash/hashfunction_502_121.svg
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=EndTag
-
                             /div
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             div
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             class
                         |> span
                             class=WaitingForValue
@@ -496,69 +395,53 @@
                             =
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=AttributeValueSingleQuote
-
                             item
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             p
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=RawText
-
                             \(617 x + 5\)
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=EndTag
-
                             /p
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             img
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             loading
                         |> span
                             class=WaitingForValue
@@ -566,23 +449,18 @@
                             =
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             lazy
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             src
                         |> span
                             class=WaitingForValue
@@ -590,59 +468,46 @@
                             =
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=AttributeValueSingleQuote
-
                             ../img/hash/hashfunction_617_5.svg
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=EndTag
-
                             /div
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             div
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             class
                         |> span
                             class=WaitingForValue
@@ -650,69 +515,53 @@
                             =
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=AttributeValueSingleQuote
-
                             item
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             p
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=RawText
-
                             \(815 x + 562\)
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=EndTag
-
                             /p
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             img
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             loading
                         |> span
                             class=WaitingForValue
@@ -720,23 +569,18 @@
                             =
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             lazy
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             src
                         |> span
                             class=WaitingForValue
@@ -744,59 +588,46 @@
                             =
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=AttributeValueSingleQuote
-
                             ../img/hash/hashfunction_851_562.svg
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=EndTag
-
                             /div
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             div
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             class
                         |> span
                             class=WaitingForValue
@@ -804,69 +635,53 @@
                             =
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=AttributeValueSingleQuote
-
                             item
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             p
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=RawText
-
                             \(868 x + 858\)
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=EndTag
-
                             /p
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             img
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             loading
                         |> span
                             class=WaitingForValue
@@ -874,23 +689,18 @@
                             =
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             lazy
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             src
                         |> span
                             class=WaitingForValue
@@ -898,59 +708,46 @@
                             =
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=AttributeValueSingleQuote
-
                             ../img/hash/hashfunction_868_858.svg
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=EndTag
-
                             /div
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             div
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             class
                         |> span
                             class=WaitingForValue
@@ -958,69 +755,53 @@
                             =
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=AttributeValueSingleQuote
-
                             item
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             p
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=RawText
-
                             \(915 x + 320\)
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=EndTag
-
                             /p
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             img
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             loading
                         |> span
                             class=WaitingForValue
@@ -1028,23 +809,18 @@
                             =
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             lazy
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             src
                         |> span
                             class=WaitingForValue
@@ -1052,55 +828,43 @@
                             =
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=AttributeValueSingleQuote
-
                             ../img/hash/hashfunction_915_320.svg
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=EndTag
-
                             /div
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=EndTag
-
                             /div
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             class
                         |> span
                             class=WaitingForValue
@@ -1108,55 +872,48 @@
                             =
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=AttributeValueSingleQuote
-
                             carousel-inner
                         |> span
                             class=SingleQuote
-
                             '
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
-                        &ensp;
+                            >
+                        \ 
                     |> p
-
                         Hier sehen Sie einen Ausschnitt aus einem Elm-Programm (auch diesen müssen Sie nicht im
                         Detail lesen):
                     |> pre
                         class=listing container
-
-                        `find : Bst -&gt; String -&gt; Maybe String`
+                        `find : Bst -> String -> Maybe String`
                         `find tree key =`
 
-                        &ensp;`case tree of`
+                        \ `case tree of`
 
-                        &ensp;`Empty _ -&gt;`
+                        \ `Empty _ ->`
 
-                        &ensp;`Nothing`
+                        \ `Nothing`
                         ``
 
-                        &ensp;`Node ( keyHere, valueHere ) leftChild rightChild -&gt;`
+                        \ `Node ( keyHere, valueHere ) leftChild rightChild ->`
 
-                        &ensp;`if key == keyHere then`
+                        \ `if key == keyHere then`
 
-                        &ensp;`Just valueHere`
+                        \ `Just valueHere`
                         ``
 
-                        &ensp;`else if key&lt; keyHere then`
+                        \ `else if key< keyHere then`
 
-                        &ensp;`find leftChild key`
+                        \ `find leftChild key`
                         ``
 
-                        &ensp;`else`
+                        \ `else`
 
-                        &ensp;`find rightChild key`
+                        \ `find rightChild key`
                     |> p
-
                         Als letztes Beispiel sehen Sie hier eine svg-Datei. Dies ist ein Dateiformat für Vektorgrafiken.
                         In
                         diesem
@@ -1166,25 +923,20 @@
                             src=../img/svg-example.svg
                     |> pre
                         class=listing container
-
                         `
                         |> span
                             class=RawText
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         |> span
                             class=StartTag
-
                             ?xml
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             version
                         |> span
                             class=WaitingForValue
@@ -1192,23 +944,18 @@
                             =
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             1.0
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=AttributeName
-
                             encoding
                         |> span
                             class=WaitingForValue
@@ -1216,24 +963,19 @@
                             =
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             UTF-8
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeName
-
                             ?
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=LineBreak
                         `
@@ -1241,19 +983,15 @@
                             class=LineBreak
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             http://www.w3.org/2000/svg
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForValue
@@ -1261,20 +999,16 @@
                             =
                         |> span
                             class=AttributeName
-
                             xmlns
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=StartTag
-
                             svg
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         `
 
                         `
@@ -1282,19 +1016,15 @@
                             class=LineBreak
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             http://www.w3.org/1999/xlink
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForValue
@@ -1302,12 +1032,10 @@
                             =
                         |> span
                             class=AttributeName
-
                             xmlns:xlink
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         `
 
                         `
@@ -1315,19 +1043,15 @@
                             class=LineBreak
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             102pt
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForValue
@@ -1335,23 +1059,18 @@
                             =
                         |> span
                             class=AttributeName
-
                             height
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             102pt
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForValue
@@ -1359,12 +1078,10 @@
                             =
                         |> span
                             class=AttributeName
-
                             width
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         `
 
                         `
@@ -1372,19 +1089,15 @@
                             class=LineBreak
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             0 0 102 102
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForValue
@@ -1392,12 +1105,10 @@
                             =
                         |> span
                             class=AttributeName
-
                             viewBox
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         `
 
                         `
@@ -1405,19 +1116,15 @@
                             class=LineBreak
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             1.1
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForValue
@@ -1425,12 +1132,10 @@
                             =
                         |> span
                             class=AttributeName
-
                             version
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         `
 
                         `
@@ -1438,19 +1143,15 @@
                             class=LineBreak
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             surface2322
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForValue
@@ -1458,20 +1159,16 @@
                             =
                         |> span
                             class=AttributeName
-
                             id
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=StartTag
-
                             g
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         `
 
                         `
@@ -1479,19 +1176,15 @@
                             class=LineBreak
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             fill:none;stroke-width:0.4;stroke:rgba(0,0,0,100);
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForValue
@@ -1499,20 +1192,16 @@
                             =
                         |> span
                             class=AttributeName
-
                             style
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=StartTag
-
                             circle
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         `
 
                         `
@@ -1520,23 +1209,18 @@
                             class=LineBreak
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=AttributeName
-
                             /
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             40
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForValue
@@ -1544,23 +1228,18 @@
                             =
                         |> span
                             class=AttributeName
-
                             r
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             51
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForValue
@@ -1568,23 +1247,18 @@
                             =
                         |> span
                             class=AttributeName
-
                             cy
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             51
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForValue
@@ -1592,12 +1266,10 @@
                             =
                         |> span
                             class=AttributeName
-
                             cx
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         `
 
                         `
@@ -1605,15 +1277,12 @@
                             class=LineBreak
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             fill:none;stroke-width:0.4;stroke:rgba(0,0,0,100);
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForValue
@@ -1621,20 +1290,16 @@
                             =
                         |> span
                             class=AttributeName
-
                             style
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         |> span
                             class=StartTag
-
                             path
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         `
 
                         `
@@ -1642,27 +1307,21 @@
                             class=LineBreak
                         |> span
                             class=RawText
-
-                            &ensp;
+                            \ 
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=AttributeName
-
                             /
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=AttributeValueDoubleQuote
-
                             M 50 50 l 33.5 -22.5
                         |> span
                             class=DoubleQuote
-
                             "
                         |> span
                             class=WaitingForValue
@@ -1670,12 +1329,10 @@
                             =
                         |> span
                             class=AttributeName
-
                             d
                         |> span
                             class=WaitingForAttribute
-
-                            &ensp;
+                            \ 
                         `
 
                         `
@@ -1683,16 +1340,13 @@
                             class=LineBreak
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=EndTag
-
                             /g
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         `
 
                         `
@@ -1700,21 +1354,17 @@
                             class=LineBreak
                         |> span
                             class=GreaterThanBracket
-
-                            &gt;
+                            >
                         |> span
                             class=EndTag
-
                             /svg
                         |> span
                             class=LessThanBracket
-
-                            &lt;
+                            <
                         `
 
                         `
                     |> p
-
                         Was haben diese vier Beispiele gemeinsam? Es handelt sich in allen Fällen um _Daten_, die
                         in
                         einem bestimmten festgelegten _Format_
@@ -1729,17 +1379,14 @@
                         Daten, die in einem bestimmten Format vorliegen, zu verarbeiten; ja auch erst einmal überhaupt
                         Begriffe festlegen, wie man solche Formate definiert.
                     |> h2
-
                         Korrekte Email-Adressen
                     |> p
-
                         Kommen wir auf unser erstes, einfachstes Beispiel zurück: die Email-Adressen. Können Sie
                         möglichst
                         präzise und möglichst formal beschreiben, wie eine korrekte
                         Email-Adresse auszusehen hat? Hier versuche ich es einmal:
                     |> div
                         class=well container
-
                         Eine Emailadresse besteht aus einem _Benutzernamen_ und einem _Domainnamen_, die
                         mit
                         einem `@` verbunden sind.
@@ -1752,7 +1399,6 @@
                         ist ein nichtleerer String aus Groß- und Kleinbuchstaben, Zahlen und dem Bindestrich
                         (`-`).
                     |> p
-
                         Die genauen Regeln mögen von Anbieter zu Anbieter variieren; ich habe mich mal an das gehalten,
                         was
                         ich experimentell bei `gmail.com` herausgefunden
@@ -1769,18 +1415,15 @@
                         Ich werde dies nun Schritt für Schritt entwickeln, erst informell anhand des
                         Email-Adressen-Beispiels und dann, im nächsten Kapitel, formal und abstrakt.
                     |> p
-
                         Eine Emailadresse ist von der Form _Benutzername_`@`_Domainnname_. Dies
                         können wir als _Ableitungsregel_ darstellen:
                     |> pre
                         class=container
-
-                        &lt;EmailAdress&gt; *-&gt;*&lt;User&gt; @&lt;Domain&gt;
+                        <EmailAdress> *->*<User> @<Domain>
                     |> p
-
-                        Wie können wir nun beispielsweise eine ähnliche Ableitungsregeln für `&lt;Domain&gt;`
-                        erstellen? Eine `&lt;Domain&gt;` soll
-                        eine Folge aus mindestens zwei `&lt;Label&gt;` sein, jeweils durch einen
+                        Wie können wir nun beispielsweise eine ähnliche Ableitungsregeln für `<Domain>`
+                        erstellen? Eine `<Domain>` soll
+                        eine Folge aus mindestens zwei `<Label>` sein, jeweils durch einen
                         `.`
                         separiert. Wir erreichen dies, indem wir einen an Rekursion
                         erinnernden Trick anwenden: entweder gibt es genau zwei Labels oder die Domain beginnt mit einem
@@ -1790,14 +1433,12 @@
                         also wiederum etwas, das wie ein Domainname aussieht. Daher:
                     |> pre
                         class=container
-
-                        &lt;Domain&gt; *-&gt;*&lt;Label&gt; .&lt;Label&gt;
-                        &lt;Domain&gt; *-&gt;*&lt;Label&gt; .&lt;Domain&gt;
+                        <Domain> *->*<Label> .<Label>
+                        <Domain> *->*<Label> .<Domain>
                     |> p
-
-                        Wir geben also _zwei_ Möglichkeiten an, wie mit einem `&lt;Domain&gt;` zu
+                        Wir geben also _zwei_ Möglichkeiten an, wie mit einem `<Domain>` zu
                         verfahren ist.
-                        Was ist nun `&lt;Label&gt;`? Dies ist eine nichtleere Folge von in Domainnamen
+                        Was ist nun `<Label>`? Dies ist eine nichtleere Folge von in Domainnamen
                         erlaubten
                         Zeichen.
                         Diese sind alphanumerisch (Buchstaben und Zahlen) und der Strich `-` (in der Praxis
@@ -1809,87 +1450,74 @@
                         zum Beispiel 
                         |> a
                             href=https://en.wikipedia.org/wiki/Internationalized_domain_name
-
                             Wikipedia:
                             Internationalized Domain Name
                         ).
-                        Wie formulieren wir _nichtleere Folge von ..._ mit unserer `--&gt;`-Notation?
+                        Wie formulieren wir _nichtleere Folge von ..._ mit unserer `-->`-Notation?
                         Wieder mit dem Rekursionstrick:
                     |> pre
                         class=container
-
-                        &lt;Label&gt; *-&gt;*&lt;AlphaNumOrDash&gt;
-                        &lt;Label&gt; *-&gt;*&lt;AlphaNumOrDash&gt;&lt;Label&gt;
-                        &lt;AlphaNumOrDash&gt; *-&gt;*&lt;AlphaNum&gt;
-                        &lt;AlphaNumOrDash&gt; *-&gt;* - 
+                        <Label> *->*<AlphaNumOrDash>
+                        <Label> *->*<AlphaNumOrDash><Label>
+                        <AlphaNumOrDash> *->*<AlphaNum>
+                        <AlphaNumOrDash> *->* - 
                     |> p
-
-                        Nun müssen wir noch Regeln für `&lt;AlphaNum&gt;` angeben. Hier führen wir eine
+                        Nun müssen wir noch Regeln für `<AlphaNum>` angeben. Hier führen wir eine
                         weitere
                         Konvention ein: nämlich, dass wir
                         verschiedene Alternativen mit einem senkrechten Strich | separieren:
                     |> pre
                         class=container
-
-                        &lt;AlphaNum&gt; *-&gt;* a *|* b *|* c *|* d *|* e *|* f *|* g *|* h *|* i *|* j *|* k *|* l *|* m *|* n *|* o *|* p *|* q *|* r *|* s *|* t *|* u *|* v *|* w *|* x *|* y *|* z
-                        &lt;AlphaNum&gt; *-&gt;* A *|* B *|* C *|* D *|* E *|* F *|* G *|* H *|* I *|* J *|* K *|* L *|* M *|* N *|* O *|* P *|* Q *|* R *|* S *|* T *|* U *|* V *|* W *|* X *|* Y *|* Z
-                        &lt;AlphaNum&gt; *-&gt;* 0 *|* 1 *|* 2 *|* 3 *|* 4 *|* 5 *|* 6 *|* 7 *|* 8 *|* 9
+                        <AlphaNum> *->* a *|* b *|* c *|* d *|* e *|* f *|* g *|* h *|* i *|* j *|* k *|* l *|* m *|* n *|* o *|* p *|* q *|* r *|* s *|* t *|* u *|* v *|* w *|* x *|* y *|* z
+                        <AlphaNum> *->* A *|* B *|* C *|* D *|* E *|* F *|* G *|* H *|* I *|* J *|* K *|* L *|* M *|* N *|* O *|* P *|* Q *|* R *|* S *|* T *|* U *|* V *|* W *|* X *|* Y *|* Z
+                        <AlphaNum> *->* 0 *|* 1 *|* 2 *|* 3 *|* 4 *|* 5 *|* 6 *|* 7 *|* 8 *|* 9
                     |> p
-
                         Beachten Sie: ich habe hier absichtlich nicht
-                        `&lt;AlphaNum&gt; *-&gt;* a *|* ... *|* z`
+                        `<AlphaNum> *->* a *|* ... *|* z`
                         geschrieben, weil ich in diesem Beispiel wirklich alles ausschreiben wollte und mit der
                         ...-Notation
                         schon wieder etwas menschen- aber nicht maschinenlesbares
                         eingeführt hätte.
                     |> p
-
-                        Wir brauchen noch Regeln für `&lt;User&gt;`. Dies ist ein nichtleerer String aus
+                        Wir brauchen noch Regeln für `<User>`. Dies ist ein nichtleerer String aus
                         alphanumerischen Zeichen und dem Punkt `.`, wobei
                         der Punkt nicht am Anfang und nicht am Ende stehen darf. Also: eine nichtleere Folge von
                         _Namensblöcken_, die jeweils durch `.` separiert sind,
                         wobei ein Namensblock eine nichtleere Folge alphanumerischer Zeichen ist.
                     |> pre
                         class=container
-
-                        &lt;User&gt; *-&gt;*&lt;NameBlock&gt; *|*&lt;NameBlock&gt; .&lt;User&gt;
-                        &lt;NameBlock&gt; *-&gt;*&lt;AlphaNum&gt; *|*&lt;AlphaNum&gt;&lt;NameBlock&gt;
+                        <User> *->*<NameBlock> *|*<NameBlock> .<User>
+                        <NameBlock> *->*<AlphaNum> *|*<AlphaNum><NameBlock>
                     |> p
-
                         Nun haben wir unser Emailformat vollständig beschrieben. Das gesamte Regelwerk sehen Sie hier
                         noch
                         einmal im Ganzen:
                     |> pre
                         id=email-context-free-grammar
                         class=container listing
+                        `<EmailAddress>    *->* <User> @<Domain>`
+                        `<Domain>          *->* <Label> .<Label> *|*<Label> .<Domain>`
+                        `<User>            *->* <NameBlock> *|*<NameBlock> .<User>`
+                        `<NameBlock>       *->* <AlphaNum> *|*<AlphaNum><NameBlock>`
+                        `<Label>           *->* <AlphaNumOrDash> *|*<AlphaNumOrDash><Label>`
+                        `<AlphaNumOrDash>  *->* <AlphaNum> *|* -` 
 
-                        `&lt;EmailAddress&gt;    *-&gt;* &lt;User&gt; @&lt;Domain&gt;`
-                        `&lt;Domain&gt;          *-&gt;* &lt;Label&gt; .&lt;Label&gt; *|*&lt;Label&gt; .&lt;Domain&gt;`
-                        `&lt;User&gt;            *-&gt;* &lt;NameBlock&gt; *|*&lt;NameBlock&gt; .&lt;User&gt;`
-                        `&lt;NameBlock&gt;       *-&gt;* &lt;AlphaNum&gt; *|*&lt;AlphaNum&gt;&lt;NameBlock&gt;`
-                        `&lt;Label&gt;           *-&gt;* &lt;AlphaNumOrDash&gt; *|*&lt;AlphaNumOrDash&gt;&lt;Label&gt;`
-                        `&lt;AlphaNumOrDash&gt;  *-&gt;* &lt;AlphaNum&gt; *|* -` 
-
-                        `&lt;AlphaNum&gt;        *-&gt;* a *|* b *|* c *|* d *|* e *|* f *|* g *|* h *|* i *|* j *|* k *|* l *|* m *|* n *|* o *|* p *|* q *|* r *|* s *|* t *|* u *|* v *|* w *|* x *|* y *|* z`
-                        `&lt;AlphaNum&gt;        *-&gt;* A *|* B *|* C *|* D *|* E *|* F *|* G *|* H *|* I *|* J *|* K *|* L *|* M *|* N *|* O *|* P *|* Q *|* R *|* S *|* T *|* U *|* V *|* W *|* X *|* Y *|* Z`
+                        `<AlphaNum>        *->* a *|* b *|* c *|* d *|* e *|* f *|* g *|* h *|* i *|* j *|* k *|* l *|* m *|* n *|* o *|* p *|* q *|* r *|* s *|* t *|* u *|* v *|* w *|* x *|* y *|* z`
+                        `<AlphaNum>        *->* A *|* B *|* C *|* D *|* E *|* F *|* G *|* H *|* I *|* J *|* K *|* L *|* M *|* N *|* O *|* P *|* Q *|* R *|* S *|* T *|* U *|* V *|* W *|* X *|* Y *|* Z`
                     |> h2
-
                         Ein Beispiel einer formalen Grammatik und einer Ableitung
                     |> p
-
                         Was Sie hier sehen, nennt man eine _formale Grammatik_. Ihre Bestandteile sind:
                     |> ul
                         |> li
-
                             Das Alphabet \(\Sigma\) aller verwendeten Zeichen, in unserem
                             Fall also \(\Sigma = \{a,\dots,z,A,\dots,Z,.,-,@\}\). Wir nennen \(\Sigma\) die Menge
                             der _terminalen Symbole_.
                         |> li
-
                             Eine Menge \(N\) abstrakter Symbole, hier
                             $$
-                            N = \{\texttt{&lt;EmailAddress&gt;,&lt;Domain&gt;,
-                            &lt;User&gt;,&lt;NameBlock&gt;,&lt;Label&gt;,&lt;AlphaNumOrDash&gt;,&lt;AlphaNum&gt;}
+                            N = \{\texttt{<EmailAddress>,<Domain>,
+                            <User>,<NameBlock>,<Label>,<AlphaNumOrDash>,<AlphaNum>}
                             \} \ .
                             $$
                             Diese Menge nennen wir die _nichtterminalen Symbole_. Wir verlangen, dass \(N \cap
@@ -1897,20 +1525,17 @@
                             = \emptyset\) gilt; ein Symbol kann also
                             nicht gleichzeitig Terminalsymbol und Nichtterminalsymbol sein.
                         |> li
-
                             Eine Menge \(P\) von Regeln, auch _Produktionen_ genannt, wobei jede Regel die Form
                             \(X \rightarrow \alpha\) hat, wobei \(\alpha\) eine beliebig lange endliche Folge von
                             Symbolen
                             in \(\Sigma \cup N\) ist.
                         |> li
-
                             Ein Startsymbol \(S \in N\), das angibt, wo wir mit unserer Ableitung beginnen sollen. Im
                             obigen
                             Beispiel
-                            sind wir ja an Emailadressen interessiert, also ist `&lt;EmailAddress&gt;` das
+                            sind wir ja an Emailadressen interessiert, also ist `<EmailAddress>` das
                             Startsymbol.
                     |> p
-
                         Wenn wir nun so eine Grammatik gegeben haben, können wir Wörter _ableiten_; das heißt,
                         wir beginnen mit dem
                         Startsymbol und ersetzen in jedem Schritt ein nichtterminales Symbol durch die rechte Seite
@@ -1921,42 +1546,40 @@
                         Grammatik:
                     |> pre
                         class=container
+                        `<EmailAddress>  *->*<User>@<Domain>`
 
-                        `&lt;EmailAddress&gt;  *-&gt;*&lt;User&gt;@&lt;Domain&gt;`
+                        \ `*->*<NameBlock>.<User>@<Domain>` 
 
-                        &ensp;`*-&gt;*&lt;NameBlock&gt;.&lt;User&gt;@&lt;Domain&gt;` 
+                        \ `*->*<NameBlock>.<NameBlock>@<Domain>` 
 
-                        &ensp;`*-&gt;*&lt;NameBlock&gt;.&lt;NameBlock&gt;@&lt;Domain&gt;` 
+                        \ `*->*<NameBlock>.<NameBlock>@<Label>.<Domain>` 
 
-                        &ensp;`*-&gt;*&lt;NameBlock&gt;.&lt;NameBlock&gt;@&lt;Label&gt;.&lt;Domain&gt;` 
+                        \ `*->*<NameBlock>.<NameBlock>@<Label>.<Label>.<Label>` 
 
-                        &ensp;`*-&gt;*&lt;NameBlock&gt;.&lt;NameBlock&gt;@&lt;Label&gt;.&lt;Label&gt;.&lt;Label&gt;` 
+                        \ `*->*<AlphaNum>.<NameBlock>@<Label>.<Label>.<Label>` 
 
-                        &ensp;`*-&gt;*&lt;AlphaNum&gt;.&lt;NameBlock&gt;@&lt;Label&gt;.&lt;Label&gt;.&lt;Label&gt;` 
+                        \ `*->*<AlphaNum>.<AlphaNum>@<Label>.<Label>.<Label>` 
 
-                        &ensp;`*-&gt;*&lt;AlphaNum&gt;.&lt;AlphaNum&gt;@&lt;Label&gt;.&lt;Label&gt;.&lt;Label&gt;` 
+                        \ `*->*<AlphaNum>.<AlphaNum>@<AlphaNumOrDash>.<Label>.<Label>` 
 
-                        &ensp;`*-&gt;*&lt;AlphaNum&gt;.&lt;AlphaNum&gt;@&lt;AlphaNumOrDash&gt;.&lt;Label&gt;.&lt;Label&gt;` 
+                        \ `*->*<AlphaNum>.<AlphaNum>@<AlphaNumOrDash>.<AlphaNumOrDash>.<Label>` 
 
-                        &ensp;`*-&gt;*&lt;AlphaNum&gt;.&lt;AlphaNum&gt;@&lt;AlphaNumOrDash&gt;.&lt;AlphaNumOrDash&gt;.&lt;Label&gt;` 
+                        \ `*->*<AlphaNum>.<AlphaNum>@<AlphaNumOrDash>.<AlphaNumOrDash>.<AlphaNumOrDash><Label>` 
 
-                        &ensp;`*-&gt;*&lt;AlphaNum&gt;.&lt;AlphaNum&gt;@&lt;AlphaNumOrDash&gt;.&lt;AlphaNumOrDash&gt;.&lt;AlphaNumOrDash&gt;&lt;Label&gt;` 
+                        \ `*->*<AlphaNum>.<AlphaNum>@<AlphaNumOrDash>.<AlphaNumOrDash>.<AlphaNumOrDash><AlphaNumOrDash>` 
 
-                        &ensp;`*-&gt;*&lt;AlphaNum&gt;.&lt;AlphaNum&gt;@&lt;AlphaNumOrDash&gt;.&lt;AlphaNumOrDash&gt;.&lt;AlphaNumOrDash&gt;&lt;AlphaNumOrDash&gt;` 
+                        \ `*->* d.<AlphaNum>@<AlphaNumOrDash>.<AlphaNumOrDash>.<AlphaNumOrDash><AlphaNumOrDash>` 
 
-                        &ensp;`*-&gt;* d.&lt;AlphaNum&gt;@&lt;AlphaNumOrDash&gt;.&lt;AlphaNumOrDash&gt;.&lt;AlphaNumOrDash&gt;&lt;AlphaNumOrDash&gt;` 
+                        \ `*->* d.<AlphaNum>@<AlphaNumOrDash>.<AlphaNumOrDash>.<AlphaNumOrDash>e`
 
-                        &ensp;`*-&gt;* d.&lt;AlphaNum&gt;@&lt;AlphaNumOrDash&gt;.&lt;AlphaNumOrDash&gt;.&lt;AlphaNumOrDash&gt;e`
+                        \ `*->* d.<AlphaNum>@<AlphaNumOrDash>.<AlphaNumOrDash>.de`
 
-                        &ensp;`*-&gt;* d.&lt;AlphaNum&gt;@&lt;AlphaNumOrDash&gt;.&lt;AlphaNumOrDash&gt;.de`
+                        \ `*->* d.s@<AlphaNumOrDash>.<AlphaNumOrDash>.de`
 
-                        &ensp;`*-&gt;* d.s@&lt;AlphaNumOrDash&gt;.&lt;AlphaNumOrDash&gt;.de`
+                        \ `*->* d.s@<AlphaNumOrDash>.b.de`
 
-                        &ensp;`*-&gt;* d.s@&lt;AlphaNumOrDash&gt;.b.de`
-
-                        &ensp;`*-&gt;* d.s@a.b.de` 
+                        \ `*->* d.s@a.b.de` 
                     |> p
-
                         Nach dem gleichen Schema könnten wir `d.s.@-.-.--` ableiten, was
                         darauf schließen lässt, dass unsere Grammatik nicht wirklich das
                         tut, was wir beabsichtigen, dass sie nämlich _zu viele_ Emailadressen
@@ -1965,27 +1588,21 @@
                         class=well well-lg numbered-exercise container
                         |> span
                             class=numbered-title
-
                             Übungsaufgabe 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++ExoCtr
-                            &ensp;
+                            \ 
                         Formulieren Sie weitere Regeln, um unsinnige Domainnamen wie `-.-.--`
                         zu verbieten. Wie müssen Sie die obige Grammatik ändern?
                     |> h1
-
                         Terminologie, formale Definitionen und Beispiele
                     |> p
-
                         Im letzten Abschnitt haben wir die Regeln für die Bildung syntaktisch korrekter
                         Emailadressen formalisiert. Zwar unvollständig, doch hoffe ich, dass das allgemeine
                         Schema klar geworden ist. Wir werden nun alles formaler und abstrakter definieren.
                     |> h2
-
                         Alphabet
                     |> p
-
                         Wenn wir über formale Sprachen reden, so liegt immer eine (endliche) Menge von
                         Symbolen zugrunde, das Alphabet \(\Sigma\). Im Emailadressen-Beispiel war (\Sigma) recht groß:
                         die 52 Buchstaben; 10 Ziffern; die Zeichen `@ . -` 
@@ -1994,13 +1611,12 @@
                         andere Programmiersprachen kämen
                         noch weitere Zeichen hinzu, zum Beispiel `+ - / \ { }` 
 
-                        &ensp;und so weiter;
+                        \ und so weiter;
                         wenn wir alle Unicode-Zeichen miteinschließen, landen wir im Millionenbereich.
                         In den theoretischen Beispielen, die in diesem Kurs folgen werden, ist das Alphabet fast immer
                         viel kleiner: typische Alphabete zum Beispiel sind \( \{0,1\}\) , \(\{a,b,c,d\}\) oder auch
                         \(\{1\}\), ein Alphabet mit nur einem Zeichen.
                     |> p
-
                         Für ein Alphabet \(\Sigma\) bezeichnen wir mit \(\Sigma^*\) die Menge aller
                         endlichen Strings über diesem Alphabet; das schließt den _leeren String_ mit ein,
                         den wir mit \(\epsilon\) bezeichnen. So ist beispielsweise
@@ -2012,93 +1628,70 @@
                         Mit \(\Sigma^+\) bezeichnen wir die Menge aller nichtleeren Strings, also
                         \(\Sigma^+ = \Sigma^* \setminus \{\epsilon\}\).
                     |> h2
-
                         Sprachen
                     |> p
-
                         Eine Teilmenge \(L \subseteq \Sigma\) bezeichnen wir in diesem Kontext als _Sprache_ und
                         kürzen Sie oft mit \(L\) ab, was für _language_ steht. Beispiele für Sprachen wären
                     |> ol
                         |> li
-
                             Die Sprache aller syntaktisch korrekten Emailadressen.
                         |> li
-
                             Die Sprache aller Java-Programme, die ohne Fehlermeldung kompilieren
                         |> li
-
                             Die Sprache aller Java-Programme, die kompilieren, dann aber mit einem Laufzeitfehler
                             abbrechen.
                         |> li
-
                             Die Sprache aller Java-Programme, die kompilieren und nicht mit einem Laufzeitfehler
                             abbrechen.
                         |> li
-
                             Die Sprache aller Wörter über \(\{a,b\}\), die gleich viele \(a\)'s wie \(b\)'s enthalten.
                         |> li
-
                             Die Sprache aller Palindrome über \(\{a,b,c,d\}\), also Wörter, die von vorne wie hinten
                             gelesen gleich aussehen.
                     |> p
-
                         Wir wollen herausfinden, welche Arten von Sprachen wir mit den im letzten Abschnitt eingeführen
                         Regelwerk
                         aus Ableitungen beschreiben können. Für die gerade aufgelisteten sechs Sprachen lautet die
                         Antwort
                     |> ol
                         |> li
-
                             Ja, können wir.
                         |> li
-
                             Ja, wenn wir leicht komplexere Ableitungsregeln erlauben.
                         |> li
-
                             Ja, wenn wir leicht komplexere Ableitungsregeln erlaubten.
                         |> li
-
                             Nein, können wir nicht.
                         |> li
-
                             Ja, können wir.
                         |> li
-
                             Ja, können wir.
                     |> h2
-
                         Grammatiken
                     |> div
                         class=well container theorem
                         |> span
                             class=numbered-title
-
                             Definition 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                            &ensp;
+                            \ 
                         *(Kontextfreie Grammatik).*
                         Eine _kontextfreie Grammatik_ besteht aus
                         |> ol
                             |> li
-
                                 einem endlichen Alphabet \(\Sigma\), den _terminalen Symbolen_;
                             |> li
-
                                 einer dazu disjunkten endlichen Menge \(N\), genannt die _nichtterminalen
                                 Symbole_; 
                             |> li
-
                                 einer endlichen Menge \(P\) von _Produktionsregeln_ der Form
                                 \(X \rightarrow \alpha\) mit \(X \in N\) und \(\alpha \in (\Sigma \cup \N)^*\);
                                 formal also \(P \subseteq N \times (\Sigma \cup \N)^*\).
                             |> li
-
                                 einem Startsymbol \(S \in N\).
                         Die Grammatik \(G\) ist also ein 4-Tupel \((\Sigma, N, P, S)\).
                     |> p
-
                         Woher der Name _kontextfrei_ kommt, werden Sie hoffentlich verstehen, wenn wir
                         _Ableitungen_ definiert haben.
                         Die Tradition will es, dass wir für die terminalen Symbole
@@ -2111,17 +1704,15 @@
                         class=well container theorem
                         |> span
                             class=numbered-title
-
                             Beispiel 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                            &ensp;
+                            \ 
                         Wir betrachten die Grammatik \(G = (\{a,b\}, \{S, A, B\}, P, S)\) mit den Produktionsregeln
                         \begin{align*}
-                        S&amp;\rightarrow A B \\
-                        A&amp;\rightarrow \epsilon \ | \ a A \\
-                        B&amp;\rightarrow \epsilon \ | \ b B \ . \\
+                        S&\rightarrow A B \\
+                        A&\rightarrow \epsilon \ | \ a A \\
+                        B&\rightarrow \epsilon \ | \ b B \ . \\
                         \end{align*}
                         Formal sind die Produktionsregeln \(P\) eine Teilmenge von \( N \times (\Sigma \cup \N)^*\),
                         also
@@ -2136,7 +1727,6 @@
                         \Rightarrow aAbb \Rightarrow abb \ .
                         \end{align*}
                         |> p
-
                             In jedem Schritt wählen wir ein Nichtterminal aus, zum Beispiel im zweiten Schritt \(A\),
                             und wenden eine Regel an, zum Beispiel \(A \rightarrow aA\). Dadurch
                             wird \(AB\) zu \(aAB\).
@@ -2146,12 +1736,10 @@
                         class=well container theorem
                         |> span
                             class=numbered-title
-
                             Definition 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                            &ensp;
+                            \ 
                         Gegeben sei eine kontextfreie Grammatik \(G = (\Sigma, N, P, S)\).
                         Ein String \(\alpha \in (\Sigma \cup N)^*\) heißt _Wortform_ (im Gegensatz
                         zu einem Wort \(x \in \Sigma^*)\).
@@ -2166,39 +1754,35 @@
                         mit Wortformen \(\alpha_1, \alpha_2, \beta_1, \gamma, \beta_2\) und einem Nichtterminal
                         \(X\) schreiben können, so dass \(X \rightarrow \gamma \) eine Produktionsregel in \(P\) ist.
                         |> p
-
                             Wenn wir \(\alpha = \beta\) "vorlesen", dann sagen wir _\(\beta\) kann aus \(\alpha\) in
                             einem Schritt abgeleitet werden_.
                             Wenn \(\beta\) aus \(\alpha\) in mehreren (im Extremfall null) Schritten
                             abgeleitet werden kann, so schreiben wir \(\alpha \Rightarrow^* \beta\).
                         |> p
-
                             Formal bedeutet \(\alpha \Rightarrow^* \beta\), dass es ein \(k \geq 0\) gibt
                             und "Zwischenwortformen" \(\alpha_0, \alpha_1, \dots, \alpha_k\) mit
                             \(\alpha = \alpha_0\) und \(\alpha_k = \beta\), sodass
                             \(\alpha_i \Rightarrow \alpha_{i+1}\) für alle \(i = 0, 1, \dots, k-1\) gilt.
                             Dies schließt den "trivialen" Fall \(k=0\) mit ein, in welchem \(\alpha = \beta\) gilt.
                     |> p
-
                         Nochmals: wenn \(\alpha\) die Form \(\alpha_1 X \alpha_2\) hat, dann dürfen Sie
                         das Nichtterminal \(X\) durch die rechte Seite einer Produktionsregel \(X \rightarrow \gamma\)
                         ersetzen; Sie dürfen das unabhängig von dem _Kontext_, in welchem \(X\) in
                         der Wortform \(\alpha\) vorkommt. Daher rührt der Name _kontextfreie Grammatik_.
                     |> p
-
                         Beachten Sie, dass \(P\) per Definition eine _endliche Menge_ von Regeln
                         sein muss, dass jedoch \(\Rightarrow\) im Allgemeinen unendlich ist. Bereits
                         für unsere einfache Grammatik mit den Produktionsregeln
                     \begin{align*}
-                    S&amp;\rightarrow A B \\
-                    A&amp;\rightarrow \epsilon \ | \ a A \\
-                    B&amp;\rightarrow \epsilon \ | \ b B \ . \\
+                    S&\rightarrow A B \\
+                    A&\rightarrow \epsilon \ | \ a A \\
+                    B&\rightarrow \epsilon \ | \ b B \ . \\
                     \end{align*}
                     haben wir beispielsweise
                     \begin{align*}
-                    A&amp;\rightarrow aA \\
-                    aA&amp;\rightarrow aaA \\
-                    aaA&amp;\rightarrow aaaA \\
+                    A&\rightarrow aA \\
+                    aA&\rightarrow aaA \\
+                    aaA&\rightarrow aaaA \\
                     \dots
                     \end{align*}
                     und sehen, dass die Menge aller Paare \(\alpha \Rightarrow \beta\) unendlich ist.
@@ -2206,12 +1790,10 @@
                         class=well container theorem
                         |> span
                             class=numbered-title
-
                             Definition 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                            &ensp;
+                            \ 
                         *(Die von einer Grammatik erzeugte Sprache).*
                         Sei \(G = (\Sigma, N, P, S) \) eine kontextfreie Grammatik. Die von \(G\) erzeugte Sprache
                         \(L(G)\) ist die Menge aller Wörter, die vom Startsymbol \(S\) abgeleitet werden können, also
@@ -2228,51 +1810,45 @@
                     class=well container theorem
                     |> span
                         class=numbered-title
-
                         Beispiel 
                         |> NumberedTitle
-
                             ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                        &ensp;.
+                        \ .
                     Sei \(G\) die zuletzt betrachtete Grammatik. Dann ist \(L(G)\) die
                     Menge aller Wörter der Form \(a^* b^*\), also Wörter, in denen auf beliebig viele
                     \(a\)'s beliebig viele \(b\)'s folgen.
                 |> p
-
                     Wir betrachten nun einige weitere Beispiele
                 |> div
                     class=well container theorem
                     |> span
                         class=numbered-title
-
                         Beispiel 
                         |> NumberedTitle
-
                             ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                        &ensp;
+                        \ 
                     Wir betrachten die Grammatik \(G_2 = (\{a,b\}, \{S\}, P, S)\) mit den Produktionsregeln
                     \begin{align}
-                    S&amp;\rightarrow aSbS \\
-                    S&amp;\rightarrow bSaS \\
-                    S&amp;\rightarrow \epsilon \ .
+                    S&\rightarrow aSbS \\
+                    S&\rightarrow bSaS \\
+                    S&\rightarrow \epsilon \ .
                     \end{align}
                     Hier sind mögliche Ableitungen des Wortes \(abab\). Zur Verdeutlichung
                     schreiben wir über den Pfeil \(\Rightarrow\) die Nummer der Regel, die
                     wir angewendet haben:
                     \begin{align*}
-                    S&amp;\stackrel{(1)}{\Rightarrow} aSbS
+                    S&\stackrel{(1)}{\Rightarrow} aSbS
                     \stackrel{(1)}{\Rightarrow} aSbaSbS
                     \stackrel{(3)}{\Rightarrow} aSbaSb
                     \stackrel{(3)}{\Rightarrow} abaSb
                     \stackrel{(3)}{\Rightarrow} abab \\
-                    S&amp;\stackrel{(1)}{\Rightarrow} aSbS
+                    S&\stackrel{(1)}{\Rightarrow} aSbS
                     \stackrel{(3)}{\Rightarrow} abS
                     \stackrel{(1)}{\Rightarrow} abaSbS
                     \stackrel{(3)}{\Rightarrow} ababS
                     \stackrel{(3)}{\Rightarrow} abab \ .
                     \end{align*}
                     |> p
-
                         Wir sehen also: das gleiche Wort kann mehrere Ableitungen haben.
                         Da die Ersetzungsregeln _kontextfrei_ sind, spielt es keine Rolle, in welcher
                         Reihenfolge wir nichtterminale Symbole ersetzen. Wenn Sie scharf hinschauen,
@@ -2289,24 +1865,21 @@
                         angibt, ist eindeutig, wie wir von \(S\) zum abgeleiteten Wort gekommen sind.
                         Betrachten Sie nun eine weitere Linksableitung \(S \Rightarrow^* abab\):
                     \begin{align*}
-                    S&amp;\stackrel{(1)}{\Rightarrow} aSbS
+                    S&\stackrel{(1)}{\Rightarrow} aSbS
                     \stackrel{(2)}{\Rightarrow} abSaSbS
                     \stackrel{(3)}{\Rightarrow} abaSbS
                     \stackrel{(3)}{\Rightarrow} ababS
                     \stackrel{(3)}{\Rightarrow} abab
                     \end{align*}
                     |> p
-
                         Sehen Sie, dass diese Ableitung _qualitativ_ anders ist, da
                         wir hier auch die Regel \(S \rightarrow bSaS\) angewendet haben? Um die
                         Struktur der Ableitung zu verdeutlichen, könnten wir
                         die ersten beiden Ableitungen mit
                         Wort \(S \Rightarrow^* (ab)(ab)\) bezeichnen und die dritte mit Wort \(S \Rightarrow^* a(ba)b\).
                 |> h2
-
                     Ziele der Theorie der formalen Sprachen
                 |> p
-
                     Ganz allgemein gesagt wollen wir lernen, wie wir Sprachen formal beschreiben können;
                     wie wir, gegeben eine Grammatik \(G\) und ein Zielwort \(x\), eine Ableitung
                     \(G \Rightarrow^* x\) finden können. Anhand der Ableitungssequenz können wir
@@ -2319,34 +1892,28 @@
                     class=well container theorem
                     |> span
                         class=numbered-title
-
                         Algorithmisches Problem: Parsing
                     Gegeben eine (kontextfreie) Grammatik \(G\) und ein Zielwort \(x\),
                     finde eine Ableitung \(G \Rightarrow^* x\), falls es so eine gibt.
                     |> p
-
                         Für einen String \(x\) eine Ableitung zu finden bezeichnen wir als _parsen_,
                         das zugehörige Hauptwort als _Parsing_.
                 |> p
-
                     *Die gute Nachricht:*
                     Die gute Nachricht: wir kennen Algorithmen, die dieses
                     Problem im effizient lösen, wenn wir den "theoretischen" Effizienzbegriff
                     zugrund legen. 
                 |> p
-
                     *Die schlechte Nachricht:* wir kennen keinen Algorithmus,
                     der das Parsing kontextfreier Sprachen in seiner ganzen Allgemeinheit
                     in _linearer Zeit_ erledigt, dessen Laufzeit also proportional zur Länge des Zielwortes
                     \(x\) ist. Dies ist aber, was wir in der Praxis, zum Beispiel bei Compilern, erwarten.
                 |> p
-
                     *Die gute Nachricht:* in fast allen praktisch relevanten Fällen haben
                     wir es mit Grammatiken zu tun, die Parsing in linearer Zeit ermöglichen.
                     Und wenn wir Programmiersprachen, Datenformate etc. entwerfen, haben wir es ja in der Hand,
                     Sprache und Grammatik so anzulegen, dass effizientes Parsen möglich ist. 
                 |> p
-
                     Im nächsten Kapitel lernen wir eine stark eingeschränkte, aber dennoch sehr wichtige Klasse
                     kontextfreier Grammatik kennen, die allesamt ein sehr effizientes Parsing
                     erlauben: die sogenannten _regulären_ Grammatiken. 

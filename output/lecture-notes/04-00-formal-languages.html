@@ -67,7 +67,7 @@
           class="subChapter"
         >
           <p>
-            Hier sehen Sie einige Beispiele für gültige und ungültige Email-Adressen. Mit 
+            Hier sehen Sie einige Beispiele für gültige und ungültige Email-Adressen. Mit
             <i>gültig</i>
             meine ich, dass sie syntaktisch korrekt sind, ungeachtet, ob ein Konto mit dieser Email-Adresse
             besteht.
@@ -768,7 +768,7 @@ thomas.schmitz@hszg.de
             Als letztes Beispiel sehen Sie hier eine svg-Datei. Dies ist ein Dateiformat für Vektorgrafiken.
             In
             diesem
-            Falle ein Kreis mit einer Geraden: 
+            Falle ein Kreis mit einer Geraden:
             <img
               style="height:4em"
               src="../img/svg-example.svg"
@@ -1102,10 +1102,10 @@ thomas.schmitz@hszg.de
 </code>
 </pre>
           <p>
-            Was haben diese vier Beispiele gemeinsam? Es handelt sich in allen Fällen um 
+            Was haben diese vier Beispiele gemeinsam? Es handelt sich in allen Fällen um
             <i>Daten</i>, die
             in
-            einem bestimmten festgelegten 
+            einem bestimmten festgelegten
             <i>Format</i>
             dargelegt werden. Soll ein Rechner etwas sinnvolles damit anfangen (zum Beispiel das
             Elm-Programm
@@ -1130,31 +1130,31 @@ thomas.schmitz@hszg.de
           <div
             class="well container"
           >
-            Eine Emailadresse besteht aus einem 
+            Eine Emailadresse besteht aus einem
             <i>Benutzernamen</i>
-             und einem 
+            und einem
             <i>Domainnamen</i>, die
             mit
-            einem 
+            einem
             <code>@</code>
-             verbunden sind.
+            verbunden sind.
             Der Benutzername ist ein nichtleerer String bestehend aus Groß- und Kleinbuchstaben, Zahlen, und
             Punkten (<code>.</code>).
             Erster und letzter Buchstaben dürfen keine Punkte sein, außerdem dürfen keine zwei Punkte
             nebeneinander stehen.
-            Der Domainname ist eine Folge von mindestenes zwei 
+            Der Domainname ist eine Folge von mindestenes zwei
             <i>Labels</i>, die jeweils mit einem
             <code>.</code>
-             separiert sind. Ein Label
+            separiert sind. Ein Label
             ist ein nichtleerer String aus Groß- und Kleinbuchstaben, Zahlen und dem Bindestrich
             (<code>-</code>).
           </div>
           <p>
             Die genauen Regeln mögen von Anbieter zu Anbieter variieren; ich habe mich mal an das gehalten,
             was
-            ich experimentell bei 
+            ich experimentell bei
             <code>gmail.com</code>
-             herausgefunden
+            herausgefunden
             habe. Die obige Beschreibung ist (hoffentlich) verständlich und präzise und unzweideutig.
             Allerdings
             ist sie in natürlicher Sprache verfasst;
@@ -1169,11 +1169,13 @@ thomas.schmitz@hszg.de
             Email-Adressen-Beispiels und dann, im nächsten Kapitel, formal und abstrakt.
           </p>
           <p>
-            Eine Emailadresse ist von der Form 
-            <i>Benutzername</i><code>@</code><i>Domainnname</i>. Dies
-            können wir als 
+            Eine Emailadresse ist von der Form
+            <i>Benutzername</i>
+            <code>@</code>
+            <i>Domainnname</i>. Dies
+            können wir als
             <i>Ableitungsregel</i>
-             darstellen:
+            darstellen:
           </p>
 <pre
   class="container"
@@ -1182,20 +1184,20 @@ thomas.schmitz@hszg.de
 <b>-&gt;</b>&lt;User&gt; @&lt;Domain&gt;
 </pre>
           <p>
-            Wie können wir nun beispielsweise eine ähnliche Ableitungsregeln für 
+            Wie können wir nun beispielsweise eine ähnliche Ableitungsregeln für
             <code>&lt;Domain&gt;</code>
-            erstellen? Eine 
+            erstellen? Eine
             <code>&lt;Domain&gt;</code>
-             soll
-            eine Folge aus mindestens zwei 
+            soll
+            eine Folge aus mindestens zwei
             <code>&lt;Label&gt;</code>
-             sein, jeweils durch einen
+            sein, jeweils durch einen
             <code>.</code>
             separiert. Wir erreichen dies, indem wir einen an Rekursion
             erinnernden Trick anwenden: entweder gibt es genau zwei Labels oder die Domain beginnt mit einem
             Label,
-            gefolgt von einem Punkt und wiederum einer 
-            <i>Folge von mindestens zwei durch 
+            gefolgt von einem Punkt und wiederum einer
+            <i>Folge von mindestens zwei durch
               <code>.</code>
               separierten Labels</i>,
             also wiederum etwas, das wie ein Domainname aussieht. Daher:
@@ -1209,32 +1211,32 @@ thomas.schmitz@hszg.de
 <b>-&gt;</b>&lt;Label&gt; .&lt;Domain&gt;
 </pre>
           <p>
-            Wir geben also 
+            Wir geben also
             <i>zwei</i>
-             Möglichkeiten an, wie mit einem 
+            Möglichkeiten an, wie mit einem
             <code>&lt;Domain&gt;</code>
-             zu
+            zu
             verfahren ist.
-            Was ist nun 
+            Was ist nun
             <code>&lt;Label&gt;</code>? Dies ist eine nichtleere Folge von in Domainnamen
             erlaubten
             Zeichen.
-            Diese sind alphanumerisch (Buchstaben und Zahlen) und der Strich 
+            Diese sind alphanumerisch (Buchstaben und Zahlen) und der Strich
             <code>-</code>
-             (in der Praxis
+            (in der Praxis
             sind
             eventuell noch weitere Zeichen erlaubt;
             im Ernstfall hängt dies davon ab, was die Domain Name Server des jeweiligen Landes / der
             jeweiligen
             Top-Level-Domain erlauben, siehe
-            zum Beispiel 
+            zum Beispiel
             <a
               href="https://en.wikipedia.org/wiki/Internationalized_domain_name"
             >Wikipedia:
               Internationalized Domain Name</a>).
-            Wie formulieren wir 
+            Wie formulieren wir
             <i>nichtleere Folge von ...</i>
-             mit unserer 
+            mit unserer
             <code>--&gt;</code>-Notation?
             Wieder mit dem Rekursionstrick:
           </p>
@@ -1252,9 +1254,9 @@ thomas.schmitz@hszg.de
  - 
 </pre>
           <p>
-            Nun müssen wir noch Regeln für 
+            Nun müssen wir noch Regeln für
             <code>&lt;AlphaNum&gt;</code>
-             angeben. Hier führen wir eine
+            angeben. Hier führen wir eine
             weitere
             Konvention ein: nämlich, dass wir
             verschiedene Alternativen mit einem senkrechten Strich | separieren:
@@ -1399,14 +1401,14 @@ thomas.schmitz@hszg.de
             eingeführt hätte.
           </p>
           <p>
-            Wir brauchen noch Regeln für 
+            Wir brauchen noch Regeln für
             <code>&lt;User&gt;</code>. Dies ist ein nichtleerer String aus
-            alphanumerischen Zeichen und dem Punkt 
+            alphanumerischen Zeichen und dem Punkt
             <code>.</code>, wobei
             der Punkt nicht am Anfang und nicht am Ende stehen darf. Also: eine nichtleere Folge von
-            <i>Namensblöcken</i>, die jeweils durch 
+            <i>Namensblöcken</i>, die jeweils durch
             <code>.</code>
-             separiert sind,
+            separiert sind,
             wobei ein Namensblock eine nichtleere Folge alphanumerischer Zeichen ist.
           </p>
 <pre
@@ -1442,14 +1444,14 @@ thomas.schmitz@hszg.de
             Ein Beispiel einer formalen Grammatik und einer Ableitung
           </h2>
           <p>
-            Was Sie hier sehen, nennt man eine 
+            Was Sie hier sehen, nennt man eine
             <i>formale Grammatik</i>. Ihre Bestandteile sind:
           </p>
           <ul>
             <li>
               Das Alphabet \(\Sigma\) aller verwendeten Zeichen, in unserem
               Fall also \(\Sigma = \{a,\dots,z,A,\dots,Z,.,-,@\}\). Wir nennen \(\Sigma\) die Menge
-              der 
+              der
               <i>terminalen Symbole</i>.
             </li>
             <li>
@@ -1459,16 +1461,16 @@ thomas.schmitz@hszg.de
               &lt;User&gt;,&lt;NameBlock&gt;,&lt;Label&gt;,&lt;AlphaNumOrDash&gt;,&lt;AlphaNum&gt;}
               \} \ .
               $$
-              Diese Menge nennen wir die 
+              Diese Menge nennen wir die
               <i>nichtterminalen Symbole</i>. Wir verlangen, dass \(N \cap
               \Sigma
               = \emptyset\) gilt; ein Symbol kann also
               nicht gleichzeitig Terminalsymbol und Nichtterminalsymbol sein.
             </li>
             <li>
-              Eine Menge \(P\) von Regeln, auch 
+              Eine Menge \(P\) von Regeln, auch
               <i>Produktionen</i>
-               genannt, wobei jede Regel die Form
+              genannt, wobei jede Regel die Form
               \(X \rightarrow \alpha\) hat, wobei \(\alpha\) eine beliebig lange endliche Folge von
               Symbolen
               in \(\Sigma \cup N\) ist.
@@ -1477,14 +1479,14 @@ thomas.schmitz@hszg.de
               Ein Startsymbol \(S \in N\), das angibt, wo wir mit unserer Ableitung beginnen sollen. Im
               obigen
               Beispiel
-              sind wir ja an Emailadressen interessiert, also ist 
+              sind wir ja an Emailadressen interessiert, also ist
               <code>&lt;EmailAddress&gt;</code>
-               das
+              das
               Startsymbol.
             </li>
           </ul>
           <p>
-            Wenn wir nun so eine Grammatik gegeben haben, können wir Wörter 
+            Wenn wir nun so eine Grammatik gegeben haben, können wir Wörter
             <i>ableiten</i>; das heißt,
             wir beginnen mit dem
             Startsymbol und ersetzen in jedem Schritt ein nichtterminales Symbol durch die rechte Seite
@@ -1544,13 +1546,13 @@ thomas.schmitz@hszg.de
  
 </pre>
           <p>
-            Nach dem gleichen Schema könnten wir 
+            Nach dem gleichen Schema könnten wir
             <code>d.s.@-.-.--</code>
-             ableiten, was
+            ableiten, was
             darauf schließen lässt, dass unsere Grammatik nicht wirklich das
-            tut, was wir beabsichtigen, dass sie nämlich 
+            tut, was wir beabsichtigen, dass sie nämlich
             <i>zu viele</i>
-             Emailadressen
+            Emailadressen
             herleitet, auch solche, die wir nicht als zulässige Adressen gelten lassen wollen.
           </p>
           <div
@@ -1558,10 +1560,9 @@ thomas.schmitz@hszg.de
           >
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-               
-            </span>Formulieren Sie weitere Regeln, um unsinnige Domainnamen wie 
+              </span>Formulieren Sie weitere Regeln, um unsinnige Domainnamen wie
             <code>-.-.--</code>
             zu verbieten. Wie müssen Sie die obige Grammatik ändern?
           </div>
@@ -1579,15 +1580,13 @@ thomas.schmitz@hszg.de
           <p>
             Wenn wir über formale Sprachen reden, so liegt immer eine (endliche) Menge von
             Symbolen zugrunde, das Alphabet \(\Sigma\). Im Emailadressen-Beispiel war (\Sigma) recht groß:
-            die 52 Buchstaben; 10 Ziffern; die Zeichen 
+            die 52 Buchstaben; 10 Ziffern; die Zeichen
             <code>@ . -</code>
-             
             . Für Java-Programme oder
             andere Programmiersprachen kämen
-            noch weitere Zeichen hinzu, zum Beispiel 
+            noch weitere Zeichen hinzu, zum Beispiel
             <code>+ - / \ { }</code>
-             
-             und so weiter;
+            und so weiter;
             wenn wir alle Unicode-Zeichen miteinschließen, landen wir im Millionenbereich.
             In den theoretischen Beispielen, die in diesem Kurs folgen werden, ist das Alphabet fast immer
             viel kleiner: typische Alphabete zum Beispiel sind \( \{0,1\}\) , \(\{a,b,c,d\}\) oder auch
@@ -1595,15 +1594,15 @@ thomas.schmitz@hszg.de
           </p>
           <p>
             Für ein Alphabet \(\Sigma\) bezeichnen wir mit \(\Sigma^*\) die Menge aller
-            endlichen Strings über diesem Alphabet; das schließt den 
+            endlichen Strings über diesem Alphabet; das schließt den
             <i>leeren String</i>
-             mit ein,
+            mit ein,
             den wir mit \(\epsilon\) bezeichnen. So ist beispielsweise
             $$
             \{a,b\}^* = \{\epsilon, a, b, aa, ab, ba, bb, aaa, aab, aba, ...\}
             $$
             Ein Element \(x \in \Sigma^*\), also einen endlichen String aus \(\Sigma\)-Symbolen,
-            bezeichnen wir als 
+            bezeichnen wir als
             <i>Wort über \(\Sigma\)</i>.
             Mit \(\Sigma^+\) bezeichnen wir die Menge aller nichtleeren Strings, also
             \(\Sigma^+ = \Sigma^* \setminus \{\epsilon\}\).
@@ -1612,12 +1611,12 @@ thomas.schmitz@hszg.de
             Sprachen
           </h2>
           <p>
-            Eine Teilmenge \(L \subseteq \Sigma\) bezeichnen wir in diesem Kontext als 
+            Eine Teilmenge \(L \subseteq \Sigma\) bezeichnen wir in diesem Kontext als
             <i>Sprache</i>
-             und
-            kürzen Sie oft mit \(L\) ab, was für 
+            und
+            kürzen Sie oft mit \(L\) ab, was für
             <i>language</i>
-             steht. Beispiele für Sprachen wären
+            steht. Beispiele für Sprachen wären
           </p>
           <ol>
             <li>
@@ -1676,27 +1675,27 @@ thomas.schmitz@hszg.de
           >
             <span
               class="numbered-title"
-            >Definition 
+            >Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-               
-            </span><b>(Kontextfreie Grammatik).</b>
-            Eine 
+              </span>
+            <b>(Kontextfreie Grammatik).</b>
+            Eine
             <i>kontextfreie Grammatik</i>
-             besteht aus
+            besteht aus
             <ol>
               <li>
-                einem endlichen Alphabet \(\Sigma\), den 
+                einem endlichen Alphabet \(\Sigma\), den
                 <i>terminalen Symbolen</i>;
               </li>
               <li>
-                einer dazu disjunkten endlichen Menge \(N\), genannt die 
+                einer dazu disjunkten endlichen Menge \(N\), genannt die
                 <i>nichtterminalen
-                  Symbole</i>; 
+                  Symbole</i>;
               </li>
               <li>
-                einer endlichen Menge \(P\) von 
+                einer endlichen Menge \(P\) von
                 <i>Produktionsregeln</i>
-                 der Form
+                der Form
                 \(X \rightarrow \alpha\) mit \(X \in N\) und \(\alpha \in (\Sigma \cup \N)^*\);
                 formal also \(P \subseteq N \times (\Sigma \cup \N)^*\).
               </li>
@@ -1707,11 +1706,11 @@ thomas.schmitz@hszg.de
             Die Grammatik \(G\) ist also ein 4-Tupel \((\Sigma, N, P, S)\).
           </div>
           <p>
-            Woher der Name 
+            Woher der Name
             <i>kontextfrei</i>
-             kommt, werden Sie hoffentlich verstehen, wenn wir
+            kommt, werden Sie hoffentlich verstehen, wenn wir
             <i>Ableitungen</i>
-             definiert haben.
+            definiert haben.
             Die Tradition will es, dass wir für die terminalen Symbole
             Zahlen oder lateinsiche Kleinbuchstaben und für die nichtterminalen Symbole
             lateinische Großbuchstaben verwenden.
@@ -1724,15 +1723,14 @@ thomas.schmitz@hszg.de
           >
             <span
               class="numbered-title"
-            >Beispiel 
+            >Beispiel
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-               
-            </span>Wir betrachten die Grammatik \(G = (\{a,b\}, \{S, A, B\}, P, S)\) mit den Produktionsregeln
-            $$\begin{align*}
+              </span>Wir betrachten die Grammatik \(G = (\{a,b\}, \{S, A, B\}, P, S)\) mit den Produktionsregeln
+            \begin{align*}
             S&amp;\rightarrow A B \\
             A&amp;\rightarrow \epsilon \ | \ a A \\
             B&amp;\rightarrow \epsilon \ | \ b B \ . \\
-            \end{align*}$$
+            \end{align*}
             Formal sind die Produktionsregeln \(P\) eine Teilmenge von \( N \times (\Sigma \cup \N)^*\),
             also
             $$
@@ -1740,13 +1738,13 @@ thomas.schmitz@hszg.de
             $$
             Für konkrete Beispiele wie die gerade betrachtete Grammatik jedoch verwenden wir einfach die
             Pfeilschreibweise \(S \rightarrow AB, \dots\). Hier ist
-            eine 
+            eine
             <i>Ableitung</i>
-             basierend auf der Grammatik:
-            $$\begin{align*}
+            basierend auf der Grammatik:
+            \begin{align*}
             S \Rightarrow AB \Rightarrow aAB \Rightarrow aAbB \Rightarrow aAbbB
             \Rightarrow aAbb \Rightarrow abb \ .
-            \end{align*}$$
+            \end{align*}
             <p>
               In jedem Schritt wählen wir ein Nichtterminal aus, zum Beispiel im zweiten Schritt \(A\),
               und wenden eine Regel an, zum Beispiel \(A \rightarrow aA\). Dadurch
@@ -1760,13 +1758,12 @@ thomas.schmitz@hszg.de
           >
             <span
               class="numbered-title"
-            >Definition 
+            >Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-               
-            </span>Gegeben sei eine kontextfreie Grammatik \(G = (\Sigma, N, P, S)\).
-            Ein String \(\alpha \in (\Sigma \cup N)^*\) heißt 
+              </span>Gegeben sei eine kontextfreie Grammatik \(G = (\Sigma, N, P, S)\).
+            Ein String \(\alpha \in (\Sigma \cup N)^*\) heißt
             <i>Wortform</i>
-             (im Gegensatz
+            (im Gegensatz
             zu einem Wort \(x \in \Sigma^*)\).
             Für zwei Wortformen \(\alpha , \beta\) schreiben wir
             $$
@@ -1779,7 +1776,7 @@ thomas.schmitz@hszg.de
             mit Wortformen \(\alpha_1, \alpha_2, \beta_1, \gamma, \beta_2\) und einem Nichtterminal
             \(X\) schreiben können, so dass \(X \rightarrow \gamma \) eine Produktionsregel in \(P\) ist.
             <p>
-              Wenn wir \(\alpha = \beta\) "vorlesen", dann sagen wir 
+              Wenn wir \(\alpha = \beta\) "vorlesen", dann sagen wir
               <i>\(\beta\) kann aus \(\alpha\) in
                 einem Schritt abgeleitet werden</i>.
               Wenn \(\beta\) aus \(\alpha\) in mehreren (im Extremfall null) Schritten
@@ -1796,53 +1793,53 @@ thomas.schmitz@hszg.de
           <p>
             Nochmals: wenn \(\alpha\) die Form \(\alpha_1 X \alpha_2\) hat, dann dürfen Sie
             das Nichtterminal \(X\) durch die rechte Seite einer Produktionsregel \(X \rightarrow \gamma\)
-            ersetzen; Sie dürfen das unabhängig von dem 
+            ersetzen; Sie dürfen das unabhängig von dem
             <i>Kontext</i>, in welchem \(X\) in
-            der Wortform \(\alpha\) vorkommt. Daher rührt der Name 
+            der Wortform \(\alpha\) vorkommt. Daher rührt der Name
             <i>kontextfreie Grammatik</i>.
           </p>
           <p>
-            Beachten Sie, dass \(P\) per Definition eine 
+            Beachten Sie, dass \(P\) per Definition eine
             <i>endliche Menge</i>
-             von Regeln
+            von Regeln
             sein muss, dass jedoch \(\Rightarrow\) im Allgemeinen unendlich ist. Bereits
             für unsere einfache Grammatik mit den Produktionsregeln
           </p>
-          $$\begin{align*}
+          \begin{align*}
           S&amp;\rightarrow A B \\
           A&amp;\rightarrow \epsilon \ | \ a A \\
           B&amp;\rightarrow \epsilon \ | \ b B \ . \\
-          \end{align*}$$
+          \end{align*}
           haben wir beispielsweise
-          $$\begin{align*}
+          \begin{align*}
           A&amp;\rightarrow aA \\
           aA&amp;\rightarrow aaA \\
           aaA&amp;\rightarrow aaaA \\
           \dots
-          \end{align*}$$
+          \end{align*}
           und sehen, dass die Menge aller Paare \(\alpha \Rightarrow \beta\) unendlich ist.
           <div
             class="well container theorem"
           >
             <span
               class="numbered-title"
-            >Definition 
+            >Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-               
-            </span><b>(Die von einer Grammatik erzeugte Sprache).</b>
+              </span>
+            <b>(Die von einer Grammatik erzeugte Sprache).</b>
             Sei \(G = (\Sigma, N, P, S) \) eine kontextfreie Grammatik. Die von \(G\) erzeugte Sprache
             \(L(G)\) ist die Menge aller Wörter, die vom Startsymbol \(S\) abgeleitet werden können, also
-            $$\begin{align*}
+            \begin{align*}
             L(G) := \{x \in \Sigma^* \ | \ S \Rightarrow^* x\} \ .
-            \end{align*}$$
+            \end{align*}
             Wenn es zu einer Sprache \(L \subseteq \Sigma^*\) eine kontextfreie Grammatik \(G\) mit
-            \(L(G) = L\) gibt, so nennen wir \(L\) eine 
+            \(L(G) = L\) gibt, so nennen wir \(L\) eine
             <i>kontextfreie Sprache</i>.
           </div>
           Beachten Sie, dass in dem obigen Beispiel die Wortform
-          \(aaAB\) zwar aus \(S\) abgeleitet werden kann, allerdings kein 
+          \(aaAB\) zwar aus \(S\) abgeleitet werden kann, allerdings kein
           <i>Wort</i>
-           ist,
+          ist,
           da es noch nichtterminale Symbole enthält. Es gilt also \(aaAB \not \in L(G)\).
           Oft können wir \(L(G)\) kompakt mit natürlicher Sprache beschreiben:
         </div>
@@ -1851,9 +1848,9 @@ thomas.schmitz@hszg.de
         >
           <span
             class="numbered-title"
-          >Beispiel 
+          >Beispiel
             <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-             .</span>Sei \(G\) die zuletzt betrachtete Grammatik. Dann ist \(L(G)\) die
+            .</span>Sei \(G\) die zuletzt betrachtete Grammatik. Dann ist \(L(G)\) die
           Menge aller Wörter der Form \(a^* b^*\), also Wörter, in denen auf beliebig viele
           \(a\)'s beliebig viele \(b\)'s folgen.
         </div>
@@ -1865,19 +1862,18 @@ thomas.schmitz@hszg.de
         >
           <span
             class="numbered-title"
-          >Beispiel 
+          >Beispiel
             <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
-             
-          </span>Wir betrachten die Grammatik \(G_2 = (\{a,b\}, \{S\}, P, S)\) mit den Produktionsregeln
-          $$\begin{align}
+            </span>Wir betrachten die Grammatik \(G_2 = (\{a,b\}, \{S\}, P, S)\) mit den Produktionsregeln
+          \begin{align}
           S&amp;\rightarrow aSbS \\
           S&amp;\rightarrow bSaS \\
           S&amp;\rightarrow \epsilon \ .
-          \end{align}$$
+          \end{align}
           Hier sind mögliche Ableitungen des Wortes \(abab\). Zur Verdeutlichung
           schreiben wir über den Pfeil \(\Rightarrow\) die Nummer der Regel, die
           wir angewendet haben:
-          $$\begin{align*}
+          \begin{align*}
           S&amp;\stackrel{(1)}{\Rightarrow} aSbS
           \stackrel{(1)}{\Rightarrow} aSbaSbS
           \stackrel{(3)}{\Rightarrow} aSbaSb
@@ -1888,19 +1884,19 @@ thomas.schmitz@hszg.de
           \stackrel{(1)}{\Rightarrow} abaSbS
           \stackrel{(3)}{\Rightarrow} ababS
           \stackrel{(3)}{\Rightarrow} abab \ .
-          \end{align*}$$
+          \end{align*}
           <p>
             Wir sehen also: das gleiche Wort kann mehrere Ableitungen haben.
-            Da die Ersetzungsregeln 
+            Da die Ersetzungsregeln
             <i>kontextfrei</i>
-             sind, spielt es keine Rolle, in welcher
+            sind, spielt es keine Rolle, in welcher
             Reihenfolge wir nichtterminale Symbole ersetzen. Wenn Sie scharf hinschauen,
             werden Sie erkennen, dass die beiden Ableitungen "irgendwie gleich" sind, dass nur
             die Ableitungen in anderer Reihenfolge durchgeführt worden sind. Ich werde
             das in einem späteren Kapitel formal definieren, was ich mit damit meine.
             Um Ordnung in das Chaos zu bringen, könnten wir uns zum Beispiel einigen,
             dass man immer das am weitesten links stehende Nichtterminal ersetzen muss.
-            Das nennt man eine 
+            Das nennt man eine
             <i>Linksableitung</i>. Dies ist nicht wirklich eine
             Einschränkung, da die Ersetzungsreihenfolge keine Rolle spielt.
             Wir sehen, dass die zweite Ableitung des Wortes \(abab\) oben eine
@@ -1909,17 +1905,17 @@ thomas.schmitz@hszg.de
             angibt, ist eindeutig, wie wir von \(S\) zum abgeleiteten Wort gekommen sind.
             Betrachten Sie nun eine weitere Linksableitung \(S \Rightarrow^* abab\):
           </p>
-          $$\begin{align*}
+          \begin{align*}
           S&amp;\stackrel{(1)}{\Rightarrow} aSbS
           \stackrel{(2)}{\Rightarrow} abSaSbS
           \stackrel{(3)}{\Rightarrow} abaSbS
           \stackrel{(3)}{\Rightarrow} ababS
           \stackrel{(3)}{\Rightarrow} abab
-          \end{align*}$$
+          \end{align*}
           <p>
-            Sehen Sie, dass diese Ableitung 
+            Sehen Sie, dass diese Ableitung
             <i>qualitativ</i>
-             anders ist, da
+            anders ist, da
             wir hier auch die Regel \(S \rightarrow bSaS\) angewendet haben? Um die
             Struktur der Ableitung zu verdeutlichen, könnten wir
             die ersten beiden Ableitungen mit
@@ -1947,9 +1943,9 @@ thomas.schmitz@hszg.de
           >Algorithmisches Problem: Parsing</span>Gegeben eine (kontextfreie) Grammatik \(G\) und ein Zielwort \(x\),
           finde eine Ableitung \(G \Rightarrow^* x\), falls es so eine gibt.
           <p>
-            Für einen String \(x\) eine Ableitung zu finden bezeichnen wir als 
+            Für einen String \(x\) eine Ableitung zu finden bezeichnen wir als
             <i>parsen</i>,
-            das zugehörige Hauptwort als 
+            das zugehörige Hauptwort als
             <i>Parsing</i>.
           </p>
         </div>
@@ -1957,30 +1953,30 @@ thomas.schmitz@hszg.de
           <b>Die gute Nachricht:</b>
           Die gute Nachricht: wir kennen Algorithmen, die dieses
           Problem im effizient lösen, wenn wir den "theoretischen" Effizienzbegriff
-          zugrund legen. 
+          zugrund legen.
         </p>
         <p>
           <b>Die schlechte Nachricht:</b>
-           wir kennen keinen Algorithmus,
+          wir kennen keinen Algorithmus,
           der das Parsing kontextfreier Sprachen in seiner ganzen Allgemeinheit
-          in 
+          in
           <i>linearer Zeit</i>
-           erledigt, dessen Laufzeit also proportional zur Länge des Zielwortes
+          erledigt, dessen Laufzeit also proportional zur Länge des Zielwortes
           \(x\) ist. Dies ist aber, was wir in der Praxis, zum Beispiel bei Compilern, erwarten.
         </p>
         <p>
           <b>Die gute Nachricht:</b>
-           in fast allen praktisch relevanten Fällen haben
+          in fast allen praktisch relevanten Fällen haben
           wir es mit Grammatiken zu tun, die Parsing in linearer Zeit ermöglichen.
           Und wenn wir Programmiersprachen, Datenformate etc. entwerfen, haben wir es ja in der Hand,
-          Sprache und Grammatik so anzulegen, dass effizientes Parsen möglich ist. 
+          Sprache und Grammatik so anzulegen, dass effizientes Parsen möglich ist.
         </p>
         <p>
           Im nächsten Kapitel lernen wir eine stark eingeschränkte, aber dennoch sehr wichtige Klasse
           kontextfreier Grammatik kennen, die allesamt ein sehr effizientes Parsing
-          erlauben: die sogenannten 
+          erlauben: die sogenannten
           <i>regulären</i>
-           Grammatiken. 
+          Grammatiken.
         </p>
       </div>
     </div>

@@ -70,19 +70,19 @@
             class="alert-info"
           >
             Den vollständigen Quelltext, den wir in der Vorlesung geschrieben haben,
-            finden Sie in der Datei 
+            finden Sie in der Datei
             <a
               href="../code/parsing/arithmetic-in-class/ArithmeticGrammar.java"
             >ArithmeticGrammar.java</a>.
           </div>
           <p>
             Ich möchte nun eine kontextfreie Grammatik für arithmetische Ausdrücke der
-            Form 
+            Form
             <tt>((31+402)*83)</tt>
-             entwerfen. Der Einfachheit halber bestehe ich
-            auf strenger Klammerung, so wäre 
+            entwerfen. Der Einfachheit halber bestehe ich
+            auf strenger Klammerung, so wäre
             <tt>(2*(1+2+3))</tt>
-             zum Beispiel nicht erlaubt.
+            zum Beispiel nicht erlaubt.
             Unsere Grammatik soll allgemeine Dezimalzahlen darstellen können.
             Das Alphabet ist somit
             $\Sigma = \{\texttt{0},\texttt{1},\texttt{2},\texttt{3},\texttt{4},
@@ -90,7 +90,7 @@
             \texttt{+},\texttt{*},\texttt{(},\texttt{)}\}$.
             Die Produktionsregeln sind:
           </p>
-          $$\begin{align*}
+          \begin{align*}
           E&amp;\rightarrow N \tag{JustNumber} \\
           E&amp;\rightarrow \texttt{(}E \texttt{+} E\texttt{)} \tag{Sum} \\
           E&amp;\rightarrow \texttt{(}E \texttt{*} E\texttt{)} \tag{Product}\\
@@ -98,15 +98,15 @@
           N&amp;\rightarrow ND \tag{NumberDigit} \\
           D&amp;\rightarrow \texttt{0}\ | \ \texttt{1}\ | \ \texttt{2}\ | \ \texttt{3}\ | \ \texttt{4}\ | \
           \texttt{5}\ | \ \texttt{6}\ | \ \texttt{7}\ | \ \texttt{8}\ | \ \texttt{9}
-          \end{align*}$$
+          \end{align*}
           <p>
             Die Nichtterminale sind also $E$ (Expression), $N$ (Number) und $D$ (Digit). Wir haben auch
             den einzelnen Produktionen Namen gegeben, bis auf die der Form $D \rightarrow i$.
             Was soll nun unser Parser tun? Er soll, gegeben ein Eingabewort $w \in L$, den
             <i>Ableitungsbaum</i>
-             konstruieren, für 
+            konstruieren, für
             <tt>((31+402)*83)</tt>
-             also
+            also
           </p>
           <figure>
             <img
@@ -134,53 +134,53 @@
           <ul>
             <li>
               <tt>interface Expression</tt>
-               wird implementiert von
+              wird implementiert von
               <ul>
                 <li>
-                  <tt>class Sum</tt>, die als Klassenvariable 
+                  <tt>class Sum</tt>, die als Klassenvariable
                   <tt>Exrepssion e1, e2</tt>
-                   enthält,
+                  enthält,
                 </li>
                 <li>
-                  <tt>class Product</tt>, die als Klassenvariable 
+                  <tt>class Product</tt>, die als Klassenvariable
                   <tt>Exrepssion e1, e2</tt>
-                   enthält,
+                  enthält,
                 </li>
                 <li>
-                  <tt>class JustNumber</tt>, die als Klassenvariable nur eine 
+                  <tt>class JustNumber</tt>, die als Klassenvariable nur eine
                   <tt>Number number</tt>enthält;
                 </li>
               </ul>
             </li>
             <li>
               <tt>interface Number</tt>
-               wird implementiert von
+              wird implementiert von
               <ul>
                 <li>
                   <tt>class MultiDigitNumber</tt>, die als Klassenvariable eine<tt>Number</tt>
-                   und eine 
+                  und eine
                   <tt>Digit</tt>
-                   erhält und
+                  erhält und
                 </li>
                 <li>
-                  <tt>class SingleDigitNumber</tt>, die als Klassenvariable ein 
+                  <tt>class SingleDigitNumber</tt>, die als Klassenvariable ein
                   <tt>Digit</tt>enthält;
                 </li>
               </ul>
             </li>
             <li>
               <tt>interface Digit</tt>
-               wird implementiert von<tt>class DigitOne</tt>,<tt>class DigitTwo</tt>,<tt>class DigitThree</tt>,<tt>class DigitFour</tt>,<tt>class DigitFive</tt>,<tt>class DigitSix</tt>,<tt>class DigitSeven</tt>,<tt>class DigitEight</tt>
-               und<tt>class DigitNine</tt>.
+              wird implementiert von<tt>class DigitOne</tt>,<tt>class DigitTwo</tt>,<tt>class DigitThree</tt>,<tt>class DigitFour</tt>,<tt>class DigitFive</tt>,<tt>class DigitSix</tt>,<tt>class DigitSeven</tt>,<tt>class DigitEight</tt>
+              und<tt>class DigitNine</tt>.
             </li>
           </ul>
           <p>
-            In unserem Anwendungsfall hat jedes Interface eine Methode<tt>public int toInt()</tt>. Interface 
+            In unserem Anwendungsfall hat jedes Interface eine Methode<tt>public int toInt()</tt>. Interface
             <tt>Expression</tt>
-             hat zusätzlich noch
-            die Methode 
+            hat zusätzlich noch
+            die Methode
             <tt>String toPrefixNotation()</tt>. Ich schreibe auch ein
-            Über-Interface 
+            Über-Interface
             <tt>ParseObject</tt>, das alle Interfaces zusammenfasst.
             Um uns das Debugging zu erleichtern, überschreibe ich in jeder Klasse die Methode<tt>public String toString()</tt>.
           </p>

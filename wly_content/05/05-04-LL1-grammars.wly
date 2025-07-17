@@ -8,22 +8,18 @@
         id=link-to-toc
         |> a
             href=../vorlesungsskript.html
-
             Inhaltsverzeichnis
         |> a
             href=05-03-exercise-design-grammars.html
-
             &lt;&lt; Kapitel 5.3
     |> div
         id=link-to-overview
         style=text-align: end
         |> a
             href=/
-
             zur Kursübersicht
         |> a
             href=05-05-a-LR-parsing-by-hand.html
-
             Kapitel 5.5 &gt;&gt;
     |> div
         id=rightSideWrapper
@@ -37,19 +33,16 @@
                         class=hidden-title
                         |> span
                             class=subChapterTitle
-
                             ::::ChapterCtr.::++SectionCtr
                             LL(\(k\))-Grammatiken
                     |> div
                         class=well container theorem
                         |> span
                             class=numbered-title
-
                             Definition 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                            &ensp;
+                            \ 
                         *Grenzform*
                         Sei \(G = (\Sigma, N, S, P)\) eine kontextfreie Grammatik.
                         Eine Wortform \(A \alpha\) - also eine Wortform, die mit einem Nichtterminal beginnt -
@@ -70,18 +63,16 @@
                         class=well container theorem
                         |> span
                             class=numbered-title
-
                             Definition 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                            &ensp;
+                            \ 
                         Für ein Wort \(w \in \Sigma^*\) und eine natürliche Zahl \(k \in \N\)
                         sei \(\first_k(w)\) wie folgt definiert:
                         \begin{align*}
                         \first_k(w) := \begin{cases}
-                        w&amp;\textnormal{ wenn $|w| \lt k$} \\
-                        u&amp;\textnormal{ wenn $w = uv$ und $|u| = k$}
+                        w&\textnormal{ wenn $|w| \lt k$} \\
+                        u&\textnormal{ wenn $w = uv$ und $|u| = k$}
                         \end{cases}
                         \end{align*}
                         In Worten: \(\first_{k}(w)\) besteht aus den ersten \(k\) Zeichen
@@ -90,23 +81,21 @@
                         class=well container theorem
                         |> span
                             class=numbered-title
-
                             Definition 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                            &ensp;
+                            \ 
                         *LL(\(k\))-Grammatiken*
                         Eine kontextfreie Grammatik \(G = (\Sigma, N, S, P)\) ist eine
                         LL(\(k\))-Grammatik, wenn für jede Grenzform \(A \alpha\) und für jedes Paar
                         \begin{align*}
-                        A&amp;\step{1} \beta \\
-                        A&amp;\step{2} \gamma
+                        A&\step{1} \beta \\
+                        A&\step{2} \gamma
                         \end{align*}
                         verschiedener Produktionen (also \(\beta \ne \gamma\)) folgendes gilt: wenn
                         \begin{align*}
-                        A\alpha&amp;\Step{1} \beta \alpha \Step{}^* x \\
-                        A\alpha&amp;\Step{2} \gamma \alpha \Step{}^* y \\
+                        A\alpha&\Step{1} \beta \alpha \Step{}^* x \\
+                        A\alpha&\Step{2} \gamma \alpha \Step{}^* y \\
                         \end{align*}
                         dann müssen sich \(x\) und \(y\) in den ersten \(k\) Zeichen unterscheiden, also
                         \begin{align*}
@@ -119,51 +108,44 @@
                         class=well well-lg numbered-exercise container
                         |> span
                             class=numbered-title
-
                             Übungsaufgabe 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++ExoCtr
-                            &ensp;
+                            \ 
                         Negieren Sie die Definition, d.h., schreiben Sie eine Aussage der Form
                         _Wenn \(G\) nicht LL(\(k\)) ist, dann gibt es..._
                     |> div
                         class=well container theorem
                         |> span
                             class=numbered-title
-
                             Beispiel 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                            &ensp;
+                            \ 
                         Die Klammern-Grammatik
                         \begin{align*}
-                        S&amp;\step{1} \epsilon \\
-                        S&amp;\step{2} (S)S
+                        S&\step{1} \epsilon \\
+                        S&\step{2} (S)S
                         \end{align*}
                         ist LL(1).
                         |> div
                             class=well subtheorem
-
                             *Beweis.*
                             Folgen wir der Definition von LL(1): für jedes Paar verschiedener Regeln muss etwas
                             gelten. Wir haben hier keine Auswahl, denn es gibt ja nur ein Paar. Also
                             müssen wir zeigen, dass, falls
                             \begin{align*}
-                            S \Step{}^* wS\alpha&amp;\Step{1} w \alpha \Step{}^* w x \\
-                            S \Step{}^* wS\alpha&amp;\Step{2} w \texttt{(}S\texttt{)}S \alpha \Step{}^* w y \\
+                            S \Step{}^* wS\alpha&\Step{1} w \alpha \Step{}^* w x \\
+                            S \Step{}^* wS\alpha&\Step{2} w \texttt{(}S\texttt{)}S \alpha \Step{}^* w y \\
                             \end{align*}
                             gilt, dann auch \(\first_1(x) \ne \first_2(y)\) gilt.
                             Offensichtlich ist \(\first_2(y) = \) "\(\texttt{(}\)".
                             Was kann \(\first_k(x)\) sein?
                             |> p
-
                                 *Behauptung.* Wenn \(S \rightarrow \delta \in (\Sigma \cup N)^*\),
                                 dann steht jedes \(S\) in \(\delta\) entweder am Ende von \(\delta\) oder
                                 unmittelbar vor einem "\(\texttt{)}\)".
                             |> p
-
                                 Das folgt per Induktion über die Länge der Ableitung. Wenn es also für \(\delta\) gilt
                                 und wir die Produktion \(S \rightarrow (S)S\) auf \(\delta\) anwenden,
                                 dann gilt es für jedes "alte" \(S\) und auch für die beiden neu erzeugten;
@@ -171,17 +153,15 @@
                                 die Behauptung gilt aber nach wie vor für alle anderen \(S\) in \(\delta\).
                                 |> span
                                     class=qed
-
                                     \(\square\)
                             |> p
-
                                 Wir folgern also, dass für das \(\alpha\) den beiden obigne
                                 Herleitungen \(\first_k(\alpha) \in \{\epsilon, \texttt{)}\}\) gilt.
                                 Keines davon ist ein Nichtterminal, und so muss auch
                                 \(\first_k(\alpha) = \first_k(x)\) gelten. Zusammenfassend gesagt:
                                 \begin{align*}
-                                \first_k(x)&amp;\in \{\epsilon, \texttt{)}\} \\
-                                \first_y(y)&amp;= \texttt{(} \ ,
+                                \first_k(x)&\in \{\epsilon, \texttt{)}\} \\
+                                \first_y(y)&= \texttt{(} \ ,
                                 \end{align*}
                                 und somit sind sie verschieden.
                                 Wir folgern, dass \(G\) eine LL(1)-Grammatik ist.
@@ -196,12 +176,11 @@
                     (Regeln wie \(X \rightarrow YbZ\) zum Beispiel ersetzen einfach das erste Nichtterminal),
                     aber "moralisch" geschieht etwas ähnliches).
                     |> p
-
                         Wenn umgekehrt eine Grammatik _nicht_ LL(\(k\)) ist, dann muss der Backtrack-Baum
                         beiden Ableitungen
                         \begin{align*}
-                        w A \alpha&amp;\Rightarrow w \beta \alpha \\
-                        w A \alpha&amp;\Rightarrow w \gamma \alpha \\
+                        w A \alpha&\Rightarrow w \beta \alpha \\
+                        w A \alpha&\Rightarrow w \gamma \alpha \\
                         \end{align*}
                         mindestens so lange weiterverfolgen, bis der
                         Terminalpräfix \(k\) weitere Zeichen dazugewonnen hat. Der Baum bekommt also dementsprechend
@@ -210,24 +189,21 @@
                         class=well well-lg numbered-exercise container
                         |> span
                             class=numbered-title
-
                             Übungsaufgabe 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++ExoCtr
-                            &ensp;
+                            \ 
                         (Beispiel 5.3 aus _The Theory of Parsing, Translation, and Compiling_ von Alfred V. Aho
                         und Jeffrey D. Ullman).
                         Betrachten wir die Grammatik
                         \begin{align*}
-                        S&amp;\step{1} \epsilon \\
-                        S&amp;\step{2} ab A \\
-                        A&amp;\step{3} Saa \\
-                        A&amp;\step{4} b
+                        S&\step{1} \epsilon \\
+                        S&\step{2} ab A \\
+                        A&\step{3} Saa \\
+                        A&\step{4} b
                         \end{align*}
                         Zeigen Sie, dass diese Grammatik LL(2) ist, aber nicht LL(1).
                         |> p
-
                             *Tip.* Leiten Sie erst einmal
                             ein Dutzend verschiedene Wörter ab und finden dann
                             eine "normalsprachliche" Beschreibung
@@ -237,12 +213,10 @@
                         class=well well-lg numbered-exercise container
                         |> span
                             class=numbered-title
-
                             Übungsaufgabe 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++ExoCtr
-                            &ensp;
+                            \ 
                         Schreiben Sie eine äquivalente Grammatik zu der vorherigen Sprache, die LL(1) ist.
                         (Warnung: Ich weiß nicht, ob das überhaupt geht).
                     |> div
@@ -250,17 +224,15 @@
                         class=well well-lg numbered-exercise container
                         |> span
                             class=numbered-title
-
                             Übungsaufgabe 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++ExoCtr
-                            &ensp;
+                            \ 
                         Betrachten wir die Grammatik \(G\):
                         \begin{align*}
-                        S&amp;\step{1} a S b \\
-                        S&amp;\step{2} a S \\
-                        S&amp;\step{3} \epsilon
+                        S&\step{1} a S b \\
+                        S&\step{2} a S \\
+                        S&\step{3} \epsilon
                         \end{align*}
                         Sie erzeugt die Sprache
                         \begin{align*}
@@ -269,27 +241,22 @@
                         also Wörter, wo auf beliebig viele \(a\)'s eine Folge von
                         _höchstens_ so vielen \(b\)'s folgt.
                         |> p
-
                             Geben Sie diese Grammatik in den
                             |> a
                                 href=../../demos/drawManualGrammar.html
-
                                 Parser-Simulator
                             ein und finden Wörter mit langen Sackgassen.
                         |> p
-
                             Zeigen Sie, dass diese Grammatik nicht LL\((k)\) ist, für kein
                             \(k \in \N\).
                     |> div
                         class=well well-lg numbered-exercise container
                         |> span
                             class=numbered-title
-
                             Übungsaufgabe 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++ExoCtr
-                            &ensp;
+                            \ 
                         Sei \(t \in \N\) eine feste, im Voraus bekannte Zahl.
                         Betrachten wir die Sprache
                         \begin{align*}
@@ -298,23 +265,19 @@
                         also die Wörter der Form \(a^m b^n\) mit
                         \(n \leq m \leq n+t\).
                         |> p
-
                             Schreiben Sie für \(L_3\) eine Grammatik,
                             geben Sie diese im
                             |> a
                                 href=../../demos/drawManualGrammar.html
-
                                 Parser-Simulator
-                            &ensp;ein
+                            \ ein
                             und schauen, wie lang die Sackgassen werden können.
                         |> p
-
                             Zeigen Sie, dass \(L_3\) eine LL\((k)\)-Grammatik ist. Für welchen
                             Wert von \(k\)? Ist
                             \(L_t\) (für im Voraus bekanntes \(t\)) eine
                             LL\((k)\)-Grammatik? Für welchen Wert von \(k\)?
                     |> h2
-
                         LL\((k)\)-Grammatiken parsen
                     Wir wollen nun erarbeiten, wie wir für eine LL\((k)\)-Grammatik
                     einen Parser, also im Prinzip einen deterministischen Pushdown-Automaten
@@ -326,12 +289,10 @@
                         class=well container theorem
                         |> span
                             class=numbered-title
-
                             Definition 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                            &ensp;
+                            \ 
                         Sei eine kontextfreie Grammatik \(G = (\Sigma, N, S, P)\) und eine
                         Wortform \(\alpha \in (\Sigma \cup N)^*\) gegeben.
                         Wir definieren
@@ -343,25 +304,22 @@
                         class=well container theorem
                         |> span
                             class=numbered-title
-
                             Definition 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                            &ensp;/Beobachtung
+                            \ /Beobachtung
                         Eine Grammatik \(G\) ist LL\((k)\) genau dann, wenn
                         für alle Grenzformen \(A \alpha\) und alle
                         Produktionen mit \(A\) auf der linken Seite, also
                         \begin{align*}
-                        A&amp;\rightarrow \beta_1 \\
-                        A&amp;\rightarrow \beta_2 \\
-                        &amp;\vdots\\
-                        A&amp;\rightarrow \beta_l
+                        A&\rightarrow \beta_1 \\
+                        A&\rightarrow \beta_2 \\
+                        &\vdots\\
+                        A&\rightarrow \beta_l
                         \end{align*}
                         die Mengen \(\First(\beta_i \alpha)\) paarweise disjunkt sind (wenn also keine
                         zwei dieser Mengen ein gemeinsames Element enthalten).
                     |> p
-
                         Nehmen wir eine Momentaufnahme unseres Kellerautomaten. Er
                         hat den Präfix \(x\) des Eingabewortes \(xy\) gelesen und
                         eine Linksableitung
@@ -375,7 +333,6 @@
                         \(c\) beginnt. Wenn ja, lesen wir \(c\) und poppen es vom Stack. Der
                         schwierige Fall ist, wenn \(\alpha\) mit einem Nichtterminal beginnt.
                     |> p
-
                         Nochmal von vorn: im schwierigen Fall liegt auf dem Stack (oberhalb vom \(\$\))
                         eine Wortform, die mit einem Nichtterminal beginnt, also
                         \(A \alpha\). Das bedeutet, dass der Automat per Linksableitung
@@ -385,10 +342,10 @@
                         \end{align*}
                         hergeleitet hat. Der Automat muss sich nun zwischen allen Regeln für \(A\) entscheiden:
                         \begin{align*}
-                        A&amp;\rightarrow \beta_1 \\
-                        A&amp;\rightarrow \beta_2 \\
-                        &amp;\vdots\\
-                        A&amp;\rightarrow \beta_l \ .
+                        A&\rightarrow \beta_1 \\
+                        A&\rightarrow \beta_2 \\
+                        &\vdots\\
+                        A&\rightarrow \beta_l \ .
                         \end{align*}
                         Der Automat betrachtet nun die nächsten \(k\) Eingabesymbole, also
                         \(\first_k(y)\) (wir gehen
@@ -416,106 +373,82 @@
                     |> div
                         class=well container
                         |> p
-
                             *Generischer Algorithmus zum Parsen von LL\((k)\)-Gramatiken*
                         |> ol
                             class=nested
                             |> li
-
                                 Lege \(S\texttt{\$}\) auf den Stack.
                             |> li
                                 |> tt
-
                                     while
-                                &ensp;Stack nicht leer
+                                \ Stack nicht leer
                             |> ol
                                 class=nested
                                 |> li
-
                                     Sei \(y\) das Resteingabewort.
                                 |> li
-
                                     Wenn das oberste Symbol auf dem Stack ein Terminalsymbol \(c\) ist:
                                     |> ul
                                         |> li
-
                                             Lies das nächste Eingabesymbol \(c'\).
                                         |> li
-
                                             Wenn \(c = c'\), poppe \(c\) vom Stack;
                                         |> li
-
                                             ansonsten 
                                             |> tt
-
                                                 Reject
                                             .
                                 |> li
-
                                     Wenn das oberste Symbol auf dem Stack ein Nichtterminalsymbol
                                     \(A\) ist:
                                     |> ol
                                         class=nested
                                         |> li
-
                                             Schreibe den Stack als \(A \alpha\)
                                         |> li
-
                                             Seien \(A \rightarrow \beta_1, \dots, A \rightarrow \beta_l\)
                                             alle Produktionen mit \(A\) auf der linken Seite.
                                         |> li
                                             |> span
                                                 style=color:red; font-weight: bold;
-
                                                 Berechne \(\First_k(\beta_i\alpha)\) für alle \(\beta_i\) und
                                                 schaue, welches \(\first_k(y)\) enthält
                                             |> ul
                                                 |> li
-
                                                     Wenn es genau eine solche Produktion
                                                     \(A \rightarrow \beta_i\) gibt: wende Sie an; es ist die richtige
                                                     Produktion.
                                                 |> li
-
                                                     Wenn es keine gibt: 
                                                     |> tt
-
                                                         Reject
                                                     . Das Wort kann nicht
                                                     abgeleitet werden.
                                                 |> li
-
                                                     Wenn es mehrere gibt: ende mit einem Laufzeitfehler;
                                                     die Grammatik ist nicht LL\((k)\).
                                 |> li
-
                                     Wenn das oberste Symbol \(\texttt{\$}\) ist:
                                     wenn Eingabewort zu Ende 
                                     |> tt
-
                                         Accept
-                                    &ensp;ansonsten 
+                                    \ ansonsten 
                                     |> tt
-
                                         Reject
                     |> p
-
                         Die rot und fett gedruckte Zeile ist das "Herz" dieses Algorithmus. Um den Algorithmus
                         implementieren zu können, müssen wir es schaffen,
                         die Menge \(\First_k(\beta_i\alpha)\) zu berechnen.
                     |> h2
-
                         \(\First_k(A)\) und \(\First_k(\alpha)\) berechnen.
                     |> div
                         class=well container theorem
                         |> span
                             class=numbered-title
-
                             Definition 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                            &ensp;
+                            \ 
                         Seien \(K, L \subseteq \Sigma^*\) zwei Mengen.
                         Mit \(K \circ L\) bezeichnen wir die Menge
                         \begin{align*}
@@ -529,11 +462,10 @@
                         Weiterhin bezeichnen wir mit
                         \(K \circ_k L\) die Menge
                         \begin{align*}
-                        K \circ_k L&amp;:= \First(K \circ L) \\
-                        &amp;= \{\first_k(xy) \ | \ x \in K, y \in L\} \ .
+                        K \circ_k L&:= \First(K \circ L) \\
+                        &= \{\first_k(xy) \ | \ x \in K, y \in L\} \ .
                         \end{align*}
                     |> p
-
                         Im Allgemeinen gilt
                         \(\First_k(S_1 \circ \dots \circ S_l) = S_1 \circ_k S_2 \circ_k \dots \circ_k S_l\).
                         In Worten: der \(\circ_k\)-Operator bildet alle möglichen Kombinationen von Wörtern und nimmt
@@ -542,16 +474,14 @@
                         class=well container theorem
                         |> span
                             class=numbered-title
-
                             Beispiel 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                            &ensp;
+                            \ 
                         Sei
                         \begin{align*}
-                        K&amp;:= \{\epsilon, a, ab, aba\} \\
-                        L&amp;:= \{c, bb, b\}
+                        K&:= \{\epsilon, a, ab, aba\} \\
+                        L&:= \{c, bb, b\}
                         \end{align*}
                         Dann ist
                         \begin{align*}
@@ -559,19 +489,17 @@
                         \end{align*}
                         und somit
                         \begin{align*}
-                        K \circ_2 L&amp;= \{c, bb, b, ac, ab, ab, ab, ab, ab, ab, ab, ab\} \\
-                        &amp;=\{c, bb, b, ac, ab\}
+                        K \circ_2 L&= \{c, bb, b, ac, ab, ab, ab, ab, ab, ab, ab, ab\} \\
+                        &=\{c, bb, b, ac, ab\}
                         \end{align*}
                     |> div
                         class=well container theorem
                         |> span
                             class=numbered-title
-
                             Beobachtung 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                            &ensp;
+                            \ 
                         *- Wie man \(\First_k(\alpha)\) berechnet.*
                         Sei eine Wortform \(\alpha\) gegeben, also
                         \(\alpha \in (\Sigma \cup N)^*\). Wir berechnen
@@ -588,42 +516,33 @@
                         \label{first-k-wortform}
                         \end{align}
                         |> p
-
                             Wir können dies schön der Reihe nach tun:
                         |> ol
                             class=nested
                             |> li
-
                                 Initialisiere \(K := \{\epsilon\}\)
                             |> li
                                 |> tt
-
                                     for
-                                &ensp;\(i=n\) 
+                                \ \(i=n\) 
                                 |> tt
-
                                     down to
-                                &ensp;1 
+                                \ 1 
                                 |> tt
-
                                     do:
                                 |> ul
                                     class=nested
                                     |> li
-
                                         \(K := \First_k(\sigma_i) \circ_k K \)
                                         |> span
                                             class=comment
-
                                             // \(K\) ist jetzt
                                             \(\First_k(\sigma_i) \circ_k \dots \circ_k \First_k(\sigma_n)\)
                             |> li
                                 |> tt
-
                                     return
-                                &ensp;\(K\)
+                                \ \(K\)
                         |> p
-
                             Wir müssen nur noch herausfinden, wie wir
                             \(\First_k(\sigma)\) für einzelne Zeichen \(\sigma\) berechnen.
                     Für ein Terminalsymbol \(c\) ist es trivial, \(\First_k(c)\) zu berechnen:
@@ -634,18 +553,16 @@
                         class=well container theorem
                         |> span
                             class=numbered-title
-
                             Beobachtung 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                            &ensp;
+                            \ 
                         Sei \(X\) ein Nichtterminal und
                         \begin{align*}
-                        X&amp;\rightarrow \alpha_1 \\
-                        X&amp;\rightarrow \alpha_2 \\
-                        &amp;\vdots \\
-                        X&amp;\rightarrow \alpha_k
+                        X&\rightarrow \alpha_1 \\
+                        X&\rightarrow \alpha_2 \\
+                        &\vdots \\
+                        X&\rightarrow \alpha_k
                         \end{align*}
                         die Produktionen der Grammatik mit \(X\) auf der linken Seite. Dann gilt
                         \begin{align}
@@ -658,7 +575,6 @@
                         und somit
                         gilt \(\first_k(w)\in \First_k(\alpha_i)\).
                     |> p
-
                         Die Gleichungen \((\ref{first-k-wortform})\) und \((\ref{first-k-nonterminal})\) leuchten zwar
                         ein, scheinen aber erstmal
                         nicht hilfreich, diese Mengen auch tatsächlich zu berechnen. Denn eventuell taucht \(X\) selbst
@@ -669,7 +585,6 @@
                         \((\ref{first-k-wortform})\) allerdings zuerst
                         unter Anderem die Menge \(\First_k(X)\). Wo sollen wir also anfangen?
                     |> p
-
                         In solchen Situationen, wo sich "die Katze in den Schwanz beißt", hilft es oft, die Definition
                         vorerst _komplexere_ un
                         _genauer_ zu machen. Wir führen nun, zusätzlich zu \(\First_k(X)\) und
@@ -679,12 +594,10 @@
                         class=well container theorem
                         |> span
                             class=numbered-title
-
                             Definition 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                            &ensp;
+                            \ 
                         Sei \(\sigma\) ein Symbol und \(d \in \N\). Dann ist
                         \begin{align*}
                         \First_k^{(d)}(\sigma) := \{\first_k(w) \ | \ \textnormal{ es gibt einen Ableitungsbaum für
@@ -694,16 +607,14 @@
                         class=well container theorem
                         |> span
                             class=numbered-title
-
                             Beispiel 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                            &ensp;
+                            \ 
                         Sei unsere Grammatik
                         \begin{align*}
-                        S&amp;\rightarrow Xa \\
-                        X&amp;\rightarrow Sb \ | c
+                        S&\rightarrow Xa \\
+                        X&\rightarrow Sb \ | c
                         \end{align*}
                         Dann ist beispielsweise
                         |> figure
@@ -729,7 +640,6 @@
                         Eine Ableitung \(\alpha \Step{}^* w\) der Höhe maximal \(d\) entspricht also einer Folge
                         von \(n\) Ableitungsbäumen, von denen jeder Höhe maximal \(d\) hat.
                     |> p
-
                         Mit dieser Definition können wir nun Gleichungen für \(\First_k^{(d)}(X)\) und
                         \(\First_k^{(d)}(\alpha)\) angeben.
                         Seien \(X \rightarrow \alpha_1 \ | \ \dots \ | \ \alpha_k\) die Produktionen mit \(X\) auf der
@@ -739,28 +649,25 @@
                         class=well container theorem
                         |> span
                             class=numbered-title
-
                             Lemma 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                            &ensp;.
+                            \ .
                         Für \(d \geq 1\) gilt
                         \begin{align*}
-                        \First_k^{(d)}(X)&amp;= \bigcup_{i=1}^k \First_k^{(d-1)} (\alpha_i) \\
-                        \First_k^{(d)}(\alpha)&amp;= \First_k^{(d)}(\sigma_1) \circ_k \First_k^{(d)}(\sigma_2) \circ_k
+                        \First_k^{(d)}(X)&= \bigcup_{i=1}^k \First_k^{(d-1)} (\alpha_i) \\
+                        \First_k^{(d)}(\alpha)&= \First_k^{(d)}(\sigma_1) \circ_k \First_k^{(d)}(\sigma_2) \circ_k
                         \dots \circ_k \First_k^{(d)}
                         \end{align*}
                         Für \(d = 0\) gilt
                         \begin{align*}
-                        \First_k^{(0)}(X)&amp;:= \emptyset \tag{für jedes Nichtterminal}
+                        \First_k^{(0)}(X)&:= \emptyset \tag{für jedes Nichtterminal}
                         \end{align*}
                         und schließlich
                         \begin{align*}
-                        \First_k^{(d)}(a)&amp;:= \{a\} \tag{für jedes Terminalsymbol und jedes \(d \in \N\)}
+                        \First_k^{(d)}(a)&:= \{a\} \tag{für jedes Terminalsymbol und jedes \(d \in \N\)}
                         \end{align*}
                     |> p
-
                         Die Gleichungen sagen, dass wir, falls wir \(\First_{k}^{(d-1)}(X)\) für alle Nichtterminale
                         kennen,
                         dann auch \(\First_{k}^{(d)}(X)\) berechnen können.
@@ -772,12 +679,10 @@
                         class=well container theorem
                         |> span
                             class=numbered-title
-
                             Beobachtung 
                             |> NumberedTitle
-
                                 ::::ChapterCtr.::::SectionCtr.::++DefCtr
-                            &ensp;
+                            \ 
                         Falls \(\First_{k}^{(d-1)}(X)=\First_{k}^{(d)}(X)\) für alle \(X \in N\), dann gilt
                         \begin{align*}
                         \First_k (X) = \First_k^{(d)}(X)
@@ -787,13 +692,12 @@
                         class=well container theorem
                         |> span
                             class=numbered-title
-
                             Demo.
                         *- Berechnung der Menge \(\First_k(A)\) für die Nichtterminale einer Sprache.*
                         Wir betrachten die Grammatik
                         \begin{align*}
-                        S&amp;\rightarrow Xa \ | \ \epsilon \\
-                        X&amp;\rightarrow b \ | \ Sc \ | \ SX
+                        S&\rightarrow Xa \ | \ \epsilon \\
+                        X&\rightarrow b \ | \ Sc \ | \ SX
                         \end{align*}
                     |> figure
                         class=centered-figure well container

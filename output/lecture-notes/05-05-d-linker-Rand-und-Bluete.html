@@ -71,9 +71,9 @@
             wie wir für eine gültige Wortform $\gamma$
             den korrekten Linksreduktionsschritt
           </p>
-          $$\begin{align*}
+          \begin{align*}
           \gamma = \alpha \beta w \rstep{} \alpha X w
-          \end{align*}$$
+          \end{align*}
           <p>
             finden. Als erstes müssen wir uns überlegen,
             wie die Front $\front(\gamma) = \alpha \beta$
@@ -84,9 +84,9 @@
           <p>
             Zur Erinnerung:
             Zu jeder Ableitung \(S \Step{}^* w \in \Sigma^*\) können wir
-            eindeutig einen 
+            eindeutig einen
             <i>Ableitungsbaum</i>
-             zeichnen. Wenn die Grammatik
+            zeichnen. Wenn die Grammatik
             eindeutig ist, so hängt auch der Baum nur vom Wort \(w \in L(G)\) ab und
             nicht von der Ableitung \(S \Step{}^* w\).
             Allerdings können wir für Zwischenformen
@@ -96,12 +96,12 @@
             Ich zeige Ihnen jetzt ein Beispiel für eine Grammatik und
             eine Handvoll Ableitungen samt Ableitungsbaum.
           </p>
-          $$\begin{align*}
+          \begin{align*}
           G&amp;: \\
           S&amp;\rightarrow AB \\
           A&amp;\rightarrow xBS \ | \ Bz \\
           B&amp;\rightarrow yAS \ | \ Az \ | \ x \ | \ y \ | \ z
-          \end{align*}$$
+          \end{align*}
           <p>
             Es ist zu diesem Zeitpunkt irrelevant, ob \(G\) eindeutig
             oder sogar \(LR(0)\) ist. Ich interessiere mich
@@ -220,7 +220,7 @@
             class="well container subtheorem"
           >
             <b>Auflösung.</b>
-             Hier sehen Sie noch einmal
+            Hier sehen Sie noch einmal
             den gleichen Baum, nun aber gewisse Teile verschieden umrandet / eingefärbt.
           </div>
           <figure>
@@ -242,25 +242,26 @@
           >
             <span
               class="numbered-title"
-            >Definition 
+            >Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-                / Beobachtung</span><b>(Stamm, linker Rand, Blüte, Front, rechter Rest)</b>
+              / Beobachtung</span>
+            <b>(Stamm, linker Rand, Blüte, Front, rechter Rest)</b>
             Sei \(S \Step{}^* \gamma\) eine Rechtsableitung, \(\gamma\) also
             eine gültige Wortform, und
             \(\mathcal{T}\) der Ableitungsbaum von \(\gamma\).
-            Der 
+            Der
             <i>Stamm</i>
-             ist der Pfad von der Wurzel zu jenem inneren Knoten \(u\),
+            ist der Pfad von der Wurzel zu jenem inneren Knoten \(u\),
             der von allen inneren Knoten, deren Kinder allesamt Blätter sind,
             am weistesten links steht.
-            Die Kinder von \(u\), per Definition alles Blätter, sind die 
+            Die Kinder von \(u\), per Definition alles Blätter, sind die
             <i>Blüte</i>.
             Die Menge der Knoten, die einen Stammknoten als rechtes Geschwister haben,
-            heißt der 
+            heißt der
             <i>linke Rand</i>. Jeder Knoten \(v\) im linken Rand
             muss ein Blatt sein, ansonsten stünde er ja weiter links als \(u\);
             die Menge der rechten Geschwisterkinder von Stammknoten sowie deren Nachkommen
-            heißt der 
+            heißt der
             <i>rechte Rand</i>.
             Im rechten Rest ist jedes Blatt ein
             Terminalsymbol, ansonsten wäre es keine Rechtsableitung.
@@ -271,19 +272,19 @@
               sind ausschließlich mit Terminalen beschriftet und ergeben ein
               Wort \(w \in \Sigma^*\). Der ganze Baum stellt also eine Rechtsableitung
             </p>
-            $$\begin{align*}
+            \begin{align*}
             S \Step{R}^* \alpha \beta w
-            \end{align*}$$
+            \end{align*}
             dar. Die Wortform $\alpha\beta$, also linker Rand plus Blüte, nennen wir
-            die 
+            die
             <i>Front</i>
-             von $\mathcal{T}$ und schreiben sie als $\front(\mathcal{T})$.
-            Wir sagen auch, dass \(\beta\) 
+            von $\mathcal{T}$ und schreiben sie als $\front(\mathcal{T})$.
+            Wir sagen auch, dass \(\beta\)
             <i>eine Blüte von \(\gamma\)</i>
-             und
-            $\alpha\beta$ die 
+            und
+            $\alpha\beta$ die
             <i>Front</i>
-             von $\gamma$ ist,
+            von $\gamma$ ist,
             ohne über den Ableitungsbaum \(\mathcal{T}\) selbst zu reden.
             Hierbei ist zu beachten, dass in einer mehrdeutigen Grammatik
             eine gültige Wortform mehrere Ableitungsbäume und somit
@@ -297,9 +298,9 @@
               \(\alpha A w\) eine gültige Wortform; wir erhalten den Ableitungsbaum
               von \(\alpha A w\), indem wir die Blüte von \(\mathcal{T}\) entfernen.
               Wir schließen, dass
-              $$\begin{align*}
+              \begin{align*}
               \alpha \beta w \rstep{} \alpha A w
-              \end{align*}$$
+              \end{align*}
               ein korrekter Linksreduktionsschritt ist.
             </p>
           </div>
@@ -516,21 +517,20 @@
           >
             <span
               class="numbered-title"
-            >Definition 
+            >Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-               
-            </span>Für eine kontextfreie Grammatik \(G\) definieren wir
+              </span>Für eine kontextfreie Grammatik \(G\) definieren wir
             die Sprache \(\Front(G) \subseteq (\Sigma \cup N)^*\):
-            $$\begin{align*}
+            \begin{align*}
             \Front(G) := \{\front(\mathcal{T}) \ | \ \mathcal{T}
             \textnormal{ ist der Ableitungsbaum einer Rechtsableitung }
             S \Step{R}^* \gamma \}
-            \end{align*}$$
+            \end{align*}
             alternativ
-            $$\begin{align*}
+            \begin{align*}
             \Front(G) := \{\alpha \beta \ | \ S \Steps{R} \alpha X w
             \Step{R} \alpha \beta w \}
-            \end{align*}$$
+            \end{align*}
             also die Menge aller Wortformen, die Front einer gültigen Wortform
             sind.
           </div>
@@ -540,10 +540,9 @@
             <p>
               <span
                 class="numbered-title"
-              >Lemma 
+              >Lemma
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-                 
-              </span>Die Sprache $\Front(G)$ ist regulär.
+                </span>Die Sprache $\Front(G)$ ist regulär.
               Insbesondere gibt es eine erweitert reguläre Grammatik \(\hat{G}\) für
               $\Front(G)$, so dass die Blüte genau die im letzen Ableitungsschritt
               erzeugten Terminalsymbole sind.
@@ -551,7 +550,7 @@
           </div>
           <p>
             Hier ist etwas Mentalgymnastik vonnöten: aus Sicht der Sprache
-            $\Front(G)$ sind \(\Sigma \cup N\) 
+            $\Front(G)$ sind \(\Sigma \cup N\)
             <i>Terminalsymbole</i>. Sie können
             ja schließlich in den Wörtern der Sprache auftauchen.
             Die Grammatik \(\hat{G}\) hat also die Terminalsymbole
@@ -583,28 +582,27 @@
           >
             <span
               class="numbered-title"
-            >Definition 
+            >Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-               
-            </span>Sei \(G = (\Sigma, N, S, P)\) eine kontextfreie Grammatik. Die
+              </span>Sei \(G = (\Sigma, N, S, P)\) eine kontextfreie Grammatik. Die
             Front-Grammatik oder DK-Grammatik von \(G\) ist
-            die 
+            die
             <i>erweitert reguläre</i>
-             Grammatik \(\hat{G} = (\Sigma \cup N, \hat{N}, \hat{S},
+            Grammatik \(\hat{G} = (\Sigma \cup N, \hat{N}, \hat{S},
             \hat{P})\)
             mit \(\hat{N} := \{\hat{X} \ | \ X \in N\}\), wobei
             \(\hat{P}\) für jede \(G\)-Produktion
-            $$\begin{align*}
-            A \rightarrow w_0 A_1 w_1 A_2 w_2 \dots w_{k-1} A_k w_k
-            \end{align*}$$
+            \begin{align*}
+            A \rightarrow w<i>0 A</i>1 w<i>1 A</i>2 w<i>2 \dots w</i>{k-1} A<i>k w</i>k
+            \end{align*}
             mit \(w_i \in \Sigma^*\) die Produktionen
-            $$\begin{align*}
-            \hat{A}&amp;\rightarrow w_0 \hat{A}_1 \\
-            \hat{A}&amp;\rightarrow w_0 A_1 w_1 \hat{A}_2 \\
+            \begin{align*}
+            \hat{A}&amp;\rightarrow w<i>0 \hat{A}</i>1 \\
+            \hat{A}&amp;\rightarrow w<i>0 A</i>1 w<i>1 \hat{A}</i>2 \\
             &amp;\vdots \\
-            \hat{A}&amp;\rightarrow w_0 A_1 w_1 A_2 w_2 \dots A_{k-1} w_{k-1} \hat{A}_k \\
-            \hat{A}&amp;\rightarrow w_0 A_1 w_1 A_2 w_2 \dots w_{k-1} A_k w_k
-            \end{align*}$$
+            \hat{A}&amp;\rightarrow w<i>0 A</i>1 w<i>1 A</i>2 w<i>2 \dots A</i>{k-1} w<i>{k-1} \hat{A}</i>k \\
+            \hat{A}&amp;\rightarrow w<i>0 A</i>1 w<i>1 A</i>2 w<i>2 \dots w</i>{k-1} A<i>k w</i>k
+            \end{align*}
             besitzt.
           </div>
           <div
@@ -612,10 +610,9 @@
           >
             <span
               class="numbered-title"
-            >Beobachtung 
+            >Beobachtung
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-               
-            </span>\(\hat{G}\) erzeugt die Sprache
+              </span>\(\hat{G}\) erzeugt die Sprache
             \(\Front(G)\).
           </div>
           <div
@@ -623,15 +620,14 @@
           >
             <span
               class="numbered-title"
-            >Beispiel 
+            >Beispiel
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
-               
-            </span>Für unsere Grammatik \(G\) oben ergeben sich folgende Produktionen
+              </span>Für unsere Grammatik \(G\) oben ergeben sich folgende Produktionen
             \(\hat{P}\) in \(\hat{G}\):
-            $$\begin{align*}
+            \begin{align*}
             \begin{array}{l|l}
             \textnormal{Produktion in $G$}
-            &
+            &amp;
             \textnormal{Produktion in $\hat{G}$} \\
             &amp;{\dk{S}} \rightarrow \dk{A}\\
             S \rightarrow AB&amp;{\dk{S}} \rightarrow \dkt{A} \dk{B}\\
@@ -655,7 +651,7 @@
             B \rightarrow y&amp;\dk{B} \rightarrow \dkt{y} \\
             B \rightarrow z&amp;\dk{B} \rightarrow \dkt{z} \\
             \end{array}
-            \end{align*}$$
+            \end{align*}
           </div>
           <p>
             Nochmals: Produktionen wie
@@ -669,7 +665,8 @@
           >
             <span
               class="numbered-title"
-            >Algorithmus</span><b>- Der \(LR(0)\)-Parser.</b>
+            >Algorithmus</span>
+            <b>- Der \(LR(0)\)-Parser.</b>
             Starte mit einem leerem Stack. Sei
             \(\gamma\) der Inhalt des Stacks zu einem Zeitpunkt.
             <ol>
@@ -679,9 +676,9 @@
                 \(\hat{X} \rightarrow \beta\) und schreibe
                 \(\gamma = \alpha\beta\). Wende die \(G\)-Produktion
                 \(X \rightarrow \beta\) rückwärts an, reduziere also
-                $$\begin{align*}
+                \begin{align*}
                 \alpha \beta \rstep{} \alpha X
-                \end{align*}$$
+                \end{align*}
                 Konkret: lösche \(\beta\) vom Stack und ersetze es durch \(A\).
               </li>
               <li>
@@ -698,10 +695,9 @@
           >
             <span
               class="numbered-title"
-            >Theorem 
+            >Theorem
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
-               
-            </span>Wenn der \(LR(0)\)-Parser akzeptiert, dann hat er eine Linksreduktion
+              </span>Wenn der \(LR(0)\)-Parser akzeptiert, dann hat er eine Linksreduktion
             \(w \rstep{}^* S\) und somit eine Rechtsableitung konstruiert; es gilt
             also \(w \in L(G)\).
             <p>
@@ -720,7 +716,7 @@
               Jeder Reduktionsschritt ist ein Linksreduktionsschritt, und
               wenn man Ende $S$ steht, waren es auch alles
               <i>korrekte</i>
-               Linksreduktionsschritte.
+              Linksreduktionsschritte.
             </p>
             <p>
               Der zweite Teil ist schwieriger. Wir nehmen also
@@ -758,24 +754,24 @@
                 Das heißt nach Definition von $\Front(G)$, dass es ein \(w' \in \Sigma^*\) gibt,
                 so dass \(\gamma w'\) eine gültige Wortform ist
                 und $\gamma = \front(\gamma w')$. Also
-                $$\begin{align*}
+                \begin{align*}
                 S \Step{R}^* \alpha A w' \Step{R}^* \alpha \beta w'
-                \end{align*}$$
+                \end{align*}
                 mit $\gamma = \alpha \beta$. Es sind $\alpha$ und $\beta$ also
                 linker Rand und Blüte von $\gamma w'$. Somit ist
-                $$\begin{align}
+                \begin{align}
                 \alpha \beta w' \rstep{} \alpha' A w'
                 \label{left-reduction-w'}
-                \end{align}$$
+                \end{align}
                 ein korrekter Linksreduktionsschritt.
                 Die letzte $\dk{G}$-Produktion
                 in der Ableitung von $\dk{S} \Step{}^* \gamma$ war somit
                 $\dk{A} \rightarrow \beta$; somit ersetzt der Parser
                 das $\beta$ auf dem Stack durch $A$; führt also die Linksreduktion
-                $$\begin{align}
+                \begin{align}
                 \alpha \beta w \rstep{} \alpha A w
                 \label{left-reduction-w}
-                \end{align}$$
+                \end{align}
                 an. Da (\ref{left-reduction-w'}) korrekt ist und
                 $\alpha \beta w$ nach Invariante eine gültige Wortform ist, ist
                 nach LR(0)-Bedingung auch (\ref{left-reduction-w}) ein korrekter
@@ -797,9 +793,9 @@
                 dass Teil (ii) vor dem Schritt galt, also $\gamma$ ein Präfix
                 von $\front(\gamma w)$ ist; zweitens, dass
                 \(\gamma \not \in \Front(G)\) ist (sonst hätte der Parser Schritt 1 angewandt); somit
-                ist $\gamma$ ein 
+                ist $\gamma$ ein
                 <i>echter</i>
-                 Präfix von $\front(\gamma w)$ und somit
+                Präfix von $\front(\gamma w)$ und somit
                 ist $\gamma c$ immer noch ein Präfix von $\front(\gamma w)$.
               </li>
             </ol>

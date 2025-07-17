@@ -84,7 +84,7 @@
             Neue Maschine bauen. Verschlüsselung brechen? Neue Maschine bauen. Und so weiter.
           </p>
           <p>
-            Die Idee einer 
+            Die Idee einer
             <a
               href="https://en.wikipedia.org/wiki/Mechanical_calculator#Programmable_mechanical_calculators"
             >programmierbaren
@@ -93,10 +93,10 @@
             die zu multiplizierenden Zahlen) auch
             die Rechenvorschrift (das Programm) als Eingabe übergibt. Hätte man so eine Maschine, dann
             müsste man nicht für jede neue Aufgabe
-            eine neue Maschine entwerfen; man könnte 
+            eine neue Maschine entwerfen; man könnte
             <i>eine</i>
-             Maschine bauen und sie für die jeweilige
-            Aufgabe 
+            Maschine bauen und sie für die jeweilige
+            Aufgabe
             <i>programmieren</i>, indem
             ihr auf einem separaten Eingabeband die Rechenvorschrift überreicht. Von heute aus gesehen ist
             diese Idee nicht mehr allzu überraschend, weil
@@ -120,17 +120,17 @@
             Rechenvorschrift können wir, da sind wir uns mittlerweile
             recht sicher, als Turingmaschine \(M\) implementieren. Diese können wir über einem Alphabet
             codieren und erhalten ein Wort
-            \(\enc(M)\). Wie tun wir das? Nun ja, auf 
+            \(\enc(M)\). Wie tun wir das? Nun ja, auf
             <a
               href="https://turingmachinesimulator.com"
             >turingmachinesimulator.com</a>
-             haben wir das
+            haben wir das
             bereits getan:
             eine Turingmaschine mit Alphabet \(\Sigma\) können wir dort als String über dem Alphabet
-            $$\begin{align*}
+            \begin{align*}
             \Sigma \cup \{a,\dots,z,A\dots,Z,0,\dots,9\} \cup \{\texttt{&lt;}, \texttt{-}, \texttt{&gt;},
             \texttt{,}, \texttt{_}, \texttt{\n}, \dots\}
-            \end{align*}$$
+            \end{align*}
             codieren. Codierung ist im Prinzip kein Problem, wir werden aber ein paar Subtilitäten
             ansprechen.
           </p>
@@ -139,11 +139,11 @@
             \(\enc(M)\) einer Turingmaschine und (2) ein Eingabewort
             \(w \in \Sigma^*\) entgegennimmt und dann die Berechnung \(M(x)\) simuliert bzw. zu dem Ergebnis
             gelangt, zu dem auch \(M(x)\) gelangen würde?
-            Die Programmierer von 
+            Die Programmierer von
             <a
               href="https://turingmachinesimulator.com"
             >turingmachinesimulator.com</a>
-             haben dies
+            haben dies
             offensichtlich geschafft:
             sie haben eine Maschine "gebaut" (also wohl einen Server gemietet und eine Webseite mit viel
             Javascript programmiert), der
@@ -157,9 +157,9 @@
             als
             Turingmaschine implementieren kann. Also eine Turingmaschine \(U\), die als Input Wörter der
             Form
-            $$\begin{align*}
+            \begin{align*}
             c\#x
-            \end{align*}$$
+            \end{align*}
             entgegennimmt und dann
           </p>
           <ol
@@ -176,7 +176,7 @@
               >
                 <li>
                   <b>akzeptiert</b>
-                   falls \(M(x)\) akzeptiert;
+                  falls \(M(x)\) akzeptiert;
                 </li>
                 <li>
                   <b>ablehnt</b>, falls \(M(x)\) ablehnt
@@ -203,39 +203,40 @@
           gibt es keinen Grund, für die Definitionen nicht allgemeine endliche Alphabete \(\Sigma\)
           zuzulassen. Wir wollen
           nun ein Codierungsalphabet \(\Lambda\) und eine Codierungsfunktion \(\enc\), so dass
-          $$\begin{align*}
-          \enc(M) \in \Lambda^*
-          \end{align*}$$
+          \begin{align*}
+          \enc(M) \in \Lambda^<b>
+            \end{align</b>}
           für jede Turingmaschine \(M\) mit Eingabealphabet \(\Sigma\) gilt.
           <p>
             <b>Erster, zum scheitern verurteilter Versuch.</b>
-             Sei \(M\) eine Turingmaschine
+            Sei \(M\) eine Turingmaschine
             mit Eingabealphabet \(\Sigma\), Arbeitsalphabet \(\Gamma\), Zustandsmenge \(Q\), Startzustand
             \(\qstart\), akzeptierendem Zustand
             \(\qaccept\) und Übergangsfunktion \(\delta\).
             Wir codieren \(M\) wie folgt: wenn
-            $$\begin{align*}
+            \begin{align*}
             \delta(q,x) = (r,y,\texttt{R}) \\
             \delta(q,y) = (s,z,\texttt{L}) \\
             \dots
-            \end{align*}$$
+            \end{align*}
             dann schreiben wir in der Codierung
-            $$\begin{align*}
+            \begin{align*}
             \qstart \# \qaccept \# qxryR \# qyszL \# \dots
-            \end{align*}$$
+            \end{align*}
             Unser Codierungsalphabet ist also
-            $$\begin{align*}
+            \begin{align*}
             \Lambda := Q \cup \Gamma \cup \{\#, \texttt{L}, \texttt{S}, \texttt{R}\} \ .
-            \end{align*}$$
+            \end{align*}
             Sehen Sie das Problem? Das Codierungsalphabet ist nicht uniform: wir brauchen, abhängig von der
             Zustandsmenge \(Q\) und
             dem Bandalphabet \(\Gamma\) jeweils neue Alphabete. Wir wollen aber ein \(\Lambda\), da für
             <i>alle</i>
-             Turingmaschinen
+            Turingmaschinen
             mit Eingabealphabet \(\Sigma\) funktioniert.
           </p>
           <p>
             <b>Zweiter, erfolgreicher Versuch.</b>
+            
           </p>
           Wir müssen also die Zustandsmenge \(Q\) und die Zeichen \(\Gamma \setminus \Sigma\) erst einmal
           selbst codieren, beispielsweise
@@ -256,9 +257,9 @@
             >
           </figure>
           <p>
-            Wenn wir dies nun als 
+            Wenn wir dies nun als
             <i>ein</i>
-             Wort in obigen Schema schreiben, können wir für eine
+            Wort in obigen Schema schreiben, können wir für eine
             Tabellenzelle
             \(\delta(q,x) = (r,y,R)\) nicht einfach \(qxryR\) schreiben, auch nicht einfach die Codierungen
             zusammenschreiben:
@@ -279,24 +280,24 @@
             In dieser Codierung behalten wir zwei Konventionen bei: wenn eine Regel
             "fehlt", also beispielsweise für \(\delta(10,a)\) die Zelle leer ist, dann
             soll das in den Zustand $\qreject$ führen; wenn in der Zelle
-            nur ein Richtungszeichen, also beispielsweise 
+            nur ein Richtungszeichen, also beispielsweise
             <tt>01,1,R</tt>
-             steht,
+            steht,
             dann ist das eine Abkürzung für
-            $$\begin{align*}
+            \begin{align*}
             \delta(01,1) = (01,1,\texttt{R}),
-            \end{align*}$$
+            \end{align*}
             also<tt>#01,1,01,1,R#</tt>
           </p>
           <p>
-            Wir können nun 
+            Wir können nun
             <i>jede</i>
-             Turingmaschine
+            Turingmaschine
             über dem Alphabet
             \(\Sigma\) codieren als Wort über dem Alphabet
-            $$\begin{align*}
+            \begin{align*}
             \Lambda := \writelambda
-            \end{align*}$$
+            \end{align*}
           </p>
           <div
             class="well container theorem"
@@ -304,11 +305,11 @@
             <p>
               <span
                 class="numbered-title"
-              >Definition 
+              >Definition
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-                 /Beobachtung.</span>
-               Zu einem Eingabealphabet
-              $\Sigma$ definieren wir das 
+                /Beobachtung.</span>
+              Zu einem Eingabealphabet
+              $\Sigma$ definieren wir das
               <i>Codierungsalphabet</i>
               $\Lambda := \writelambda$,
               wobei wir annehmen, dass $\texttt{#}, \texttt{,}, \texttt{L}, \texttt{S}, \texttt{R},
@@ -321,10 +322,9 @@
             class="alert-info container"
           >
             <b>Anmerkungen:</b>
-             
-             das Wort 
+            das Wort
             <i>Codierung</i>
-             suggeriert, dass wir, gegeben
+            suggeriert, dass wir, gegeben
             den String $c = \enc(M)$ die
             ursprüngliche Turingmaschine $M$ rekonstruieren können. Das gilt natürlich nur
             beschränkt: eventuell decodieren wir $c$ zu einer Maschine $M'$, die sich

@@ -82,9 +82,9 @@
           </figure>
           <p>
             Ein Pfeil beschreibt also nicht unbedingt einen Zustandsübergang, der
-            <i>geschieht</i>, sondern einen, der 
+            <i>geschieht</i>, sondern einen, der
             <i>möglich</i>
-             ist. Formal
+            ist. Formal
             gesprochen ist \(\delta\) nun keine Funktion mehr, sondern eine
             <i>Relation</i>:
           </p>
@@ -93,10 +93,10 @@
           >
             <span
               class="numbered-title"
-            >Definition 
+            >Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-               
-            </span><b>(Nichtdeterministischer endlicher Automat, non-deterministic finite state machine)</b>
+              </span>
+            <b>(Nichtdeterministischer endlicher Automat, non-deterministic finite state machine)</b>
             Ein nichtdeterministischer endlicher Automat besteht aus
             <ul>
               <li>
@@ -121,7 +121,7 @@
           </div>
           Von nun an bezeichnen wir endliche Automaten auch als
           <i>deterministische</i>
-           endliche Automaten, um den Unterschied zu den
+          endliche Automaten, um den Unterschied zu den
           nichtdeterministischen zu verdeutlichen. Wenn in einem deterministischen
           endlichen Automaten \(\delta(q,x) = q'\) war, so hatte das die Bedeutung
           <i>wenn der Automat im Zustand \(q\) ist und \(x\) liest, so geht er in Zustand \(q'\) über</i>; wenn nun in einem nichtdeterministischen Automaten \((q,x,q') \in
@@ -134,10 +134,10 @@
           >
             <span
               class="numbered-title"
-            >Definition 
+            >Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-               
-            </span><b>(Erweiterte Zuständsübergangsfunktion)</b>.
+              </span>
+            <b>(Erweiterte Zuständsübergangsfunktion)</b>.
             <p>
               Für einen nichtdeterministischen endlichen Automaten \((\Sigma, Q,
               \qstart, F, \delta)\) definieren wir die
@@ -162,10 +162,9 @@
           >
             <span
               class="numbered-title"
-            >Beobachtung 
+            >Beobachtung
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-               
-            </span>Sei \(M = (\Sigma, Q, \qstart, F, \delta)\) ein nichtdeterministischer
+              </span>Sei \(M = (\Sigma, Q, \qstart, F, \delta)\) ein nichtdeterministischer
             endlicher Automat. Dann gibt es eine reguläre Grammatik \(G\) mit
             \(L(G) = L(M)\).
           </div>
@@ -174,12 +173,12 @@
             identisch mit dem Beweis von<a
               href="./04-02-finite-state-machines.html#theorem-fsm-regular"
             >Theorem 4.2.5</a>; wir haben nämlich in jenem Beweis nirgends verwendet, dass
-            \(\delta\) eine 
+            \(\delta\) eine
             <i>Funktion</i>
-             ist, und daher geht mit einem
-            \(\delta\), das eine 
+            ist, und daher geht mit einem
+            \(\delta\), das eine
             <i>Relation</i>
-             ist, alles ganz genau gleich.
+            ist, alles ganz genau gleich.
             Allerdings gilt nun auch der Umkehrschluss: zu einer regulären
             Grammatik gibt es einen nichtdeterministischen endlichen Automaten:
           </p>
@@ -189,10 +188,9 @@
           >
             <span
               class="numbered-title"
-            >Theorem 
+            >Theorem
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-               
-            </span>Sei \(G = (\Sigma, N, P, S)\) eine reguläre Grammatik. Dann gibt es
+              </span>Sei \(G = (\Sigma, N, P, S)\) eine reguläre Grammatik. Dann gibt es
             einen nichtdeterministischen endlichen Automaten \(M\) mit \(L(G) =
             L(M)\).
           </div>
@@ -226,15 +224,14 @@
           >
             <span
               class="numbered-title"
-            >Beispiel 
+            >Beispiel
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-               
-            </span>
+              </span>
             <p>
               Wir betrachten abermals die<a
                 href="./04-01-regular-grammars.html#example-aaabb"
-              >reguläre Grammatik aus dem vorherigen Kapitel 4.1</a>: $$\begin{align*} S&amp;\rightarrow \epsilon \ |\ a S \ | \ b T \\ T&
-              \rightarrow \epsilon \ | \ b T \ \end{align*}$$ und auch den
+              >reguläre Grammatik aus dem vorherigen Kapitel 4.1</a>: \begin{align*} S&amp;\rightarrow \epsilon \ |\ a S \ | \ b T \\ T&amp;
+              \rightarrow \epsilon \ | \ b T \ \end{align*} und auch den
               (falschen) endlichen Automaten, den wir im letzten Kapitel dafür
               gebaut haben:
             </p>
@@ -247,7 +244,7 @@
             </figure>
             <p>
               Wir sehen nun, dass dies genau der nichtdeterministische Automat
-              ist, den wir nach 
+              ist, den wir nach
               <a
                 href="#theorem-nfsm-regular"
               >Theorem 4.3.4</a>bauen können. Die Zustandsübergangsrelation \(\delta\) ist $$ \delta
@@ -264,32 +261,31 @@
           >
             <span
               class="numbered-title"
-            >Beispiel 
+            >Beispiel
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
-               
-            </span>
+              </span>
             <p>
               Wir betrachten die<a
                 href="./04-01-regular-grammars.html#exercise-no-a-or-no-b"
               >reguläre Grammatik aus Übungsaufgabe 4.1.7</a>:
             </p>
-            $$\begin{align*} S&amp;\rightarrow A \ | \ B \\ A&amp;\rightarrow \epsilon \
+            \begin{align*} S&amp;\rightarrow A \ | \ B \\ A&amp;\rightarrow \epsilon \
             | \ b A \ | \ c A \\ B&amp;\rightarrow \epsilon \ | \ a B \ | \ c B
-            \end{align*}$$
+            \end{align*}
             <p>
               Bevor wir einen nichtdeterministischen Automaten bauen können,
               müssen wir erst die Produktionen der Form \(X \rightarrow Y\)
               eliminieren bzw. ersetzen. Wenn Sie Aufgabe 4.1.7 gelöst haben,
               haben Sie wahrscheinlich in etwa folgende Grammatik erhalten:
             </p>
-            $$\begin{align*} S&amp;\rightarrow \epsilon \ | \ bA \ | \ cA \ | \ aB \ |
+            \begin{align*} S&amp;\rightarrow \epsilon \ | \ bA \ | \ cA \ | \ aB \ |
              cB\\ A&amp;\rightarrow \epsilon \ | \ bA \ | \ cA \\ B&amp;\rightarrow
-            \epsilon \ | \ aB \ | \ cB \end{align*}$$ Also insgesamt 11 statt 8
+            \epsilon \ | \ aB \ | \ cB \end{align*} Also insgesamt 11 statt 8
             Produktionen. Alle Nichtterminale erlauben auf ihrer rechten Seite ein
             \(\epsilon\) und werden so zu akzeptierenden Zuständen. Die
-            Zustandsübergangsrelation \(\delta\) ist also $$\begin{align*} \delta&
+            Zustandsübergangsrelation \(\delta\) ist also \begin{align*} \delta&amp;
             = \{(S,b,A), (S,c,A), (S,a,B), (S,c,B), (A,b,A), (A,c,A), (B,a,B),
-            (B,c,B)\} \end{align*}$$ Der nichtdeterminische Automat schaut also so
+            (B,c,B)\} \end{align*} Der nichtdeterminische Automat schaut also so
             aus:
             <figure>
               <img
@@ -305,10 +301,9 @@
           >
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-               
-            </span>Sei \(\Sigma = \{1\}\) und \(L_k := \{1^n \ | \textnormal{ $n$ ist
+              </span>Sei \(\Sigma = \{1\}\) und \(L_k := \{1^n \ | \textnormal{ $n$ ist
             durch $k$ teilbar} \}\). Schreiben Sie für \(L_k\) einen
             deterministischen endlichen Automaten.
             <p>
@@ -687,8 +682,8 @@
             für den \(q \stackrel{x}{\rightarrow} q'\) gilt. Formal gesprochen:
             für eine Menge \(R \subseteq Q\) von Zuständen (die, die gerade einen
             "Punkt" haben) und ein Eingabe-Symbol \(x\) definieren wir
-            $$\begin{align*} \Delta(R, x) := \{q' \in Q \ | \ \textnormal{ es gibt }
-             q \in R \textnormal{ mit } q \step{x} q'\} \end{align*}$$ Für ein
+            \begin{align*} \Delta(R, x) := \{q' \in Q \ | \ \textnormal{ es gibt }
+             q \in R \textnormal{ mit } q \step{x} q'\} \end{align*} Für ein
             Eingabewort \(\alpha= x_1 \dots x_n\) fangen wir nun mit \(R_0 =
             \{\qstart\}\) an, das entspricht dem einen roten Punkt auf dem
             Startzustand, und berechnen dann jeweils \(R_i = \Delta(R_{i-1},
@@ -700,8 +695,8 @@
             definiert haben: wir haben eine Zustandsübergangsfunktion definiert,
             die nun aber nicht auf Zuständen sondern auf Zustands<i>mengen</i>
             operiert. Das heißt, im Gegensatz zu \(\delta\), das eine Funktion
-            \(\delta: Q \times \Sigma \rightarrow Q\) ist, ist $$\begin{align*}
-            \Delta: 2^Q \times \Sigma \rightarrow 2^Q \ . \end{align*}$$ Wenn Sie
+            \(\delta: Q \times \Sigma \rightarrow Q\) ist, ist \begin{align*}
+            \Delta: 2^Q \times \Sigma \rightarrow 2^Q \ . \end{align*} Wenn Sie
             die Schreibweise \(2^Q\) nicht kennen: dies ist die Potenzmenge von
             \(Q\), also die Menge aller Untermengen, was die leere Menge
             \(\emptyset\) und die "volle Menge" \(Q\) selbst miteinschließt. Wir
@@ -713,20 +708,20 @@
           >
             <span
               class="numbered-title"
-            >Theorem 
+            >Theorem
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
-               
-            </span><b>(Einen nichtdeterministischen endlichen Automaten deterministisch
+              </span>
+            <b>(Einen nichtdeterministischen endlichen Automaten deterministisch
               machen).</b>
             Sei \(M = (\Sigma, Q, \qstart, F, \delta)\) ein nichtdeterministischer
             Automat; dann heiße der deterministische Automat \(M' = (\Sigma, 2^Q,
             \{\qstart\}, \mathcal{F}, \Delta)\) mit Endzustandsmenge
-            \(\mathcal{F}\) definiert als $$\begin{align*} \mathcal{F} := \{X
-            \subseteq Q \ | \ X \cap F \ne \emptyset\} \end{align*}$$ und
-            Zustandsübergangsfunktion \(\Delta\) definiert als $$\begin{align*}
+            \(\mathcal{F}\) definiert als \begin{align*} \mathcal{F} := \{X
+            \subseteq Q \ | \ X \cap F \ne \emptyset\} \end{align*} und
+            Zustandsübergangsfunktion \(\Delta\) definiert als \begin{align*}
             \Delta : \quad&amp;2^Q \times \Sigma \rightarrow 2^Q \\&amp;(R, x) \mapsto
             \{q' \in Q \ | \ \textnormal{ es gibt } \ q \in R \textnormal{ mit } q
-            \step{x} q'\} \end{align*}$$ der 
+            \step{x} q'\} \end{align*} der
             <i>Potenzmengenautomat</i>. Es gilt
             \(L(M) = L(M')\).
           </div>
@@ -739,10 +734,9 @@
           >
             <span
               class="numbered-title"
-            >Theorem 
+            >Theorem
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.8</NumberedTitle>
-               
-            </span>Zu jeder regulären Sprache \(L\) gibt es einen deterministischen
+              </span>Zu jeder regulären Sprache \(L\) gibt es einen deterministischen
             endlichen Automaten \(M\) mit \(L(M) = L\).
           </div>
           <div
@@ -750,19 +744,18 @@
           >
             <span
               class="numbered-title"
-            >Beispiel 
+            >Beispiel
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.9</NumberedTitle>
-               
-            </span>Der obige nichtdeterminische Automaten \(M\), der die Sprache aller
+              </span>Der obige nichtdeterminische Automaten \(M\), der die Sprache aller
             Wörter, deren viertletztes Zeichen eine 1 ist, akzeptiert, hat fünf
             Zustände. Sein Potenzmengenautomat \(M'\) hätte also \(2^5 = 32\).
             Allerdings sehen wir, dass alle "relevanten" Zustände von \(M\) den
             Zustand \(A\) enthalten. Dieser wird nie verschwinden. Also sehen wir,
             dass man \(M'\) mit 16 Zuständen implementieren kann (die anderen,
-            die, die nicht \(A\) enthalten, sind 
+            die, die nicht \(A\) enthalten, sind
             <i>unerreichbar</i>). Da 16
             immer noch recht groß für eine Abbildung ist, nehmen wir uns die
-            Sprache aller Wörter, deren 
+            Sprache aller Wörter, deren
             <i>drittletztes Zeichen</i>
             eine 1 ist. Der nichtdeterministische Automat hierfür ist
             <figure>
@@ -1049,6 +1042,7 @@
               Eingabewortes, die der Automat gelesen hat. Der Zustand \(ACD\)
               bedeutet zum Beispiel
               <i>die letzten drei Zeichen waren \(110\)</i>
+              
             </p>
           </div>
           <p>

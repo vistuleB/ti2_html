@@ -62,13 +62,13 @@
             Boolesche Schaltkreise</span>
         </h1>
         Boolesche Schaltkreise sind ein idealisiertes Modell echter elektronischer Schaltkreise.
-        Als primitive Bausteine haben wir Boolesche Operatoren, auch 
+        Als primitive Bausteine haben wir Boolesche Operatoren, auch
         <i>Gatter</i>
-         (englisch 
+        (englisch
         <i>gates</i>)
         genannt, die mehrere (typischerweise ein oder zwei)
         Signale zu einem Ausgabe-Signal kombinieren. Die Signale können nur zwei Werte annehmen:
-        wahr/falsch bzw. 1/0 bzw. 
+        wahr/falsch bzw. 1/0 bzw.
         <tt>true/false</tt>. Hier sehen Sie die drei üblichsten Gatter:
         <figure>
           <img
@@ -80,13 +80,13 @@
         Von links nach rechts sind dies: das Und-Gatter (<i>and-gate</i>), Oder-Gatter (<i>or-gate</i>) und
         das
         Nicht-Gatter (<i>not-gate</i>). In C, C++ und Java kennen Sie diese Booleschen Operatoren als
-        <code>&&</code>, 
+        <code>&amp;&amp;</code>,
         <code>||</code>
-         und 
+        und
         <code>!</code>. Was diese Operatoren
-        <i>tun</i>, können wir als 
+        <i>tun</i>, können wir als
         <i>Wahrheitstabelle</i>
-         darstellen.
+        darstellen.
         Wir listen alle Kombinationen für \(x,y\) auf und schreiben in jede Zeile
         auch den Wert, den der Operator ausgibt.
         $$
@@ -115,7 +115,8 @@
         Die dritte Zeile der mittleren Tabelle sagt beispielsweise aus, dass
         \(1 \vee 0 = 1\) gilt.
         <p>
-          Vielleicht wünschen Sie sich noch mehr Gates, zum Beispiel
+          Vielleicht wünschen
+          Sie sich noch mehr Gates, zum Beispiel
           ein if-then-else-Gate mit drei Inputs \(x,y,z\), welches
           \(y\) ausgibt, wenn \(x\) wahr ist und ansonsten \(z\) ausgibt.
           So ein Gate können Sie sich einfach aus And, Or, Not bauen:
@@ -128,17 +129,17 @@
           >
           <figcaption>
             <code>if</code>
-             \(x\) 
+            \(x\)
             <code>then</code>
-             \(y\) 
+            \(y\)
             <code>else</code>
-             \(z\)
+            \(z\)
           </figcaption>
         </figure>
         <p>
-          Jeder Schaltkreis 
+          Jeder Schaltkreis
           <i>berechnet</i>
-           eine Funktion (formale Definition weiter unten).
+          eine Funktion (formale Definition weiter unten).
           Informell gesprochen, wenn wir Wahrheitswerte (0/1) in die Input-Gates reinstecken,
           dann fließen diese durch den Schaltkreis und werden von den AND/OR/NOT-Gates entsprechend
           ihrer Funktion kombiniert und werden schließlich an den Output-Gates ausgegeben:
@@ -158,10 +159,9 @@
         >
           <span
             class="numbered-title"
-          >Übungsaufgabe 
+          >Übungsaufgabe
             <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-             
-          </span>Bauen Sie folgende Gates aus And-, Or- und Not-Gates zusammen:
+            </span>Bauen Sie folgende Gates aus And-, Or- und Not-Gates zusammen:
           <ol>
             <li>
               Ein XOR-Gate \(x \oplus y\). Es gibt 1 aus, wenn einer der beiden
@@ -179,11 +179,11 @@
                   src="../img/circuits/n-fold-xor.svg"
                   loading="lazy"
                 >
-                 ,
+                ,
               </figure>
-              welches 1 ausgibt, wenn eine 
+              welches 1 ausgibt, wenn eine
               <i>ungerade</i>
-               Anzahl seiner Inputs
+              Anzahl seiner Inputs
               auf 1 stehen.
             </li>
             <li>
@@ -201,9 +201,9 @@
         </div>
         <p>
           Je nach Kontext kann es hilfreich sein, Gatter mit beliebig vielen Inputs zuzulassen, beispielsweise
-          \(x_1 \wedge x_2 \wedge \dots \wedge x_n\) als 
+          \(x_1 \wedge x_2 \wedge \dots \wedge x_n\) als
           <i>ein</i>
-           Gate darzustellen:
+          Gate darzustellen:
         </p>
         <figure>
           <img
@@ -213,9 +213,9 @@
           >
         </figure>
         <p>
-          Man bezeichnet dies als AND-Gate mit einem 
+          Man bezeichnet dies als AND-Gate mit einem
           <i>Fan-in</i>
-           von \(n\). Das "normale" AND-Gate
+          von \(n\). Das "normale" AND-Gate
           hat einen Fan-in von 2.
           Mit \(\vee\)- und \(\oplus\)-Gates geht das ganz analog. Für andere Gates (wie zum Beispiel
           ein if-then-else-Gate) würde das keinen Sinn machen. Größerer Fan-in ist aber nicht wirklich etwas
@@ -243,9 +243,9 @@
         <p>
           Schaltkreise, wie wir sie in diesem Kapitel betrachten, sind immer azyklisch. Das heißt
           insbesondere,
-          das Dinge mit "Feedback-Schleifen" wie Flipflops eben 
+          das Dinge mit "Feedback-Schleifen" wie Flipflops eben
           <i>keine</i>
-           Schaltkreis in unserem Sinn
+          Schaltkreis in unserem Sinn
           sind:
         </p>
         <figure>
@@ -266,11 +266,11 @@
           das heißt, die Werte, die zuvor bestanden, bestehen weiter. Das Flipflop
           implementiert somit einen 1-Bit-Speicher (die Kombination
           \({\rm Set} = {\rm Reset} = 1\) würde \(Q = \bar{Q} = 0\) erzeugen und gilt als illegale
-          Eingabe). Ein Flipflop hat somit einen 
+          Eingabe). Ein Flipflop hat somit einen
           <i>inneren Zustand</i>. Die Schaltkreise
-          in diesem Kapitel haben 
+          in diesem Kapitel haben
           <i>keinen</i>
-           inneren Zustand: die Werte der Ausgabe-Gates sind
+          inneren Zustand: die Werte der Ausgabe-Gates sind
           vollständig durch die Werte der Input-Gates determiniert. Wir sind nun bereit
           für eine formale Definition von Schaltkreisen.
         </p>
@@ -279,15 +279,14 @@
         >
           <span
             class="numbered-title"
-          >Definition 
+          >Definition
             <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-             
-          </span>
-           
+            </span>
           <b>(Boolesche Schaltkreise)</b>
+          
           <p>
             Ein Boolescher Schaltkreis ist ein gerichteter, azyklischer Graph (englisch
-            <i>directed acyclic graph</i>, kurz 
+            <i>directed acyclic graph</i>, kurz
             <i>DAG</i>), in welchem jeder
             Knoten entweder
           </p>
@@ -298,15 +297,15 @@
               keine eingehenden Kanten hat (in-degree 0), oder
             </li>
             <li>
-              mit AND-, OR- oder NOT beschriftet ist, 
+              mit AND-, OR- oder NOT beschriftet ist,
             </li>
           </ul>
           <p>
             wobei die mit NOT beschrifteten Knoten genau eine eingehende Kante haben
             und die mit AND oder OR beschrifteten Knoten mindestens zwei eingehende Kanten haben. Mindestens
-            ein Knoten ist als 
+            ein Knoten ist als
             <i>Output-Gate</i>
-             gekennzeichnet. Die Output-Gates sind ihrerseits
+            gekennzeichnet. Die Output-Gates sind ihrerseits
             mit Output-Variablen \(y_1,\dots,y_m\) beschriftet.
           </p>
         </div>
@@ -320,9 +319,9 @@
           <i>auswerten</i>,
           indem eben jeder mit OR/AND/NOT beschriftete
           Knoten den ihm zugeordnete Booleschen Operator auswertet. Es ist klar, dass
-          der Schaltkreis \(C\) eine 
+          der Schaltkreis \(C\) eine
           <i>Funktion</i>
-           \(f_C : \{0,1\}^n \rightarrow \{0,1\}^m\) berechnet.
+          \(f_C : \{0,1\}^n \rightarrow \{0,1\}^m\) berechnet.
           Oft schreiben wir einfach \(C : \{0,1\}^n \rightarrow \{0,1\}^m\).
         </p>
         <div
@@ -330,10 +329,9 @@
         >
           <span
             class="numbered-title"
-          >Beobachtung 
+          >Beobachtung
             <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-             
-          </span>Ein Schaltkreis \(C\) mit \(n\) Input-Gates und \(m\) Output-Gates berechnet
+            </span>Ein Schaltkreis \(C\) mit \(n\) Input-Gates und \(m\) Output-Gates berechnet
           eine Funktion \(f_C : \{0,1\}^n \rightarrow \{0,1\}^m\).
         </div>
         <p>
@@ -348,10 +346,9 @@
         >
           <span
             class="numbered-title"
-          >Definition 
+          >Definition
             <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-             
-          </span>Zwei Boolesche Schaltkreise \(C, C'\) heißen äquivalent, wenn
+            </span>Zwei Boolesche Schaltkreise \(C, C'\) heißen äquivalent, wenn
           \(f_C = f_{C'}\), wenn sie also die gleiche Funktion berechnen. Wir schreiben
           \(C \equiv C'\).
         </div>

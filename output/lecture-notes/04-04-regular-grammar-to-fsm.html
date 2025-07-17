@@ -83,58 +83,60 @@
             paar Abänderungen,
             um die obigen Transformationen spannender zu machen. Ein Wort in unserer Sprache besteht aus
             einer
-            nichtleeren Folge von 
+            nichtleeren Folge von
             <i>Labels</i>
-             die jeweils durch einen 
+            die jeweils durch einen
             <code>.</code>
-             separiert sind.
+            separiert sind.
             Jedes Label ist eine nichtleere Folge von Blöcken (ein nichtleerer String aus Buchstaben und
             Zahlen), separiert
-            durch 
+            durch
             <code>:</code>
-             oder 
+            oder
             <code>-</code>
-             aber niemals durch beides innerhalb eines Blockes.
+            aber niemals durch beides innerhalb eines Blockes.
             Also:
           </p>
           <div
             style="text-align:center"
           >
             <code>bla:bla:blue.xyz-12-zx.b:x:yyy:xxx:aaa</code>
+            
           </div>
           ist ein Wort in \(L\), aber
           <div
             style="text-align:center"
           >
             <code>a:b-c.hello</code>
+            
           </div>
-          ist kein Wort in \(L\), da das erste Label die Separatoren 
+          ist kein Wort in \(L\), da das erste Label die Separatoren
           <code>:</code>
-           und 
+          und
           <code>-</code>
-           mischt.
+          mischt.
           Habe ich
-          \(L\) genau genug beschrieben? Stellen wir eine Meta-Frage: Was zählt überhaupt als 
+          \(L\) genau genug beschrieben? Stellen wir eine Meta-Frage: Was zählt überhaupt als
           <i>genaue
             Beschreibung</i>
-           einer
+          einer
           Sprache? Wir können uns dem Mund fusselig reden und Beispiele und Nicht-Beispiele angeben, am Ende
           aber werden
           wir irgendwann beginnen, formale Regeln aufzustellen, die unsere Sprache beschreiben - wir werden
           also im Prinzip
-          eine 
+          eine
           <i>Grammatik</i>
-           schreiben. Tun wir dies also.
+          schreiben. Tun wir dies also.
           <h2>
             2. Eine reguläre Grammatik
           </h2>
           <p>
             Beginnen wir mit dem Alphabet.
-            Da es 62 alphanumerische Zeichen gibt: 
+            Da es 62 alphanumerische Zeichen gibt:
             <code>a..zA..Z0..9</code>
-             und wir uns keine unnötige
+            und wir uns keine unnötige
             Arbeit machen wollen,
-            beschränken wir uns auf ein Zeichen: 
+            beschränken wir uns auf ein Zeichen:
             <code>a</code>. Dazu kommen die Separatoren
             <code>:-.</code>. Also: \(\Sigma = \{a,.,:,-\}\). Stellen Sie sich einfach vor, \(a\) stehe
             für beliebige alphanumerische Zeichen. Sowohl Grammatik als auch Automaten lassen sich einfach
@@ -142,69 +144,68 @@
             Wir beginnen ganz unten und schreiben eine Grammatik für
             Blöcke, also nichtleere Strings aus alphanumerischen Zeichen.
           </p>
-          $$\begin{align*}
+          \begin{align*}
           B&amp;\rightarrow a \ | \ aB
-          \end{align*}$$
+          \end{align*}
           <p>
-            Als nächstes führen wir ein nichtterminales Symbole \(C\) für Labels mit 
+            Als nächstes führen wir ein nichtterminales Symbole \(C\) für Labels mit
             <code>:</code>
-             ein
-            und ein Nichtterminal \(D\) für Labels mit 
+            ein
+            und ein Nichtterminal \(D\) für Labels mit
             <code>-</code>. Wir wählen die Buchstaben \(C,D\),
             weil
             <code>:</code>
-             auf Englisch 
+            auf Englisch
             <i>colon</i>
-             und 
+            und
             <code>-</code>
-             
             <i>dash</i>
-             heißt.
+            heißt.
             \(C\)-Labels können wir uns nach dem Baukastenprizip bauen, in dem
-            wir 
+            wir
             <a
               href="./04-01-regular-grammars.html#operation-L(.L)*"
             >Theorem 4.1.14</a>
-             anwenden.
+            anwenden.
             Wir fügen zur "End-Produktion" \(B \rightarrow a\) eine weiter Produktion \(B \rightarrow a:B\)
             hinzu und
             tun das gleiche für \(B \rightarrow b\). Allerdings benennen wir \(B\) in \(C\) um, damit keine
             Verwechslungsgefahr mit
             dem ursprünglichen \(B\) aufkommt. Das gleiche machen wir für \(D\).
           </p>
-          $$\begin{align*}
+          \begin{align*}
           C&amp;\rightarrow a \ | \ aC \ | \ a{:}C \\
           D&amp;\rightarrow a \ | \ aD \ | \ a{-}D \\
           T&amp;\rightarrow C \ | D
-          \end{align*}$$
+          \end{align*}
           <p>
             Von \(L\) lassen sich nun also alle Labels ableiten. Wir brauchen nun zum Schluss wieder
-            eine Folge von \(L\), mit 
+            eine Folge von \(L\), mit
             <code>.</code>
-             separiert, müssen also wieder<a
+            separiert, müssen also wieder<a
               href="./04-01-regular-grammars.html#operation-L(.L)*"
             >Theorem 4.1.14</a>
-             anwenden, dieses
+            anwenden, dieses
             mal auf die von \(T\) erzeugte Sprache. Im Ergebnis benennen wir das Startsymbol in \(S\) um.
           </p>
-          $$\begin{align*}
+          \begin{align*}
           S&amp;\rightarrow C \ | \ D \\
           C&amp;\rightarrow a \ | \ aC \ | \ a{:}C \ | a{.}S \ \\
           D&amp;\rightarrow a \ | \ aD \ | \ a\text{-}D \ | \ a{.}S \\
-          \end{align*}$$
+          \end{align*}
           <p>
             Um eine "richtig" reguläre Sprache zu erhalten, entzerren wir die erweitert regulären
             Produktionen
             wie \(C \rightarrow a{:}C\). Dafür brauchen wir neue Symbole \(C', D', S'\):
           </p>
-          $$\begin{align*}
+          \begin{align*}
           S&amp;\rightarrow C \ | \ D \\
           C&amp;\rightarrow a \ | \ aC \ | \ aC'\ | \ aS' \\
           C'&amp;\rightarrow {:}C \\
           D&amp;\rightarrow a \ | \ aD \ | \ a D' \ | \ aS' \\
           D'&amp;\rightarrow \text{-}D \\
           S'&amp;\rightarrow {.}S
-          \end{align*}$$
+          \end{align*}
           <h2>
             3. Die reguläre Grammatik säubern
           </h2>
@@ -212,11 +213,11 @@
             Wir wollen nun alle Produktionen der Form \(Y \rightarrow x\) eliminieren. Hierfür nehmen wir
             uns
             <i>ein</i>
-             neues Nichtterminal \(E\) und ersetzen \(Y \rightarrow x\) durch \(Y \rightarrow
+            neues Nichtterminal \(E\) und ersetzen \(Y \rightarrow x\) durch \(Y \rightarrow
             xE\)
             und fügen die Produktion \(E \rightarrow \epsilon\) hinzu.
           </p>
-          $$\begin{align*}
+          \begin{align*}
           S&amp;\rightarrow C \ | \ D \\
           C&amp;\rightarrow aE \ | \ aC \ | \ aC'\ | \ aS' \\
           C'&amp;\rightarrow {:}C \\
@@ -224,29 +225,29 @@
           D'&amp;\rightarrow \text{-}D \\
           S'&amp;\rightarrow {.}S \\
           E&amp;\rightarrow \epsilon
-          \end{align*}$$
+          \end{align*}
           <p>
             In einem zweiten Schritt wollen wir die Produktionen \(S \rightarrow C\) und \(S \rightarrow D\)
             eliminieren,
             sodass wir nur noch Produktionen der From \(X \rightarrow aY\) und \(E \rightarrow \epsilon\)
             haben.
-            Wir gehen vor wie in 
+            Wir gehen vor wie in
             <a
               href="./04-01-regular-grammars.html#theorem-regular-simplified"
             >Theorem
               4.1.7</a>
-             beschrieben.
+            beschrieben.
             Wir ersetzen \(S \rightarrow C\) also durch alle Produktionen der Form \(S \rightarrow \alpha\),
             wobei
             \(\alpha\) eine Wortform ist, die sich aus \(C\) ableiten lässt und nicht nur aus einem
             einzelnen Nichtterminal
-            besteht; dies trifft glücklicherweise auf 
+            besteht; dies trifft glücklicherweise auf
             <i>alle</i>
-             rechten Seiten der \(C\)-Produktionen
+            rechten Seiten der \(C\)-Produktionen
             zu; gleiches gilt
             für \(D\). Wir erhalten:
           </p>
-          $$\begin{align*}
+          \begin{align*}
           S&amp;\rightarrow aE \ | \ aC \ | \ aC'\ | \ aS' \ | \ aD \ | \ a D' \\
           C&amp;\rightarrow aE \ | \ aC \ | \ aC'\ | \ aS' \ \\
           C'&amp;\rightarrow {:}C \\
@@ -254,7 +255,7 @@
           D'&amp;\rightarrow \text{-}D \\
           S'&amp;\rightarrow {.}S \\
           E&amp;\rightarrow \epsilon
-          \end{align*}$$
+          \end{align*}
           <h2>
             4. Einen nichtdeterministischen endlichen Automaten bauen
           </h2>
@@ -270,9 +271,9 @@
             >
           </figure>
           <p>
-            Ich habe die Zeichen 
+            Ich habe die Zeichen
             <code>.:-</code>
-             rot unterlegt, weil man sie sonst kaum erkennen würde in
+            rot unterlegt, weil man sie sonst kaum erkennen würde in
             dem Automaten.
           </p>
           <h2>
@@ -286,9 +287,9 @@
             definieren, er hätte also \(2^7 = 128\) viele Zustände. Das wäre jetzt für einen Rechner kein
             Problem, aber
             in diesem vorlesungsskript doch etwas ungünstig.
-            Wir gehen 
+            Wir gehen
             <i>lazy</i>
-             vor, erschaffen Zustände in \(2^Q\) also nur dann, wenn wir sie
+            vor, erschaffen Zustände in \(2^Q\) also nur dann, wenn wir sie
             brauchen.
             Wir beginnen mit dem Zustand \(\{S\}\) und legen dann an jeden Zustand Kanten an, jeweils mit
             \(a, :, -, . \) beschriftet, und erschaffen, falls nötig, dabei neue Zustände. In der folgenden
@@ -482,7 +483,7 @@
                 </li>
               </ol>
               <p>
-                Der deterministische Automat, Schritt für Schritt gebaut: 
+                Der deterministische Automat, Schritt für Schritt gebaut:
               </p>
               <div
                 style="display:inline-block"
@@ -716,25 +717,27 @@
             wäre als die ursprüngliche. Wenn wir erweitert reguläre Grammatiken erlauben, so können
             wir den deterministischen Automaten besonders konzise in eine Grammatik fassen:
           </p>
-          $$\begin{align*}
+          \begin{align*}
           S&amp;\rightarrow aT \\
           T&amp;\rightarrow {.}S \ | \ aT \ | \ {:}aC \ | \ \text{-}a D \\
           C&amp;\rightarrow aC \ | \ {:}aC \ | \ {.}S \\
           D&amp;\rightarrow aD \ | \ \text{-}aD \ | \ {.}S
-          \end{align*}$$
+          \end{align*}
           <p>
             Die Zustände des deterministischen Automaten beschreiben im Prinzip das, was wir uns merken
             müssen, wenn wir so einen String "parsen": Zustand \( \{C',C,E,D,D',S'\}\), der
             in der Grammatik dann zum Nichtterminal \(T\) wird, bedeutet beispielsweise
             <i>das Label hat schon begonnen, wir wissen aber noch nicht, ob es eines mit
               <code>:</code>
-               oder eines mit 
+              oder eines mit
               <code>-</code>
-               ist.
+              ist.
               Der Zustand \(\{C',C,E,S'\}\) bzw. das Nichtterminal \(C\) heißt dann
-              <code>:</code></i>wir sind innerhalb eines Labels mit 
+              <code>:</code>
+              </i>wir sind innerhalb eines Labels mit
             <i>.
-              </i>
+            </i>
+            
           </p>
           <div
             class="well well-lg numbered-exercise container"
@@ -742,10 +745,9 @@
             <p>
               <span
                 class="numbered-title"
-              >Übungsaufgabe 
+              >Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-                 
-              </span>Erinnern Sie sich an 
+                </span>Erinnern Sie sich an
               <a
                 href="./04-03-nfsm#exercise-divisibility"
               >Aufgabe 4.3.1</a>. Hier
@@ -766,9 +768,9 @@
             <p>
               Dieser Automat hat 11 Zustände. Sein Potenzmengenautomat hätte also \(2^{11} = 2048\)
               Zustände.
-              Führen Sie die Konstruktion 
+              Führen Sie die Konstruktion
               <i>lazy</i>
-               durch, indem Sie vom Startzustand \(\{S\}\)
+              durch, indem Sie vom Startzustand \(\{S\}\)
               ausgehend die Folgezustände konstruieren. Wieviele Zustände bekommen Sie?
             </p>
           </div>

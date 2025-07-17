@@ -75,29 +75,28 @@
             <p>
               <span
                 class="numbered-title"
-              >Übungsaufgabe 
+              >Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-                 
-              </span>Sei $\Sigma = \{\sigma<i>1, \sigma</i>2, \dots, \sigma<i>k\}$ ein endliches Alphabet. Wir
+                </span>Sei $\Sigma = \{\sigma<i>1, \sigma</i>2, \dots, \sigma<i>k\}$ ein endliches Alphabet. Wir
                 können jedes Zeichen $\sigma</i>i \in \Sigma$ als
               natürliche Zahl $i$ codieren. Ein Wort $\alpha \in \Sigma^<b>$
                 wird somit zu einer Folge $(a<i>1, a</i>2, \dots, a_n) \in \N^</b>$, was
               wir wiederum mit den Methoden aus<a
                 href="02-02-examples-of-equipotent-sets.html"
-              >Kapitel 2.2</a>als 
+              >Kapitel 2.2</a>als
               <i>eine</i>
-               natürliche Zahl $\bar{\alpha}$ codieren können.
+              natürliche Zahl $\bar{\alpha}$ codieren können.
               Mittels dieser Codierung wird eine Sprache $L \subseteq \Sigma^*$
               zu einer Funktion
             </p>
-            $$\begin{align*}
+            \begin{align*}
             f_L : \N&amp;\rightarrow \{0,1\} \\
             a&amp;\mapsto
             \begin{cases}
             1&amp;\textnormal{ if $\exists \alpha \in L$ with $\bar{\alpha} = a$} \\
             0&amp;\textnormal{ else.}
             \end{cases}
-            \end{align*}$$
+            \end{align*}
             <p>
               Sei $L$ eine reguläre Sprache. Zeigen Sie, dass $f_L$ primitiv rekursiv ist!
             </p>
@@ -111,16 +110,16 @@
             damit jedes $\alpha = (a<i>1, \dots, a</i>n) \in \Sigma^<b>$ als $x<i>a \in \cube^<b>$ mit $nk$ Bits.
                   Smit wird jede Sprache $L \subseteq \Sigma^</b>$ zu einer Funktion
                 $f</i>L : \cube^</b>
-             \rightarrow \cube$ mittels
+            \rightarrow \cube$ mittels
           </p>
-          $$\begin{align*}
-          f_L : \cube^*&amp;\rightarrow \cube \\
-          y&amp;\mapsto
-          \begin{cases}
-          1&amp;\textnormal{if $\exists \alpha \in L: x_\alpha = y$} \\
+          \begin{align*}
+          f<i>L : \cube^*&amp;\rightarrow \cube \\
+            y&amp;\mapsto
+            \begin{cases}
+            1&amp;\textnormal{if $\exists \alpha \in L: x</i>\alpha = y$} \\
           0&amp;\textnormal{else.}
           \end{cases}
-          \end{align*}$$
+          \end{align*}
           <p>
             Für festes $n$ definieren wir $f<i>L^n : \cube^n \rightarrow \cube$ als die
               Restriktion von $f</i>L$ auf $\cube$, also die Funktion, die nur $n$-Bit-Strings
@@ -137,10 +136,9 @@
           <p>
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-               
-            </span>Verbessern Sie die obige Konstruktion: Ihr Schaltkreis $C$ sollte nun
+              </span>Verbessern Sie die obige Konstruktion: Ihr Schaltkreis $C$ sollte nun
             Tiefe $O(\log(n))$ haben und vorzugsweise immer noch $O(n)$ Gates.
           </p>
         </div>
@@ -150,30 +148,29 @@
           <p>
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-               
-            </span>
-             
+              </span>
             <b>(Challenge).</b>
             Betrachten wir eine Variante des endlichen Automaten, bei der
-            der Automat 
+            der Automat
             <i>zurückspulen</i>
-             kann. Der Automat hat also
+            kann. Der Automat hat also
             einen "Lesekopf", mit dem er auf einem Zeichen des Eingabewortes steht
             (anfangs auf dem ersten). In jedem Schritt kann er nach rechts oder links
             wechseln. Es gibt zwei spezielle Zeichen, die markieren, wo das
             Wort aufhört: $\lt$ und $\gt$. Die Zustandsübergangsfunktion ist also
           </p>
-          $$\begin{align*}
+          \begin{align*}
           \delta: Q \times (\Sigma \cup \{\lt, \gt\}) \rightarrow Q \times \{L, R\} \ .
-          \end{align*}$$
+          \end{align*}
           <p>
-            Wenn z.B. $\delta(q, x) = (r, L)$ ist, dann heißt das: 
+            Wenn z.B. $\delta(q, x) = (r, L)$ ist, dann heißt das:
             <i>wenn Du im
               Zustand $q$ bist und der Lesekopf ein $x$ liest, dann wechsle in den
               Zustand $r$ und gehe nach links.
-              </i>
+            </i>
+            
           </p>
           <p>
             Der Automat hat genau einen akzeptierenden und einen ablehnenden Zustand.
@@ -182,9 +179,9 @@
             Die von so einem Automaten $M$ akzeptierte Sprache $L(M)$ ist dann definiert als
             die Menge aller Wörter $\alpha$, die $M$ in einen akzeptierenden
             Zustand bringen. Beachten Sie, dass $M$ möglicherweise in eine Endlosschleife
-            geraten kann. In diesem Falle ist $\alpha$ 
+            geraten kann. In diesem Falle ist $\alpha$
             <i>kein</i>
-             Wort in $L(M)$.
+            Wort in $L(M)$.
           </p>
           <p>
             Zeigen Sie, dass $L(M)$ eine reguläre Sprache ist. Dass man also aus $M$
@@ -197,15 +194,14 @@
           <p>
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-               
-            </span>Sei $\Sigma = \{1,2, \dots, k\}$ und $L$ die Sprache aller
+              </span>Sei $\Sigma = \{1,2, \dots, k\}$ und $L$ die Sprache aller
             Wörter, in denen mindestens ein Zeichen fehlt, also
           </p>
-          $$\begin{align*}
-          L = \bigcup_{i=1}^k (\Sigma \setminus \{i\})^*
-          \end{align*}$$
+          \begin{align*}
+          L = \bigcup_{i=1}^k (\Sigma \setminus \{i\})^<b>
+            \end{align</b>}
           <p>
             Zeigen Sie, dass ein endlicher Automat für $L$ mindestens $2^k$ Zustände braucht.
           </p>
@@ -216,10 +212,9 @@
           <p>
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-               
-            </span>Schreiben Sie eine reguläre Grammatik für $L$ mit höchstens $k+1$ Nichtterminalen.
+              </span>Schreiben Sie eine reguläre Grammatik für $L$ mit höchstens $k+1$ Nichtterminalen.
           </p>
         </div>
         <div
@@ -228,11 +223,9 @@
           <p>
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
-               
-            </span>
-             
+              </span>
             <b>(Challange.)</b>
             Sei $L$ die Sprache aus der vorherigen Aufgabe und
             $\bar{L} = \Sigma^* \setminus L$ ihr Komplement. $\bar{L}$ ist also

@@ -74,9 +74,9 @@
             Um den \(LR(0)\)-Parser gemäß<a
               href="./05-05-d-linker-Rand-und-Bluete.html#algorithm-LR-parser"
             >Algorithmus 5.8.7</a>zu implementieren, müssen wir den Test \(\gamma \stackrel{?}\in
-            \Front(G)\) durchführen und, falls die Antwort 
+            \Front(G)\) durchführen und, falls die Antwort
             <i>ja</i>
-             ist, die
+            ist, die
             Blüte finden. Dies gelingt uns, indem wir die Grammatik \(\hat{G}\) in
             einen endlichen Automaten umwandeln.<a
               href="./04-03-nfsm.html#regular-grammar-to-fsm"
@@ -87,15 +87,15 @@
             die Terminale $\Sigma = \{a,c,e,u,w\}$ und die Nichtterminale $N =
             \{X,B,D,V\}$. In $\dk{G}$ sind \{a,c,e,u,w,A,B,D,V\} alles Terminale,
             und die Nichtterminale sind $\dk{N} = \{\dk{X}, \dk{B}, \dk{D},
-            \dk{V}\}.$ Die Produktionen von $\hat{G}$ sind $$\begin{align*} \dk{X}&
+            \dk{V}\}.$ Die Produktionen von $\hat{G}$ sind \begin{align*} \dk{X}&amp;
             \rightarrow a\dk{B} \\ \dk{X}&amp;\rightarrow a\dkt{B}c\dk{D} \\ \dk{X}
             &amp;\rightarrow a\dkt{B}c\dkt{D}e \\&amp;\\ \dk{X}&amp;\rightarrow u\dk{V}
-            \ \dk{X}&amp;\rightarrow u\dkt{V}w \end{align*}$$
+            \ \dk{X}&amp;\rightarrow u\dkt{V}w \end{align*}
           </p>
           <p>
             Diese übersetzen wir in einen verallgemeinert nichtdeterministischen
             Automaten, bei dem jede Kante mit einem Wort $\beta \in (\Sigma \cup
-            N)^*$, also aus 
+            N)^*$, also aus
             <i>Terminalen</i>
             der Grammatik $\dk{G}$ beschriftet ist:
           </p>
@@ -116,12 +116,12 @@
             >
           </figure>
           <p>
-            Nochmal: jede Kante ist mit einem 
+            Nochmal: jede Kante ist mit einem
             <i>Terminalsymbol</i>
-             beschriftet.
-            Die Symbole $B, D, V$ sind 
+            beschriftet.
+            Die Symbole $B, D, V$ sind
             <i>Terminale</i>
-             in der Grammatik
+            in der Grammatik
             $\dk{G}$. Wenn wir $\epsilon$-Übergänge zulassen, können wir den
             Automaten übersichtlicher gestalten und mehrere Zustände
             zusammenfassen:
@@ -140,7 +140,7 @@
             Knoten $X$ im Stamm mit $a, B, c, D, e$ beschriftete Kinder hat und
             wir uns bereits entschieden haben, dass $a$, $B$ und $c$
             <i>Blätter</i>
-             sein sollen, also zum linken Rand gehören. Der
+            sein sollen, also zum linken Rand gehören. Der
             Übergang $\boxed{4} \step{D} \boxed{5}$ entspricht dann der
             Entscheidung, auch $D$ zu einem Blatt zu machen, während $\boxed{4}
             \step{\epsilon} \dk{D}$ der Entscheidung entspricht, $D$ zu einem
@@ -167,8 +167,8 @@
           <p
             id="the-grammar"
           >
-            $$\begin{align*} G&amp;: \\ S&amp;\rightarrow aS \\ S&amp;\rightarrow B \\ B&
-            \rightarrow aBb \\ B&amp;\rightarrow ab \end{align*}$$
+            \begin{align*} G&amp;: \\ S&amp;\rightarrow aS \\ S&amp;\rightarrow B \\ B&amp;
+            \rightarrow aBb \\ B&amp;\rightarrow ab \end{align*}
           </p>
           <p>
             Laut Gebrauchsanweisung aus dem letzten Teilkapitel hat die Grammatik
@@ -176,25 +176,25 @@
             Nichtterminale $\dk{N} = \{\dk{S}, \dk{B}\}$. Die Produktionen von
             $\dk{G}$ ergeben sich wie folgt:
           </p>
-          $$\begin{align*} \begin{array}{l|l} \textnormal{Produktion in $G$}&
-          \textnormal{Produktion in $\hat{G}$} \\ \hline % % S \rightarrow aS&
+          \begin{align*} \begin{array}{l|l} \textnormal{Produktion in $G$}&amp;
+          \textnormal{Produktion in $\hat{G}$} \\ \hline % % S \rightarrow aS&amp;
           {\dk{S}} \rightarrow \dkt{a} \dk{S}\\&amp;{\dk{S}} \rightarrow \dkt{a}
-          \dkt{S}\\ \hline % S \rightarrow B&amp;{\dk{S}} \rightarrow \dk{B}\\&
+          \dkt{S}\\ \hline % S \rightarrow B&amp;{\dk{S}} \rightarrow \dk{B}\\&amp;
           {\dk{S}} \rightarrow \dkt{B}\\ \hline % B \rightarrow aBb&amp;{\dk{B}}
-          \rightarrow \dkt{a}\dk{B}\\&{\dk{B}} \rightarrow
+          \rightarrow \dkt{a}\dk{B}\\&amp;{\dk{B}} \rightarrow
           \dkt{a}\dkt{B}\dkt{b}\\ \hline % B \rightarrow ab&amp;{\dk{B}} \rightarrow
-          \dkt{ab} \end{array} \end{align*}$$
+          \dkt{ab} \end{array} \end{align*}
           <p>
             In dieser Grammatik betrachten wir die Rechtsableitung
           </p>
-          $$\begin{align*} S \Step{} aS \Step{} aaS \Step{} aaB \Step{} aaaBb
-          \Step{} aaaaBbb \Step{} aaaaaBbbb \end{align*}$$
+          \begin{align*} S \Step{} aS \Step{} aaS \Step{} aaB \Step{} aaaBb
+          \Step{} aaaaBbb \Step{} aaaaaBbbb \end{align*}
           <p>
             Es gilt $\front(aaaaaBbbb) = aaaaaBb$. In $\hat{G}$ entspricht die
             obige Rechtsableitung der Ableitung
           </p>
-          $$\begin{align*} \hat{S} \Step{} a\hat{S} \Step{} aa\hat{S} \Step{}
-          aa\hat{B} \Step{} aaa\hat{B} \Step{} aaaaBb \end{align*}$$
+          \begin{align*} \hat{S} \Step{} a\hat{S} \Step{} aa\hat{S} \Step{}
+          aa\hat{B} \Step{} aaa\hat{B} \Step{} aaaaBb \end{align*}
           <p>
             Den nichtdeterministischen DK-Automaten (mit $\epsilon$-Übergängen)
             können wir nun Schritt für Schritt zeichnen:
@@ -397,11 +397,10 @@
             <p>
               <span
                 class="numbered-title"
-              >Definition 
+              >Definition
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-                 
-              </span>
-               Für eine kontextfreie
+                </span>
+              Für eine kontextfreie
               Grammatik ist der nichtdeterministische DK-Automat (NDK-Automat) ein
               nichtdeterministischer endlicher Automat mit $\epsilon$-Übergängen,
               den wir wie folgt konstruieren:
@@ -453,9 +452,9 @@
             >Potenzmengenkonstruktion aus Kapitel 4.3</a>. Hier können wir diese leider nicht direkt anwenden, da der obige
             Automat \(\epsilon\)-Übergänge hat. Wie geht das also nun? Im
             deterministischen Automaten ist wie bei der Potenzmengenkonstruktion
-            jeder Zustand eine 
+            jeder Zustand eine
             <i>Menge</i>
-             \(R\) von Zuständen des
+            \(R\) von Zuständen des
             nichtdeterministischen Automaten. Wenn wir nun in eine solche Menge
             \(R\) einen Zustand \(q\) einfügen, dann fügen wir auch alle Zustände
             \(q'\) hinzu, zu denen es einen \(\epsilon\)-Übergang \(q
@@ -617,8 +616,9 @@
             <p>
               <span
                 class="numbered-title"
-              >Theroem</span><b>(DK-Test).</b>
-               Sei $G$ eine kontextfreie Grammatik ohne
+              >Theroem</span>
+              <b>(DK-Test).</b>
+              Sei $G$ eine kontextfreie Grammatik ohne
               nutzlose Nichtterminale und ei $M$ der DK-Automat für die Grammatik
               $G$. Die Grammatik $G$ ist LR(0) genau dann, wenn folgende zwei
               Bedingungen gelten:
@@ -656,7 +656,8 @@
               <p>
                 <a
                   href="./05-05-c-LR-grammars.html#lemma-characterization-LR0"
-                >Lemma 5.7.5, noch einmal</a><b>
+                >Lemma 5.7.5, noch einmal</a>
+                <b>
                   </b>
                 <b>(LR(0), äquivalente Formulierung).</b>
                 Eine Grammatik $G$ ist LR(0) genau dann, wenn für alle korrekten
@@ -682,10 +683,10 @@
               Es ist nicht schwer zu sehen, dass (DK.1) äquivalent zu Punkt 1 des
               Lemmas ist. Wenden wir uns (DK.2) und Punkt 2 zu. Wenn Punkt 2
               <i>nicht</i>
-               gilt, dann gibt es korrekte Reduktionsschritte
+              gilt, dann gibt es korrekte Reduktionsschritte
             </p>
-            $$\begin{align*} \alpha \beta w \rstep{} \alpha X w \\ \alpha \beta
-            \sigma w' = \alpha' \beta' w' \rstep{} \alpha' X' w' \end{align*}$$
+            \begin{align*} \alpha \beta w \rstep{} \alpha X w \\ \alpha \beta
+            \sigma w' = \alpha' \beta' w' \rstep{} \alpha' X' w' \end{align*}
             <p>
               Wenn wir dem Automaten den Präfix $\alpha \beta$ füttern, bringt er
               uns in einen Zustand, der die $\boxed{X \rightarrow \beta.}$
@@ -706,10 +707,9 @@
               <p>
                 <span
                   class="numbered-title"
-                >Übungsaufgabe 
+                >Übungsaufgabe
                   <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-                   
-                </span>Zeigen Sie: wenn $G$ keine nutzlosen Nichtterminale hat, dann gibt
+                  </span>Zeigen Sie: wenn $G$ keine nutzlosen Nichtterminale hat, dann gibt
                 es im NDK-Automaten für jeden Zustand $q$ eine Übergangsfolge $q
                 \steps{v} q'$ zu einem akzeptierenden Zustand $q'$, wobei $v$
                 ausschließlich aus $G$-Terminalen besteht, also $v \in \Sigma^*$.

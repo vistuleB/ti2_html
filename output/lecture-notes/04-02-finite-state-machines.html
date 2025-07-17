@@ -68,12 +68,12 @@
           </h1>
           <p>
             Grammatiken erlauben es uns, gewisse Formate zu beschreiben. Das reicht uns aber nicht:
-            wir wollen Daten 
+            wir wollen Daten
             <i>parsen</i>, im engen Sinne also eine grammatische Ableitung rekonstruieren
             und allgemein die Struktur eines gegebenen Wortes herausarbeiten. Ein bescheideneres Ziel
-            ist es, für ein gegebenes Wort zu 
+            ist es, für ein gegebenes Wort zu
             <i>entscheiden</i>, ob es sich überhaupt aus einer Grammatik
-            ableiten lässt. Für reguläre Grammatiken gibt es hierfür die 
+            ableiten lässt. Für reguläre Grammatiken gibt es hierfür die
             <i>endlichen Automaten</i>. Sie
             können
             endliche Automaten verstehen als ein eingeschränktes Modell eines Rechners;
@@ -85,9 +85,9 @@
             dass der Automat ein Wort \(\alpha\) Zeichen für Zeichen einliest. Die Pfeile zwischen den
             Kreisen (den
             <i>Zuständen</i>
-             des Automaten) zeigen an, in welchen neuen Zustand beim Lesen eines Zeichen
+            des Automaten) zeigen an, in welchen neuen Zustand beim Lesen eines Zeichen
             gewechselt werden
-            muss. Der Pfeil "aus dem Nichts", hier der von links nach \(S\), zeigt den 
+            muss. Der Pfeil "aus dem Nichts", hier der von links nach \(S\), zeigt den
             <i>Startzustand</i>
             an, in welchem
             der Automat beginnt.
@@ -476,13 +476,13 @@
           </figure>
           <p>
             In diesem Beispiel endet der Automat im Zustand \(Y\). Sie sehen, dass der Zustand \(X\)
-            mit einem doppelten Rand markiert ist: dies symbolisiert, dass \(X\) ein 
+            mit einem doppelten Rand markiert ist: dies symbolisiert, dass \(X\) ein
             <i>akzeptierender</i>
-            Endzustand ist. Wenn der Automat ein Wort \(\alpha\) abgearbeitet hat, 
+            Endzustand ist. Wenn der Automat ein Wort \(\alpha\) abgearbeitet hat,
             <i>akzeptiert</i>
-             er
+            er
             es,
-            wenn er in einem akzeptierenden Endzustand gelandet ist; ansonsten 
+            wenn er in einem akzeptierenden Endzustand gelandet ist; ansonsten
             <i>lehnt er es ab</i>. In
             unserem
             Beispiel sehen wir also, dass der Automat das Eingabewort \(yxzxxyy\) ablehnt.
@@ -494,19 +494,19 @@
               data-label-title="Definition"
               id="definition-finite-state-machine"
               class="numbered-title"
-            >Definition 
+            >Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-               
-            </span><b>(Endlicher Automat, Finite State Machine).</b>
+              </span>
+            <b>(Endlicher Automat, Finite State Machine).</b>
             Ein endlicher Automat besteht aus einem endlichen Eingabealphaet \(\Sigma\), einer endlichen
             Menge \(Q\) von Zuständen,
             einem Startzustand \(\qstart \in Q\), einer Menge \(F \subseteq Q\) von akzeptierenden
             Endzuständen
             und einer
             Zustandsübergangsfunktion
-            $$\begin{align*}
+            \begin{align*}
             \delta : Q \times \Sigma \rightarrow Q \ .
-            \end{align*}$$
+            \end{align*}
             Formal gesehen ist also ein Automat ein Quintupel \(M = (\Sigma, Q, \qstart, F, \delta)\).
           </div>
           <p>
@@ -518,7 +518,7 @@
             $$
             q \stackrel{x}{\rightarrow} q' \ .
             $$
-            Wenn das Wort zu Ende ist, dann 
+            Wenn das Wort zu Ende ist, dann
             <i>akzeptiert</i>
             der Automat, wenn er in einem akzeptierenden Zustand angekommen ist, also in \(F\).
           </p>
@@ -527,10 +527,9 @@
           >
             <span
               class="numbered-title"
-            >Beispiel 
+            >Beispiel
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-               
-            </span>Betrachten wir den endlichen Automaten
+              </span>Betrachten wir den endlichen Automaten
             <figure>
               <img
                 style="height:10em"
@@ -542,12 +541,12 @@
               data-ref="definition-finite-state-machine"
               class="reference"
             ></span>als Quintupel \(M = (\Sigma, Q, \qstart, F, \delta)\) dar mit
-            $$\begin{align*}
+            \begin{align*}
             \Sigma&amp;= \{x,y,z\} \\
             Q&amp;= \{S, X, Y\} \\
             \qstart&amp;= S \\
             F&amp;= \{X\} \ .
-            \end{align*}$$
+            \end{align*}
             <p>
               Um noch die Zustandsübergangsfunktion $\delta$ darzustellen, müssen wir uns überlegen,
               wie wir Funktionen überhaupt darstellen. Da $\delta$ eine endliche Funktion ist,
@@ -555,7 +554,7 @@
               in einer Tabelle, so wie wir es bereits bei Booleschen Funktionen mit
               Wahrheitstabellen getan haben. $\delta$ ist also
             </p>
-            $$\begin{align*}
+            \begin{align*}
             \begin{array}{cc|c}
             q&amp;\sigma&amp;\delta(q,x) \\ \hline
             S&amp;x&amp;X \\
@@ -568,20 +567,20 @@
             Y&amp;y&amp;Y \\
             Y&amp;z&amp;Y
             \end{array}
-            \end{align*}$$
+            \end{align*}
             <p>
               Da die Funktion $\delta$ bei jedem endlichen Automaten genau zwei
               Eingabeparameter hat, können wir es eventuell übersichtlicher als
               zweidimensionale Tabelle darstellen:
             </p>
-            $$\begin{align*}
+            \begin{align*}
             \begin{array}{c|c|c|c}
             &amp;x&amp;y&amp;z \\ \hline
             S&amp;X&amp;S&amp;S \\ \hline
             X&amp;X&amp;Y&amp;S \\ \hline
             Y&amp;Y&amp;Y&amp;Y
             \end{array}
-            \end{align*}$$
+            \end{align*}
             <p>
               Diese zwei Tabellen dienen in diesem Beispiel aber nur dazu, noch einmal
               zu illustrieren, was ich damit meine, wenn ich sage, dass
@@ -608,19 +607,19 @@
           >
             <span
               class="numbered-title"
-            >Definition 
+            >Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-               
-            </span><b>(Erweiterte Zuständsübergangsfunktion)</b>.
+              </span>
+            <b>(Erweiterte Zuständsübergangsfunktion)</b>.
             Für einen endlichen Automaten \((\Sigma, Q, \qstart, F, \delta)\) definieren wir
-            die 
+            die
             <i>erweiterte Zustandsübergangsfunktion</i>
-             \(\hat{\delta}: Q \times \Sigma^* \rightarrow
+            \(\hat{\delta}: Q \times \Sigma^* \rightarrow
             Q\) rekursiv wie folgt:
-            $$\begin{align*}
+            \begin{align*}
             \hat{\delta} (q, \epsilon)&amp;= q \\
             \hat{\delta} (q, x\alpha)&amp;= \hat{\delta} (\delta(x), \alpha) \ .
-            \end{align*}$$
+            \end{align*}
             \(\hat{\delta} (q, \alpha) = q'\) heißt also, dass der Automat, wenn er sich im Zustand \(q\)
             befindet
             und das Wort \(\alpha\) abarbeitet, er danach im Zustand \(q'\) landet. Wir schreiben auch
@@ -634,28 +633,27 @@
           >
             <span
               class="numbered-title"
-            >Definition 
+            >Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-               
-            </span><b>
+              </span>
+            <b>
               (Akzeptierte Sprache).
-              </b>
+            </b>
             Sei \(M = (\Sigma, Q, \qstart, F, \delta)\) ein endlicher Automat. Die von \(M\) akzeptierte
             Sprache
             ist
-            $$\begin{align*}
+            \begin{align*}
             L(M) := \{ \alpha \in \Sigma \ | \ \hat{\delta}(\qstart, \alpha) \in F \} \ .
-            \end{align*}$$
+            \end{align*}
           </div>
           <div
             class="well container theorem"
           >
             <span
               class="numbered-title"
-            >Beispiel 
+            >Beispiel
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-               
-            </span>Der endliche Automat, den wir oben bereits eingeführt haben:
+              </span>Der endliche Automat, den wir oben bereits eingeführt haben:
             <figure>
               <img
                 style="height:10em"
@@ -671,13 +669,12 @@
           >
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-               
-            </span>Ändern Sie den Automaten aus dem letzten Beispiel so ab, dass die Bedingung 
+              </span>Ändern Sie den Automaten aus dem letzten Beispiel so ab, dass die Bedingung
             <i>"die auf \(x\)
               enden"</i>
-             entfällt, er also
+            entfällt, er also
             alle Wörter akzeptiert, die die Folge \(xy\) nicht enthalten.
           </div>
           <div
@@ -685,10 +682,9 @@
           >
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-               
-            </span>Zeichnen Sie einen Automaten für die Sprache aller Wörter über \(\{a,b,c,d\}\), die
+              </span>Zeichnen Sie einen Automaten für die Sprache aller Wörter über \(\{a,b,c,d\}\), die
             die Folge \(a,b,c,d\) enthalten.
           </div>
           <div
@@ -696,10 +692,9 @@
           >
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-               
-            </span>Zeichnen Sie einen Automaten für die Sprache aller Wörter über \(\{a,b,c,d\}\), die
+              </span>Zeichnen Sie einen Automaten für die Sprache aller Wörter über \(\{a,b,c,d\}\), die
             genau vier \(a\) enthalten.
           </div>
           <h2>
@@ -716,15 +711,15 @@
             >
           </figure>
           würde dies beispielsweise die folgenden Produktionen ergeben:
-          $$\begin{align*}
+          \begin{align*}
           S&amp;\rightarrow y S \ | \ zS \ | \ x X \\
           X&amp;\rightarrow x X \ | \ z S \ | \ y Y \\
           Y&amp;\rightarrow x Y \ | \ y Y \ | \ z Y \\
-          \end{align*}$$
+          \end{align*}
           und, weil \(X\) ein akzeptierender Zustand ist,
-          $$\begin{align*}
+          \begin{align*}
           X&amp;\rightarrow \epsilon
-          \end{align*}$$
+          \end{align*}
           Dies geht ganz allgemein:
           <div
             id="theorem-fsm-regular"
@@ -732,10 +727,9 @@
           >
             <span
               class="numbered-title"
-            >Theorem 
+            >Theorem
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
-               
-            </span>Sei \(M = (\Sigma, Q, \qstart, F, \delta)\) ein endlicher Automat. Dann gibt es eine reguläre
+              </span>Sei \(M = (\Sigma, Q, \qstart, F, \delta)\) ein endlicher Automat. Dann gibt es eine reguläre
             Grammatik
             \(G = (\Sigma, N, P, S)\) mit \(L(G) = L(M)\).
           </div>
@@ -748,26 +742,25 @@
             <b>Beweis.</b>
             Wir setzen \(N = Q\) und \(S = \qstart\) und führen für jeden Zustandsübergang, der von
             \(\delta\) beschrieben wird, eine Ableitungsregel ein:
-            $$\begin{align*}
-            q_1 \stackrel{x}{\rightarrow} q_2&amp;\quad \textnormal{ wird zur Produktion } \quad
-            q_1 \rightarrow xq_2
-            \end{align*}$$
+            \begin{align*}
+            q<i>1 \stackrel{x}{\rightarrow} q</i>2&amp;\quad \textnormal{ wird zur Produktion } \quad
+            q<i>1 \rightarrow xq</i>2
+            \end{align*}
             Hiermit erhalten wir eine "Zwischengrammatik" \(G'\). Die endgültige Grammatik \(G\) erhalten
             wir,
             indem wir für jeden akzeptierenden Zustand \(q \in N\) die Produktion
-            $$\begin{align*}
+            \begin{align*}
             q \rightarrow \epsilon
-            \end{align*}$$
+            \end{align*}
             einführen. Wir zeigen nun per Induktion:
             <div
               class="well subtheorem theorem"
             >
               <span
                 class="numbered-title"
-              >Behauptung 
+              >Behauptung
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
-                 
-              </span>Sei \(\alpha \in \Sigma^*\) und \(q, q' \in Q\). Dann gilt
+                </span>Sei \(\alpha \in \Sigma^*\) und \(q, q' \in Q\). Dann gilt
               \(q \stackrel{\alpha}{\rightarrow} q'\) genau dann,
               wenn \(q \Rightarrow^* \alpha q'\) in Grammatik \(G'\) gilt.
             </div>
@@ -792,13 +785,13 @@
               Wir verwenden Induktion über die Länge des Wortes \(\alpha\).
               <p>
                 <b>Induktionsbasis.</b>
-                 Wenn \(\alpha = \epsilon\) gilt, also \(\alpha\) die
+                Wenn \(\alpha = \epsilon\) gilt, also \(\alpha\) die
                 Länge 0 hat, dann
                 gilt \(q \stackrel{\epsilon}{\rightarrow} q'\) genau dann, wenn \(q = q'\) ist. Wie kann
                 nun
                 \(q \Rightarrow^* \epsilon q'\) in \(G'\) gelten? Beachten Sie, dass jede Produktion in
                 \(G'\) ein Terminalsymbol
-                erzeugt; \(q \Rightarrow^* \epsilon q'\) kann also nur gelten, wenn 
+                erzeugt; \(q \Rightarrow^* \epsilon q'\) kann also nur gelten, wenn
                 <i>keine</i>
                 Produktion erfolgt ist und somit
                 \(q = q'\) gilt. Wir sehen: beide Aussagen sind äquivalent zu \(q = q'\) und somit auch
@@ -828,7 +821,7 @@
               </p>
               <p>
                 <b>Aus (1) folgt (2).</b>
-                 Nehmen wir also an, dass
+                Nehmen wir also an, dass
                 \(q \stackrel{x \beta}{\rightarrow} q'\) gilt und bezeichnen
                 \(q_1 := \delta(q,x)\). Es gilt also
                 $$
@@ -860,9 +853,9 @@
                 q \rightarrow x q_1
                 $$
                 gewesen sein. Die Ableitung hat also die Form
-                $$\begin{align*}
+                \begin{align*}
                 q \Rightarrow x q_1 \Rightarrow^* x \beta q' \ ,
-                \end{align*}$$
+                \end{align*}
                 wir können also aus \(q_1\) die Wortform \(\beta q'\) ableiten: \(q_1 \Rightarrow^*
                 \beta q'\). Auf diese
                 Erkenntnis wenden wir die Induktionshypothese an und schließen, dass
@@ -945,10 +938,9 @@
           >
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-               
-            </span>Schreiben Sie zu folgendem Automaten über dem Alphabet \(\Sigma = \{0,1,2,3,4,5,6,7,8,9\}\) eine
+              </span>Schreiben Sie zu folgendem Automaten über dem Alphabet \(\Sigma = \{0,1,2,3,4,5,6,7,8,9\}\) eine
             äquivalente reguläre Grammatik:
             <figure>
               <img
@@ -975,18 +967,17 @@
           >
             <span
               class="numbered-title"
-            >Beispiel 
+            >Beispiel
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.8</NumberedTitle>
-               
-            </span>Betrachten wir die 
+              </span>Betrachten wir die
             <a
               href="./04-01-regular-grammars.html#example-aaabb"
             >reguläre Grammatik aus
               dem vorherigen Kapitel 4.1</a>:
-            $$\begin{align*}
+            \begin{align*}
             S&amp;\rightarrow \epsilon \ |\ a S \ | \ b T \\
             T&amp;\rightarrow \epsilon \ | \ b T \ .
-            \end{align*}$$
+            \end{align*}
             <p>
               Versuchen wir, daraus einen endlichen Automaten zu bauen. Als Zustandsmenge nehmen wir die
               Menge nichtterminaler Symbole \(\{S,T\}\), als
@@ -1010,13 +1001,13 @@
               mal ein \(b\) vorgekommen ist,
               eben kein \(a\) mehr vorkommen darf. Die Definition eines endlichen Automaten
               verlangt aber, dass \(\delta\) eine Funktion ist, also für alle Eingabewerte definiert ist.
-              Wir lösen das, indem wir einen sogenannten 
+              Wir lösen das, indem wir einen sogenannten
               <i>Fehlerzustand (Trap State)</i>
-               einführen,
+              einführen,
               der im Prinzip
               den Zustand
               <i>lehne das Wort ab, egal, was noch kommt</i>
-               versinnbildlicht:
+              versinnbildlicht:
             </p>
             <figure>
               <img
@@ -1034,22 +1025,21 @@
           >
             <span
               class="numbered-title"
-            >Beispiel 
+            >Beispiel
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.9</NumberedTitle>
-               
-            </span>Betrachten wir die 
+              </span>Betrachten wir die
             <a
               href="./04-01-regular-grammars.html#example-xxx1yyy"
             >reguläre Grammatik
               aus
               dem vorherigen Kapitel 4.1</a>:
-            $$\begin{align*}
+            \begin{align*}
             A&amp;\rightarrow 0 A \ | 1 A \ | 1 B \\
             B&amp;\rightarrow 0 C \ | 1 C \\
             C&amp;\rightarrow 0 D \ | 1 D \\
             D&amp;\rightarrow 0 E \ | 1 E \\
             E&amp;\rightarrow \epsilon \
-            \end{align*}$$
+            \end{align*}
             Wobei wir aus dem vorherigen Beispiel lernen und einen Fehlerzustand einführen:
             <figure>
               <img
@@ -1065,7 +1055,7 @@
               erzeugte Sprache ist, so
               wird das Problem klarer: \(G\) erzeugt die Sprache aller Wörter über \(\{0,1\}\), deren
               <i>viertletztes</i>
-               Zeichen
+              Zeichen
               eine 1 ist. Die Herausforderung ist nun: wenn der Automat eine 1 liest, dann weiß er nicht,
               ob das jetzt schon
               das viertletzte Zeichen ist oder nicht; er weiß also nicht, ob er im Zustand \(A\) bleiben
@@ -1076,9 +1066,9 @@
           <p>
             Um mit Fällen wie dem eben geschilderten umgehen zu können, erweitern wir die Definition des
             endlichen Automaten
-            in nächsten Kapitel zu einem 
+            in nächsten Kapitel zu einem
             <i>nichtdeterministischen</i>
-             endlichen Automaten.
+            endlichen Automaten.
           </p>
         </div>
       </div>

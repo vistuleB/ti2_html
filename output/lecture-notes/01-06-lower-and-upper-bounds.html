@@ -81,13 +81,11 @@
             <p>
               <span
                 class="numbered-title"
-              >Theorem 
+              >Theorem
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-                 
-              </span>
-               
+                </span>
               <b>(Shannon).</b>
-               Es gibt
+              Es gibt
               Boolesche Funktionen $f$, die keine Schaltkreise kleiner
               als $\Omega(2^n / n)$ haben.
             </p>
@@ -99,7 +97,7 @@
               <b>Beweis.</b>
               Die Beweismethode ist vielleicht neu für Sie, aber in der Komplexitätstheorie und
               Kombinatorik
-              sehr wichtig. Wir stellen uns zwei 
+              sehr wichtig. Wir stellen uns zwei
               <i>Zählaufgaben</i>: (1) wie viele Boolesche
               Funktion $f : \fcube$ gibt es? (2) Wie viele Boolesche Schaltkreise
               mit $n$ Input-Variablen, Fan-in 2 und $s$ Gates gibt es?
@@ -123,13 +121,12 @@
               <p>
                 <span
                   class="numbered-title"
-                >Behauptung 
+                >Behauptung
                   <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-                   
-                </span>
-                 Sei $s \geq n \geq 1$. Dann gibt es
+                  </span>
+                Sei $s \geq n \geq 1$. Dann gibt es
                 höchstens
-                $s^{2s+1}$ Schaltkreise mit $n$ Input-Variablen, Fan-in 2 und $s$ Gates. 
+                $s^{2s+1}$ Schaltkreise mit $n$ Input-Variablen, Fan-in 2 und $s$ Gates.
               </p>
             </div>
             <div
@@ -150,16 +147,16 @@
                       mit einer der $n$ Input-Variablen beschriften.
                     </li>
                     <li>
-                       Ein Not-Gate? Dann müssen wir eines der anderen Gates
+                      Ein Not-Gate? Dann müssen wir eines der anderen Gates
                       als Vorgänger-Gate wählen. Wir haben höchstens $s-1$ Möglichkeiten.
                     </li>
                     <li>
-                       Ein And-Gate? Dann müssen wir zwei der anderen Gates als
+                      Ein And-Gate? Dann müssen wir zwei der anderen Gates als
                       Vorgänger-Gates wählen. Wir haben höchstesn ${s-1 \choose 2} =
                       \frac{(s-1)(s-2)}{2}$ Möglichkeiten.
                     </li>
                     <li>
-                       Ein Or-Gate? Dann haben wir auch höchstens ${s-1 \choose 2}$ Möglichkeiten.
+                      Ein Or-Gate? Dann haben wir auch höchstens ${s-1 \choose 2}$ Möglichkeiten.
                     </li>
                   </ul>
                   <p>
@@ -194,11 +191,11 @@
               Wählen wir nun $s := 2^{n} / (2n)$. Wieviele Schaltkreise mit $n$ Variablen, Fan-in 2 und
               $s$ Gates gibt es? Die Schranke in der obigen Behauptung sagt, dies seien höchstens
             </p>
-            $$\begin{align*}
+            \begin{align*}
             \pfrac{2^n}{2n}^{\frac{2^{n}}{n} + 1}&amp;= \left(2^{n - \log (2n)}\right)^{\frac{2^n}{n} + 1} \\
             &amp;= 2^{2^{n} + n - \log(2n) \frac{2^{n}}{n} - \log (2n)} \\
             &amp;\lt 2^{2^n} \ .
-            \end{align*}$$
+            \end{align*}
             <p>
               Also: es gibt mehr Boolesche Funktionen in $n$ Variablen, als es Boolesche Schaltkreise
               mit $\frac{2^n}{2n}$ Gates gibt. Somit benötigen manche Boolesche Funktionen
@@ -213,10 +210,9 @@
             <p>
               <span
                 class="numbered-title"
-              >Übungsaufgabe 
+              >Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-                 
-              </span>In Theorem und Beweis sprechen wir die ganze Zeit nur von Schaltkreisen
+                </span>In Theorem und Beweis sprechen wir die ganze Zeit nur von Schaltkreisen
               mit Fan-in 2. Was geschieht, wenn wir beliebigen Fan-in erlauben?
               Wie ändern sich Aussage und Beweis?
             </p>
@@ -227,14 +223,14 @@
           </div>
           <p>
             Der obige Beweis sagt noch mehr: der Anteil Boolescher Funktionen, bei denen wir mit
-            $\frac{2^n}{2n}$ Gates auskommen, ist verschwindend klein. Fast 
+            $\frac{2^n}{2n}$ Gates auskommen, ist verschwindend klein. Fast
             <i>alle</i>
-             Funktionen
+            Funktionen
             brauchen also riesige Schaltkreise. In einem Gewissen Sinne haben wir also einfach Glück:
             die Funktionen, die uns interessieren, wie $n$-Bit-Addition, Majority, Parity und so weiter,
             haben einfach niedrige Komplexität. Das liegt wohl in der Natur der Sache: wir addieren,
             multiplizieren,
-            bauen Brücken, Häuser, Flugzeuge, Computer, weil wir es 
+            bauen Brücken, Häuser, Flugzeuge, Computer, weil wir es
             <i>können</i>, weil also die dafür
             benötigten Berechnungen effizient durchführbar sind.
           </p>
@@ -245,7 +241,7 @@
               <span
                 class="numbered-title"
               >Forschungsprojekt.</span>
-               Finde eine konkret
+              Finde eine konkret
               beschreibbare Funktion $f: \fcube$, die exponentiell viele (oder zumindest superpolynomiell
               viele)
               Gates benötigt.
@@ -263,12 +259,12 @@
               <span
                 class="numbered-title"
               >Entscheidungsproblem 3-Färbbarkeit.</span>
-               Gegeben
-              ein Graph $G = (V,E)$, gibt es eine Funktion 
+              Gegeben
+              ein Graph $G = (V,E)$, gibt es eine Funktion
             </p>
-            $$\begin{align*}
+            \begin{align*}
             c : V \rightarrow \{\textnormal{rot, grün, blau}\} \ ,
-            \end{align*}$$
+            \end{align*}
             <p>
               so dass $c(u) \ne c(v)$ für alle $\{u,v\} \in E$ gilt? Dass also benachbarte Knoten
               verschiedene Farben bekommen?
@@ -287,10 +283,9 @@
             <p>
               <span
                 class="numbered-title"
-              >Übungsaufgabe 
+              >Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-                 
-              </span>Formal gesehen ist Graphenfärbbarkeit eine Sprache
+                </span>Formal gesehen ist Graphenfärbbarkeit eine Sprache
               $L \subseteq \Sigma^*$ über einem Alphabet $\Sigma$, dass uns
               erlaubt, Graphen zu codieren. Wie können wir $L$ als Boolesche Funktion darstellen?
             </p>
@@ -311,11 +306,9 @@
             <p>
               <span
                 class="numbered-title"
-              >Theorem 
+              >Theorem
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-                 
-              </span>
-               
+                </span>
               <b>(Lupanov)</b>. Für jede Boolesche
               Funktion in $n$ Variablen gibt es einen Schaltkreis mit Fan-in 2 und $O(2^n / n)$ Gates.
             </p>
@@ -343,7 +336,7 @@
                 dass wir alle Werte modulo 2 auswerten, also in dem endlichen Körper
                 $\F</i>2$ arbeiten. Wir brauchen daher auch keine höheren Potenzen:
               $x^2$ und $x$ ergeben für alle $x \in \{0,1\}$ die gleichen Werte.
-              Wenn wir in $\F_2$ rechnen, können wir uns also auf 
+              Wenn wir in $\F_2$ rechnen, können wir uns also auf
               <i>multilineare</i>
               Polynome beschränken. Führen wir Polynome formal ein:
               wir haben eine Menge $x<i>1, \dots, x</i>n$ von Variablen;
@@ -361,15 +354,14 @@
               <p>
                 <span
                   class="numbered-title"
-                >Übungsaufgabe 
+                >Übungsaufgabe
                   <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-                   
-                </span>Zeigen Sie, dass sich jede Boolesche Funktion $f$
+                  </span>Zeigen Sie, dass sich jede Boolesche Funktion $f$
                 als $\F_2$-Polynom schreiben lässt.
               </p>
               <p>
                 <b>Tipp:</b>
-                 beschränken Sie sich zuerst auf Funktionen $f$,
+                beschränken Sie sich zuerst auf Funktionen $f$,
                 deren Wahrheitstabelle in genau einer Zeile eine 1 haben. Schreiben
                 Sie eine solche Funktion als $\F_2$-Polynom.
               </p>
@@ -379,9 +371,9 @@
               gleichen Koeffizienten, aber die spielen hier ja keine Rolle).
               Wir würden also sagen, dass
               $xyz + x$ und $x + yzx$ die gleichen Polynome sind.
-              Dagegen wären $x^2yz + x$ und $xyz+x$ 
+              Dagegen wären $x^2yz + x$ und $xyz+x$
               <i>verschiedene</i>
-               Polynome.
+              Polynome.
               Da wir über $\F_2$ arbeiten, beschränken wir uns aber eh auf multilineare Polynome,
               wo also alle Exponenten 1 sind.
             </p>
@@ -391,10 +383,9 @@
               <p>
                 <span
                   class="numbered-title"
-                >Übungsaufgabe 
+                >Übungsaufgabe
                   <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-                   
-                </span>Zeigen Sie, dass sich jede Funktion $f :\fcube$ 
+                  </span>Zeigen Sie, dass sich jede Funktion $f :\fcube$
                 <i>eindeutig</i>
                 als multilineares $\F_2$-Polynom schreiben lässt. In anderen Worten:
                 wenn $p$ und $q$ zwei verschiedene multilineare Polynome sind, dann
@@ -414,11 +405,11 @@
               Die Summe bilden wir mit $t-1$ weiteren XOR-Gates. Da
               $t \leq 2^n$ und $|I| \leq n$ gilt, brauchen wir maximal
             </p>
-            $$\begin{align*}
+            \begin{align*}
             (n-1) 2^n + 2^n - 1 \leq n 2^n
-            \end{align*}$$
+            \end{align*}
             <p>
-              Gates. Allerdings ist das eine ungenaue Rechnung: Selbst wenn 
+              Gates. Allerdings ist das eine ungenaue Rechnung: Selbst wenn
               <i>alle</i>
               $2^n$ Monome vertreten sind, bestehen nicht alle Monome aus $n$ Variablen.
             </p>
@@ -428,15 +419,14 @@
               <p>
                 <span
                   class="numbered-title"
-                >Übungsaufgabe 
+                >Übungsaufgabe
                   <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-                   
-                </span>Rechnen Sie genauer! Wenn Sie alle Monome berechnen wollen,
+                  </span>Rechnen Sie genauer! Wenn Sie alle Monome berechnen wollen,
                 brauchen Sie
               </p>
-              $$\begin{align*}
+              \begin{align*}
               \sum_{I \subseteq [n]} (|I| - 1)
-              \end{align*}$$
+              \end{align*}
               <p>
                 viele AND-Gates. Finden Sie eine geschlossene Formel für diesen Ausdruck.
               </p>
@@ -452,11 +442,10 @@
               <p>
                 <span
                   class="numbered-title"
-                >Lemma 
+                >Lemma
                   <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-                   
-                </span>
-                 Es gibt einen
+                  </span>
+                Es gibt einen
                 Schaltkreis $C<i>n$ mit $n$ Input-Gates $x</i>1, \dots, x_n$ und
                 $2^n$ Output-Gates, eines für jedes Monom $x^{I}$, der
                 $2^n$ Gates hat.
@@ -475,13 +464,13 @@
                 <b>Beweis.</b>
                 Die Idee ist: wenn wir $x<i>1 x</i>2 x<i>3 x</i>4$ berechnen wollen,
                 brauchen wir drei AND-Gates. Allerdings müssen wir
-                $x<i>1 x</i>2 x_3$ eh berechnen, da wir ja 
+                $x<i>1 x</i>2 x_3$ eh berechnen, da wir ja
                 <i>alle</i>
-                 Monome
+                Monome
                 wollen. Wenn wir also einen Schaltkreis für $x<i>1 x</i>2 x_3$ haben,
-                können wir daraus mit 
+                können wir daraus mit
                 <i>einem</i>
-                 zusätzlichen AND-Gate
+                zusätzlichen AND-Gate
                 $x<i>1x</i>2x<i>3x</i>4$ berechnen.
               </p>
               <p>
@@ -579,99 +568,96 @@
               $x<i>{n-k+1}, \dots, x</i>n$ in $z<i>1, \dots, z</i>n$. Wir können $f$ also
               wie folgt schreiben:
             </p>
-            $$\begin{align*}
-            f(\x)&amp;= \sum_{I \subseteq [n]} c_I \x^I \tag{mit Koeffizienten $c_I \in \{0,1\}$} \\
-            &amp;= \sum_{A \subseteq [n-k]} \sum_{B \subseteq [k]} c_{A,B} \y^A \z^B \\
-            &amp;= \sum_{A \subseteq [n-k]} \y^A \left( \sum_{B \subseteq [k]} c_{A,B} \z^B\right)
-            \tag{den Faktor $\y^A$ ausklammern} \\
-            &amp;=: \sum_{A \subseteq [n-k]} \y^A g_A(\z) \tag{der inneren Summe einen Namen geben}
-            \end{align*}$$
-            <p>
-              Die obige Summe beinhaltet also $2^{n-k}$ Terme von der Form
-              $\y^A g<i>A(\z)$. Es gibt insgesamt nur $2^{2^k}$ Polynome in den Variablen $\z$.
-                Wenn nun also $2^{n-k} \gg 2^{2^k}$ ist, werden gewisse Polynome $g</i>A$ mehrfach
-              auftreten, und wir können sparen. Dafür berechnen wir
-              vorsorglich 
-              <i>alle</i>
-               Funktionen in $z<i>1,\dots,z</i>k$.
-            </p>
-            <div
-              class="well container-fluid subtheorem"
-            >
+            \begin{align*}
+            f(\x)&amp;= \sum<i>{I \subseteq [n]} c</i>I \x^I \tag{mit Koeffizienten $c<i>I \in \{0,1\}$} \\
+              &amp;= \sum</i>{A \subseteq [n-k]} \sum<i>{B \subseteq [k]} c</i>{A,B} \y^A \z^B \\
+            &amp;= \sum<i>{A \subseteq [n-k]} \y^A \left( \sum</i>{B \subseteq [k]} c<i>{A,B} \z^B\right)
+              \tag{den Faktor $\y^A$ ausklammern} \\
+              &amp;=: \sum</i>{A \subseteq [n-k]} \y^A g<i>A(\z) \tag{der inneren Summe einen Namen geben}
+              \end{align*}
               <p>
-                <span
-                  class="numbered-title"
-                >Lemma 
-                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-                   
-                </span>
-                 Es gibt einen
-                Schaltkreis mit Input-Gates $z<i>1,\dots,z</i>k$ und $2^{2^k}$ Output-Gates, einen
-                für jede Funktion $g: \{0,1\}^k \rightarrow \{0,1\}$. Der Schaltkreis hat
-                Fan-in 2 und insgesamt $2^k + 2^{2^k}$ Gates (AND-Gates und XOR-Gates).
+                Die obige Summe beinhaltet also $2^{n-k}$ Terme von der Form
+                $\y^A g<i>A(\z)$. Es gibt insgesamt nur $2^{2^k}$ Polynome in den Variablen $\z$.
+                  Wenn nun also $2^{n-k} \gg 2^{2^k}$ ist, werden gewisse Polynome $g</i>A$ mehrfach
+                auftreten, und wir können sparen. Dafür berechnen wir
+                vorsorglich
+                <i>alle</i>
+                Funktionen in $z<i>1,\dots,z</i>k$.
               </p>
-            </div>
-            <div
-              class="well well-lg numbered-exercise container-fluid"
-            >
+              <div
+                class="well container-fluid subtheorem"
+              >
+                <p>
+                  <span
+                    class="numbered-title"
+                  >Lemma
+                    <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
+                    </span>
+                  Es gibt einen
+                  Schaltkreis mit Input-Gates $z<i>1,\dots,z</i>k$ und $2^{2^k}$ Output-Gates, einen
+                  für jede Funktion $g: \{0,1\}^k \rightarrow \{0,1\}$. Der Schaltkreis hat
+                  Fan-in 2 und insgesamt $2^k + 2^{2^k}$ Gates (AND-Gates und XOR-Gates).
+                </p>
+              </div>
+              <div
+                class="well well-lg numbered-exercise container-fluid"
+              >
+                <p>
+                  <span
+                    class="numbered-title"
+                  >Übungsaufgabe
+                    <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
+                    </span>Beweisen Sie das Lemma. Konstrukieren Sie zuerst wie
+                  im vorherigen Lemma einen Schaltkreis, der Ihnen alle
+                  Monome berechnet.
+                </p>
+              </div>
+              <div
+                class="well well-lg numbered-exercise container-fluid"
+              >
+                <p>
+                  <span
+                    class="numbered-title"
+                  >Übungsaufgabe
+                    <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
+                    </span>Zeigen Sie, dass die obige Konstruktion verbessert werden kann, indem
+                  Sie einen Schaltkreis mit nur $2^{2^k}$ Gates bauen.
+                </p>
+                <p>
+                  <b>Tip.</b>
+                  Jedes Gate muss also gleichzeitig
+                  ein Output-Gate sein.
+                </p>
+              </div>
               <p>
-                <span
-                  class="numbered-title"
-                >Übungsaufgabe 
-                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
-                   
-                </span>Beweisen Sie das Lemma. Konstrukieren Sie zuerst wie
-                im vorherigen Lemma einen Schaltkreis, der Ihnen alle
-                Monome berechnet.
+                Wenn wir nun einen Schaltkreis haben, der uns jedes
+                $g : \{0,1\}^k \rightarrow \cube$ berechnet, schauen wir uns
+                wieder $f(\x)$ an.
               </p>
-            </div>
-            <div
-              class="well well-lg numbered-exercise container-fluid"
-            >
+              \begin{align*}
+              f(\x)&amp;=
+              \sum</i>{A \subseteq [n-k]} \y^A g<i>A(\z)
+              \end{align*}
               <p>
-                <span
-                  class="numbered-title"
-                >Übungsaufgabe 
-                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
-                   
-                </span>Zeigen Sie, dass die obige Konstruktion verbessert werden kann, indem
-                Sie einen Schaltkreis mit nur $2^{2^k}$ Gates bauen.
+                Für jedes $g<i>A$ haben wir ja bereits ein Gate, das es berechnet.
+                  Mit einem weiteren Schaltkreis von $2^{n-k}$ Gates können wir alle
+                  Monome $\y^A$ berechnen. Schlussendlich müssen wir noch die Summe
+                  $\sum</i>{A \subseteq [n-k]}$ bilden, wofür wir $2^{n-k}$ XOR-Gates brauchen.
+                Insgesamt brauchen wir also
               </p>
-              <p>
-                <b>Tip.</b>
-                 Jedes Gate muss also gleichzeitig
-                ein Output-Gate sein.
-              </p>
-            </div>
-            <p>
-              Wenn wir nun einen Schaltkreis haben, der uns jedes
-              $g : \{0,1\}^k \rightarrow \cube$ berechnet, schauen wir uns
-              wieder $f(\x)$ an.
-            </p>
-            $$\begin{align*}
-            f(\x)&amp;=
-            \sum_{A \subseteq [n-k]} \y^A g_A(\z)
-            \end{align*}$$
-            <p>
-              Für jedes $g<i>A$ haben wir ja bereits ein Gate, das es berechnet.
-                Mit einem weiteren Schaltkreis von $2^{n-k}$ Gates können wir alle
-                Monome $\y^A$ berechnen. Schlussendlich müssen wir noch die Summe
-                $\sum</i>{A \subseteq [n-k]}$ bilden, wofür wir $2^{n-k}$ XOR-Gates brauchen.
-              Insgesamt brauchen wir also
-            </p>
-            $$\begin{align}
-            &amp;\underbrace{2^{2^k} + 2^k}_{\textnormal{für alle $g: \cube^k \rightarrow \cube$}}
+              \begin{align}
+              &amp;\underbrace{2^{2^k} + 2^k}</i>{\textnormal{für alle $g: \cube^k \rightarrow \cube$}}
             +
-            \underbrace{2^{n-k}}_{\textnormal{für alle Monome $\y^A$}}
-            +
-            \underbrace{2^{n-k}}_{\textnormal{um $\y^A$ und $g_A(\z)$ zu multiplizieren}}
-            +
-            \underbrace{2^{n-k}-1}_{\textnormal{für die Summe $\sum_{A \subseteq [n-k]}$}}
+            \underbrace{2^{n-k}}<i>{\textnormal{für alle Monome $\y^A$}}
+              +
+              \underbrace{2^{n-k}}</i>{\textnormal{um $\y^A$ und $g<i>A(\z)$ zu multiplizieren}}
+              +
+              \underbrace{2^{n-k}-1}</i>{\textnormal{für die Summe $\sum_{A \subseteq [n-k]}$}}
             \nonumber \\
-            =&
+            =&amp;
             2^{2^k} + 3 \cdot 2^{n-k} + 2^k - 1 \ .
             \label{size-lupanov}
-            \end{align}$$
+            \end{align}
             <p>
               Wir müssen nun $k$ so wählen, dass der obige Ausdruck minimiert wird.
               Anstatt nun abzuleiten und gleich 0 zu setzen, verwenden wir einen
@@ -681,11 +667,11 @@
               präzise Minimum, aber sicherlich eine gültige Konstruktion und somit eine
               obere Schranke.
             </p>
-            $$\begin{align*}
+            \begin{align*}
             2^{2^k}&amp;= 2^{n-k} \qquad \Leftrightarrow \\
             2^k&amp;= n-k \qquad \Leftrightarrow \\
             2^k +k&amp;= n
-            \end{align*}$$
+            \end{align*}
             <p>
               Ich habe keine explizite Formel, um das für $k$ aufzulösen, also
               setze ich auf gut Glück $k = \log n$ und wir erhalten
@@ -693,17 +679,17 @@
             <p
               style="color:red"
             >
-              $$\begin{align*}
+              \begin{align*}
               (\ref{size-lupanov})&amp;= 2^{2^k} + 3 \cdot 2^{n-k} + 2^k - 1 \\
               &amp;= 2^{2^{\log n}} + \dots
-              \end{align*}$$
+              \end{align*}
             </p>
             <p>
               und wir können gleich aufhören, da der erste Term bereits $2^n$ ergibt.
               Das ist zu groß.
               Wir müssen $k$ also kleiner wählen. Nächster Versuch: $k := \log n - 1$.
             </p>
-            $$\begin{align*}
+            \begin{align*}
             (\ref{size-lupanov})&amp;= 2^{2^k} + 3 \cdot 2^{n-k} + 2^k - 1 \\
             &amp;=
             2^{2^{\log n - 1}} + 3 \cdot 2^{n - \log n + 1} + 2^{\log n - 1} - 1 \\
@@ -711,7 +697,7 @@
             2^{n/2} + \frac{6 \cdot 2^n}{n} + n/2 - 1 \\
             &amp;=
             O\pfrac{2^n}{n} \ .
-            \end{align*}$$
+            \end{align*}
             <p>
               Das ist die behauptete Schranke.<span
                 class="qed"

@@ -73,12 +73,12 @@
             mathematischen Fachsprache sagt man: sie haben die
             <i>Kardinalität des Kontinuums</i>. Das Wort
             <i>Kardinalität</i>
-             steht hier für
+            steht hier für
             <i>Anzahl der Elemente</i>
-             (bzw. den Größenbegriff bei unendlichen
-            Mengen), und 
+            (bzw. den Größenbegriff bei unendlichen
+            Mengen), und
             <i>Kontinuum</i>
-             steht für 
+            steht für
             <i>die reellen Zahlen</i>.
             Im nächsten Kapitel werden wir zeigen, dass es "echt mehr" reelle
             Zahlen gibt als natürliche; dass also $\R$ nicht abzählbar ist. Aber
@@ -90,11 +90,10 @@
             <p>
               <span
                 class="numbered-title"
-              >Beobachtung 
+              >Beobachtung
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-                 
-              </span>
-               Es gilt $\R \approx
+                </span>
+              Es gilt $\R \approx
               (0,1)$, wobei $(0,1)$ das offene Einheitsintervall ist.
             </p>
           </div>
@@ -105,8 +104,8 @@
               <b>Beweis.</b>
               Wir können eine Bijektion explizit hinschreiben:
             </p>
-            $$\begin{align*} f : \R&amp;\rightarrow (0,1) \\ x&amp;\mapsto
-            \frac{e^x}{e^x + 1} \end{align*}$$
+            \begin{align*} f : \R&amp;\rightarrow (0,1) \\ x&amp;\mapsto
+            \frac{e^x}{e^x + 1} \end{align*}
             <p>
               Mit etwas reeller Analysis kann man nun zeigen:
             </p>
@@ -136,10 +135,9 @@
             <p>
               <span
                 class="numbered-title"
-              >Übungsaufgabe 
+              >Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-                 
-              </span>Zeigen Sie $\R \approx \R^+$.
+                </span>Zeigen Sie $\R \approx \R^+$.
             </p>
           </div>
           <div
@@ -148,10 +146,9 @@
             <p>
               <span
                 class="numbered-title"
-              >Übungsaufgabe 
+              >Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-                 
-              </span>Zeigen Sie, dass $\R_0^+ \approx \R^+$ gilt. Sie müssen "die 0
+                </span>Zeigen Sie, dass $\R_0^+ \approx \R^+$ gilt. Sie müssen "die 0
               verschwinden lassen".
             </p>
           </div>
@@ -162,10 +159,9 @@
               <span
                 id="exercise-open-closed-half-open"
                 class="numbered-title"
-              >Übungsaufgabe 
+              >Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-                 
-              </span>Zeigen Sie, dass $[0,1]$, $[0,1)$, $(0,1]$ und $(0,1)$ alle
+                </span>Zeigen Sie, dass $[0,1]$, $[0,1)$, $(0,1]$ und $(0,1)$ alle
               gleichmächtig sind.
             </p>
           </div>
@@ -187,10 +183,9 @@
               <span
                 id="theorem-R-bitstrings"
                 class="numbered-title"
-              >Theorem 
+              >Theorem
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-                 
-              </span>$\R \approx \{0,1\}^{\N}$.
+                </span>$\R \approx \{0,1\}^{\N}$.
             </p>
           </div>
           <div
@@ -209,28 +204,28 @@
               Jede Zahl $0 \leq x \lt 1$ lässt sich als (unendliche) Binärzahl
               $(x)_2$ schreiben, beispielsweise
             </p>
-            $$\begin{align*} \pfrac{1}{3}_2 = 0.01010101\dots \end{align*}$$
-            <p>
-              Wir erhalten nun unsere unendliche $0/1$-Folge, indem wir die
-              führende Null und den Punkt abschneiden: $f(1/3) = 010101\dots$. Das
-              geht für jede Zahl in $[0,1)$: $f(1/2) = 100000\dots$, $f(1/4) =
-              010000\dots$.
-            </p>
-            <p>
-              Die konstruierte Funktion $f$ ist injektiv: zwei verschiedene $0
-              \leq x \lt y \lt 1$ haben verschiedene Binärdarstellung und werden
-              somit zu zwie verschiedenen $0/1$-Folgen. Leider ist sie nicht
-              surjektiv: die Binärdarstellung einer reellen Zahl hört nie mit
-              $11111\dots$ auf. Statt $0.001111111\dots$ würden wir einfach
-              $0.0100000\dots$ schreiben. Das entspricht dem Phänomen in der
-              Dezimalschreibweise, dass $0.99999999\dots$ und $1.000000\dots$ die
-              gleiche Zahl repräsentieren. Die "kanonische" Repräsentierung ist
-              allerdings immer die mit einem unendlichen Schweif an Nullen, nie
-              mit Neunen (oder in Binär: Einsen). Definieren wir also $X$, die
-              Menge aller $0/1$-Folgen mit einem unendlichen Schweif an Einsen:
-            </p>
-            $$\begin{align*} X := \{ a_1 a_2 a_3 \dots \in \{0,1\}^{\N} \ | \
-            \exists\ n \geq 1: a_i = 1 \ \forall i \geq n\} \end{align*}$$
+            \begin{align*} \pfrac{1}{3}<i>2 = 0.01010101\dots \end{align*}
+              <p>
+                Wir erhalten nun unsere unendliche $0/1$-Folge, indem wir die
+                führende Null und den Punkt abschneiden: $f(1/3) = 010101\dots$. Das
+                geht für jede Zahl in $[0,1)$: $f(1/2) = 100000\dots$, $f(1/4) =
+                010000\dots$.
+              </p>
+              <p>
+                Die konstruierte Funktion $f$ ist injektiv: zwei verschiedene $0
+                \leq x \lt y \lt 1$ haben verschiedene Binärdarstellung und werden
+                somit zu zwie verschiedenen $0/1$-Folgen. Leider ist sie nicht
+                surjektiv: die Binärdarstellung einer reellen Zahl hört nie mit
+                $11111\dots$ auf. Statt $0.001111111\dots$ würden wir einfach
+                $0.0100000\dots$ schreiben. Das entspricht dem Phänomen in der
+                Dezimalschreibweise, dass $0.99999999\dots$ und $1.000000\dots$ die
+                gleiche Zahl repräsentieren. Die "kanonische" Repräsentierung ist
+                allerdings immer die mit einem unendlichen Schweif an Nullen, nie
+                mit Neunen (oder in Binär: Einsen). Definieren wir also $X$, die
+                Menge aller $0/1$-Folgen mit einem unendlichen Schweif an Einsen:
+              </p>
+              \begin{align*} X := \{ a</i>1 a<i>2 a</i>3 \dots \in \{0,1\}^{\N} \ | \
+            \exists\ n \geq 1: a_i = 1 \ \forall i \geq n\} \end{align*}
             <p>
               Unsere Funktion $f$ ist eine Bijektion von $[0,1)$ nach
               $\{0,1\}^{\N} \setminus X$. Um daraus eine Bijektion $g : [0,1)
@@ -243,10 +238,9 @@
               <p>
                 <span
                   class="numbered-title"
-                >Übungsaufgabe 
+                >Übungsaufgabe
                   <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-                   
-                </span>Sei $Y := \{ a<i>1 a</i>2 a<i>3 \dots \in \{0,1\}^{\N} \ | \ \exists\ n
+                  </span>Sei $Y := \{ a<i>1 a</i>2 a<i>3 \dots \in \{0,1\}^{\N} \ | \ \exists\ n
                   \geq 1: a</i>i = 0 \ \forall i \geq n\}$ die Menge aller $0/1$-Folgen
                 mit einem unendlichen Schweif von Nullen. Offensichtlich gilt $X
                 \approx Y$.
@@ -261,10 +255,9 @@
               <p>
                 <span
                   class="numbered-title"
-                >Übungsaufgabe 
+                >Übungsaufgabe
                   <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-                   
-                </span>Verwenden Sie die vorherige Übungsaufgabe, um $Y$ zu verdoppeln
+                  </span>Verwenden Sie die vorherige Übungsaufgabe, um $Y$ zu verdoppeln
                 und somit eine Bijektion von $[0,1) \rightarrow \{0,1\}^{\N}$ zu
                 konstruieren. Vielleicht hilft Ihnen folgendes Bild:
               </p>
@@ -291,10 +284,9 @@
               <span
                 id="theorem-square-interval"
                 class="numbered-title"
-              >Theorem 
+              >Theorem
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-                 
-              </span>Es gilt $\R^2 \approx \R$.
+                </span>Es gilt $\R^2 \approx \R$.
             </p>
           </div>
           <div
@@ -302,26 +294,26 @@
           >
             <p>
               <b>Beweis.</b>
-               Mithilfe von<span
+              Mithilfe von<span
                 data-ref="theorem-R-bitstrings"
                 class="reference"
               ></span>
-               geht
+              geht
               das ganz einfach. Da $\R \approx \{0,1\}^\N$ gilt, reicht es
               nämlich, eine Bijektion $\{0,1\}^\N \times \{0,1\}^\N \rightarrow
               \{0,1\}^\N$ zu konstruieren. Ein Element von $\{0,1\}^\N \times
               \{0,1\}^\N$ besteht aus zwei unendlichen $0/1$-Folgen:
             </p>
-            $$\begin{align*} (a,b) = (a_1 a_2 a_3 \dots, b_1 b_2 b_3 \dots) \ .
-            \end{align*}$$
+            \begin{align*} (a,b) = (a<i>1 a</i>2 a<i>3 \dots, b</i>1 b<i>2 b</i>3 \dots) \ .
+            \end{align*}
             <p>
-              Wir müssen dieses Folgenpaar nun in 
+              Wir müssen dieses Folgenpaar nun in
               <i>eine</i>
-               Folge codieren.
+              Folge codieren.
               Ganz klar:
             </p>
-            $$\begin{align*} (a_1 a_2 a_3 \dots, b_1 b_2 b_3 \dots) \mapsto (a_1 b_1
-            a_2 b_2 a_3 b_3 \dots) \end{align*}$$ Dies ist die gewünschte Bijektion
+            \begin{align*} (a<i>1 a</i>2 a<i>3 \dots, b</i>1 b<i>2 b</i>3 \dots) \mapsto (a<i>1 b</i>1
+            a<i>2 b</i>2 a<i>3 b</i>3 \dots) \end{align*} Dies ist die gewünschte Bijektion
             $\{0,1\}^\N \times \{0,1\}^\N \rightarrow \{0,1\}^\N$ .<span
               class="qed"
             >\(\square\)</span>
@@ -336,15 +328,15 @@
             schreiben sie in Binärdarstellung und vereinigen sie dann per
             Reißverschlussverfahren zu einer Zahl, z.B.
           </p>
-          $$\begin{align*} \left(\frac{1}{3}, \frac{1}{2}\right) =
-          (0.010\overline{10}\dots, 0.1)_2 \mapsto (010101\dots, 100000\dots)
-          \mapsto (01100010001000\dots) \mapsto (0.01\overline{1000})_2 =: z\ .
-          \end{align*}$$
+          \begin{align*} \left(\frac{1}{3}, \frac{1}{2}\right) =
+          (0.010\overline{10}\dots, 0.1)<i>2 \mapsto (010101\dots, 100000\dots)
+            \mapsto (01100010001000\dots) \mapsto (0.01\overline{1000})</i>2 =: z\ .
+          \end{align*}
           <p>
             Um herauszufinden, um welche Zahl es sich bei $z$ handelt,
             multiplizieren wir sie mit 64:
           </p>
-          $$\begin{align*} \end{align*}$$
+          \begin{align*} \end{align*}
           <p>
             Sie erreicht alle Zahlen bis auf diejenigen mit einem unendlichen
             Schweif von Einsen. Sie ist hochgradig nichtstetig. Dennoch können wir
@@ -371,10 +363,10 @@
             Nachkommastellen auf. Die ungeraden bilden $x$, die geraden bilden
             $y$. Beispielsweise für $z = 1/7$ gilt
           </p>
-          $$\begin{align*} \frac{1}{7} = (0.001001\overline{001})_2 \mapsto
-          001001001001\dots \mapsto (010010\dots, 001001\dots) \mapsto (
-          (0.\overline{010})_2, (0.\overline{001})) = \left(\frac{2}{7},
-          \frac{1}{7}\right) \ , \end{align*}$$
+          \begin{align*} \frac{1}{7} = (0.001001\overline{001})<i>2 \mapsto
+            001001001001\dots \mapsto (010010\dots, 001001\dots) \mapsto (
+            (0.\overline{010})</i>2, (0.\overline{001})) = \left(\frac{2}{7},
+          \frac{1}{7}\right) \ , \end{align*}
           <p>
             also $f^{-1}(1/7) = (2/7, 1/7)$.
           </p>
@@ -384,11 +376,10 @@
             <p>
               <span
                 class="numbered-title"
-              >Beobachtung 
+              >Beobachtung
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-                 
-              </span>
-               Die Funktion
+                </span>
+              Die Funktion
               $f^{-1}$ bildet
             </p>
             <ul>
@@ -555,11 +546,10 @@
             <p>
               <span
                 class="numbered-title"
-              >Theorem 
+              >Theorem
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-                 
-              </span>
-               $\R \approx \R^{\N}$.
+                </span>
+              $\R \approx \R^{\N}$.
             </p>
           </div>
           <div
@@ -569,7 +559,7 @@
               <b>Beweis.</b>
               Da $\R \approx \cuben$ gilt, reicht es, zu zeigen, dass
             </p>
-            $$\begin{align*} \cuben \approx \left(\cuben\right)^{\N} \end{align*}$$
+            \begin{align*} \cuben \approx \left(\cuben\right)^{\N} \end{align*}
             <p>
               gilt. Interpretieren wir die rechte Seite: das sind unendliche
               Folgen von "Dingern", und jedes Ding ist wiederum eine unendliche
@@ -623,9 +613,9 @@
               <b>Zweiter Beweis.</b>
               Um zu zeigen, dass $\R^\N \approx \R$ gilt, rechnen wir:
             </p>
-            $$\begin{align} \R^\N&amp;\approx \left(\cuben\right)^{\N} \\&amp;\approx
+            \begin{align} \R^\N&amp;\approx \left(\cuben\right)^{\N} \\&amp;\approx
             \cube^{\N \times \N} \\&amp;\approx \cube^{\N} \\&amp;\approx \R \ .
-            \end{align}$$<span
+            \end{align}<span
               class="qed"
             >\(\square\)</span>
           </div>
@@ -645,22 +635,22 @@
             ist die Multiplikation: die Zahlenmultiplikation $a \cdot b$ hat als
             mengentheoretisches Analog das Cartesische Produkt $A \times B$, die
             Menge aller Paare $(x,y)$ mit $x \in A, y \in B$. Die Exponentiation
-            $a^b$ hat als Analog $A^B$, die Menge aller 
+            $a^b$ hat als Analog $A^B$, die Menge aller
             <i>Funktionen</i>
-             $\phi:
+            $\phi:
             B \rightarrow A$. Was ist das Analog zur Addition? Die Vereinigung $A
             \cup B$ wäre zu kurz gegriffen, weil ja zum Beispiel $\{1,2,3\} \cup
             \{4,5\}$ fünf Elemente hat, $\{1,2,3\} \cup \{1,2\}$ aber nur drei.
-            Das "richtige" Analog ist die 
+            Das "richtige" Analog ist die
             <i>disjunkte Vereinigung</i>
-             $A \uplus
+            $A \uplus
             B$, die die Elemente von $B$ erst einmal "markiert", um sie von denen
             von $A$ unterscheidbar zu machen. Somit wäre also $\{1,2,3\} \uplus
             \{1,2\} = \{1,2,3,1',2'\}$ eine Menge der Kardinalität 5. Formal kann
             man $A \uplus B$ so definieren;
           </p>
-          $$\begin{align*} A \uplus B := \{ (a,0) \ | \ a \in A\} \cup \{ (b,1) \ |
-           b \in B\} \ . \end{align*}$$
+          \begin{align*} A \uplus B := \{ (a,0) \ | \ a \in A\} \cup \{ (b,1) \ |
+           b \in B\} \ . \end{align*}
           <div
             class="well container theorem"
           >
@@ -668,10 +658,10 @@
               <span
                 id="calculating-with-cardinals"
                 class="numbered-title"
-              >Theorem 
+              >Theorem
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
-                 
-              </span><b>(mit Kardinalzahlen rechnen)</b>. Es gelten die
+                </span>
+              <b>(mit Kardinalzahlen rechnen)</b>. Es gelten die
               üblichen Rechenregeln:
             </p>
             <ol>
@@ -701,10 +691,9 @@
               <span
                 id="replacing-equipotent-cardinals"
                 class="numbered-title"
-              >Theorem 
+              >Theorem
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
-                 
-              </span>Seien $A, A', B$ Mengen und $A \approx A'$. Dann gilt
+                </span>Seien $A, A', B$ Mengen und $A \approx A'$. Dann gilt
             </p>
             <ol>
               <li>
@@ -734,11 +723,10 @@
             <p>
               <span
                 class="numbered-title"
-              >Übungsaufgabe 
+              >Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
-                 
-              </span>
-               Beweisen Sie so
+                </span>
+              Beweisen Sie so
               viele Punkte von<span
                 data-ref="calculating-with-cardinals"
                 class="reference"
@@ -749,7 +737,7 @@
             </p>
             <p>
               <b>Hinweis.</b>
-               Die Beweise sind alle nicht wirklich
+              Die Beweise sind alle nicht wirklich
               schwierig. Sie müssen nur aufpassen, dass Sie sich nicht in der
               Notation verlieren.
             </p>
@@ -767,35 +755,34 @@
             <p>
               <span
                 class="numbered-title"
-              >Übungsaufgabe 
+              >Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
-                 
-              </span>Zeigen Sie, dass $2^{\N} \approx \cuben$ gilt.
+                </span>Zeigen Sie, dass $2^{\N} \approx \cuben$ gilt.
             </p>
           </div>
           <p>
             Die Elemente von $2^\N$, also Teilmengen $A \subseteq \N$, sind nach
             Inklusion geordnet: $A \subseteq B$. Somit ist $\left(2^{\N},
-            \subseteq\right)$ eine Partialordnung. Eine 
+            \subseteq\right)$ eine Partialordnung. Eine
             <i>Kette</i>
-             in einer
+            in einer
             Partialordnung $(X, \preceq)$ ist eine Menge $Z$, in der alle Elemente
             paarweise vergleichbar sind. In diesem konkreten Beispiel heißt das:
             $Z \subseteq 2^{\N}$ und für alle $A, B \in Z$ gilt $A \subseteq B$
             oder $B \subseteq A$. Erinnern Sie sich: $A$ und $B$ sind hier Mengen
             natürlicher Zahlen, und $Z$ ist eine Menge von Mengen natürlicher
-            Zahlen. Eine 
+            Zahlen. Eine
             <i>Antikette</i>
-             in einer Partialordnung $(X,\preceq)$
+            in einer Partialordnung $(X,\preceq)$
             ist eine Teilmenge $Z \subseteq X$, in der je zwei Elemente
             <i>unvergleichbar</i>
-             sind. In diesem Beispiel heißt das: $Z
+            sind. In diesem Beispiel heißt das: $Z
             \subseteq 2^N$, und für alle $A, B \in Z$ mit $A \ne B$ gilt $A \not
             \subseteq B$ und $B \not \subseteq A$. Hier ist ein Beispiel für eine
             unendliche Kette:
           </p>
-          $$\begin{align*} \{\emptyset, \{1\}, \{1,2\}, \{1,2,3\}, \dots,
-          \{1,2,\dots,k\}, \dots \} \end{align*}$$
+          \begin{align*} \{\emptyset, \{1\}, \{1,2\}, \{1,2,3\}, \dots,
+          \{1,2,\dots,k\}, \dots \} \end{align*}
           <p>
             Diese Kette hat zufälligerweise die Form $A<i>0 \subseteq A</i>1 \subseteq
             A_2 \subseteq \dots$, d.h., die Elemente der Kette sind schön
@@ -806,10 +793,10 @@
             Beide Beispiele haben einen "Anfangspunkt". Das muss aber nicht so
             sein: sei $[k] := \{1,2,\dots,k\}$.
           </p>
-          $$\begin{align*} \dots \subseteq 2\N \setminus [6] \subseteq 2\N \setminus
+          \begin{align*} \dots \subseteq 2\N \setminus [6] \subseteq 2\N \setminus
           [4] \subseteq 2\N \setminus [2] \subseteq 2\N \subseteq 2\N \cup \{1\}
           \subseteq 2\N \cup \{1,3\} \subseteq 2\N \cup \{1,3,5\} \subseteq \dots
-          \end{align*}$$
+          \end{align*}
           <p>
             Wenn wir ganz links noch $\{0\}$ hinschreiben und ganz rechts noch
             $\N$, dann haben wir ein weiteres, eventuell ungewohntes Phänomen: das
@@ -824,12 +811,12 @@
             <p>
               <span
                 class="numbered-title"
-              >Definition 
+              >Definition
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.8</NumberedTitle>
-                 
-              </span><b>(Dichte Partialordnung)</b>
-               Eine Partialordnung
-              $(X,\preceq)$ heißt 
+                </span>
+              <b>(Dichte Partialordnung)</b>
+              Eine Partialordnung
+              $(X,\preceq)$ heißt
               <i>dicht</i>, wenn es für alle $x,z \in X$ mit
               $x \prec z$ ein $y \in X$ gibt mit $x \prec y \prec z$.
             </p>
@@ -848,10 +835,9 @@
             <p>
               <span
                 class="numbered-title"
-              >Übungsaufgabe 
+              >Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.8</NumberedTitle>
-                 
-              </span>Finden Sie in $(2^\N, \subseteq)$ eine Kette $X$, so dass $(X,
+                </span>Finden Sie in $(2^\N, \subseteq)$ eine Kette $X$, so dass $(X,
               \subseteq)$ dicht ist. Also: eine Menge $X$, so dass für alle $A,C
               \in X$ mit $A \ne C$ entweder $A \subsetneq C$ oder $C \subsetneq A$
               gilt (d.h. $X$ soll eine Kette sein) und zusätzlich ein $B \in X$

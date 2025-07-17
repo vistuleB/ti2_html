@@ -68,9 +68,9 @@
           </h1>
           <p>
             Turingmaschinen erlauben uns, den Resourcenverbrauch einer Berechnung zu quantifizieren:
-            zum einen die 
+            zum einen die
             <i>Zeit</i>, also die Anzahl der Schritte, die die Turingmaschine
-            durchführt, bis sie anhält; zum anderen der 
+            durchführt, bis sie anhält; zum anderen der
             <i>Speicherplatz</i>, also die Anzahl
             der Zellen auf dem Band (oder den Bändern), die im Verlauf der Berechnung beschrieben werden.
             Beides sind Maße, die tatsächlich im echten Leben relevant sind. Turingmaschinen erlauben uns,
@@ -83,7 +83,7 @@
           <ul>
             <li>
               <b>I/O-Komplexität.</b>
-               In echten Rechnern haben wir eine Hierarchie von
+              In echten Rechnern haben wir eine Hierarchie von
               Speichermedien. Den extrem schnellen Prozessorcache; schnellen Cache; den vergleichsweise
               langsamen
               Hauptstpeicher (RAM); eventuell sogar einen externen Festplattenspeichern, der um
@@ -91,7 +91,7 @@
             </li>
             <li>
               <b>Kommunikationskomplexität.</b>
-               Bei verteilten Anwendungen (Cloud Computing) ist
+              Bei verteilten Anwendungen (Cloud Computing) ist
               die limitierende Resource eventuell gar nicht die Rechenkapazität sondern das
               <i>Netzwerk</i>, über
               das die Daten ausgetauscht werden.
@@ -100,14 +100,14 @@
           <p>
             Also: Turingmaschinen sind zwar universell in dem Sinne, dass sie wohl alle physikalisch
             realisierbaren
-            Rechnermodelle simulieren können (ich sage 
+            Rechnermodelle simulieren können (ich sage
             <i>wohl</i>, weil wir nicht wissen, was alles
             physikalisch realisierbar ist). Allerdings ist es möglich, dass Sie, abhängig von Ihrem
             Anwendungsfeld, ein abgewandeltes oder völlig anderes Modell benötigen, um den
             Resourcenverbrauch modellieren zu können.
           </p>
           <p>
-            Dennoch: in diesem Kapitel beschränken wir uns auf die Resource 
+            Dennoch: in diesem Kapitel beschränken wir uns auf die Resource
             <i>Zeit</i>, und daher
             sind Turingmaschinen das Modell der Wahl.
           </p>
@@ -124,14 +124,13 @@
             <p>
               <span
                 class="numbered-title"
-              >Definition 
+              >Definition
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-                 
-              </span>
-               Sei $t: \N \rightarrow \N$. Eine
+                </span>
+              Sei $t: \N \rightarrow \N$. Eine
               Turingmaschinen $M$
               <i>entscheidet</i>
-               eine Sprache $L \subseteq \Sigma^*$ in Zeit $t$ wenn
+              eine Sprache $L \subseteq \Sigma^*$ in Zeit $t$ wenn
             </p>
             <ul>
               <li>
@@ -145,27 +144,27 @@
             <p>
               Wir definieren nun
             </p>
-            $$\begin{align*}
-            \TIME_k(t) := \{L \subseteq \Sigma^* \ | \
-            \textnormal{es gibt eine $k$-Band-TM $M$, die $L$ in Zeit $t$ entscheidet}\}
-            \end{align*}$$
-            <p>
-              und schließlich
-            </p>
-            $$\begin{align*}
-            \TIME(t) := \bigcup_{k \geq 1} \TIME_k(t) \ .
-            \end{align*}$$
+            \begin{align*}
+            \TIME<i>k(t) := \{L \subseteq \Sigma^* \ | \
+              \textnormal{es gibt eine $k$-Band-TM $M$, die $L$ in Zeit $t$ entscheidet}\}
+              \end{align*}
+              <p>
+                und schließlich
+              </p>
+              \begin{align*}
+              \TIME(t) := \bigcup</i>{k \geq 1} \TIME_k(t) \ .
+            \end{align*}
           </div>
           <p>
             Falls Sie sich nicht mehr genau an die $O$-Notation erinnern können: in diesem Zusammenhang
             heißt das, dass es Konstanten $c$ und $d$ gibt, so dass $M$ in maximal
             $c t(|x|) + d$ Schritten terminiert. Die Konstanten $c$ und $d$ dürfen von $M$ abhängen, aber
             nicht von der Eingabe $x$ oder der Länge $|x|$.
-            Wir haben in 
+            Wir haben in
             <a
               href="07-02-Turing-variants.html"
             >Kapitel 7.3</a>
-             gezeigt, wie man eine
+            gezeigt, wie man eine
             $k$-Band-Turingmaschine $M$ durch eine
             Ein-Band-Turingmaschine $M'$. Der Aufwand war quadratisch: wenn $M$ innerhalb von $t$ Schritten
             terminiert, so terminiert $M'$ innerhalb von $c t^2$ Schritten, wobei $c$ eine Konstante ist,
@@ -178,11 +177,9 @@
             <p>
               <span
                 class="numbered-title"
-              >Theorem 
+              >Theorem
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-                 
-              </span>
-               
+                </span>
               <b>($k$-Band zu $1$-Band).</b>
               Sei $t: \N \rightarrow \N$. Dann gilt
               $\TIME<i>k(t) \subseteq \TIME</i>1(t^2)$.
@@ -201,14 +198,12 @@
             <p>
               <span
                 class="numbered-title"
-              >Theorem 
+              >Theorem
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-                 
-              </span>
-               
+                </span>
               <b>($k$-Band zu $2$-Band; ohne
                 Beweis).</b>
-               Sei
+              Sei
               $t: \N \rightarrow \N$. Dann gilt $\TIME<i>k(t) \subseteq \TIME</i>2(t \log t)$.
             </p>
           </div>

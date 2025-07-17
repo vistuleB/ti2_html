@@ -88,11 +88,11 @@
               copy an existing file, a "chapter" or a "subchapter" file, depending
               on the new file you want to create. The ordering in which they
               appear (in the table of content and in the link structure given by
-              the 
+              the
               <code>next</code>
-               nad 
+              nad
               <code>prev</code>
-               navigation links) is
+              navigation links) is
               determined purely by the order in which they appear in<a
                 href="../javascript/table-of-contents.js"
               >table-of-contents.js</a>.
@@ -111,8 +111,8 @@
                   there exists some set $I \subseteq [n]$ of indices with $|I|
                   \geq r$ such that
                 </p>
-                $$\begin{align*} \{ \mathbf{x}_I \ | \ \mathbf{x} \in A\} =
-                \{0,1\}^r \ , \end{align*}$$ in other words, the set $I$ of
+                \begin{align*} \{ \mathbf{x}_I \ | \ \mathbf{x} \in A\} =
+                \{0,1\}^r \ , \end{align*} in other words, the set $I$ of
                 coordinates is shattered.
               </div>
               and here is the source code:
@@ -121,27 +121,27 @@
 &lt;p&gt;&lt;span class='numbered-title' id="sauer-shelah-lemma" data-label-title="Lemma"&gt;Lemma&lt;/span&gt;
 &lt;strong&gt;(Sauer-Shelah lemma).&lt;/strong&gt;Let $A \subseteq \{0,1\}^n$. If $|A| \gt {\rm vol}(n,r-1)$ then
 there exists some set $I \subseteq [n]$ of indices with $|I| \geq r$ such that&lt;/p&gt;
-$$\begin{align*}
+\begin{align*}
 \{ \mathbf{x}_I \ | \ \mathbf{x} \in A\} = \{0,1\}^r \ ,
-\end{align*}$$
+\end{align*}
 in other words, the set $I$ of coordinates is shattered.
 &lt;/div class='well container theorem'&gt;
 </pre>
-              You must give the environment 
+              You must give the environment
               <code>div</code>
-               the class
+              the class
               <code>theorem</code>
-               and the title 
+              and the title
               <code>span</code>
-               the class
+              the class
               <code>nunbered-title</code>, otherwise the automatic numbering will
               not work.
               <p>
-                The attributes 
+                The attributes
                 <code>id="sauer-shelah-lemma"</code>
-                 and
+                and
                 <code>data-label-title="Lemma"</code>
-                 are necessarily for
+                are necessarily for
                 automatic referencing. Here is how you create a reference:
               </p>
               <div
@@ -151,7 +151,7 @@ in other words, the set $I$ of coordinates is shattered.
                   data-ref="sauer-shelah-lemma"
                   class="reference"
                 ></span>
-                 just
+                just
                 above and<span
                   data-ref="theorem-N-N^2"
                   class="reference"
@@ -163,13 +163,13 @@ Remember that&lt;span class="reference" data-ref="theorem-N-N^2"&gt;&lt;/span&gt
 </pre>
             </li>
             <p>
-              To work, the 
+              To work, the
               <code>id</code>
-               of a theorem (or a general environment)
-              has to be unique 
+              of a theorem (or a general environment)
+              has to be unique
               <i>across all files of the lecture notes</i>.
               Also, since we have to correctly compute the numbering of theorems
-              like 
+              like
               <span
                 data-ref="theorem-N-N^2"
                 class="reference"
@@ -178,7 +178,7 @@ Remember that&lt;span class="reference" data-ref="theorem-N-N^2"&gt;&lt;/span&gt
               code that, while loading Chapter 9, loads all chapters of referenced
               environments. Potentially, this forces the browser to load
               <i>the entire lecture notes</i>
-               each time a single file is loaded.
+              each time a single file is loaded.
               This would take too much time, so we use a precompilation step:
             </p>
             <p>
@@ -186,14 +186,14 @@ Remember that&lt;span class="reference" data-ref="theorem-N-N^2"&gt;&lt;/span&gt
                 href="../javascript/put-all-in-one-page.html"
               >put-all-in-one-page.html</a>that loads the table of content and all chapters (which takes quite
               a substantial amount of time, like 20 seconds or so) and extracts
-              all environments with class 
+              all environments with class
               <code>theorem</code>
-               or
+              or
               <code>exercise</code>
-               that have also class
+              that have also class
               <code>numbered-title</code>
-               and numbers them. If the environment has
-              the attribute 
+              and numbers them. If the environment has
+              the attribute
               <code>data-label-title</code>, then it adds an entry
               to a global dictionary. At the end, when all has been loaded, the
               web page will show this dictionary as a json object.
@@ -209,8 +209,7 @@ Remember that&lt;span class="reference" data-ref="theorem-N-N^2"&gt;&lt;/span&gt
               class="alert-warning"
             >
               <b>Important:</b>
-               
-               The page<a
+              The page<a
                 href="../javascript/put-all-in-one-page.html"
               >put-all-in-one-page.html</a>does not work if you just open it by double-clicking in your file
               explorer. It has to be hosted by an http-server server with CORS
@@ -220,7 +219,7 @@ Remember that&lt;span class="reference" data-ref="theorem-N-N^2"&gt;&lt;/span&gt
 </pre>
               Once this server is running, go to
               <code>http://localhost:8080</code>
-               in your browser.
+              in your browser.
             </div>
           </ol>
         </div>

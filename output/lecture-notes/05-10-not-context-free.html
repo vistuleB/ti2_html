@@ -68,7 +68,7 @@
           </h1>
           <p>
             Im letzten Teilkapitel haben wir den CYK-Algorithmus kennengelernt. Dieser verwendet
-            das Prinzip des 
+            das Prinzip des
             <i>Dynamic Programming</i>, um für eine allgemeine kontextfreie
             Grammatik \(G\) und ein Eingabewort \(\gamma\) einen Ableitungsbaum zu finden (oder
             festzustellen,
@@ -87,13 +87,12 @@
           >
             <span
               class="numbered-title"
-            >Beispiel 
+            >Beispiel
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-               
-            </span>Betrachten wir die Sprache
-            $$\begin{align*}
+              </span>Betrachten wir die Sprache
+            \begin{align*}
             L := \{ a^n b^n c^n \ | \ \ n \geq 0\} \ .
-            \end{align*}$$
+            \end{align*}
             <p>
               Ein Kellerautomat könnte nun alle \(a\) auf den Stack legen und dann, wenn die
               \(b\) beginnen, den Stapel abarbeiten. Allerdings hätte er dann, wenn die \(c\) kommen,
@@ -149,9 +148,9 @@
               Nun holen wir zum entscheidenden Schlag aus: wir "pumpen" das Wort \(\gamma\) auf, indem
               wir die Teilbäume mit \(Z\) an der Wurzel wiederholen. Konkret besagt ja oberer Baum,
               dass \(\gamma\) wie folgt hergeleitet wurde:
-              $$\begin{align*}
+              \begin{align*}
               S \Step{}^* u Z v \Step{}^* uvZxy \Step{}^* uvwxy
-              \end{align*}$$
+              \end{align*}
               Insbesondere heißt das, dass \(Z \Step{}^* vZx\) gilt. Wir können diesen
               Schritt also wiederholen:
             </p>
@@ -164,9 +163,9 @@
             </figure>
             <p>
               und somit das Wort \(uvvwxxy\) und ganz allgemein jedes Wort
-              $$\begin{align*}
+              \begin{align*}
               uv^i w x^i y
-              \end{align*}$$
+              \end{align*}
               ableiten, für jedes \(i \geq 0\). Selbst für \(i = 0\) geht das:
             </p>
             <figure>
@@ -186,9 +185,9 @@
             aber eines ist ganz klar: in \(uwy\) kommen die Symbole \(a,b,c\) nicht mehr gleich
             häufig vor, und somit \(uwy\not \in L\).
             <p>
-              Wir haben also gezeigt, dass die kontextfreie Grammatik \(G\) 
+              Wir haben also gezeigt, dass die kontextfreie Grammatik \(G\)
               <i>nicht</i>
-               die Sprache
+              die Sprache
               \(L\) erzeugt: wenn wir alle \(\gamma \in L\) erzeugen kann, dann
               kann sie auch Wörter wie \(uwy \not \in L\) erzeugen. Da unsere Argumentation keine
               Annahmen über \(G\) getroffen hat, außer, dass sie kontextfrei ist, haben wir gezeigt:
@@ -196,7 +195,7 @@
             </p>
             <p>
               <b>Vorsicht!</b>
-               Wir haben angenommen, das \(uwy\) weniger Zeichen hat
+              Wir haben angenommen, das \(uwy\) weniger Zeichen hat
               als \(uvwxy\), weil ja \(v\) und \(x\) fehlen. Kann aber \(v = x = \epsilon\) eintreten?
               Dies würde unsere Argumentation zerstören. Hier kommt wieder die
               Chomsky-Normalform zur Hilfe: es gibt keine Produktionen \(X \rightarrow \epsilon\),
@@ -207,28 +206,28 @@
             </p>
           </div>
           <p>
-            Die obige Argumentationslinie ist als 
+            Die obige Argumentationslinie ist als
             <i>Pumping Lemma für kontextfreie Sprachen</i>
-             bekannt:
+            bekannt:
           </p>
           <div
             class="well container theorem"
           >
             <span
               class="numbered-title"
-            >Theorem 
+            >Theorem
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-               
-            </span><b>(Pumping Lemma für kontextfreie Sprachen)</b>
+              </span>
+            <b>(Pumping Lemma für kontextfreie Sprachen)</b>
             Für jede kontextfreie Grammatik \(G\) gibt es eine Zahl \(p \in \N\), so dass jedes
             Wort \(\gamma \in L(G)\) der Länge \(|\gamma| \geq p\) zerlegt werden kann in
-            $$\begin{align*}
+            \begin{align*}
             \gamma = uvwxy \ ,
-            \end{align*}$$
+            \end{align*}
             wobei \(|vwx| \leq p\) gilt und \(v,x\) nicht beide \(\epsilon\) sind, so dass
-            $$\begin{align*}
+            \begin{align*}
             u v^i w x^i y \in L(G)
-            \end{align*}$$
+            \end{align*}
             gilt, für alle \(i \geq 0\).
             Die Zahl \(p\) kann zum Beispiel als \(2^{N_{\rm CNF}}\) gewählt werden, wobei \(N_{\rm CNF}\)
             die
@@ -239,13 +238,12 @@
           >
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-               
-            </span>Sei \(L \subseteq \{a,b,c\}^n\) die Sprache aller Wörter
-            $$\begin{align*}
+              </span>Sei \(L \subseteq \{a,b,c\}^n\) die Sprache aller Wörter
+            \begin{align*}
             \{\alpha c \alpha \ | \ \alpha \in \{a,b\}^* \} \ .
-            \end{align*}$$
+            \end{align*}
             In Worten: rechts und links vom \(c\) in der Mitte muss das gleiche Teilwort stehen.
             Zeigen Sie analog zu dem vorherigen Beweis, dass \(L\) nicht kontextfrei ist.
           </div>
@@ -255,14 +253,13 @@
           >
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-               
-            </span>Sie \(L \subseteq \{1\}^*\) die Sprache aller Wörter, deren Länge
+              </span>Sie \(L \subseteq \{1\}^*\) die Sprache aller Wörter, deren Länge
             eine Zweierpotenz ist:
-            $$\begin{align*}
+            \begin{align*}
             L := \{ 1^n \ | \ n = 2^d \textnormal{ für ein \(d \in \N\)} \}
-            \end{align*}$$
+            \end{align*}
             Also \(L = \{1, 11, 1111, 11111111, 1111111111111111, \dots\}\). Zeigen Sie, dass \(L\) nicht
             kontextfrei ist.
           </div>
@@ -275,10 +272,9 @@
           >
             <span
               class="numbered-title"
-            >Theorem 
+            >Theorem
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-               
-            </span>Wenn \(L_1, L_2\) reguläre Sprachen sind, dann sind die folgenden
+              </span>Wenn \(L_1, L_2\) reguläre Sprachen sind, dann sind die folgenden
             Sprachen auch regulär:
             <ol>
               <li>
@@ -299,7 +295,7 @@
               <li>
                 \(L_1^R\), die Sprache, die entsteht, wenn man jedes Wort in \(L_1\) von rechts nach
                 links liest. Dies ist gar nicht so offensichtlich, wenn man reguläre Grammatiken oder
-                endliche Automaten ansieht. Wenn man aber für \(L_1\) einen 
+                endliche Automaten ansieht. Wenn man aber für \(L_1\) einen
                 <i>regulären Ausdruck</i>
                 gebaut
                 hat, wird es zur Trivialität: einfach den Ausdruck umdrehen.
@@ -308,13 +304,13 @@
                 \(L_1 \cap L_2\). Hierfür könnte man für \(L_1, L_2\) jeweils endliche Automaten
                 \(M_1, M_2\) bauen und die dann "parallel" laufen lassen; man muss nun sehen, dass man
                 dieses parallele Laufen
-                mit 
+                mit
                 <i>einem</i>
-                 Automaten simulieren kann: dieser hat als Zustandsmenge \(Q_1 \times
+                Automaten simulieren kann: dieser hat als Zustandsmenge \(Q_1 \times
                 Q_2\),
-                merkt sich also in 
+                merkt sich also in
                 <i>einem</i>
-                 Zustand, in welchen Zuständen \(M_1\) und \(M_2\)
+                Zustand, in welchen Zuständen \(M_1\) und \(M_2\)
                 sind.
                 Oder man macht es sich einfach:
                 <ul>
@@ -332,19 +328,18 @@
                 </ul>
               </li>
             </ol>
-            Wie sieht es nun aus, wenn \(L_1, L_2\) 
+            Wie sieht es nun aus, wenn \(L_1, L_2\)
             <i>kontextfreie</i>
-             Sprachen sind? Welche der
+            Sprachen sind? Welche der
             obigen Kombinationen sind dann ebenfalls kontextfrei?
             <div
               class="well well-lg numbered-exercise container"
             >
               <span
                 class="numbered-title"
-              >Übungsaufgabe 
+              >Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-                 
-              </span>Seien \(L_1, L_2\) kontextfrei. Zeigen Sie, dass die folgenden Sprachen auch kontextfrei
+                </span>Seien \(L_1, L_2\) kontextfrei. Zeigen Sie, dass die folgenden Sprachen auch kontextfrei
               sind:
               <ol>
                 <li>
@@ -369,7 +364,7 @@
               </ol>
               <p>
                 <b>Tip:</b>
-                 dies ist viel einacher als für reguläre Grammatiken.
+                dies ist viel einacher als für reguläre Grammatiken.
               </p>
             </div>
           </div>
@@ -381,24 +376,23 @@
           >
             <span
               class="numbered-title"
-            >Beobachtung 
+            >Beobachtung
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-               
-            </span>Der Schnitt \(L_1 \cap L_2\) zweier kontextfreier Sprachen
-            ist im Allgemeinen 
+              </span>Der Schnitt \(L_1 \cap L_2\) zweier kontextfreier Sprachen
+            ist im Allgemeinen
             <i>nicht</i>
-             kontextfrei.
+            kontextfrei.
             Ein Beispiel ist
-            $$\begin{align*}
-            L_1&amp;:= \{a^n b^n c^* \ | \ n \geq 0 \}\\
-            L_2&amp;:= \{a^* b^n c^n \ | \ n \geq 0 \}
-            \end{align*}$$
+            \begin{align*}
+            L<i>1&amp;:= \{a^n b^n c^* \ | \ n \geq 0 \}\\
+              L</i>2&amp;:= \{a^* b^n c^n \ | \ n \geq 0 \}
+            \end{align*}
             Diese sind beide kontextfrei (schreiben Sie jeweils eine Grammatik, wenn Sie's nicht glauben).
             Der
             Schnitt allerdings ist
-            $$\begin{align*}
-            L_1 \cap L_2 = \{a^n b^n c^n \ | \ n \geq 0\} \ ,
-            \end{align*}$$
+            \begin{align*}
+            L<i>1 \cap L</i>2 = \{a^n b^n c^n \ | \ n \geq 0\} \ ,
+            \end{align*}
             genau diejenige Sprache, für die wir oben gezeigt haben, dass sie nicht kontextfrei ist.
           </div>
           <div
@@ -406,17 +400,16 @@
           >
             <span
               class="numbered-title"
-            >Beobachtung 
+            >Beobachtung
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-               
-            </span>Das Komplement \(L\) einer kontextfreien Sprache ist im Allgemeinen 
+              </span>Das Komplement \(L\) einer kontextfreien Sprache ist im Allgemeinen
             <i>nicht</i>
-             kontextfrei.
+            kontextfrei.
             \\
             Warum? Wenn er es wäre, dann wäre mit Hilfe von Punkt 1 auch
-            $$\begin{align*}
-            L_1 \cap L_2 = \overline{ \bar{L}_1 \cup \bar{L_2}}
-            \end{align*}$$
+            \begin{align*}
+            L<i>1 \cap L</i>2 = \overline{ \bar{L}<i>1 \cup \bar{L</i>2}}
+            \end{align*}
             kontextfrei, was es aber im Allgemeinen nicht ist. Befriedigender wäre es allerdings, wenn wir
             ein konkretes Beispiel hätten.
           </div>
@@ -425,16 +418,15 @@
           >
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-               
-            </span>Sei \(L := \{a^n b^n c^n\}\). Wir wissen bereits, dass \(L\) nicht kontextfrei ist.
+              </span>Sei \(L := \{a^n b^n c^n\}\). Wir wissen bereits, dass \(L\) nicht kontextfrei ist.
             Zeigen Sie, dass \(\bar{L}\) kontextfrei ist.
             Die Sprache \(\bar{L}\) ist somit ein Beispiel für eine kontextfreie Sprache,
             deren Komplement, also \(L\), nicht kontextfrei ist.
             <p>
               <b>Tip.</b>
-               Listen Sie alle Möglichkeiten auf, wie ein Wort \(w\) nicht
+              Listen Sie alle Möglichkeiten auf, wie ein Wort \(w\) nicht
               in \(L\) sein kann: (1) es hat nicht die Form \(a^* b^* c^*\); (2) es hat die Form,
               hat aber mehr \(a\) als es \(b\) hat; (2) es hat mehr \(a\) als es \(c\) hat...
             </p>

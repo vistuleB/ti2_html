@@ -74,32 +74,32 @@
             versuchen, eine Linksableitung \(S \Step{}^* w\) Schritt für
             Schritt zu konstruieren. Eine Hauptschwäche ist, dass Sie von
             einer Wortform
-            $$\begin{align*}
+            \begin{align*}
             w A \alpha
-            \end{align*}$$
+            \end{align*}
             die nächste Ableitungsregel \(A \rightarrow \beta\) bestimmen müssen,
             ohne das "Endergebnis" von \(\beta\) überhaupt vollständig gelesen zu haben.
             Sie müssen also erkennen, dass der rote / mit "?" markierte Pfeil in der Ableitung
-            $$\begin{align*}
+            \begin{align*}
             S \Step{}^* w A \alpha \textcolor{red}{\Step{?}} w \beta \alpha
             \Step{}^* w x \alpha \Step{}^* w x y
-            \end{align*}$$
+            \end{align*}
             die richtige Entscheidung ist, obwohl sie von dem aus \(\beta\) abgeleiteten
             Wort \(x\) nur die ersten \(k\) Buchstaben sehen.
             Dem entgegen haben wir in den letzten zwei Teilkapiteln LR-Parser gesehen.
             Diese versuchen, von $w$ ausgehend eine Rechtsableitung $S \Step{}^* w$ zu finden,
-            allerdings in zeitlich umgekehrter Reihenfolge, also 
+            allerdings in zeitlich umgekehrter Reihenfolge, also
           </p>
-          $$\begin{align*}
-          w \Pets{} \alpha_1 \Pets{} \alpha_2 \Pets{} \dots \Pets{} \alpha_{t-1} \Pets{} S
-          \end{align*}$$
+          \begin{align*}
+          w \Pets{} \alpha<i>1 \Pets{} \alpha</i>2 \Pets{} \dots \Pets{} \alpha_{t-1} \Pets{} S
+          \end{align*}
           <h2>
             Notation
           </h2>
           <p>
             Da aus der Sicht unseres neuen Parsers die Rückwärtsanwendung einer Produktion
             \(X \rightarrow \beta\), also der Schritt \(\alpha X \gamma \Leftarrow \alpha \beta \gamma\)
-            einen 
+            einen
             <i>Fortschritt</i>
             darstellt und zeitlich auch
             nach vorne geht, verwende ich ab jetzt ein neues Pfeilsymbol, das
@@ -112,31 +112,31 @@
           >
             <span
               class="numbered-title"
-            >Definition 
+            >Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-               
-            </span><b>(Reduktion und Linksreduktion)</b>
+              </span>
+            <b>(Reduktion und Linksreduktion)</b>
             Seien
             \(\alpha, \beta, \gamma \in (\Sigma \cup N)^*\) Wortformen und
             \(X \rightarrow \beta\) eine Produktion. Dann schreiben wir
-            $$\begin{align*}
+            \begin{align*}
             \alpha \beta \gamma \rstep{} \alpha X \gamma \ ,
-            \end{align*}$$
-            und sagen 
+            \end{align*}
+            und sagen
             <i>\(\alpha \beta \gamma\) reduziert zu \(\alpha X \gamma\)</i>.
-            Man nennt einen solchen Schritt auch einen 
+            Man nennt einen solchen Schritt auch einen
             <i>Reduktionsschritt</i>.
             <p>
-              Wir nennen den Schritt einen 
+              Wir nennen den Schritt einen
               <i>Linksreduktionsschritt</i>, wenn
               rechts von \(\beta\) nur Terminale stehen. Wenn also
               \(\gamma = w \in \Sigma^*\) und somit
-              $$\begin{align*}
+              \begin{align*}
               \alpha \beta w \rstep{} \alpha X w \ .
-              \end{align*}$$
+              \end{align*}
             </p>
             Eine Folge von Linksreduktionsschritten nennen wir eine
-            <i>Linksreduktion</i>. 
+            <i>Linksreduktion</i>.
             <i>Links</i>, weil wir uns
             von links nach rechts in den terminalen Teil hineinarbeiten.
             Wir werden im folgenden nur Linksreduktionsschritte betrachten und
@@ -144,12 +144,12 @@
           </div>
           <p>
             <b>Beobachtung:</b>
-             Wenn wir
+            Wenn wir
             einen Linksreduktionsschritt \(\alpha \beta w \rstep{} \alpha X w\)
             betrachten, also
-            $$\begin{align*}
+            \begin{align*}
             \alpha X w \Step{} \alpha \beta w \ ,
-            \end{align*}$$
+            \end{align*}
             so sehen wir, dass das am weitesten rechts stehende Nichtterminal
             ersetzt worden ist; Linksreduktionen
             entsprechen also einer Rechtsableitung.
@@ -159,38 +159,38 @@
             dass nicht jeder Linksreduktionsschritt automatisch auch korrekt ist.
             Ein einfaches Beispiel war die "Zahlengrammatik"
           </p>
-          $$\begin{align*}
+          \begin{align*}
           N&amp;\rightarrow D \\
           N&amp;\rightarrow ND \\
           D&amp;\rightarrow 0 \ | \ 1 \ | \ 2\ | \ 3\ | \ 4\ | \ 5\ | \ 6\ | \ 7\ | \ 8\ | \ 9
-          \end{align*}$$
+          \end{align*}
           <p>
             So ist folgende Linksreduktion korrekt:
           </p>
-          $$\begin{align*}
+          \begin{align*}
           14 \rstep{} D4\rstep{} N4 \rstep{} ND \rstep{} N
-          \end{align*}$$
+          \end{align*}
           <p>
             weil sie einer gültigen Rechtsableitung $N \Step{R}^* 14$ entspricht ($N$ ist das Startsymbol).
             Folgende Reduktionen sind
             allerdings inkorrekt:
           </p>
-          $$\begin{align*}
+          \begin{align*}
           \textcolor{red}{14 \rstep{} D4 \rstep{} DD}
-          \end{align*}$$
+          \end{align*}
           <p>
             da zwar $DD \Step{R} D4$, allerdings es keine Rechtsableitung $N \Step{R}^* DD$ gibt.
             Auch
           </p>
-          $$\begin{align*}
+          \begin{align*}
           \textcolor{red}{14 \rstep{} D4 \rstep{} N4 \rstep{} ND \rstep{} NN}
-          \end{align*}$$
+          \end{align*}
           <p>
             ist inkorrekt. In unserer Java-Implementierung haben wir dieses Problem händisch gelöst, indem
             wir der Regel $ND \rstep{} N$ den Vorzug vor $D \rstep{} N$ gegebene haben. Im allgemeinen
-            müssen wir definieren, was ein 
+            müssen wir definieren, was ein
             <i>korrekter</i>
-             Linksreduktionsschritt ist. Und dann
+            Linksreduktionsschritt ist. Und dann
             überlegen, wie wir herausfinden, ob ein Linksreduktionsschritt korrekt ist. Diese Fragen
             werden uns für den Rest dieses und des nächsten Teilkapitels beschäftigen.
           </p>
@@ -199,27 +199,27 @@
           >
             <span
               class="numbered-title"
-            >Definition 
+            >Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-               
-            </span><b>(Gültige Wortform, korrekter Reduktionsschritt)</b>
-            Eine Wortform \(\gamma \in (\Sigma \cup N)^*\) heißt 
+              </span>
+            <b>(Gültige Wortform, korrekter Reduktionsschritt)</b>
+            Eine Wortform \(\gamma \in (\Sigma \cup N)^*\) heißt
             <i>gültig</i>,
             wenn es eine Rechtsableitung
-            $$\begin{align*}
+            \begin{align*}
             S \Step{R}^* \gamma
-            \end{align*}$$
+            \end{align*}
             gibt. Ein Linksreduktionsschritt
-            $$\begin{align*}
+            \begin{align*}
             \alpha \beta w \rstep{} \alpha X w
-            \end{align*}$$
-            heißt 
+            \end{align*}
+            heißt
             <i>korrekt</i>, wenn \(\alpha X w\) gültig ist.
             In diesem Fall ist natürlich $\alpha \beta w$ selbst gültig.
             <p>
               Den Präfix $\alpha$ nennen wir eine
               <i>Front</i>
-               der gültigen Wortform $\alpha \beta w$.
+              der gültigen Wortform $\alpha \beta w$.
               Wenn die Grammatik eindeutig ist, dann hat
               jede gültige Wortform $\gamma$ genau eine Front, die wir
               mit $\front(\gamma)$ bezeichnen.
@@ -248,9 +248,9 @@
             >ArithmeticGrammar.java</a>zum Beispiel
             haben wir manchmal das erste Zeichen von $w$ betrachten müssen. Allerdings behalten wir erst
             einmal obigen Wunsch als Idealziel.
-            Um ihn zu formalisieren, fragen wir uns, wann es denn 
+            Um ihn zu formalisieren, fragen wir uns, wann es denn
             <i>nicht</i>
-             möglich ist,
+            möglich ist,
             ohne Betrachten von $w$ zu eintscheiden, ob
             $\alpha \beta w \rstep{} \alpha X w$ gültig ist.
           </p>
@@ -261,19 +261,19 @@
               korrekte Linksreduktionsschritte:
               \(\gamma \rstep{} \gamma'\) und
               \(\gamma \rstep{} \gamma''\).
-              In diesem Falle gäbe es 
+              In diesem Falle gäbe es
               <i>zwei verschiedene</i>
               Rechtsableitungen
-              $$\begin{align*}
+              \begin{align*}
               S \Steps{R} \gamma' \Step{R} \gamma \Steps{R} w \in \Sigma^* \\
               S \Steps{R} \gamma'' \Step{R} \gamma \Steps{R} w \in \Sigma^* \\
-              \end{align*}$$
+              \end{align*}
               <p>
                 (wir nehmen an, dass man aus jedem Nichtterminal
                 mindestens ein Wort \(u \in \Sigma^*\) ableiten kann; andernfalls
-                kann man solche 
+                kann man solche
                 <i>nutzlosen</i>
-                 Nichtterminale eliminieren).
+                Nichtterminale eliminieren).
                 Das Wort \(w\) hat also zwei verschiedene Ableitungsbäume.
                 Die Grammatik ist somit mehrdeutig.
                 Mit uneindeutigen Grammatiken beschäftigen wir uns zunächst gar nicht;
@@ -288,16 +288,16 @@
             <li>
               <b>Schlechter Fall 2:</b>
               Der Linksreduktionsschritt
-              $$\begin{align*}
+              \begin{align*}
               \alpha \beta w \rstep{} \alpha X w
-              \end{align*}$$
-              ist korrekt, aber für ein anderes $w' \in \Sigma^*$ ist
-              $$\begin{align*}
+              \end{align*}
+              ist korrekt, aber für ein anderes $w' \in \Sigma^<b>$ ist
+                \begin{align</b>}
               \alpha \beta w' \rstep{} \alpha X w'
-              \end{align*}$$
+              \end{align*}
               <p>
                 <i>nicht</i>
-                 korrekt, obwohl \(\alpha\beta w'\) eine
+                korrekt, obwohl \(\alpha\beta w'\) eine
                 gültige Wortform ist.
                 Dieser Fall ist schlecht, weil der Parser nur
                 $\alpha \beta$ gelesen hat und somit nicht
@@ -314,25 +314,24 @@
           >
             <span
               class="numbered-title"
-            >Beispiel 
+            >Beispiel
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-               
-            </span>Erinnern Sie sich: unsere obige Grammatik
-            $$\begin{align*}
+              </span>Erinnern Sie sich: unsere obige Grammatik
+            \begin{align*}
             S&amp;\step{1} aS \\
             S&amp;\step{2} X \\
             X&amp;\step{3} a X b \\
             X&amp;\step{4} ab \ .
-            \end{align*}$$
+            \end{align*}
             ist eindeutig (das ist leicht zu sehen), allerdings tritt
             Schlechte Fall 2 ein: der Reduktionsschritt
-            $$\begin{align*}
+            \begin{align*}
             aaX \rstep{} aaS
-            \end{align*}$$
+            \end{align*}
             ist korrekt (hier also \(w = \epsilon)\), aber leider ist
-            $$\begin{align*}
+            \begin{align*}
             aaXb \rstep{} aaSb
-            \end{align*}$$
+            \end{align*}
             nicht korrekt (hier \(w' = b)\), da \(aaXb\) gültig ist,
             \(aaSb\) aber nicht. Die Entscheidung für eine Reduktionsregel
             kann also nicht ohne Wissen über das, was dahinter kommt,
@@ -348,28 +347,28 @@
           >
             <span
               class="numbered-title"
-            >Definition 
+            >Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-               
-            </span><b>(\(LR(0)\)-Grammatiken)</b>
+              </span>
+            <b>(\(LR(0)\)-Grammatiken)</b>
             Eine kontextfreie Grammatik heißt \(LR(0)\)-Grammatik,
             wenn keiner der obigen schlechten Fälle eintritt.
             Formal, wenn (1) die Grammatik eindeutig ist und (2) wenn ein
             korrekter Linksreduktionsschritt
-            $$\begin{align*}
+            \begin{align*}
             \alpha \beta w \rstep{} \alpha X w
-            \end{align*}$$
+            \end{align*}
             bedeutet, dass auch alle anderen Linksreduktionsschritte
-            $$\begin{align*}
+            \begin{align*}
             \alpha \beta w' \rstep{} \alpha X w'
-            \end{align*}$$
+            \end{align*}
             korrekt sind, sofern $w' \in \Sigma^*$ ist und \(\alpha \beta w'\) selbst eine gültige
             Wortform ist.
             <p>
               In Worten/Graustufen: wenn wir
-              $$\begin{align*}
+              \begin{align*}
               \alpha \beta \textcolor{gray}{w} \rstep{} \alpha X \textcolor{gray}{w}
-              \end{align*}$$
+              \end{align*}
               guten Gewissens anwenden dürfen, ohne auch nur ein Zeichen von \(w\)
               gelesen zu haben, sofern wir sicher sind, dass es irgendein $w$ gibt, das
               $\alpha \beta w$ zu einer gültigen Wortform macht.
@@ -382,10 +381,10 @@
             <p>
               <span
                 class="numbered-title"
-              >Lemma 
+              >Lemma
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-                 
-              </span><b>(LR(0), äquivalente Formulierung).</b>
+                </span>
+              <b>(LR(0), äquivalente Formulierung).</b>
               Eine Grammatik $G$ ist LR(0) genau dann, wenn für
               alle korrekten Linksreduktionsschritte
               $\alpha \beta w \rstep{} \alpha Xw$ und
@@ -437,15 +436,15 @@
             >
               <p>
                 <b>Beweis.</b>
-                 Um Punkt 1 zu zeigen,
+                Um Punkt 1 zu zeigen,
                 nehmen wir an, dass $\alpha \beta = \alpha' \beta'$ gilt.
                 Da $\alpha \beta w \rstep{} \alpha X w$ korrekt
                 ist, $\alpha' \beta' w'$ eine gültige Wortform ist und
                 $G$ eine LR(0)-Grammatik ist, so ist auch
               </p>
-              $$\begin{align*}
+              \begin{align*}
               \alpha' \beta' w' = \alpha \beta w' \rstep{} \alpha X w'
-              \end{align*}$$
+              \end{align*}
               <p>
                 ein korrekter Linksreduktionsschritt. Also sind
                 $\alpha' \beta' w' \rstep{} \alpha X w'$ und
@@ -461,10 +460,10 @@
                 Falls - entgegen der Schlussfolgerung - nun
                 $\varphi \in \Sigma^*$ gälte, wäre
               </p>
-              $$\begin{align*}
+              \begin{align*}
               \alpha' \beta' w' = \alpha \beta \varphi w' \rstep{}
               \alpha X \varphi w'
-              \end{align*}$$
+              \end{align*}
               <p>
                 ein korrekter Linksreduktionsschritt; nach Voraussetzung
                 ist auch $\alpha' \beta' w' \rstep{} \alpha' X' w'$
@@ -475,7 +474,7 @@
                 Widerspruch gibt: dann ist nämlich
                 $\alpha \beta \varphi w' \rstep{} \alpha X \varphi w'$
                 gar kein Linksreduktionsschritt, geschweige denn ein
-                korrekter. 
+                korrekter.
                 <span
                   class="qed"
                 >\(\square\)</span>
@@ -503,10 +502,10 @@
                 Dafür nehmen wir dann, dass es von $\gamma$ aus
                 die Linksreduktionsschritte
               </p>
-              $$\begin{align*}
+              \begin{align*}
               \gamma = \alpha \beta w&amp;\rstep{} \alpha X w \textnormal{ und} \\
               \gamma = \alpha' \beta' w'&amp;\rstep{} \alpha' X' w' \textnormal{ und} \\
-              \end{align*}$$
+              \end{align*}
               <p>
                 gibt und müssen zeigen, dass es sich in der Tat um denselben
                 Schritt handelt. Ohne Beschränkung der Allgemeinheit
@@ -525,9 +524,9 @@
                 Um den zweiten Punkt der LR(0)-Eigenschaft zu zeigen,
                 nehmen wir an, dass
               </p>
-              $$\begin{align*}
+              \begin{align*}
               \alpha \beta w \rstep{} \alpha X w
-              \end{align*}$$
+              \end{align*}
               <p>
                 ein korrekter Linksreduktionsschritt ist und
                 $\gamma' := \alpha \beta w''$
@@ -536,9 +535,9 @@
                 dass $ \alpha X w''$ auch gültig ist. Da $G$ eindeutig ist,
                 gibt es einen eindeutigen korrekten Linksreduktionsschritt
               </p>
-              $$\begin{align*}
+              \begin{align*}
               \gamma' = \alpha' \beta' w' \rstep{} \alpha' X' w'
-              \end{align*}$$
+              \end{align*}
               <p>
                 Da $\alpha \beta$ und $\alpha' \beta'$ beides
                 Präfixe von $\gamma'$ sind, gibt es drei Fälle:
@@ -583,16 +582,15 @@
           >
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-               
-            </span>Zeigen Sie, dass die folgende Grammatik \(LR(0)\) ist:
-            $$\begin{align*}
+              </span>Zeigen Sie, dass die folgende Grammatik \(LR(0)\) ist:
+            \begin{align*}
             S&amp;\rightarrow aS \\
             S&amp;\rightarrow Bc \\
             B&amp;\rightarrow aBb \\
             B&amp;\rightarrow ab
-            \end{align*}$$
+            \end{align*}
             Als ersten Schritt sollten Sie sich überlegen, wie gültige
             Wortformen überhaupt aussehen können.
           </div>
@@ -601,16 +599,15 @@
           >
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-               
-            </span>Wir ändern die Grammatik etwas ab:
-            $$\begin{align*}
+              </span>Wir ändern die Grammatik etwas ab:
+            \begin{align*}
             S&amp;\rightarrow aS \\
             S&amp;\rightarrow B \\
             B&amp;\rightarrow aBb \\
             B&amp;\rightarrow ab
-            \end{align*}$$
+            \end{align*}
             Die erzeugte Sprache ist \(\{ a^* a^m b^m \ | \ m \geq 1\}\).
             Zeigen Sie, dass die Grammatik nicht \(LR(0)\) ist.
           </div>
@@ -619,11 +616,10 @@
           >
             <span
               class="numbered-title"
-            >Übungsaufgabe 
+            >Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-               
-            </span>Zeigen Sie, dass die folgende Grammatik \(LR(0)\) ist:
-            $$\begin{align*}
+              </span>Zeigen Sie, dass die folgende Grammatik \(LR(0)\) ist:
+            \begin{align*}
             S&amp;\rightarrow aS \\
             S&amp;\rightarrow BC \\
             B&amp;\rightarrow aBb \\
@@ -632,7 +628,7 @@
             C&amp;\rightarrow cT \\
             T&amp;\rightarrow abC \\
             T&amp;\rightarrow ab
-            \end{align*}$$
+            \end{align*}
             Als ersten Schritt sollten Sie sich überlegen, wie gültige
             Wortformen überhaupt aussehen können.
           </div>
@@ -648,15 +644,15 @@
             <li>
               Falls sie es tut, wie können wir für eine gegebene gültige Wortform
               \(\gamma\) den korrekten Reduktionsschritt
-              $$\begin{align*}
+              \begin{align*}
               \gamma = \alpha \beta w \rstep{} \alpha X w
-              \end{align*}$$
+              \end{align*}
               finden? Insbesondere die Zerlegung in
               \(\gamma = \alpha \beta w\)?
             </li>
           </ol>
           <p>
-            Beide Aufgaben können mit Hilfe eines 
+            Beide Aufgaben können mit Hilfe eines
             <i>endlichen Automaten</i>,
             des DK-Automaten erledigt werden (DK steht als Abkürzung für Donald Knuth,
             der als erstes diese Idee hatte).
@@ -665,11 +661,11 @@
             class="container alert alert-warning"
           >
             <b>Hinweis.</b>
-             Was nun folgt, ist mathematisch
+            Was nun folgt, ist mathematisch
             recht herausfordernd. Lesen Sie daher gerne auch
             das Kapitel 2.4 (Deterministic context free languages) im Lehrbuch
             <i>Introduction to the Theory of Computing</i>
-             von Michael Sipser.
+            von Michael Sipser.
             Meine Darstellung des doch recht schwierigen Materials fußt auf diesem
             Kapitel, weicht aber doch stark genug von Sipser ab, so dass es
             womöglich hilfreich ist, beides zu lesen: dieses Vorlesungsskript und
