@@ -19,7 +19,7 @@
 <body>
 <section
   count="52"
-  .="BookLevelSectionCounter 52"
+  _="BookLevelSectionCounter 52"
   title_gr="- Manual für das Schreiben dieses Skripts"
   title_en="appendix"
   number="9.0"
@@ -27,46 +27,24 @@
   counter="ExoCtr"
   path="/lecture-notes52"
 >
-  <div
-    id="link-to-toc"
-  >
-    <a
-      href="../vorlesungsskript.html"
-    >Inhaltsverzeichnis</a><a
-      href="08-01-Time-hierarchy-theorem.html"
-    >&lt;&lt; Kapitel 8.1</a>
+  <div id="link-to-toc">
+    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="08-01-Time-hierarchy-theorem.html">&lt;&lt; Kapitel 8.1</a>
   </div>
   <div
     id="link-to-overview"
     style="text-align: end"
   >
-    <a
-      href="/"
-    >zur Kursübersicht</a>
+    <a href="/">zur Kursübersicht</a>
   </div>
-  <div
-    id="rightSideWrapper"
-  >
-    <div
-      class="content"
-    >
-      <div
-        class="chapter"
-      >
-        <div
-          class="subChapter"
-        >
-          <h1
-            class="hidden-title"
-          >
-            <span
-              class="chapterTitle"
-            >9.
+  <div id="rightSideWrapper">
+    <div class="content">
+      <div class="chapter">
+        <div class="subChapter">
+          <h1 class="hidden-title">
+            <span class="chapterTitle">9.
               Appendix - Manual für das Schreiben dieses Skripts</span>
           </h1>
-          <div
-            class="alert-info"
-          >
+          <div class="alert-info">
             Dieses Kapitel sind ausschließlich persönliche Notizen für mich dazu,
             wie man "korrekt" dieses Skript schreibt, insbesondere wie man die
             automatische Numerierung verwendet. Es ist also natürlich nicht Stoff
@@ -81,9 +59,7 @@
           <ol>
             <li>
               If you want to add a new chapter, you have to do two things: add an
-              entry to<a
-                href="../javascript/table-of-contents.js"
-              >table-of-contents.js</a>.
+              entry to<a href="../javascript/table-of-contents.js">table-of-contents.js</a>.
               Just follow the format there. Then add the linked file. Best to
               copy an existing file, a "chapter" or a "subchapter" file, depending
               on the new file you want to create. The ordering in which they
@@ -93,16 +69,12 @@
               nad
               <code>prev</code>
               navigation links) is
-              determined purely by the order in which they appear in<a
-                href="../javascript/table-of-contents.js"
-              >table-of-contents.js</a>.
+              determined purely by the order in which they appear in<a href="../javascript/table-of-contents.js">table-of-contents.js</a>.
             </li>
             <li>
               Theorem environments (theorems, lemmas, conjectures) can be created
               as follows:
-              <div
-                class="well container theorem"
-              >
+              <div class="well container theorem">
                 <p>
                   <span
                     id="sauer-shelah-lemma"
@@ -144,18 +116,10 @@ in other words, the set $I$ of coordinates is shattered.
                 are necessarily for
                 automatic referencing. Here is how you create a reference:
               </p>
-              <div
-                class="well container"
-              >
-                This follows easily from the<span
-                  data-ref="sauer-shelah-lemma"
-                  class="reference"
-                ></span>
+              <div class="well container">
+                This follows easily from the
                 just
-                above and<span
-                  data-ref="theorem-N-N^2"
-                  class="reference"
-                ></span>.
+                above and.
               </div>
               and here is the source code:
 <pre>
@@ -170,10 +134,7 @@ Remember that&lt;span class="reference" data-ref="theorem-N-N^2"&gt;&lt;/span&gt
               <i>across all files of the lecture notes</i>.
               Also, since we have to correctly compute the numbering of theorems
               like
-              <span
-                data-ref="theorem-N-N^2"
-                class="reference"
-              ></span>, we
+              , we
               would have to read the file containing it. So we'd have to write
               code that, while loading Chapter 9, loads all chapters of referenced
               environments. Potentially, this forces the browser to load
@@ -182,9 +143,7 @@ Remember that&lt;span class="reference" data-ref="theorem-N-N^2"&gt;&lt;/span&gt
               This would take too much time, so we use a precompilation step:
             </p>
             <p>
-              I wrote an html page<a
-                href="../javascript/put-all-in-one-page.html"
-              >put-all-in-one-page.html</a>that loads the table of content and all chapters (which takes quite
+              I wrote an html page<a href="../javascript/put-all-in-one-page.html">put-all-in-one-page.html</a>that loads the table of content and all chapters (which takes quite
               a substantial amount of time, like 20 seconds or so) and extracts
               all environments with class
               <code>theorem</code>
@@ -200,18 +159,12 @@ Remember that&lt;span class="reference" data-ref="theorem-N-N^2"&gt;&lt;/span&gt
             </p>
             <p>
               You should then copy this table and paste it in the beginning of the
-              file<a
-                href="../javascript/number-my-theorems.js"
-              >nunmber-my-theorems.js</a>. The point is that creating the table is expensive (must read all
+              file<a href="../javascript/number-my-theorems.js">nunmber-my-theorems.js</a>. The point is that creating the table is expensive (must read all
               chapters) but using it is cheap.
             </p>
-            <div
-              class="alert-warning"
-            >
+            <div class="alert-warning">
               <b>Important:</b>
-              The page<a
-                href="../javascript/put-all-in-one-page.html"
-              >put-all-in-one-page.html</a>does not work if you just open it by double-clicking in your file
+              The page<a href="../javascript/put-all-in-one-page.html">put-all-in-one-page.html</a>does not work if you just open it by double-clicking in your file
               explorer. It has to be hosted by an http-server server with CORS
               enabled, for example
 <pre>

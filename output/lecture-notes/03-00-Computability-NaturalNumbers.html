@@ -19,7 +19,7 @@
 <body>
 <section
   count="15"
-  .="BookLevelSectionCounter 15"
+  _="BookLevelSectionCounter 15"
   title_gr="und natürliche Zahlen"
   title_en="Computability NaturalNumbers"
   number="3.0"
@@ -27,45 +27,25 @@
   counter="ExoCtr"
   path="/lecture-notes15"
 >
-  <div
-    id="link-to-toc"
-  >
-    <a
-      href="../vorlesungsskript.html"
-    >Inhaltsverzeichnis</a><a
-      href="02-06-Trichotomiesatz.html"
-    >&lt;&lt; Kapitel 2.6</a>
+  <div id="link-to-toc">
+    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="02-06-Trichotomiesatz.html">&lt;&lt; Kapitel 2.6</a>
   </div>
   <div
     id="link-to-overview"
     style="text-align: end"
   >
-    <a
-      href="/"
-    >zur Kursübersicht</a><a
-      href="03-01-primitive-recursion-definitions.html"
-    >Kapitel 3.1 &gt;&gt;</a>
+    <a href="/">zur Kursübersicht</a><a href="03-01-primitive-recursion-definitions.html">Kapitel 3.1 &gt;&gt;</a>
   </div>
-  <div
-    id="rightSideWrapper"
-  >
-    <div
-      class="content"
-    >
-      <div
-        class="chapter"
-      >
-        <h1
-          class="hidden-title"
-        >
-          <span
-            class="chapterTitle"
-          >3.
+  <div id="rightSideWrapper">
+    <div class="content">
+      <div class="chapter">
+        <h1 class="hidden-title">
+          <span class="chapterTitle">3.
             Berechenbarkeit und natürliche Zahlen</span>
         </h1>
         <p>
           Mit den Booleschen Schaltkreisen haben wir ein Modell kennengelernt, dass
-          die Berechnung von Booleschen Funkionen \(f: \{0,1\}^n \rightarrow \{0,1\}\) beschreibt.
+          die Berechnung von Booleschen Funkionen  beschreibt.
           Wir haben mehrere Beweisen gesehen, dass es für jede Boolesche Funktion einen
           Schaltkreis gibt. Unsere Zielsetzung war durchweg
           <i>komplexitätstheoretisch</i>: wir
@@ -74,7 +54,7 @@
           ausschließlich mit
           <i>negativen</i>
           Zielen beschäftigen: zu zeigen, dass es zu bestimmten
-          Funktionen eben nicht Schaltkreise mit \(S\) Gates und in Tiefe \(d\) gibt; wir
+          Funktionen eben nicht Schaltkreise mit  Gates und in Tiefe  gibt; wir
           würden uns zum Großteil mit
           <i>unteren Schranken</i>
           beschäftigen.
@@ -89,7 +69,7 @@
           berechnen? Und was gilt denn überhaupt als zulässiges Modell für Berechenbarkeit?
         </p>
         <p>
-          Wenn wir nun also über Funktionen \(f: X \rightarrow Y\) auf unendlichen Mengen sprechen und uns
+          Wenn wir nun also über Funktionen  auf unendlichen Mengen sprechen und uns
           fragen,
           welche durch eine
           <i>endliche Rechenvorschrift</i>
@@ -114,20 +94,20 @@
           \end{align*}
           den natürlichen Zahlen. Im letzten Kapitel haben wir ja unter anderen bewiesen, dass diese
           gleichmächtig sind:
-          \(\{0,1\}^* \cong \N\) und haben auch eine Bijektion kennengelernt, beispielsweise
+           und haben auch eine Bijektion kennengelernt, beispielsweise
           \begin{align*}
           f : \{0,1\}^<b>&amp;\rightarrow \N \\
             (x<i>1, \dots, x</i>n)&amp;\mapsto (1 x<i>1\dots x</i>n)_2 - 1\ ,
             \end{align</b>}
-          wir stellen also dem Bitstring \(x_1,\dots,x_n\) eine 1 voran und interpretieren das Ergebnis als
+          wir stellen also dem Bitstring  eine 1 voran und interpretieren das Ergebnis als
           natürliche Zahl;
           dann ziehen wir 1 ab.
           Es ist also für die Entwicklung eines Berechenbarkeitsbegriffs mehr oder weniger egal, ob wir mit
-          \(\N\) oder \(\{0,1\}^*\) arbeiten - sofern die obige Bijektion \(f\) selbst "berechenbar" ist.
+           oder  arbeiten - sofern die obige Bijektion  selbst "berechenbar" ist.
         </p>
         <p>
           Wir werden in diesem Kapitel mehrere Berechenbarkeitsmodelle für Funktionen
-          \(f: \N \rightarrow \N\) kennenlernen. Die beste Einstellung Ihrerseits ist, diese Modelle
+           kennenlernen. Die beste Einstellung Ihrerseits ist, diese Modelle
           als primitive, sehr reduzierte Programmiersprachen zu betrachten.
         </p>
       </div>

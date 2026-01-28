@@ -19,7 +19,7 @@
 <body>
 <section
   count="51"
-  .="BookLevelSectionCounter 51"
+  _="BookLevelSectionCounter 51"
   title_gr="Zeithierarchietheorem"
   title_en="Time hierarchy theorem"
   number="8.1"
@@ -27,43 +27,21 @@
   counter="ExoCtr"
   path="/lecture-notes51"
 >
-  <div
-    id="link-to-toc"
-  >
-    <a
-      href="../vorlesungsskript.html"
-    >Inhaltsverzeichnis</a><a
-      href="08-00-Complexity-Theory.html"
-    >&lt;&lt; Kapitel 8.0</a>
+  <div id="link-to-toc">
+    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="08-00-Complexity-Theory.html">&lt;&lt; Kapitel 8.0</a>
   </div>
   <div
     id="link-to-overview"
     style="text-align: end"
   >
-    <a
-      href="/"
-    >zur Kursübersicht</a><a
-      href="09-00-appendix.html"
-    >Kapitel 9.0 &gt;&gt;</a>
+    <a href="/">zur Kursübersicht</a><a href="09-00-appendix.html">Kapitel 9.0 &gt;&gt;</a>
   </div>
-  <div
-    id="rightSideWrapper"
-  >
-    <div
-      class="content"
-    >
-      <div
-        class="chapter"
-      >
-        <div
-          class="subChapter"
-        >
-          <h1
-            class="hidden-title"
-          >
-            <span
-              class="subChapterTitle"
-            >::::ChapterCtr.1
+  <div id="rightSideWrapper">
+    <div class="content">
+      <div class="chapter">
+        <div class="subChapter">
+          <h1 class="hidden-title">
+            <span class="subChapterTitle">::::ChapterCtr.1
               Das Zeithierarchietheorem</span>
           </h1>
           <p>
@@ -71,9 +49,7 @@
             \rightarrow \N$
             ein Entscheidungsproblem $L \subseteq \Sigma^<b>$ gibt, dass man in Zeit $t$ entscheiden kann,
               aber nicht deutlich schneller. Was "vernünftig" bedeutet, wird weiter unten klar werden.
-              Wir betrachten noch einmal genauer die universelle Turingmaschine aus<a
-                href="07-03-Turing-universal.html"
-              >Kapitel 7.5.</a>
+              Wir betrachten noch einmal genauer die universelle Turingmaschine aus<a href="07-03-Turing-universal.html">Kapitel 7.5.</a>
               Unsere Implementierung hatte insgesamt
               fünf Bänder verwendet: (1) ein Band, um die Regeln von $M$ zu speichern (also die Funktion
               $\delta$);
@@ -100,9 +76,7 @@
               Einband-Turingmaschinen $M$ simuliert. Es ist aber ziemlich einfach zu sehen, dass man
               Codierung und Simulation ganz analog für $k$-Band-Turingmaschinen durchführen kann.
               Die entsprechende Turingmaschine hat dann allerdings $k+2$ Bänder: $k$ Arbeitsbänder,
-              eins für den Zustand von $M$ und eins für $\enc(M)$. Darüberhinaus hatten wir in<a
-                href="07-05-undecidability.html"
-              >Kapitel 7.7</a>
+              eins für den Zustand von $M$ und eins für $\enc(M)$. Darüberhinaus hatten wir in<a href="07-05-undecidability.html">Kapitel 7.7</a>
               gesehen, dass wir als Codierungsalphabet
               $\Sigma$ selbst nehmen können, also $\enc(M) \in \Sigma^</b>$, solange $\Sigma$ mindestens zwei
             Zeichen enthält.
@@ -112,9 +86,7 @@
             class="well container theorem"
           >
             <p>
-              <span
-                class="numbered-title"
-              >Theorem
+              <span class="numbered-title">Theorem
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
                 </span>
               Für jedes Alphabet $\Sigma$ mit mindestens zwei
@@ -190,13 +162,9 @@
               Zeitbudget.</i>
             
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
-              <span
-                class="numbered-title"
-              >Definition
+              <span class="numbered-title">Definition
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
                 </span>
               <b>(Zeitbudgetiertes
@@ -223,21 +191,15 @@
             in die Bestandteile $\enc(M)$, $1^b$, $0$ und $x$ zerlegen. Die $0$ dient dazu, das "Budget"
             $1^b$ vom "inneren Eingabewort" $x$ abzugrenzen.
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
-              <span
-                class="numbered-title"
-              >Beobachtung
+              <span class="numbered-title">Beobachtung
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
                 </span>
               $\bhalt \in \TIME_{k+3}(n)$.
             </p>
           </div>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <p>
               <b>Beweis.</b>
               Wir nehmen die universelle Turingmaschine $U$, die $k$-Band-Turingmaschinen simulieren kann,
@@ -253,9 +215,8 @@
               insgesamt
               $O(n+b) = O(n)$ Schritte.
             </p>
-            <span
-              class="qed"
-            >\(\square\)</span>
+            <span class="qed">
+              </span>
           </div>
           <p>
             Sei nun $t: \N \rightarrow \N$ eine monoton steigende Funktion mit $t(n) \geq n$.
@@ -269,9 +230,7 @@
             class="well container theorem"
           >
             <p>
-              <span
-                class="numbered-title"
-              >Behauptung
+              <span class="numbered-title">Behauptung
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
                 </span>
               <b>(nicht ganz
@@ -291,13 +250,9 @@
             $n!$ oder $n^n$. All diese stellen kein Problem dar. Insgesamt sind wir auf der sicheren
             Seite, wenn wir die Funktion $t$ selbst in $O(t)$ Schritten berechnen können.
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
-              <span
-                class="numbered-title"
-              >Definition
+              <span class="numbered-title">Definition
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
                 </span>
               Eine Funktion $t: \N \rightarrow \N$ heißt
@@ -305,13 +260,9 @@
               das Ausgabewort $1^{t(n)}$ berechnet und selbst maximal $O(t(n))$ Schritte läuft.
             </p>
           </div>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
-              <span
-                class="numbered-title"
-              >Behauptung
+              <span class="numbered-title">Behauptung
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
                 </span>
               <b>(jetzt korrekt).</b>
@@ -324,13 +275,9 @@
             So weit, so gut. Wonach wir allerdings aus sind, ist ein Beweis, dass $\bnegdiag$ nicht
             signifikant schneller zu berechnen ist.
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
-              <span
-                class="numbered-title"
-              >Lemma
+              <span class="numbered-title">Lemma
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
                 </span>
               Sei $s: \N \rightarrow \N$ eine Funktion mit
@@ -339,9 +286,7 @@
                 gilt $\bnegdiag \not \in \TIME</i>k(s)$.
             </p>
           </div>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <p>
               <b>Beweis.</b>
               Wir nehmen an, es gäbe eine Turingmaschine $M$, die $\bnegdiag$ in Zeit $s$ entscheidet und
@@ -358,9 +303,7 @@
               Nach Annahme terminiert $M$ auf dem Eingabewort $x1^m$ innerhalb von
               $s(n)$ Schritten. Wenn $U$ die Maschine $M$ simuliert, braucht sie
               nach
-              <a
-                href="#theorem-universal"
-              >Theorem 8.1.1</a>
+              <a href="#theorem-universal">Theorem 8.1.1</a>
               höchstens
               $C \cdot |\enc(M)| \cdot (n + s(n))$ Schritte.
               Da $s(n) \geq n$ gilt, sind dies höchstens $2C \cdot |\enc(M)| \cdot s(n)
@@ -391,21 +334,16 @@
             \end{align*}
             <p>
               und da ist er, der Widerspruch: $x1^m \in \bnegdiag \Longleftrightarrow f_M(x1^m) =
-              \texttt{reject}$, entgegen unserer Annahme, dass $M$ die Sprache $\bnegdiag$ entscheidet.<span
-                class="qed"
-              >\(\square\)</span>
+              \texttt{reject}$, entgegen unserer Annahme, dass $M$ die Sprache $\bnegdiag$ entscheidet.<span class="qed">
+                </span>
             </p>
           </div>
           <p>
             Zusammenfassend erhalten wir die "Rohversion" des Zeithierarchiesatzes:
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
-              <span
-                class="numbered-title"
-              >Theorem
+              <span class="numbered-title">Theorem
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.8</NumberedTitle>
                 </span>
               <b>(Zeithierarchiesatz, Rohversion).</b>
@@ -430,13 +368,9 @@
           <p>
             oder, alternativ ausgedrückt:
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
-              <span
-                class="numbered-title"
-              >Theorem
+              <span class="numbered-title">Theorem
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.9</NumberedTitle>
                 </span>
               <b>(Zeithierarchiesatz).</b>
@@ -451,13 +385,9 @@
             $\TIME<i>k(t) \subseteq \TIME</i>1(t^2)$, erhalten wir
             einen Zeithierarchiesatz solange $s^2 \in o(t)$ ist.
           </p>
-          <div
-            class="well well-lg numbered-exercise container"
-          >
+          <div class="well well-lg numbered-exercise container">
             <p>
-              <span
-                class="numbered-title"
-              >Übungsaufgabe
+              <span class="numbered-title">Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
                 </span>Zeigen Sie, dass $n \mapsto n^2$ und $n \mapsto 2^n$ zeitkonstruierbar sind.
             </p>

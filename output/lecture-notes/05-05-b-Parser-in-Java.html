@@ -19,7 +19,7 @@
 <body>
 <section
   count="34"
-  .="BookLevelSectionCounter 34"
+  _="BookLevelSectionCounter 34"
   title_gr="Parser in Java implementieren"
   title_en="b Parser in Java"
   number="5.5"
@@ -27,53 +27,27 @@
   counter="ExoCtr"
   path="/lecture-notes34"
 >
-  <div
-    id="link-to-toc"
-  >
-    <a
-      href="../vorlesungsskript.html"
-    >Inhaltsverzeichnis</a><a
-      href="05-05-a-LR-parsing-by-hand.html"
-    >&lt;&lt; Kapitel 5.5</a>
+  <div id="link-to-toc">
+    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="05-05-a-LR-parsing-by-hand.html">&lt;&lt; Kapitel 5.5</a>
   </div>
   <div
     id="link-to-overview"
     style="text-align: end"
   >
-    <a
-      href="/"
-    >zur Kursübersicht</a><a
-      href="05-05-c-LR-grammars.html"
-    >Kapitel 5.5 &gt;&gt;</a>
+    <a href="/">zur Kursübersicht</a><a href="05-05-c-LR-grammars.html">Kapitel 5.5 &gt;&gt;</a>
   </div>
-  <div
-    id="rightSideWrapper"
-  >
-    <div
-      class="content"
-    >
-      <div
-        class="chapter"
-      >
-        <div
-          class="subChapter"
-        >
-          <h1
-            class="hidden-title"
-          >
-            <span
-              class="subChapterTitle"
-            >::::ChapterCtr.6
+  <div id="rightSideWrapper">
+    <div class="content">
+      <div class="chapter">
+        <div class="subChapter">
+          <h1 class="hidden-title">
+            <span class="subChapterTitle">::::ChapterCtr.6
               Einen Parser in Java implementieren</span>
           </h1>
-          <div
-            class="alert-info"
-          >
+          <div class="alert-info">
             Den vollständigen Quelltext, den wir in der Vorlesung geschrieben haben,
             finden Sie in der Datei
-            <a
-              href="../code/parsing/arithmetic-in-class/ArithmeticGrammar.java"
-            >ArithmeticGrammar.java</a>.
+            <a href="../code/parsing/arithmetic-in-class/ArithmeticGrammar.java">ArithmeticGrammar.java</a>.
           </div>
           <p>
             Ich möchte nun eine kontextfreie Grammatik für arithmetische Ausdrücke der
@@ -108,12 +82,6 @@
             <tt>((31+402)*83)</tt>
             also
           </p>
-          <figure>
-            <img
-              style="height:20em"
-              src="../img/context-free/arithmetic-syntax-tree.svg"
-            >
-          </figure>
           <p>
             Wie wir diesen Baum in Java repräsentieren, darüber sprechen wir in einer Minute.
             Zuerst aber: wir wollen mit diesem Baum etwas Sinnvolles tun. Zum Beispiel

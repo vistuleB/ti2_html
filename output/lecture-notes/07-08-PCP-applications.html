@@ -19,7 +19,7 @@
 <body>
 <section
   count="49"
-  .="BookLevelSectionCounter 49"
+  _="BookLevelSectionCounter 49"
   title_gr="des Postschen Korrespondenzproblems"
   title_en="PCP applications"
   number="7.8"
@@ -27,43 +27,21 @@
   counter="ExoCtr"
   path="/lecture-notes49"
 >
-  <div
-    id="link-to-toc"
-  >
-    <a
-      href="../vorlesungsskript.html"
-    >Inhaltsverzeichnis</a><a
-      href="07-07-Post-correspondence-problem.html"
-    >&lt;&lt; Kapitel 7.7</a>
+  <div id="link-to-toc">
+    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="07-07-Post-correspondence-problem.html">&lt;&lt; Kapitel 7.7</a>
   </div>
   <div
     id="link-to-overview"
     style="text-align: end"
   >
-    <a
-      href="/"
-    >zur Kursübersicht</a><a
-      href="08-00-Complexity-Theory.html"
-    >Kapitel 8.0 &gt;&gt;</a>
+    <a href="/">zur Kursübersicht</a><a href="08-00-Complexity-Theory.html">Kapitel 8.0 &gt;&gt;</a>
   </div>
-  <div
-    id="rightSideWrapper"
-  >
-    <div
-      class="content"
-    >
-      <div
-        class="chapter"
-      >
-        <div
-          class="subChapter"
-        >
-          <h1
-            class="hidden-title"
-          >
-            <span
-              class="subChapterTitle"
-            >::::ChapterCtr.8
+  <div id="rightSideWrapper">
+    <div class="content">
+      <div class="chapter">
+        <div class="subChapter">
+          <h1 class="hidden-title">
+            <span class="subChapterTitle">::::ChapterCtr.8
               Anwendungen des Postschen Korrespondenzproblems</span>
           </h1>
           <p>
@@ -76,9 +54,9 @@
             Diese Grammatiken erlauben uns, gewisse Sprachen zu beschreiben, indem Sie Regeln festlegen -
             hier
             <i>Produktionen</i>
-            genannt, nach welchen man aus dem Startsymbol \(S\) Wörter über dem
+            genannt, nach welchen man aus dem Startsymbol  Wörter über dem
             Alphabet
-            (hier: \(\{a,b,c\}\)) ableiten kann. Beispielsweise:
+            (hier: ) ableiten kann. Beispielsweise:
             \begin{align*}
             S \Rightarrow Tc \Rightarrow TaTbc \Rightarrow TaTaTbbc \Rightarrow
             TaTabbc \Rightarrow Taabbc \Rightarrow aabbc
@@ -88,21 +66,17 @@
             schön, über gegebene kontextfreie Grammatik möglichst viele Dinge herausfinden zu können.
             Leider sind viele solche Probleme unentscheidbar. Als einfaches Beispiel:
           </p>
-          <div
-            class="well container theorem"
-          >
-            <span
-              class="numbered-title"
-            >Theorem
+          <div class="well container theorem">
+            <span class="numbered-title">Theorem
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
               </span>
             Wir wollen bestimmen, ob
-            aus einer gegebenen kontextfreien Grammatik \(G\) ein Palindromwort ableitbar ist,
-            also ein \(\gamma\), das von rechts nach links gelesen gleich ist, sprich
-            \(\gamma = \gamma^R\). Dieses Problem ist unentscheidbar.
+            aus einer gegebenen kontextfreien Grammatik  ein Palindromwort ableitbar ist,
+            also ein , das von rechts nach links gelesen gleich ist, sprich
+            . Dieses Problem ist unentscheidbar.
             <p>
               Formal gesehen müssten wir eine Codierung kontextfreier Grammatiken über einem festen
-              Alphabet (zum Beispiel \(\{0,1, \rightarrow, ;, \dots\}\) angeben, um dann die
+              Alphabet (zum Beispiel  angeben, um dann die
               <i>Sprache
                 der
                 Codierungen all jener
@@ -112,89 +86,73 @@
               ersparen wir uns diese Formalitäten.
             </p>
           </div>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <b>Beweis.</b>
             Wir zeigen: wenn man zu einer gegebenen kontextfreien Grammatik entscheiden könnte,
             ob sie ein Palindromwort ableiten kann, dann könnten wir auch entscheiden, ob ein
             gegebenes PCP-Puzzle eine Lösung hat. Da wir bereits Letzteres als unentscheidbar
             erkannt haben, schließen wir, dass Ersteres auch unentscheidbar ist.
             <p>
-              Konkret sei uns nun also ein PCP-Puzzle \(P\) gegeben. Wir bauen daraus eine
-              kontextfreie Grammatik \(G\), so dass
-              \(G\) genau dann ein Palindromwort ableiten kann, wenn \(P\) eine Lösung hat.
-              Die Konstruktion ist überraschend einfach. Wir erschaffen ein Startsymbol \(S\)
-              für unsere Grammatik und erstellen zu jeder Kachel \(\alpha : \beta\) die
+              Konkret sei uns nun also ein PCP-Puzzle  gegeben. Wir bauen daraus eine
+              kontextfreie Grammatik , so dass
+               genau dann ein Palindromwort ableiten kann, wenn  eine Lösung hat.
+              Die Konstruktion ist überraschend einfach. Wir erschaffen ein Startsymbol 
+              für unsere Grammatik und erstellen zu jeder Kachel  die
               Grammatikregel
               \begin{align*}
               S&amp;\rightarrow \alpha S \beta^R \ ,
               \end{align*}
-              wobei \(\beta^R\) das Wort \(\beta\) von rechts nach links gelesen bedeutet, also
-              \((xyz)^R = zyx\). Wir fügen noch eine weitere Regel hinzu:
+              wobei  das Wort  von rechts nach links gelesen bedeutet, also
+              . Wir fügen noch eine weitere Regel hinzu:
               \begin{align*}
               S&amp;\rightarrow \$ \ ,
               \end{align*}
-              wobei \(\$\) ein neues Zeichen ist, dass nicht in der Symbolmenge des PCP-Puzzles \(P\)
+              wobei  ein neues Zeichen ist, dass nicht in der Symbolmenge des PCP-Puzzles 
               enthalten ist.
             </p>
-            <div
-              class="well subtheorem theorem"
-            >
-              <span
-                class="numbered-title"
-              >Behauptung
+            <div class="well subtheorem theorem">
+              <span class="numbered-title">Behauptung
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
                 </span>
-              Wenn die Grammatik \(G\) ein Palindromwort
-              ableiten kann, dann hat das PCP-Puzzle \(P\) eine Lösung.
+              Wenn die Grammatik  ein Palindromwort
+              ableiten kann, dann hat das PCP-Puzzle  eine Lösung.
             </div>
-            <div
-              class="well subtheorem"
-            >
+            <div class="well subtheorem">
               <b>Beweis.</b>
-              Die letzte angewandte Regel muss \(S \rightarrow \$\) sein, und somit hat
+              Die letzte angewandte Regel muss  sein, und somit hat
               das abgeleitete Wort die Form
               \begin{align*}
               \alpha<i>1 \alpha</i>2 \dots \alpha<i>n \$ \beta</i>n^R \dots \beta<i>2^R \beta</i>1^R \ .
               \end{align*}
-              Jedes Paar \(\alpha_i : \beta_i\) ist eine Kachel des PCP-Puzzles. Wenn das
-              Wort ein Palindrom ist, dann gilt \(\alpha_1 \dots \alpha_n = \beta_1 \dots \beta_n\)
+              Jedes Paar  ist eine Kachel des PCP-Puzzles. Wenn das
+              Wort ein Palindrom ist, dann gilt 
               und somit ist
               \begin{align*}
               (\alpha<i>1 : \beta</i>1) (\alpha<i>2 : \beta</i>2)\dots (\alpha<i>n : \beta</i>n)
               \end{align*}
-              eine Lösung des PCP-Puzzles.<span
-                class="qed"
-              >\(\square\)</span>
+              eine Lösung des PCP-Puzzles.<span class="qed">
+                </span>
             </div>
-            <div
-              class="well subtheorem theorem"
-            >
-              <span
-                class="numbered-title"
-              >Behauptung
+            <div class="well subtheorem theorem">
+              <span class="numbered-title">Behauptung
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
                 </span>
               Wenn
-              das PCP-Puzzle \(P\) eine Lösung hat, dann kann die Grammatik \(G\) ein Palindromwort
+              das PCP-Puzzle  eine Lösung hat, dann kann die Grammatik  ein Palindromwort
               ableiten.
             </div>
-            <div
-              class="well subtheorem"
-            >
+            <div class="well subtheorem">
               <b>Beweis.</b>
               Sei
               \begin{align*}
               (\alpha<i>1 : \beta</i>1) (\alpha<i>2 : \beta</i>2)\dots (\alpha<i>n : \beta</i>n)
               \end{align*}
-              eine Lösung des Puzzles, also \(\alpha_1 \alpha_2 \dots \alpha_n = \beta_1 \beta_2 \dots
-              \beta_n \).
+              eine Lösung des Puzzles, also .
               Dann ist auch
               \begin{align*}
               \alpha<i>1 \alpha</i>2 \dots \alpha<i>n \$ (\beta</i>1 \beta<i>2 \dots \beta</i>n)^R
               \end{align*}
-              ein Palindrom und kann von \(G\) abgeleitet werden:
+              ein Palindrom und kann von  abgeleitet werden:
               \begin{align*}
               S \Rightarrow \alpha<i>1 S \beta</i>1^R \Rightarrow \alpha<i>1 \alpha</i>2 S \beta<i>2^R \beta</i>1^R
               \Rightarrow
@@ -202,18 +160,16 @@
               \alpha<i>1 \alpha</i>2 \dots \alpha<i>n S \beta</i>n^R \dots \beta<i>2^R \beta</i>1^R \Rightarrow
               \alpha<i>1 \alpha</i>2 \dots \alpha<i>n \$ \beta</i>n^R \dots \beta<i>2^R \beta</i>1^R
               \end{align*}
-              Somit ist gezeigt, dass \(G\) ein Palindromwort ableiten kann.<span
-                class="qed"
-              >\(\square\)</span>
+              Somit ist gezeigt, dass  ein Palindromwort ableiten kann.<span class="qed">
+                </span>
             </div>
             Hätten wir nun also einen Algorithmus, der für eine gegebene kontextfreie Grammatik
             entscheiden könnte, ob sie ein Palindromwort ableiten kann, dann könnten wir
-            PCP-Puzzles wie folgt entscheiden: nimm das Puzzle \(P\), baue nach den obigen
-            Regeln daraus die Grammatik \(G\) und frage dann den Algorithmus, ob
-            \(G\) ein Palindromwort ableiten kann. Dies beantwortet auch die Frage
-            nach der Lösbarkeit des gegebenen PCP-Puzzles.<span
-              class="qed"
-            >\(\square\)</span>
+            PCP-Puzzles wie folgt entscheiden: nimm das Puzzle , baue nach den obigen
+            Regeln daraus die Grammatik  und frage dann den Algorithmus, ob
+             ein Palindromwort ableiten kann. Dies beantwortet auch die Frage
+            nach der Lösbarkeit des gegebenen PCP-Puzzles.<span class="qed">
+              </span>
           </div>
           <h3>
             Reduktionen
@@ -228,18 +184,18 @@
             <li>
               <b>Aufgabe:</b>
               Zeigen Sie, dass die Funktion
-              \(n \mapsto n!\) im \(\lambda\)-Kalkül berechenbar ist.
+               im -Kalkül berechenbar ist.
             </li>
             <li>
-              Wir wissen bereits, wie man \(n \mapsto n!\) als
+              Wir wissen bereits, wie man  als
               primitiv-rekursive Funktion schreibt.
             </li>
             <li>
               Wir wissen bereits, wie man eine allgemeine primitiv rekursive Funktion
-              im \(\lambda\)-Kalkül implementiert.
+              im -Kalkül implementiert.
             </li>
             <li>
-              Wir schließen nun, dass \(n \mapsto n!\) im \(\lambda\)-Kalkül implementierbar ist,
+              Wir schließen nun, dass  im -Kalkül implementierbar ist,
               und ersparen uns die Details.
             </li>
           </ul>
@@ -247,16 +203,13 @@
             Im Kontext der Turing-Berechenbarkeit können wir dieses Prinzip wie folgt
             formalisieren:
           </p>
-          <div
-            class="well container theorem"
-          >
-            <span
-              class="numbered-title"
-            >Definition
+          <div class="well container theorem">
+            <span class="numbered-title">Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-              </span>Seien \(L_1 \subseteq \Sigma_1\) und \(L_2 \subseteq \Sigma_2\) zwei Sprachen.
+              </span>Seien  und  zwei Sprachen.
             Eine
-            <i>Reduktion von \(L_1\) nach \(L_2\)</i>
+            <i>Reduktion von  nach
+            </i>
             ist eine Turing-berechenbare Funktion
             \begin{align*}
             f : \Sigma<i>1^* \rightarrow \Sigma</i>2^<b>
@@ -267,47 +220,40 @@
             \end{align*}
           </div>
           <p>
-            Erinnern Sie sich: dass \(f\) Turing-berechenbar ist, heißt, dass es eine Turingmaschine
-            \(_f\) gibt mit einem dezidierten Ausgabe-Band, so dass \(M_f(x)\) für jedes Eingabewort
-            terminiert und zum Zeitpunkt der Terminierung \(f(x)\) auf das Ausgabeband geschrieben hat.
-            Wenn wir eine Reduktion von \(L_1\) nach \(L_2\) haben, dann liefert uns jeder
+            Erinnern Sie sich: dass  Turing-berechenbar ist, heißt, dass es eine Turingmaschine
+             gibt mit einem dezidierten Ausgabe-Band, so dass  für jedes Eingabewort
+            terminiert und zum Zeitpunkt der Terminierung  auf das Ausgabeband geschrieben hat.
+            Wenn wir eine Reduktion von  nach  haben, dann liefert uns jeder
             Entscheidungsalgorithmus
-            für \(L_2\) unmittelbar einen Entscheidungsalgorithmus für \(L_1\):
+            für  unmittelbar einen Entscheidungsalgorithmus für :
           </p>
-          <div
-            class="well container theorem"
-          >
-            <span
-              class="numbered-title"
-            >Beobachtung
+          <div class="well container theorem">
+            <span class="numbered-title">Beobachtung
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
               </span>
-            Wenn \(f\) eine Reduktion von \(L_1\) nach
-            \(L_2\) ist und \(L_2\) entscheidbar ist, dann ist auch \(L_1\) entscheidbar.
+            Wenn  eine Reduktion von  nach
+             ist und  entscheidbar ist, dann ist auch  entscheidbar.
           </div>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <b>Beweis.</b>
-            Sei \(M_2\) eine Turingmaschine, die \(L_2\) entscheidet und sei \(M_f\) die Turingmaschine,
-            die \(f\) berechnet.
-            Wir bauen nun eine neue Turingmaschine \(M_1\).
-            Sie nimmt das Eingabewort \(x \in \Sigma_1^* \) und lässt die Turingmaschine
-            \(M_f\) auf \(x\) arbeiten; wenn \(M_f\) terminiert, steht \(f(x)\) auf ihrem Ausgabeband.
-            Wir rufen nun die Turing-Maschien \(M_2\) mit dem Eingabewort \(f(x)\) auf.
-            Wenn \(M_2\) akzeptiert (oder eben ablehnt), dann lassen wir \(M_1\) akzeptieren (oder eben
+            Sei  eine Turingmaschine, die  entscheidet und sei  die Turingmaschine,
+            die  berechnet.
+            Wir bauen nun eine neue Turingmaschine .
+            Sie nimmt das Eingabewort  und lässt die Turingmaschine
+             auf  arbeiten; wenn  terminiert, steht  auf ihrem Ausgabeband.
+            Wir rufen nun die Turing-Maschien  mit dem Eingabewort  auf.
+            Wenn  akzeptiert (oder eben ablehnt), dann lassen wir  akzeptieren (oder eben
             ablehnen). Es gilt nun:
             \begin{align*}
             M<i>1(x) = \texttt{accept}&amp;\Leftrightarrow M</i>2(f(x)) = \texttt{accept} \\
             &amp;\Leftrightarrow f(x) \in L<i>2 \tag{weil $M</i>2$ die Sprache $L<i>2$ entscheidet} \\
               &amp;\Leftrightarrow x \in L</i>1 \tag{weil $f$ eine Reduktion ist}
             \end{align*}
-            und somit entscheidet \(M_1\) die Sprache \(L_1\).<span
-              class="qed"
-            >\(\square\)</span>
+            und somit entscheidet  die Sprache .<span class="qed">
+              </span>
           </div>
-          Stellen Sie sich einfach vor, dass \(M_f\) der Code ist, den Sie selber schreiben müssen,
-          und \(M_2\) die "Bibliotheksfunktion" ist, die Sie ohne groß nachzudenken aufrufen,
+          Stellen Sie sich einfach vor, dass  der Code ist, den Sie selber schreiben müssen,
+          und  die "Bibliotheksfunktion" ist, die Sie ohne groß nachzudenken aufrufen,
           weil sie ja bereist von anderen Leuten (hoffentlich korrekt) implementiert worden ist.
           Behauptung 4.6.8 zeigt also, das etwas
           <i>möglich</i>
@@ -317,26 +263,19 @@
           <i>nicht möglich</i>
           ist, und wenden daher häufiger das Kontrapositiv
           der Behauptung an:
-          <div
-            class="well container theorem"
-          >
-            <span
-              class="numbered-title"
-            >Beobachtung
+          <div class="well container theorem">
+            <span class="numbered-title">Beobachtung
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
               </span>
-            Wenn \(f\) eine Reduktion von \(L_1\) nach
-            \(L_2\) ist und \(L_1\) unentscheidbar ist, dann ist auch \(L_2\) unentscheidbar.
+            Wenn  eine Reduktion von  nach
+             ist und  unentscheidbar ist, dann ist auch  unentscheidbar.
           </div>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <b>Beweis.</b>
-            Angenommen, \(L_2\) wäre entscheidbar. Dann wäre laut Behauptung 4.6.8 die Sprache
-            \(L_1\) ja auch entscheidbar, was sie aber nach Annahme nicht ist. Daher ist
-            \(L_2\) eben nicht entscheidbar.<span
-              class="qed"
-            >\(\square\)</span>
+            Angenommen,  wäre entscheidbar. Dann wäre laut Behauptung 4.6.8 die Sprache
+             ja auch entscheidbar, was sie aber nach Annahme nicht ist. Daher ist
+             eben nicht entscheidbar.<span class="qed">
+              </span>
           </div>
           Beachten Sie nun, dass so etwas wie Behauptung 4.6.9 bereits oben angewandt haben: wir haben
           das Haltproblem auf das MPCP-Problem reduziert; jenes dann auf das PCP; und schließlich PCP
@@ -351,70 +290,51 @@
           Problem auf ein
           <i>neues</i>
           zu reduzieren
-          statt umgekehrt.
-          <figure>
-            <img
-              style="height:15em"
-              src="../img/pcp/reduction.svg"
-              loading="lazy"
-            >
-          </figure>
-          Üben wir also Reduktionen:
-          <div
-            class="well container theorem"
-          >
-            <span
-              class="numbered-title"
-            >Theorem
+          statt umgekehrt.Üben wir also Reduktionen:
+          <div class="well container theorem">
+            <span class="numbered-title">Theorem
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
               </span>
             <p>
               <b>(Schnittproblem kontextfreier Sprachen)</b>
               
             </p>
-            Gegeben zwei kontextfreie Grammatiken \(G_1, G_2\). Es ist
-            unentscheidbar, ob \(L(G_1) \cap L(G_2)\) nichtleer ist, ob es
-            also ein Wort \(x\) mit \(x \in G_1\) und \(x \in G_2\) gibt.
+            Gegeben zwei kontextfreie Grammatiken . Es ist
+            unentscheidbar, ob  nichtleer ist, ob es
+            also ein Wort  mit  und  gibt.
             <p>
               Dieses Problem ist als
               <i>Schnittproblem kontextfreier Sprachen</i>
               bekannt.
             </p>
           </div>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <b>Beweis.</b>
             Wir reduzieren das Palindromwortproblem (bereits bekannt) auf das Schnittproblem (neues
             Problem).
-            Sei \(G\) eine Grammatik und \(\Sigma\) die Menge der Terminalsymbole. Sei \(G'\) die
+            Sei  eine Grammatik und  die Menge der Terminalsymbole. Sei  die
             folgende Grammatik:
             \begin{align*}
-            S'&amp;\rightarrow x S' x \tag{ für alle \(x \in \Sigma\) }\\
-            S'&amp;\rightarrow x \tag{ für alle \(x \in \Sigma\) }\\
+            S'&amp;\rightarrow x S' x \tag{ für alle  }\\
+            S'&amp;\rightarrow x \tag{ für alle  }\\
             S'&amp;\rightarrow \epsilon
             \end{align*}
-            Die Grammatik \(G'\) erzeugt genau die Sprache der Palindromwörter über \(\Sigma\).
-            Unsere Reduktion \(f\) nimmt nun als Eingabe eine kontextfreie Grammatik \(G\) (bzw. deren
-            Codierung) und gibt das Paar \((G,G')\) aus (bzw. deren Codierungen). Wir stellen fest:
-            \(G\) kann ein Palindromwort ableiten genau dann, wenn \(L(G) \cap L(G') \ne \emptyset\),
-            wenn es also ein Wort \(\alpha\) gibt, dass aus \(G\) und aus \(G'\) abgeleitet werden kann.
-            Die Funktion \(f\) ist also eine Reduktion vom Palindromwortproblem auf das Schnittproblem.
-            Mit Behauptung 4.6.9 zusammen heißt das, dass das Schnittproblem unentscheidbar ist.<span
-              class="qed"
-            >\(\square\)</span>
+            Die Grammatik  erzeugt genau die Sprache der Palindromwörter über .
+            Unsere Reduktion  nimmt nun als Eingabe eine kontextfreie Grammatik  (bzw. deren
+            Codierung) und gibt das Paar  aus (bzw. deren Codierungen). Wir stellen fest:
+             kann ein Palindromwort ableiten genau dann, wenn ,
+            wenn es also ein Wort  gibt, dass aus  und aus  abgeleitet werden kann.
+            Die Funktion  ist also eine Reduktion vom Palindromwortproblem auf das Schnittproblem.
+            Mit Behauptung 4.6.9 zusammen heißt das, dass das Schnittproblem unentscheidbar ist.<span class="qed">
+              </span>
           </div>
-          <div
-            class="well container theorem"
-          >
-            <span
-              class="numbered-title"
-            >Theorem
+          <div class="well container theorem">
+            <span class="numbered-title">Theorem
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.8</NumberedTitle>
               </span>
             <b>(Mehrdeutigkeitsproblem kontextfreier Sprachen)</b>
-            Gegeben eine kontextfreie Grammatik \(G\). Es ist unentscheidbar,
-            ob \(G\) mehrdeutig ist, d.h., ob es ein Wort \(x \in \Sigma^*\) gibt,
+            Gegeben eine kontextfreie Grammatik . Es ist unentscheidbar,
+            ob  mehrdeutig ist, d.h., ob es ein Wort  gibt,
             für das zwei verschiedene Ableitungsbäume existieren.
           </div>
           <div
@@ -423,43 +343,42 @@
           >
             <b>Falscher Beweis.</b>
             Wir reduzieren das uns bereits bekannte Schnittproblem auf das Mehrdeutigkeitsproblem.
-            Gegeben seien zwei kontextfreie Grammatiken \(G_1, G_2\) mit Startsymbolen \(S_1, S_2\) und
-            Nichtterminalmenge \(N_1, N_2\). Wir machen in einem ersten Schritt die Mengen \(N_1\) und
-            \(N_2\) disjunkt (wenn sie es nicht eh schon sind; wir können beispielsweise jedes \(X \in N_2\)
+            Gegeben seien zwei kontextfreie Grammatiken  mit Startsymbolen  und
+            Nichtterminalmenge . Wir machen in einem ersten Schritt die Mengen  und
+             disjunkt (wenn sie es nicht eh schon sind; wir können beispielsweise jedes 
             in
-            \(X'\) umbenennen). Dann führen wir ein Super-Startsymbol \(S\) ein und zwei Produktionen:
+             umbenennen). Dann führen wir ein Super-Startsymbol  ein und zwei Produktionen:
             \begin{align*}
             S&amp;\rightarrow S<i>1 \\
               S&amp;\rightarrow S</i>2
             \end{align*}
-            und übernehmen alle Produktionen von \(G_1\) und \(G_2\). Dies ist unsere neue Grammatik \(G\).
+            und übernehmen alle Produktionen von  und . Dies ist unsere neue Grammatik .
             Sie sehen nun:
-            wenn es ein \(x \in L(G_1) \cap L(G_2)\) gibt, dann kann man \(x\) auf zwei verschiedene
-            Weisen in \(G\) ableiten, nämlich
+            wenn es ein  gibt, dann kann man  auf zwei verschiedene
+            Weisen in  ableiten, nämlich
             \begin{align*}
             S&amp;\Rightarrow S<i>1 \Rightarrow^* x \tag{Ableitung wie in $G</i>1$} \\
             S&amp;\Rightarrow S<i>2 \Rightarrow^* x \tag{Ableitung wie in $G</i>2$} \ ,
             \end{align*}
-            und das sind wirklich zwei verschiedene Ableitungen, weil ja bereits \(S_1 \ne S_2\).
-            Wenn nun umgekehrt ein Wort \(y\) via \(S_1\) und via \(S_2\) ableitbar sein sollte
-            (\(G\) also mehrdeutig sein sollte), dann bedeutet dies, dass \(G_1\) und \(G_2\) beide
-            das Wort \(y\) ableiten können, also einen nichtleeren Schnitt haben.
-            Dies ist somit unsere Reduktion \(f\): nimm als Eingabe das Paar \(G_1, G_2\) (bzw. dessen
+            und das sind wirklich zwei verschiedene Ableitungen, weil ja bereits .
+            Wenn nun umgekehrt ein Wort  via  und via  ableitbar sein sollte
+            ( also mehrdeutig sein sollte), dann bedeutet dies, dass  und  beide
+            das Wort  ableiten können, also einen nichtleeren Schnitt haben.
+            Dies ist somit unsere Reduktion : nimm als Eingabe das Paar  (bzw. dessen
             Codierung),
-            konstruiere \(G\) und gib \(G\) aus. Dieses \(f\) reduziert das Schnittproblem auf das
-            Mehrdeutigkeitsproblem.<span
-              class="qed"
-            >\(\square\)</span>
+            konstruiere  und gib  aus. Dieses  reduziert das Schnittproblem auf das
+            Mehrdeutigkeitsproblem.<span class="qed">
+              </span>
           </div>
           <p>
             Haben Sie den Fehler im Beweis erkannt? Das Problem ist, dass es sein könnte, dass
-            \(G_1\) und \(G_2\) leeren Schnitt haben, \(G_1\) aber bereits mehrdeutig ist.
-            Die Ausgabe-Grammatik \(G\) wäre dann auch mehrdeutig; also hätte die Reduktion \(f\)
+             und  leeren Schnitt haben,  aber bereits mehrdeutig ist.
+            Die Ausgabe-Grammatik  wäre dann auch mehrdeutig; also hätte die Reduktion 
             einen Fehler gemacht.
             Wir müssen leider bis zum Postschen Korrespondenzproblem zurückgehen und direkt von dort
             reduzieren.
             Problematisch ist, dass ein PCP-Puzzle selbst mehrere Lösungen haben kann und auch für
-            ein Lösungswort \(\gamma\) es mehrere Möglichkeiten geben kann, es zu "legen", also
+            ein Lösungswort  es mehrere Möglichkeiten geben kann, es zu "legen", also
             \begin{align*}
             \top(s)&amp;= \bottom(s) = \gamma \\
             \top(s')&amp;= \bottom(s') = \gamma \ .
@@ -470,28 +389,25 @@
             Michael Sipsers Buch
             <i>Introduction to the Theory of Computation</i>, third edition.
           </p>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <b>Beweis.</b>
-            Sei ein PCP-Puzzle \(P = \{ (\alpha_1:\beta_1), \dots, (\alpha_n : \beta_n)\}\) gegeben.
+            Sei ein PCP-Puzzle  gegeben.
             Wir erstellen nun eine kontextfreie Gramatik, die es dem "User" erlaubt, zu entscheiden,
-            ob er das Wort via die oberen Teile \(\alpha_i\) oder via die unteren Teile ableiten will;
+            ob er das Wort via die oberen Teile  oder via die unteren Teile ableiten will;
             wenn es auf beide Weisen geht, dann ist die Grammatik mehrdeutig und das PCP hat eine Lösung.
             Also:
             \begin{align*}
             S&amp;\rightarrow S<i>1 \\
               S&amp;\rightarrow S</i>2 \\
-            S<i>1&amp;\rightarrow \alpha</i>i S<i>1 i \ | \ \alpha</i>i i \tag{für alle oberen Teile \(\alpha_i\)} \\
-            S<i>2&amp;\rightarrow \beta</i>i S<i>2 i \ | \ \beta</i>i i \tag{für alle unteren Teile \(\beta_i\)}
+            S<i>1&amp;\rightarrow \alpha</i>i S<i>1 i \ | \ \alpha</i>i i \tag{für alle oberen Teile } \\
+            S<i>2&amp;\rightarrow \beta</i>i S<i>2 i \ | \ \beta</i>i i \tag{für alle unteren Teile }
             \end{align*}
-            wobei \(1, 2, \dots, n\) neue Symbole sind. Die Indizes \(i\) stellen sicher,
-            dass jede von \(S_1\) ausgehende Ableitung eindeutig ist (und genau so von \(S_2\));
-            die einzige Mehrdeutigkeit kann aufkommen, wenn ein Wort sowohl via \(S_1\) als
-            auch via \(S_2\) ableitbar ist; und dies geschieht genau dann, wenn das PCP-Puzzle
-            eine Lösung hat. Wir haben nun also unsere Reduktion von PCP auf das Mehrdeutigkeitsproblem.<span
-              class="qed"
-            >\(\square\)</span>
+            wobei  neue Symbole sind. Die Indizes  stellen sicher,
+            dass jede von  ausgehende Ableitung eindeutig ist (und genau so von );
+            die einzige Mehrdeutigkeit kann aufkommen, wenn ein Wort sowohl via  als
+            auch via  ableitbar ist; und dies geschieht genau dann, wenn das PCP-Puzzle
+            eine Lösung hat. Wir haben nun also unsere Reduktion von PCP auf das Mehrdeutigkeitsproblem.<span class="qed">
+              </span>
           </div>
         </div>
       </div>

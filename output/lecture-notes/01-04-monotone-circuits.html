@@ -19,7 +19,7 @@
 <body>
 <section
   count="5"
-  .="BookLevelSectionCounter 5"
+  _="BookLevelSectionCounter 5"
   title_gr="Funktionen und monotone Schaltkreise"
   title_en="monotone circuits"
   number="1.4"
@@ -27,125 +27,77 @@
   counter="ExoCtr"
   path="/lecture-notes5"
 >
-  <div
-    id="link-to-toc"
-  >
-    <a
-      href="../vorlesungsskript.html"
-    >Inhaltsverzeichnis</a><a
-      href="01-03-binary-adder.html"
-    >&lt;&lt; Kapitel 1.3</a>
+  <div id="link-to-toc">
+    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a>
   </div>
   <div
     id="link-to-overview"
     style="text-align: end"
   >
-    <a
-      href="/"
-    >zur Kursübersicht</a><a
-      href="01-05-majority.html"
-    >Kapitel 1.5 &gt;&gt;</a>
+    <a href="/">zur Kursübersicht</a>
   </div>
-  <div
-    id="rightSideWrapper"
-  >
-    <div
-      class="content"
-    >
-      <div
-        class="chapter"
-      >
-        <div
-          class="subChapter"
-        >
-          <h1
-            class="hidden-title"
-          >
-            <span
-              class="subChapterTitle"
-            >::::ChapterCtr.4
+  <div id="rightSideWrapper">
+    <div class="content">
+      <div class="chapter">
+        <div class="subChapter">
+          <h1 class="hidden-title">
+            <span class="subChapterTitle">::::ChapterCtr.4
               Monotone Funktionen und monotone Schaltkreise</span>
           </h1>
           <p>
-            Für zwei Tupel \(\mathbf{x}, \mathbf{y} \in \{0,1\}^n\) schreiben wir
-            \( \mathbf{x} \leq \mathbf{y}\), falls \(x_1 \leq y_1, \dots, x_n \leq y_n\), also
-            \(\mathbf{x}\)
+            Für zwei Tupel  schreiben wir
+            , falls , also
             <i>in jeder Koordinate</i>
-            kleiner gleich \(\mathbf{y}\) ist.
-            Beispielsweise gilt \( (0,0,1) \leq (1,0,1)\). Allerdings gilt weder
-            \( (0,1,0) \leq (1,0,1)\) noch umgekehrt; die beiden Tupel sind
+            kleiner gleich  ist.
+            Beispielsweise gilt . Allerdings gilt weder
+             noch umgekehrt; die beiden Tupel sind
             <i>unvergleichbar</i>;
-            es handelt sich bei \(\leq\) also um eine
+            es handelt sich bei  also um eine
             <i>Partialordnung</i>.
             Am Besten stellen Sie sich eine solche Partialordnung als gerichteten Graphen vor:
           </p>
-          <figure>
-            <img
-              style="height:10em"
-              src="../img/circuits/hasse-diagram.svg"
-              loading="lazy"
-            >
-          </figure>
           <p>
             Diese Darstellung einer Partialordnung als gerichteter Graph bezeichnet man auch als
             <i>Hasse-Diagramm</i>
             (ich verzichte hier auf eine formale Definition).
-            Es gilt nun \(\mathbf{x} \leq \mathbf{y}\), wenn Sie im Hasse-Diagramm einen
-            Pfad von \(\mathbf{x}\) nach \(\mathbf{y}\) finden.
+            Es gilt nun , wenn Sie im Hasse-Diagramm einen
+            Pfad von  nach  finden.
           </p>
           <p>
             <b>Vorsicht.</b>
-            Im obigen Bild steht zwar \(001\) unterhalb von \(110\), allerdings
-            werden Sie keinen Pfad von \(001\) nach \(110\) finden;
-            es gilt also \(001 \not \leq 110\); die beiden Elemente sind
+            Im obigen Bild steht zwar  unterhalb von , allerdings
+            werden Sie keinen Pfad von  nach  finden;
+            es gilt also ; die beiden Elemente sind
             <i>unvergleichbar</i>.
           </p>
-          <div
-            class="well container theorem"
-          >
-            <span
-              class="numbered-title"
-            >Definition
+          <div class="well container theorem">
+            <span class="numbered-title">Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-              </span>Eine Boolesche Funktion \(f: \{0,1\}^n \rightarrow \{0,1\}\) heißt
+              </span>Eine Boolesche Funktion  heißt
             <i>monoton</i>, wenn
-            $$
-            \forall \mathbf{x} \leq \mathbf{y} \in \{0,1\}^n \ : \
-            f(\mathbf{x}) \leq f(\mathbf{y}) \ .
-            $$
+            
             In anderen Worten: wenn wir ein Input-Bit von 0 auf 1 ändern, kann das Output-Bit
             nicht von 1 auf 0 umkippen.
           </div>
-          <div
-            class="well well-lg numbered-exercise container"
-          >
-            <span
-              class="numbered-title"
-            >Übungsaufgabe
+          <div class="well well-lg numbered-exercise container">
+            <span class="numbered-title">Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-              </span>Welche der Booleschen Funktionen \(\wedge, \vee, \neg, \oplus, \maj\) sind monoton?
+              </span>Welche der Booleschen Funktionen  sind monoton?
           </div>
           <p>
             Funktionen auf wenigen Variablen können wir graphisch darstellen und somit
             erkennen, ob sie monoton sind oder nicht. Für eine Funktion
-            \( f: \{0,1\}^2 \rightarrow \{0,1\}\) markieren
-            wir im Hasse-Diagramm von \(\{0,1\}^2\) diejenigen Elemente blau,
-            auf denen \(f(x,y) = 1\) ist, und die anderen rot.
+             markieren
+            wir im Hasse-Diagramm von  diejenigen Elemente blau,
+            auf denen  ist, und die anderen rot.
           </p>
-          <figure>
-            <img
-              style="height:10em"
-              src="../img/circuits/hasse-clouds.svg"
-              loading="lazy"
-            >
-          </figure>
           <p>
-            Wir sehen nun, dass es im Bild von \(\wedge\) keinen roten Punkt gibt,
-            der oberhalb eines blauen Punktes liegt, im Bild von \(\oplus\) allerdings
-            schon. Der Grund: \(\wedge\) ist monoton, \(\xor\) ist es nicht.
-            Formaler argumentiert: in der Partialordnung gilt \(01 \leq 11\) aber
-            \(\xor (0,1) \gt \xor (1,0)\), was der Definition einer monotonen Funktion
-            widerspricht. (Ich habe hier absichtlich die Präfixschreibweise \(\xor(0,1)\) verwendet,
+            Wir sehen nun, dass es im Bild von  keinen roten Punkt gibt,
+            der oberhalb eines blauen Punktes liegt, im Bild von  allerdings
+            schon. Der Grund:  ist monoton,  ist es nicht.
+            Formaler argumentiert: in der Partialordnung gilt  aber
+            , was der Definition einer monotonen Funktion
+            widerspricht. (Ich habe hier absichtlich die Präfixschreibweise  verwendet,
             um hervorzuheben, dass es sich hierbei um eine Funktion in zwei Variablen handelt.)
             Beachten Sie, dass ich die Worte
             <i>"oberhalb"</i>
@@ -153,40 +105,24 @@
             meine, nicht wirklich im geometrischen Sinne in der Abbildung.
           </p>
           <p>
-            Von den Basis-Gates \(\wedge, \vee, \neg\) sind \(\wedge\) und \(\vee\) monoton,
-            \(\neg\) ist es nicht.
+            Von den Basis-Gates  sind  und  monoton,
+             ist es nicht.
             Es sollte also klar sein, dass ein Schaltkreis ohne Negation immer eine monotone Funktion
-            berechnet. Allerdings stimmt der Umkehrschluss nicht. Der Schaltkreis
-          </p>
-          <figure>
-            <img
-              style="height:10em"
-              src="../img/circuits/monotone-or-not.svg"
-              loading="lazy"
-            >
-          </figure>
-          <p>
-            ist nicht monoton (beachten Sie hinter der \(\bar{y}\)-Schreibweise versteckte NOT-Gate),
-            ist aber äquivalent zu der offensichtlich monotonen Funktion \(x\). Allerdings können wir
+            berechnet. Allerdings stimmt der Umkehrschluss nicht. Der Schaltkreisist nicht monoton (beachten Sie hinter der -Schreibweise versteckte NOT-Gate),
+            ist aber äquivalent zu der offensichtlich monotonen Funktion . Allerdings können wir
             folgendes beweisen:
           </p>
           <div
             id="theorem-monotone"
             class="well container theorem"
           >
-            <span
-              class="numbered-title"
-            >Theorem
+            <span class="numbered-title">Theorem
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-              </span>Zu jeder monotonen Funktion \(f: \{0,1\}^n \rightarrow \{0,1\}\) gibt es einen monotonen
-            Schaltkreis (also ohne NOT-Gates), der \(f\) berechnet.
+              </span>Zu jeder monotonen Funktion  gibt es einen monotonen
+            Schaltkreis (also ohne NOT-Gates), der  berechnet.
           </div>
-          <div
-            class="well well-lg numbered-exercise container"
-          >
-            <span
-              class="numbered-title"
-            >Übungsaufgabe
+          <div class="well well-lg numbered-exercise container">
+            <span class="numbered-title">Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
               </span>Beweisen Sie das Theorem.
             <b>Tip.</b>
@@ -194,12 +130,8 @@
             Konstruktionen durch (Rekursiv, DNF, CNF) und versuchen Sie, sie so zu modifizieren,
             dass Sie alle NOT-Gates loswerden.
           </div>
-          <div
-            class="well well-lg numbered-exercise container"
-          >
-            <span
-              class="numbered-title"
-            >Übungsaufgabe
+          <div class="well well-lg numbered-exercise container">
+            <span class="numbered-title">Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
               </span>Finden Sie alle monotonen Funktionen in zwei Variablen.
             Wie sieht es mit allen monotonen Funktionen in
@@ -209,42 +141,24 @@
               Am Besten betrachten Sie das
               <i>Hasse-Diagramm</i>
               der
-              Partialordnungen auf Mengen \( \{0,1\}^2\) bzw. \( \{0,1\}^3\):
+              Partialordnungen auf Mengen  bzw. :
             </p>
-            <figure>
-              <img
-                style="height:10em"
-                src="../img/circuits/hasse-diagram.svg"
-                loading="lazy"
-              >
-            </figure>
             <p>
               und überlegen sich, wie Sie die vier bzw. acht Knoten auf monotone Weise in einen
               1-Bereich und einen 0-Bereich aufteilen können.
             </p>
           </div>
-          <div
-            class="well well-lg numbered-exercise container"
-          >
-            <span
-              class="numbered-title"
-            >Übungsaufgabe
+          <div class="well well-lg numbered-exercise container">
+            <span class="numbered-title">Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
               </span>
             <b>(Challenge).</b>
-            Bauen Sie einen Schaltkreis mit drei Input-Variablen \(x,y,z\), der drei
-            Output-Gates hat, die \(\bar{x}, \bar{y}, \bar{z}\) berechnen.
+            Bauen Sie einen Schaltkreis mit drei Input-Variablen , der drei
+            Output-Gates hat, die  berechnen.
             Ihr Schaltkreis darf
             <i>höchstens zwei NOT-Gates</i>
             einhalten,
             aber beliebig viele AND- und OR-Gates.
-            <figure>
-              <img
-                style="height:10em"
-                src="../img/circuits/triple-negator.svg"
-                loading="lazy"
-              >
-            </figure>
           </div>
           <h1>
             Lösungen zu den Übungsaufgaben
@@ -262,12 +176,10 @@
             id="theorem-1"
             class="well container theorem"
           >
-            <span
-              class="numbered-title"
-            >Theorem
+            <span class="numbered-title">Theorem
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-              </span>Zu jeder monotonen Funktion \(f: \{0,1\}^n \rightarrow \{0,1\}\) gibt es einen monotonen
-            Schaltkreis (also ohne NOT-Gates), der \(f\) berechnet.
+              </span>Zu jeder monotonen Funktion  gibt es einen monotonen
+            Schaltkreis (also ohne NOT-Gates), der  berechnet.
           </div>
           <p>
             Ich werde zweieinhalb Beweise für dieses Theorem vorstellen. Dies dient auch dazu,
@@ -294,9 +206,7 @@
             </li>
           </ul>
           <p>
-            wie sie zum Beispiel auf<a
-              href="https://de.wikipedia.org/wiki/Beweis_(Mathematik)#Beweismethoden"
-            >Wikipedia</a>
+            wie sie zum Beispiel auf<a href="https://de.wikipedia.org/wiki/Beweis_(Mathematik)#Beweismethoden">Wikipedia</a>
             aufgeführt
             sind.
             Diesen zur Seite stehen die nicht wirklich formalisierbaren Beweistechniken oder Beweisstrategien,
@@ -318,9 +228,7 @@
             ist es unmöglich, eine vollständige Liste anzugeben; ich habe die drei obigen Punkte gewählt, weil
             sie in der Tat das repräsentieren, was wir in den Beweisen jetzt verwenden werden.
           </p>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <b>Erster Beweis. Top-Down mit
               <code>if-then-else</code>.</b>
             
@@ -328,20 +236,14 @@
               In diesem Beweis verwende ich die zweite oben erwähnte Technik: bereits bekanntes
               abwandeln. Was kennen wir denn bereits? Wir kennen
               die
-              <a
-                href="../vorlesungsskript.html#truth-table-top-down"
-              >Top-Down-Methode</a>, wie wir
+              <a href="../vorlesungsskript.html#truth-table-top-down">Top-Down-Methode</a>, wie wir
               aus einer Wahrheitstabelle einen Schaltkreis bauen:
             </p>
-            <div
-              class="well theorem subtheorem"
-            >
-              <span
-                class="numbered-title"
-              >Theorem
+            <div class="well theorem subtheorem">
+              <span class="numbered-title">Theorem
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-                </span>Zu jeder Booleschen Funktion \(f: \{0,1\}^n \rightarrow \{0,1\}\) gibt es
-              einen Schaltkreis \(C\), der \(f\) berechnet.
+                </span>Zu jeder Booleschen Funktion  gibt es
+              einen Schaltkreis , der  berechnet.
             </div>
             <p>
               Wir haben diese Konstruktion in der Vorlesung an einem Beispiel durchexerziert und auch
@@ -354,115 +256,107 @@
               reden. Falls Sie sich noch gut an unseren Beweis von Theorem 2 in der Vorlesung
               erinnern können und eher an Theorem 1 als an allgemeinen Beweismethoden interessiert sind,
               dürfen Sie gerne
-              <a
-                href="#after-sub-proof"
-              >runterspringen.</a>
+              <a href="#after-sub-proof">runterspringen.</a>
             </p>
-            <div
-              class="well container-fluid"
-            >
+            <div class="well container-fluid">
               <p>
                 <b>Beweis.</b>
                 Als
                 <i>Beweismethode</i>
-                verwenden wir Induktion über \(n\), die Anzahl der Variablen.
+                verwenden wir Induktion über , die Anzahl der Variablen.
               </p>
-              <div
-                class="alert-info"
-              >
+              <div class="alert-info">
                 Zur Erinnerung: bei einem Beweis per Induktion wollen wir eine Aussage
                 der Form
-                <i>Für alle natürlichen Zahlen \(n \in \N\) gilt \(P(n)\)</i>
+                <i>Für alle natürlichen Zahlen  gilt
+                </i>
                 beweisen,
-                wobei \(P(n)\) wiederum eine Aussage ist, in der die Zahl \(n\) irgendwo vorkommt.
+                wobei  wiederum eine Aussage ist, in der die Zahl  irgendwo vorkommt.
                 Bei einem Beweis durch Induktion zeigen wir nun,
                 <ol>
                   <li>
-                    dass \(P(0)\) gilt (<b>Induktionsbasis</b>),
+                    dass  gilt (<b>Induktionsbasis</b>),
                   </li>
                   <li>
-                    dass, wenn \(P(n)\) für eine Zahl \(n \in \N \) gilt, dann sicherlich
-                    auch \(P(n+1)\) gilt (<b>Induktionsschritt</b>).
+                    dass, wenn  für eine Zahl  gilt, dann sicherlich
+                    auch  gilt (<b>Induktionsschritt</b>).
                   </li>
                 </ol>
                 Wenn wir beide Teile gezeigt haben, können wir uns nun "hochhangeln":
-                \(P(0)\) gilt, weil wir in Punkt 1 gezeigt haben;
+                 gilt, weil wir in Punkt 1 gezeigt haben;
                 mit Hilfe von Punkt 2 können wir nun argumentieren, dass
-                aus \(P(0)\) die Aussage \(P(1)\) folgt;
-                dass aus \(P(1)\) die Aussage \(P(2)\) folgt; und so weiter.
+                aus  die Aussage  folgt;
+                dass aus  die Aussage  folgt; und so weiter.
                 Da wir auf diese Weise jede natürliche Zahl irgendwann erreichen,
-                können wir schlussfolgern, dass \(P(n)\) für jede Zahl \(n \in \Z\) gilt.
+                können wir schlussfolgern, dass  für jede Zahl  gilt.
               </div>
               <p>
                 Als erstes müssen wir nun unsere Aussage, die wir beweisen wollen (also die im Theorem)
                 so formulieren, dass sie die Form
-                <i>\(P(n)\) für alle \(n \in \N\)</i>
+                <i>
+                  für alle
+                </i>
                 annimmt.
-                Dies ist einfach, da die Zahl \(n\) bereits im Theorem vorkommt. Wir formulieren sie
+                Dies ist einfach, da die Zahl  bereits im Theorem vorkommt. Wir formulieren sie
                 also nun so um:
               </p>
-              <div
-                class="well theorem subtheorem"
-              >
-                <span
-                  class="numbered-title"
-                >Theorem
+              <div class="well theorem subtheorem">
+                <span class="numbered-title">Theorem
                   <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-                  1.4.4, alternative Formulierung</span>Für jede natürliche Zahl \(n\) gilt: zu jeder Booleschen Funktion
-                \(f: \{0,1\}^n \rightarrow \{0,1\}\) gibt es einen Schaltkreis \(C\), der
-                \(f\) berechnet.
+                  1.4.4, alternative Formulierung</span>Für jede natürliche Zahl  gilt: zu jeder Booleschen Funktion
+                 gibt es einen Schaltkreis , der
+                 berechnet.
               </div>
               <p>
                 Wir haben also im Prinzip Theorem 1.4.4 umständlicher formuliert, um die
-                Abhängigkeit von \(n\) zu verdeutlichen. Wir müssen nun Induktionsbasis und
+                Abhängigkeit von  zu verdeutlichen. Wir müssen nun Induktionsbasis und
                 Induktionsschritt durchführen.
               </p>
               <p>
                 <b>Induktionsbasis.</b>
-                Wenn \(n=0\) ist, dann gibt es nur zwei mögliche
+                Wenn  ist, dann gibt es nur zwei mögliche
                 Boolesche
                 Funktionen,
-                nämlich die konstanten Funktionen \(0\) und \(1\). Für beide Funktionen
+                nämlich die konstanten Funktionen  und . Für beide Funktionen
                 gibt es einen Schaltkreis, nämlich bestehend aus einem Input-Gate (mit
                 der Konstant 0 bzw. 1 beschriftet), das gleichzeitig auch Output-Gate ist.
               </p>
-              <div
-                class="alert-warning"
-              >
+              <div class="alert-warning">
                 Vielleicht fühlen Sie sich unwohl bei der Idee, es mit Funktionen
                 mit
                 null Variablen tun zu haben. Allerdings: warum? In Java hätten Sie bestimmt kein Problem
                 mit
 <pre
+  test="test"
   style="margin:2ch"
   class="listing"
 >
-public boolean constantFalse() {
-return false;
-}
-public boolean constantTrue() {
-return true;
-}
+        public boolean constantFalse() {
+            return false{};
+        }
+        public boolean constantTrue() {
+            return true;
+        }
 </pre>
                 und dies sind ja offensichtlich Boolesche Funktionen mit null Input-Variablen.
                 Ich nehme Ihre Ängste aber ernst, und in der Tat gibt es Fälle, wo es
-                sich nicht richtig anfühlt, den Induktionsbeweis bei \(0\) anzufangen.
-                In diesem Fall dürfen Sie die Induktionsbasis gerne bei \(n=1\) ansetzen
+                sich nicht richtig anfühlt, den Induktionsbeweis bei  anzufangen.
+                In diesem Fall dürfen Sie die Induktionsbasis gerne bei  ansetzen
                 oder wo auch immer Sie sich "wohlfühlen"; sie müssen dann aber im Hinterkopf
-                behalten, dass Sie Ihre Aussage für \(n=0\) nicht bewiesen haben; machnmal
-                ist das unvermeidbar, weil manche Aussagen einfach z.B. erst ab \(n \geq 2\) gelten.
+                behalten, dass Sie Ihre Aussage für  nicht bewiesen haben; machnmal
+                ist das unvermeidbar, weil manche Aussagen einfach z.B. erst ab  gelten.
                 <p>
-                  Wenn wir die Induktionsbasis bei \(n=1\) ansetzen wollen, dann sehen wir, dass
+                  Wenn wir die Induktionsbasis bei  ansetzen wollen, dann sehen wir, dass
                   es
                   <i>vier</i>
-                  Funktionen gibt: \(0, 1, x, \neg x\); all diese haben natürlich
+                  Funktionen gibt: ; all diese haben natürlich
                   einen
-                  (sehr einfachen) Schaltkreis. Nur bei \(\neg x\) braucht unser Schaltkreis überhaupt
+                  (sehr einfachen) Schaltkreis. Nur bei  braucht unser Schaltkreis überhaupt
                   ein
                   Gate.
                 </p>
                 <p>
-                  An diesem Punkt protestieren Sie vielleicht und sagen, dass \(0\) keine Funktion
+                  An diesem Punkt protestieren Sie vielleicht und sagen, dass  keine Funktion
                   in
                   <i>einer</i>
                   Variable ist, sondern in
@@ -475,9 +369,9 @@ return true;
   style="margin:2ch"
   class="listing"
 >
-public boolean constantFalse(boolean x) {
-return false;
-}
+        public boolean constantFalse(boolean x) {
+            return false;
+        }
 </pre>
                 <p>
                   haben. Ja in der Tat, Java toleriert es, dass Sie
@@ -485,7 +379,7 @@ return false;
                   zweimal
                   deklariert haben, einmal als Funktion mit 0 Input-Variablen, einmal als
                   Funktion mit einer Input-Variablen. Um hundertprozentig korrekt zu sein, müssten wir
-                  Funktionen \(\textnormal{zero}_n\) definieren als
+                  Funktionen  definieren als
                 </p>
                 \begin{align*}
                 \textnormal{zero}<i>n&amp;: \{0,1\}^n \rightarrow \{0,1\} \\
@@ -494,12 +388,10 @@ return false;
                 <p>
                   In der Praxis gehen wir in der Mathematik deutlich laxer mit Notation um und
                   hoffen, dass der Leser aus dem Kontext die richtige Interpretation herausliest:
-                  ob \(0\) nun eine Konstante ist, eine Funktion mit einer Input-Variablen, mit zwei
+                  ob  nun eine Konstante ist, eine Funktion mit einer Input-Variablen, mit zwei
                   Input-Variablen etc. In mathematischen Papern lesen Sie
                   in diesem Kontext manchmal
-                  <a
-                    href="https://en.wikipedia.org/wiki/Abuse_of_notation"
-                  >
+                  <a href="https://en.wikipedia.org/wiki/Abuse_of_notation">
                     <i>with abuse of
                       notation</i>
                     </a>,
@@ -510,56 +402,53 @@ return false;
               </div>
               <p>
                 Wir haben nun also die Induktionsbasis erfolgreich gezeigt. Als nächstes kommt nun der
-                Schritt. In diesem nehmen wir an, dass die Aussage \(P(n)\) bereits gilt,
-                und wollen davon ausgehend zeigen, dass auch \(P(n+1)\) gilt.
-                Alternativ können wir annehmen, dass \(P(n-1)\) gilt und wollen \(P(n)\) zeigen (wobei
-                wir nun \(n \geq 1\) annehmen müssen). Ob Sie
-                \(P(n) \Rightarrow P(n+1)\) oder \(P(n-1) \Rightarrow P(n)\) zeigen,
+                Schritt. In diesem nehmen wir an, dass die Aussage  bereits gilt,
+                und wollen davon ausgehend zeigen, dass auch  gilt.
+                Alternativ können wir annehmen, dass  gilt und wollen  zeigen (wobei
+                wir nun  annehmen müssen). Ob Sie
+                 oder  zeigen,
                 kommt aufs Gleiche raus und unterscheidet sich nur in der Notation; in diesem
-                Falle ist es mir angenehmer, \(P(n-1) \Rightarrow P(n)\) zu zeigen. Wir dürfen
+                Falle ist es mir angenehmer,  zu zeigen. Wir dürfen
                 also die
                 <i>Induktionshypothese</i>
-                \(P(n-1)\) als gegeben annehmen:
+                als gegeben annehmen:
               </p>
-              <div
-                class="well subtheorem"
-              >
+              <div class="well subtheorem">
                 <b>Induktionshypothese.</b>
-                Zu jeder Booleschen Funktion in \(n-1\) Variablen
+                Zu jeder Booleschen Funktion in  Variablen
                 gibt es einen äquivalenten Schaltkreis.
               </div>
               <p>
-                und wollen den Induktionsschritt vollziehen, also \(P(n)\) zeigen:
+                und wollen den Induktionsschritt vollziehen, also  zeigen:
               </p>
-              <div
-                class="well subtheorem"
-              >
+              <div class="well subtheorem">
                 <b>Ziel des Induktionsschritts.</b>
-                Zu jeder Booleschen Funktion in \(n\) Variablen
+                Zu jeder Booleschen Funktion in  Variablen
                 gibt es einen äquivalenten Schaltkreis.
               </div>
               <p>
                 <b>Beweistechnik/-strategie</b>. Um den Induktionsschritt
-                vollziehen zu können, müssen wir irgendwie die \(n\)-stellige
-                Funktion \(f\) auf sinnvolle Weise in \(n-1\)-stellige Funktionen
+                vollziehen zu können, müssen wir irgendwie die -stellige
+                Funktion  auf sinnvolle Weise in -stellige Funktionen
                 "zerlegen". Hier ist im Allgemeinen Kreativität gefragt.
                 Im vorliegenden Falle ist es aber recht klar, welche Zerlegung in Frage kommt.
                 Wir definieren zwei neue, "kleinere" Funktionen
-                \(f_0, f_1: \{0,1\}^{n-1} \rightarrow \{0,1\}\) per
+                 per
                 \begin{align*}
                 f<i>0 (x</i>2, \dots, x<i>n)&amp;:= f(0, x</i>2, \dots, x<i>n) \\
                   f</i>1 (x<i>2, \dots, x</i>n)&amp;:= f(1, x<i>2, \dots, x</i>n) \ .
                 \end{align*}
                 In anderen Worten, wir fixieren das erste Input-Bit auf einen konstanten Wert und
                 erhalten so
-                eine Funktion in \(n-1\) Variablen.
-                Die Funktion \(f_0\) ist im Prinzip die obere Hälfte der Wahrheitstabelle, und
-                \(f_1\) ist die untere Hälfte.
-                Da \(f_0\) und \(f_1\) jeweils nur \(n-1\) Input-Variablen haben,
+                eine Funktion in  Variablen.
+                Die Funktion  ist im Prinzip die obere Hälfte der Wahrheitstabelle, und
+                 ist die untere Hälfte.
+                Da  und  jeweils nur  Input-Variablen haben,
                 können wir die Induktionshypothese anwenden und folgern,
                 dass es Boolesche Schaltkreise für sie gibt.
                 Nach
-                <i>Zerlegen in \(f_0, f_1\)</i>
+                <i>Zerlegen in
+                </i>
                 und
                 <i>Anwenden der Induktionshypothese</i>
                 müssen wir nun
@@ -568,69 +457,53 @@ return false;
                 tun wir in diesem Falle mit einem
                 <code>if-then-else</code>-Gate:
               </p>
-              <figure>
-                <img
-                  style="height:15em"
-                  src="../img/circuits/top-down-if-then-else.svg"
-                  loading="lazy"
-                >
-              </figure>
               <p>
-                Ich behaupte, dass obiger Schaltkreis tatsächlich \(f\) berechnet. Falls dies noch nicht
+                Ich behaupte, dass obiger Schaltkreis tatsächlich  berechnet. Falls dies noch nicht
                 klar sein sollte, können wir auch dies formal beweisen, und zwar
                 durch die Methode
                 <i>vollständige Fallunterscheidung.</i>
                 Sei
-                nun also ein konkreter Input \(x_1,\dots,x_n\) gegeben.
+                nun also ein konkreter Input  gegeben.
               </p>
               <ul>
                 <li>
-                  Der Fall \(x_1 = 1\). Dann gibt der obige Schaltkreis
-                  den Wert \(f_1(x_2,\dots,x_n\) aus, was per Definition von \(f_1\)
-                  gleich \(f(1, x_2,\dots,x_n) = f(x_1,\dots,x_n)\) ist. Er gibt also den korrekten
+                  Der Fall . Dann gibt der obige Schaltkreis
+                  den Wert  aus, was per Definition von 
+                  gleich  ist. Er gibt also den korrekten
                   Wert aus.
                 </li>
                 <li>
-                  Der Fall \(x_1 = 0\). Dann gibt der obige Schaltkreis
-                  den Wert \(f_0(x_2,\dots,x_n\) aus, was per Definition von \(f_0\)
-                  gleich \(f(0, x_2,\dots,x_n) = f(x_1,\dots,x_n)\) ist. Er gibt also auch hier den
+                  Der Fall . Dann gibt der obige Schaltkreis
+                  den Wert  aus, was per Definition von 
+                  gleich  ist. Er gibt also auch hier den
                   korrekten
                   Wert aus.
                 </li>
               </ul>
               <p>
                 Wir haben also erfolgreich einen Schaltkreis für
-                \(f: \{0,1\}^n \rightarrow \{0,1\}\) konstruiert. Unser Induktionsbeweis von Theorem 2
+                 konstruiert. Unser Induktionsbeweis von Theorem 2
                 ist nun
                 abgeschlossen.
-                <span
-                  class="qed"
-                >\(\square\)</span>
+                <span class="qed">
+                  </span>
               </p>
             </div>
           </div>
-          <p
-            id="after-sub-proof"
-          >
+          <p id="after-sub-proof">
             Diesen "hellblauen" Beweis haben wir ja bereits in der Vorlesung
             geführt. Ich habe ihn hier wiederholt und in größerem Detail besprochen, um
             auf verschiedene formale Aspekte der Beweisführung einzugehen. Wenden wir uns
             jetzt dem Beweis von
-            <a
-              href="#theorem-1"
-            >Theorem 1.4.3</a>
+            <a href="#theorem-1">Theorem 1.4.3</a>
             zu.
           </p>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <b>Theorem 1.4.3, nochmals.</b>
-            Zu jeder monotonen Funktion \(f: \{0,1\}^n \rightarrow \{0,1\}\) gibt es einen monotonen
-            Schaltkreis (also ohne NOT-Gates), der \(f\) berechnet.
+            Zu jeder monotonen Funktion  gibt es einen monotonen
+            Schaltkreis (also ohne NOT-Gates), der  berechnet.
           </div>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <b>Erster Beweis. Top-Down mit
               <code>if-then-else</code>.</b>
             
@@ -639,114 +512,61 @@ return false;
               Das Bekannte ist die Konstruktion im Beweis von Theorem 1, also
               die top-down-Konstruktion. Wir gehen wieder induktiv vor (allerdings
               bin ich jetzt weniger formal und weise Sie nicht mehr ständig auf die
-              Bestandteile eines Induktionsbeweises hin) und zerlegen \(f: \{0,1\}^n \rightarrow \{0,1\}\)
+              Bestandteile eines Induktionsbeweises hin) und zerlegen 
               in
               zwei neue, "kleinere" Funktionen
-              \(f_0, f_1: \{0,1\}^{n-1} \rightarrow \{0,1\}\) per
+               per
               \begin{align*}
               f<i>0 (x</i>2, \dots, x<i>n)&amp;:= f(0, x</i>2, \dots, x<i>n) \\
                 f</i>1 (x<i>2, \dots, x</i>n)&amp;:= f(1, x<i>2, \dots, x</i>n) \ .
               \end{align*}
               Diese Funktionen sind selbst wiederum monoton (versuchen Sie, dies formal zu zeigen,
               wenn Sie Lust haben; oder versuchen Sie, es sich intuitiv klar zu machen).
-              Per Induktionshypothese gibt es also monotone Schaltkreise für \(f_0\) und \(f_1\). Wir
+              Per Induktionshypothese gibt es also monotone Schaltkreise für  und . Wir
               kombinieren diese mit einem
-              <code>if-then-else</code>-Gate und erhalten:
-            </p>
-            <figure>
-              <img
-                style="height:15em"
-                src="../img/circuits/top-down-if-then-else-2.svg"
-                loading="lazy"
-              >
-            </figure>
-            <p>
-              Die "durchgetrichenen" Kabel bedeuten, dass hier mehrere Kabel parallel laufen (also hier
-              \(n-1\)
+              <code>if-then-else</code>-Gate und erhalten:Die "durchgetrichenen" Kabel bedeuten, dass hier mehrere Kabel parallel laufen (also hier
+              
               viele).
               Erkennen Sie das Problem mit der Konstruktion? Klar: das
               <code>if-then-else</code>-Gate ist
               nicht
-              monoton. Unser Schaltkreis schaut also in Wirklichkeit so aus:
-            </p>
-            <figure>
-              <img
-                style="height:18em"
-                src="../img/circuits/top-down-if-then-else-3.svg"
-                loading="lazy"
-              >
-            </figure>
-            <p>
-              und enthält ein NOT-Gate. Aber klar: wir können natürlich nicht die Konstruktion aus dem
+              monoton. Unser Schaltkreis schaut also in Wirklichkeit so aus:und enthält ein NOT-Gate. Aber klar: wir können natürlich nicht die Konstruktion aus dem
               vorherigen Beweis wiederholen und hoffen, dass alles klappt. Die Beweistechnik heißt ja auch
               <i>Bekanntes abwandeln</i>, nicht
               <i>Bekanntes kritiklos wiederholen</i>. Wie
               können wir den obigen Schaltkreis abwandeln, dass er monoton wird, also das eine NOT-Gate
               entfernen? Spontan fallen mir zwei Wege ein: wir können das NOT-Gate einfach
-              durch ein gate-loses Kabel ersetzen oder das Kabel einfach ganz weglassen, also:
-            </p>
-            <figure>
-              <img
-                style="height:18em"
-                src="../img/circuits/top-down-if-then-else-4.svg"
-                loading="lazy"
-              >
-            </figure>
-            <p>
-              Der linke Schaltkreis gibt uns, als Formel geschrieben,
-              $$
-              (x \wedge f_1) \vee (x \wedge f_0) \equiv x \wedge (f_1 \vee f_0) \ .
-              $$
-              Ich erlaube mir hier, aus Bequemlichkeit einfach \(f_1\) statt \(f_1(x_2,\dots,x_n)\) zu
+              durch ein gate-loses Kabel ersetzen oder das Kabel einfach ganz weglassen, also:Der linke Schaltkreis gibt uns, als Formel geschrieben,
+              
+              Ich erlaube mir hier, aus Bequemlichkeit einfach  statt  zu
               schreiben.
               Auch ein
               <i>abuse of notation</i>. In der obigen Formel habe ich rechts
-              das \(x\) ausgeklammert; die Formel beginnt nun mit \(x \wedge ...\); falls
-              \(x=0\) ist, gibt sie also auf jeden Fall \(0\) aus; das kann im Allgemeinen nicht
-              korrekt (also äquivalent zu \(f\) sein; warum sollte \(f\) automatisch \(0\) sein,
-              nur weil \(x_1=0\) ist? Wir schließen also: das NOT-Gate durch ein gate-loses Kabel
+              das  ausgeklammert; die Formel beginnt nun mit ; falls
+               ist, gibt sie also auf jeden Fall  aus; das kann im Allgemeinen nicht
+              korrekt (also äquivalent zu  sein; warum sollte  automatisch  sein,
+              nur weil  ist? Wir schließen also: das NOT-Gate durch ein gate-loses Kabel
               zu ersetzen ist im Allgemeinen nicht korrekt.
             </p>
             <p>
-              Schauen wir uns also den Schaltkreis im zweiten Bild an. Das rechte \(\wedge\)-Gate hat nur
+              Schauen wir uns also den Schaltkreis im zweiten Bild an. Das rechte -Gate hat nur
               einen Input, kann also weggelassen werden (d.h. durch ein Kabel ersetzt werden); wir
               erhalten den
-              monotonen Schaltkreis
+              monotonen Schaltkreisbzw. als Formel:
+              
+              Wir müssen nun zeigen, dass dies wirklich  berechnet, also
             </p>
-            <figure>
-              <img
-                style="height:18em"
-                src="../img/circuits/top-down-if-then-else-monotone.svg"
-                loading="lazy"
-              >
-            </figure>
-            <p>
-              bzw. als Formel:
-              $$
-              (x_1 \wedge f_1) \vee f_0 \ .
-              $$
-              Wir müssen nun zeigen, dass dies wirklich \(f\) berechnet, also
-            </p>
-            <div
-              class="well subtheorem theorem"
-            >
-              <span
-                class="numbered-title"
-              >Behauptung
+            <div class="well subtheorem theorem">
+              <span class="numbered-title">Behauptung
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
-                .</span>Für alle \(x_1,\dots,x_n\) gilt
-              $$
-              f(x_1,\dots,x_n) = (x_1 \wedge f_1(x_2,\dots,x_n)) \vee f_0(x_2,\dots,x_n) \ .
-              $$
+                .</span>Für alle  gilt
             </div>
-            <div
-              class="well subtheorem"
-            >
+            <div class="well subtheorem">
               <b>Beweis.</b>
-              Wir machen eine Fallunterscheidung nach dem Wert von \(x_1\).
+              Wir machen eine Fallunterscheidung nach dem Wert von .
               <ul>
                 <li>
-                  Der Fall \(x_1 = 0\). Dann gilt
+                  Der Fall . Dann gilt
                   \begin{align*}
                   f(x<i>1,x</i>2,\dots,x<i>n)&amp;= f(0,x</i>2,\dots,x<i>n) \tag{da $x</i>1=0$} \\
                   &amp;= f<i>0 (x</i>2, \dots,x<i>n) \tag{Definition von $f</i>2$} \\
@@ -756,7 +576,7 @@ return false;
                   und die behauptete Gleichung gilt.
                 </li>
                 <li>
-                  Der Fall \(x_1 = 1\). Dann gilt
+                  Der Fall . Dann gilt
                   \begin{align*}
                   f(x<i>1,\dots,x</i>n)&amp;= f<i>1(x</i>2,\dots,x<i>n) \ .
                     \end{align*}
@@ -765,11 +585,11 @@ return false;
                     (x</i>1 \wedge f<i>1) \vee f</i>0&amp;= f<i>1 \vee f</i>0 \tag{da $x<i>1=1$ ist und somit im $\wedge$
                     wegfällt}
                     \end{align*}
-                    Die linke Seite ist also \(f_1\), die rechte ist \(f_1 \vee f_0\). Schaut leider
+                    Die linke Seite ist also , die rechte ist . Schaut leider
                     nicht
                     gleich aus.
                     Jetzt sollten bei Ihnen die Glocken klingeln: wir haben bisher an keiner Stelle
-                    im Beweis verwendet, dass \(f\) eine monotone Funktion ist! Und wenn wir das nicht
+                    im Beweis verwendet, dass  eine monotone Funktion ist! Und wenn wir das nicht
                     verwendet
                     haben, kann der Beweis ja gar nicht funktionieren. Also: verwenden wir Monotonität:
                     \begin{align*}
@@ -778,46 +598,30 @@ return false;
                     f(0, x</i>2, \dots,x<i>n)&amp;\leq f(1, x</i>2, \dots,x<i>n) \tag{weil $f$ monoton ist.} \\
                     f</i>0&amp;\leq f_1 \ .
                   \end{align*}
-                  Wir überprüfen nun also: wenn \(f_0(x_2, \dots, x_n) = 0\) ist, dann
-                  gilt \(f_0 \vee f_1 = 0 \vee f_1 = f_1\). Wenn
-                  \(f_0 = 1\) ist, dann ist \(f_1 = 1\) wegen Monotonität (größer als 1 geht ja
+                  Wir überprüfen nun also: wenn  ist, dann
+                  gilt . Wenn
+                   ist, dann ist  wegen Monotonität (größer als 1 geht ja
                   nicht),
-                  und daher \(f_0 \vee f_1 = 1 \vee 1 = 1 = f_1\). In jedem Fall gilt also:
-                  $$
-                  (f_0 \vee f_1) = f_1 \ .
-                  $$
+                  und daher . In jedem Fall gilt also:
+                  
                   Und somit sind linke und rechte Seite gleich, wie behauptet.
                 </li>
               </ul>
-              <span
-                class="qed"
-              >\(\square\)</span>
+              <span class="qed">
+                </span>
             </div>
             <p>
-              Wir haben nun also gezeigt, dass für jeden Input \(x_1,\dots,x_n\) gilt:
+              Wir haben nun also gezeigt, dass für jeden Input  gilt:
               \begin{align*}
               f = (x<i>1 \wedge f</i>1) \vee f_0 \ ,
               \end{align*}
-              (wobei wir aus Gründen der Lesbarkeit statt \(f(x_1,\dots,x_n)\) einfach \(f\) schreiben);
-              per Induktion können wir für \(f_1, f_0\) monotone Schaltkreise finden, und somit ist
+              (wobei wir aus Gründen der Lesbarkeit statt  einfach  schreiben);
+              per Induktion können wir für  monotone Schaltkreise finden, und somit istein monotoner Schaltkreis für .
             </p>
-            <figure>
-              <img
-                style="height:18em"
-                src="../img/circuits/top-down-if-then-else-monotone-finished.svg"
-                loading="lazy"
-              >
-            </figure>
-            <p>
-              ein monotoner Schaltkreis für \(f\).
-            </p>
-            <span
-              class="qed"
-            >\(\square\)</span>
+            <span class="qed">
+              </span>
           </div>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <b>Zweiter Beweis. Bottom-Up, Konstruktion einer DNF-Formel.</b>
             Als Beweisstrategie verwende ich wieder
             <i>Bekanntes abwandeln.</i>
@@ -825,229 +629,192 @@ return false;
             <p>
               <b>Das Bekannte.</b>
               Erinnern Sie sich an die Konstruktion einer DNF-Formel auf Basis der gegebenen
-              Wahrheitstabelle. Für jedes \(n\)-Tupel \(\mathbf{a} := a_1,\dots,a_n) \in \{0,1\}^n\),
-              für welches \(f\) den Wert 1 ausgibt, konstruieren wir einen DNF-Term \(T_{\mathbf{a}}\),
-              der auf \(\mathbf{a}\) eine 1 ausgibt und sonst überall eine 0.
+              Wahrheitstabelle. Für jedes -Tupel ,
+              für welches  den Wert 1 ausgibt, konstruieren wir einen DNF-Term ,
+              der auf  eine 1 ausgibt und sonst überall eine 0.
               Um den Term genau zu beschreiben, definieren wir
             </p>
             \begin{align*}
             I<i>{\mathbf{a}}&amp;:= \{ i \in \{1,\dots, n\} \ | \ a</i>i = 1 \} \\
             O<i>{\mathbf{a}}&amp;:= \{ i \in \{1,\dots, n\} \ | \ a</i>i = 0 \} \ .
             \end{align*}
-            Als Beispiel: wenn \(n=5\) und \(\mathbf{a} = (10010)\), dann ist
-            \(I_{\mathbf{a}} = \{1,4\}\) und \(I_{\mathbf{a}} = \{2,3,5\}\). Wir definieren
+            Als Beispiel: wenn  und , dann ist
+             und . Wir definieren
             \begin{align*}
             T<i>{\mathbf{a}}&amp;:= \bigwedge</i>{i \in I<i>{\mathbf{a}}} x</i>i \wedge
             \bigwedge<i>{i \in O</i>{\mathbf{a}}} \bar{x}<i>i \ .
               \end{align*}
-              Für \(\mathbf{a} = (10010)\) gibt das also \(x_1 \wedge x_4 \wedge \bar{x}_2 \wedge
-              \bar{x}_3 \wedge \bar{x}_5\).
+              Für  gibt das also .
               Noch kompakter kann man es hinschreiben, wenn man für eine Variable
-              \(x\) und einen Wert \(b \in \{0,1\}\) folgendes definiert:
+               und einen Wert  folgendes definiert:
               \begin{align*}
               x^{b}&amp;:= \begin{cases}
               x&amp;\textnormal{ if $b=1$,}\\
               \bar{x}&amp;\textnormal{ if $b=0$.}
               \end{cases}
               \end{align*}
-              Dann können wir \(T_{\mathbf{a}}\) einfach als
+              Dann können wir  einfach als
               \begin{align*}
               T</i>{\mathbf{a}} = \bigwedge<i>{i=1}^n x</i>i^{a<i>i}
               \end{align*}
-              definieren, für \(\mathbf{a} = (10010)\) also
-              \(x_1^1 \wedge x_2^0 \wedge x_3^0 \wedge x_4^1 \wedge x_5^0 =
-              x_1 \wedge \bar{x}_2 \wedge \bar{x}_3 \wedge x_4 \wedge \bar{x}_5\). Das gibt den gleichen
+              definieren, für  also
+              . Das gibt den gleichen
               Term wie zuvor, nur mit den Literalen in anderer Reihenfolge aufgelistet (was keine
-              Rolle spielt, da \(\wedge\) kommutativ ist).
+              Rolle spielt, da  kommutativ ist).
               <p>
-                Gegen eine Boolesche Funktion \(f: \{0,1\}^n \rightarrow \{0,1\}\),
+                Gegen eine Boolesche Funktion ,
                 definieren wir
-                $$
-                \sat(f) := \{\mathbf{a} \in \{0,1\}^n \ | \ f(\mathbf{a}) = 1 \} \ .
-                $$
-                Die Abkürzung \(\sat\) steht für
+                
+                Die Abkürzung  steht für
                 <i>satisfying assignments</i>, also
-                diejenigen Belegungen der Variablen, die \(f\) "erfüllen", also 1 werden lassen.
-                Wir bauen uns einen Schaltkreis \(F\):
+                diejenigen Belegungen der Variablen, die  "erfüllen", also 1 werden lassen.
+                Wir bauen uns einen Schaltkreis :
               </p>
               \begin{align*}
               F := \bigvee</i>{\mathbf{a} \in \sat(f)} T_{\mathbf{a}}
             \end{align*}
             Dies ist eine DNF-Formel, also insbesondere ein Schaltkreis der Tiefe 2; wir sehen,
-            dass \(F \equiv f\) ist, dieser Schaltkreis (diese Formel) also die Funktion \(f\)
+            dass  ist, dieser Schaltkreis (diese Formel) also die Funktion 
             berechnet.
             Dies ist genau die Konstruktion einer DNF, die wir in der Vorlesung bereits besprochen
             haben.
             <p>
               <b>Das Bekannte abwandeln.</b>
               Der Ausdruck
-              \(\bigvee_{\mathbf{a} \in \sat(f)} T_{\mathbf{a}}\) ist ja bereits
+               ist ja bereits
               ein Schaltkreis (der Tiefe 2), allerdings im Allgemeinen kein
-              monotoner, da die Terme \(T_{\mathbf{a}}\) negative Literale (und somit NOT-Gates)
+              monotoner, da die Terme  negative Literale (und somit NOT-Gates)
               enthalten können.
               Wie werden wir diese los? Sie erinnern sich, was wir im letzten Beweis getan haben: die
               NOT-Gates einfach weglassen und die ausgehenden Kabel ersatzlos streichen.
               Hier hieße das nun, aus dem Term
-              \(x_1 \wedge \bar{x}_2 \wedge \bar{x}_3 \wedge x_4 \wedge \bar{x}_5\) den Term
-              \(x_1 \wedge x_4 \) zu machen. Wir definieren also:
-              $$
-              T'_{\mathbf{a}} := \bigwedge_{i \in I_{\mathbf{a}}} x_i \ .
-              $$
-              Der Term \(T'_{\mathbf{a}}\) ist "kürzer" als \(T_{\mathbf{a}}\), stellt
+               den Term
+               zu machen. Wir definieren also:
+              
+              Der Term  ist "kürzer" als , stellt
               also weniger "Bedingungen". Formal gesprochen:
             </p>
-            <div
-              class="well subtheorem theorem"
-            >
-              <span
-                class="numbered-title"
-              >Behauptung
+            <div class="well subtheorem theorem">
+              <span class="numbered-title">Behauptung
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
-                .</span>Für alle \(x_1,\dots,x_n\) gilt
-              \(T_{\mathbf{a}} \leq T'_{\mathbf{a}}\).
+                .</span>Für alle  gilt
+              .
             </div>
-            <div
-              class="well subtheorem"
-            >
+            <div class="well subtheorem">
               <b>Beweis.</b>
-              Definieren wir zusätzlich noch \(T''_{\mathbf{a}} := \bigwedge_{i \in O_{\mathbf{a}}}
-              \bar{x}_i\),
-              dann können wir \(T_{\mathbf{a}} = T'_{\mathbf{a}} \wedge T''_{\mathbf{a}}\) schreiben.
-              Und jetzt ist \(T'_{\mathbf{a}} \wedge T''_{\mathbf{a}} \leq T'_{\mathbf{a}}\)
+              Definieren wir zusätzlich noch ,
+              dann können wir  schreiben.
+              Und jetzt ist 
               offensichtlich,
-              weil \(g \wedge h \leq g\) ganz allgemein gilt (überzeugen Sie sich davon).<span
-                class="qed"
-              >\(\square\)</span>
+              weil  ganz allgemein gilt (überzeugen Sie sich davon).<span class="qed">
+                </span>
             </div>
             <p>
-              Wir definieren nun analog zu \(F\) eine DNF-Formel
-              $$
-              F' := \bigvee_{\mathbf{a} \in \sat(f)} T'_{\mathbf{a}} \ .
-              $$
-              Sie können sich vorstellen, dass wir \(F\) nehmen und alle negativen Literale
-              ersatzlos streichen. Wir behaupten nun, dass \(F'\) und \(F\) dieselbe
+              Wir definieren nun analog zu  eine DNF-Formel
+              
+              Sie können sich vorstellen, dass wir  nehmen und alle negativen Literale
+              ersatzlos streichen. Wir behaupten nun, dass  und  dieselbe
               Funktion darstellen:
             </p>
-            <div
-              class="well subtheorem theorem"
-            >
-              <span
-                class="numbered-title"
-              >Behauptung
+            <div class="well subtheorem theorem">
+              <span class="numbered-title">Behauptung
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.8</NumberedTitle>
-                </span>\(F \equiv F'\), d.h. sie berechnen beide dieselbe Funktion, nämlich \(f\).
+                </span>, d.h. sie berechnen beide dieselbe Funktion, nämlich .
             </div>
-            <div
-              class="well subtheorem"
-            >
+            <div class="well subtheorem">
               <b>Beweis.</b>
               Um zu zeigen, dass beide dieselbe Funktion berechnen, müssen
               wir zeigen, dass
-              $$
-              F(\mathbf{x}) = F'(\mathbf{x}) \textnormal{ für alle $\mathbf{x} \in \{0,1\}^n$. }
-              $$
-              Eine Möglichkeit, eine Gleichheit \(=\) zu zeigen, ist, beide Ungleichungen
-              \(\leq\) und \(\geq\) zu zeigen, also:
+              
+              Eine Möglichkeit, eine Gleichheit  zu zeigen, ist, beide Ungleichungen
+               und  zu zeigen, also:
               <ol>
                 <li>
-                  \(F(\mathbf{x}) \leq F'(\mathbf{x})\) und
+                  und
                 </li>
                 <li>
-                  \(F(\mathbf{x}) \geq F'(\mathbf{x})\).
+                  .
                 </li>
               </ol>
               Punkt 1 ist einfach: wir haben bereits gesehen, dass
-              \(T_{\mathbf{a}} \leq T'_{\mathbf{a}}\) gilt, und somit
+               gilt, und somit
               auch
-              $$
-              \bigvee_{\mathbf{a} \in \sat(f)} T_{\mathbf{a}} \leq \bigvee_{\mathbf{a} \in \sat(f)}
-              T'_{\mathbf{a}}
-              $$
-              Hier haben wir angewendet, dass \(\bigvee\) eine monotone Funktion ist und wir somit
-              vom \(\leq\) ihrer Inputs auf das \(\leq\) ihres Outputs schließen können.
+              
+              Hier haben wir angewendet, dass  eine monotone Funktion ist und wir somit
+              vom  ihrer Inputs auf das  ihres Outputs schließen können.
               <p>
                 Punkt 2 ist schwieriger.
-                Um \(F'(\mathbf{x}) \leq F(\mathbf{x})\) zu zeigen, machen wir eine
-                Fallunterscheidung. Falls \(F'(\mathbf{x}) = 0\) ist, so
-                gilt die Ungleichung offensichtlich, denn kleiner als \(0\) kann der Output
+                Um  zu zeigen, machen wir eine
+                Fallunterscheidung. Falls  ist, so
+                gilt die Ungleichung offensichtlich, denn kleiner als  kann der Output
                 ja nicht werden.
-                Falls nun \(F'(\mathbf{x}) = 1\) ist, dann müssen wir zeigen, dass
-                auch \(F(\mathbf{x}) = 1\) gilt. Und das muss mindestens ein bisschen
+                Falls nun  ist, dann müssen wir zeigen, dass
+                auch  gilt. Und das muss mindestens ein bisschen
                 nicht-triviale Arbeit erfordern, weil wir ja irgendwo verwenden müssen, dass
-                \(f\) nicht monoton ist.
-                Nehmen wir also an, dass \(F'(\mathbf{x}) = 1\) ist.
+                 nicht monoton ist.
+                Nehmen wir also an, dass  ist.
               </p>
               <p>
                 <b>Strategie: was haben wir?</b>
                 Es ist immer gut, Dinge konkret "in der Hand zu haben". In diesem Falle?
                 Wir wissen ja, dass
-                \(F' = \bigvee_{\mathbf{a} \in \sat(f)} T'_{\mathbf{a}} \) ist. Wenn nun
-                also die linke Seite, \(F'\), den Wert 1 annimmt, dann muss es auf der rechten
+                 ist. Wenn nun
+                also die linke Seite, , den Wert 1 annimmt, dann muss es auf der rechten
                 Seite (mindestens) einen Term geben, der auch 1 annimmt:
-                $$
-                T'_{\mathbf{a}^*}(x_1,\dots,x_n) = 1 \ ,
-                $$
-                für ein festes, bestimmtes \(\mathbf{a}^*\), also
-                $$
-                \bigwedge_{i \in I_{\mathbf{a}^*}} x_i = 1 \ .
-                $$
+                
+                für ein festes, bestimmtes , also
+                
                 Wir wollen
-                zeigen, dass \(F(x_1,\dots,x_n) = 1\) gilt. Da
-                \(F = \bigvee_{\mathbf{a} \in \sat(f)} T_{\mathbf{a}} \) gilt, liegt der
+                zeigen, dass  gilt. Da
+                 gilt, liegt der
                 Verdacht nahe, dass der entsprechende Term
-                \( T_{\mathbf{a}^*}\) auch 1 ausgibt. Das Problem ist leider, dass
+                 auch 1 ausgibt. Das Problem ist leider, dass
                 \begin{align*}
                 T<i>{\mathbf{a}^*}(\mathbf{x})&amp;= T'</i>{\mathbf{a}^*}(\mathbf{x}) \wedge
                 T''<i>{\mathbf{a}^*}(\mathbf{x}) \\
                   &amp;= 1 \wedge \bigwedge</i>{i \in O(\mathbf{a}^*)} \bar{x}_i \ .
                 \end{align*}
-                Wir wissen also, dass \(x_i=1\) für alle \(i \in I(\mathbf{a}^*)\) gilt;
-                über die \(i \in O(\mathbf{a}^*)\) wissen wir leider nichts.
+                Wir wissen also, dass  für alle  gilt;
+                über die  wissen wir leider nichts.
                 Was hätten wir denn gerne? Wir hätten gerne, dass
-                für die alle \(x_i = 0\) gilt, weil dann
-                \(\bigwedge_{i \in O(\mathbf{a}^*)} \bar{x}_i = 1\) wäre; wir können das
+                für die alle  gilt, weil dann
+                 wäre; wir können das
                 aber nicht garantieren.
               </p>
               <p>
-                Wie schaut denn ein Input \(\mathbf{y}\) aus, auf dem
-                \( T_{\mathbf{a}^*}\) 1 ausgibt? So ein \(\mathbf{y}\) müsste
-                \(y_i=1\) für alle \(i \in I(\mathbf{a}^*)\) und
-                \(y_i=0\) für alle \(i \in O(\mathbf{a}^*)\) haben; also
-                1 sein, wo \(\mathbf{a}^*\) auch 1 ist, und 0 sein, wo
-                \(\mathbf{a}^*\) auch 0 ist. Aha! Es müsste \(\mathbf{a}^*\) selbst sein!
-                Na klar, wir erinnern uns: wir haben den Term \(T_{\mathbf{a}}\) so definiert,
-                dass er auf \(\mathbf{a}\) und nur dort 1 wird. Wir wissen also:
-                $$
-                T_{\mathbf{a}^*} (\mathbf{a}^*) = 1 \ .
-                $$
-                Wenn wir Glück haben, gilt \(\mathbf{a}^* = \mathbf{x}\). Ansonsten
-                gilt immerhin, dass \(x_i=1\) für alle \(i \in I(\mathbf{a}^*)\), also
-                \(x_1 = 1\) wenn \(a^*_i = 1\).
-                In anderen Worten, es gilt \(\mathbf{x} \geq \mathbf{a}^*\)!
+                Wie schaut denn ein Input  aus, auf dem
+                 1 ausgibt? So ein  müsste
+                 für alle  und
+                 für alle  haben; also
+                1 sein, wo  auch 1 ist, und 0 sein, wo
+                 auch 0 ist. Aha! Es müsste  selbst sein!
+                Na klar, wir erinnern uns: wir haben den Term  so definiert,
+                dass er auf  und nur dort 1 wird. Wir wissen also:
+                
+                Wenn wir Glück haben, gilt . Ansonsten
+                gilt immerhin, dass  für alle , also
+                 wenn .
+                In anderen Worten, es gilt !
                 Wunderbar! Jetzt können wir Monotonie anwenden! Denn selbst
-                wenn \(T_{\mathbf{a}^*}\) nicht monoton ist, so wissen wir, dass
-                \(F\) eine monotone Funktion berechnet, und somit
-                $$
-                F(\mathbf{x}) \geq F(\mathbf{a}^*) = 1 \ .
-                $$
-                Wir können zwar nicht genau mit dem Finger auf einen Term von \(F\) zeigen,
+                wenn  nicht monoton ist, so wissen wir, dass
+                 eine monotone Funktion berechnet, und somit
+                
+                Wir können zwar nicht genau mit dem Finger auf einen Term von  zeigen,
                 der 1 wird, wissen aber
-                <i>per Monotonie</i>, dass es so einen geben muss.<span
-                  class="qed"
-                >\(\square\)</span>
+                <i>per Monotonie</i>, dass es so einen geben muss.<span class="qed">
+                  </span>
               </p>
             </div>
-            Wir haben nun gezeigt, dass die DNF-Formeln \(F\) und \(F'\) dieselbe Boolesche Funktion
-            berechnen, nämlich \(f\). Die Formel \(F'\) enthält keine negativen Literale und ist somit
-            ein monotoner Schaltkreis von Tiefe 2.<span
-              class="qed"
-            >\(\square\)</span>
+            Wir haben nun gezeigt, dass die DNF-Formeln  und  dieselbe Boolesche Funktion
+            berechnen, nämlich . Die Formel  enthält keine negativen Literale und ist somit
+            ein monotoner Schaltkreis von Tiefe 2.<span class="qed">
+              </span>
           </div>
           <p>
             Ich habe Ihnen zweieinhalb Beweise versprochen. Der zweieinhalbte Beweis
-            geht nun genau so wie der zweite, nur dass er eine CNF-Formel \(G\) statt einer DNF-Formel \(F\)
+            geht nun genau so wie der zweite, nur dass er eine CNF-Formel  statt einer DNF-Formel 
             konstruiert und aus dieser dann alle negativen Literale entfernt, womit wir
-            eine monotone CNF-Formel \(G'\) erhalten. Der Beweis, dass \(G'\) und \(G\) dieselbe Funktion
+            eine monotone CNF-Formel  erhalten. Der Beweis, dass  und  dieselbe Funktion
             berechnen, geht analog zu dem obigen Beweis.
           </p>
         </div>

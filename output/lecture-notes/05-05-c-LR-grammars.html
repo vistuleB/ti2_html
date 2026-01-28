@@ -19,7 +19,7 @@
 <body>
 <section
   count="35"
-  .="BookLevelSectionCounter 35"
+  _="BookLevelSectionCounter 35"
   title_gr=""
   title_en="c LR grammars"
   number="5.5"
@@ -27,43 +27,21 @@
   counter="ExoCtr"
   path="/lecture-notes35"
 >
-  <div
-    id="link-to-toc"
-  >
-    <a
-      href="../vorlesungsskript.html"
-    >Inhaltsverzeichnis</a><a
-      href="05-05-b-Parser-in-Java.html"
-    >&lt;&lt; Kapitel 5.5</a>
+  <div id="link-to-toc">
+    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="05-05-b-Parser-in-Java.html">&lt;&lt; Kapitel 5.5</a>
   </div>
   <div
     id="link-to-overview"
     style="text-align: end"
   >
-    <a
-      href="/"
-    >zur Kursübersicht</a><a
-      href="05-05-d-linker-Rand-und-Bluete.html"
-    >Kapitel 5.5 &gt;&gt;</a>
+    <a href="/">zur Kursübersicht</a><a href="05-05-d-linker-Rand-und-Bluete.html">Kapitel 5.5 &gt;&gt;</a>
   </div>
-  <div
-    id="rightSideWrapper"
-  >
-    <div
-      class="content"
-    >
-      <div
-        class="chapter"
-      >
-        <div
-          class="subChapter"
-        >
-          <h1
-            class="hidden-title"
-          >
-            <span
-              class="subChapterTitle"
-            >::::ChapterCtr.7
+  <div id="rightSideWrapper">
+    <div class="content">
+      <div class="chapter">
+        <div class="subChapter">
+          <h1 class="hidden-title">
+            <span class="subChapterTitle">::::ChapterCtr.7
               LR-Grammatiken</span>
           </h1>
           <h2>
@@ -71,21 +49,21 @@
           </h2>
           <p>
             Die LL-Parser, die wir in Kapitel 5.4 gesehen haben,
-            versuchen, eine Linksableitung \(S \Step{}^* w\) Schritt für
+            versuchen, eine Linksableitung  Schritt für
             Schritt zu konstruieren. Eine Hauptschwäche ist, dass Sie von
             einer Wortform
             \begin{align*}
             w A \alpha
             \end{align*}
-            die nächste Ableitungsregel \(A \rightarrow \beta\) bestimmen müssen,
-            ohne das "Endergebnis" von \(\beta\) überhaupt vollständig gelesen zu haben.
+            die nächste Ableitungsregel  bestimmen müssen,
+            ohne das "Endergebnis" von  überhaupt vollständig gelesen zu haben.
             Sie müssen also erkennen, dass der rote / mit "?" markierte Pfeil in der Ableitung
             \begin{align*}
             S \Step{}^* w A \alpha \textcolor{red}{\Step{?}} w \beta \alpha
             \Step{}^* w x \alpha \Step{}^* w x y
             \end{align*}
-            die richtige Entscheidung ist, obwohl sie von dem aus \(\beta\) abgeleiteten
-            Wort \(x\) nur die ersten \(k\) Buchstaben sehen.
+            die richtige Entscheidung ist, obwohl sie von dem aus  abgeleiteten
+            Wort  nur die ersten  Buchstaben sehen.
             Dem entgegen haben wir in den letzten zwei Teilkapiteln LR-Parser gesehen.
             Diese versuchen, von $w$ ausgehend eine Rechtsableitung $S \Step{}^* w$ zu finden,
             allerdings in zeitlich umgekehrter Reihenfolge, also
@@ -98,39 +76,37 @@
           </h2>
           <p>
             Da aus der Sicht unseres neuen Parsers die Rückwärtsanwendung einer Produktion
-            \(X \rightarrow \beta\), also der Schritt \(\alpha X \gamma \Leftarrow \alpha \beta \gamma\)
+            , also der Schritt 
             einen
             <i>Fortschritt</i>
             darstellt und zeitlich auch
             nach vorne geht, verwende ich ab jetzt ein neues Pfeilsymbol, das
             von links nach rechts geht und daher dem in Europa üblichen Gefühlt,
             dass die Zeit von links nach rechts verläuft, mehr entgegen kommt:
-            \(\alpha \beta \gamma \rstep{} \alpha X \gamma \).
+            .
           </p>
-          <div
-            class="well container theorem"
-          >
-            <span
-              class="numbered-title"
-            >Definition
+          <div class="well container theorem">
+            <span class="numbered-title">Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
               </span>
             <b>(Reduktion und Linksreduktion)</b>
             Seien
-            \(\alpha, \beta, \gamma \in (\Sigma \cup N)^*\) Wortformen und
-            \(X \rightarrow \beta\) eine Produktion. Dann schreiben wir
+             Wortformen und
+             eine Produktion. Dann schreiben wir
             \begin{align*}
             \alpha \beta \gamma \rstep{} \alpha X \gamma \ ,
             \end{align*}
             und sagen
-            <i>\(\alpha \beta \gamma\) reduziert zu \(\alpha X \gamma\)</i>.
+            <i>
+              reduziert zu
+            </i>.
             Man nennt einen solchen Schritt auch einen
             <i>Reduktionsschritt</i>.
             <p>
               Wir nennen den Schritt einen
               <i>Linksreduktionsschritt</i>, wenn
-              rechts von \(\beta\) nur Terminale stehen. Wenn also
-              \(\gamma = w \in \Sigma^*\) und somit
+              rechts von  nur Terminale stehen. Wenn also
+               und somit
               \begin{align*}
               \alpha \beta w \rstep{} \alpha X w \ .
               \end{align*}
@@ -145,7 +121,7 @@
           <p>
             <b>Beobachtung:</b>
             Wenn wir
-            einen Linksreduktionsschritt \(\alpha \beta w \rstep{} \alpha X w\)
+            einen Linksreduktionsschritt 
             betrachten, also
             \begin{align*}
             \alpha X w \Step{} \alpha \beta w \ ,
@@ -194,16 +170,12 @@
             überlegen, wie wir herausfinden, ob ein Linksreduktionsschritt korrekt ist. Diese Fragen
             werden uns für den Rest dieses und des nächsten Teilkapitels beschäftigen.
           </p>
-          <div
-            class="well container theorem"
-          >
-            <span
-              class="numbered-title"
-            >Definition
+          <div class="well container theorem">
+            <span class="numbered-title">Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
               </span>
             <b>(Gültige Wortform, korrekter Reduktionsschritt)</b>
-            Eine Wortform \(\gamma \in (\Sigma \cup N)^*\) heißt
+            Eine Wortform  heißt
             <i>gültig</i>,
             wenn es eine Rechtsableitung
             \begin{align*}
@@ -214,7 +186,7 @@
             \alpha \beta w \rstep{} \alpha X w
             \end{align*}
             heißt
-            <i>korrekt</i>, wenn \(\alpha X w\) gültig ist.
+            <i>korrekt</i>, wenn  gültig ist.
             In diesem Fall ist natürlich $\alpha \beta w$ selbst gültig.
             <p>
               Den Präfix $\alpha$ nennen wir eine
@@ -233,9 +205,7 @@
             der Stackinhalt ist und $w$ der bis jetzt ungelesene Teil des Eingabewortes.
             Wir wünschen wir uns folgendes:
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <b>Wunsch.</b>
             Ob $\alpha \beta w \rstep{} \alpha X w$ gültig ist oder nicht,
             wollen wir allein auf Grund der Front $\alpha \beta$ entscheiden können, das heißt,
@@ -243,9 +213,7 @@
           </div>
           <p>
             Wir haben allerdings bereits gesehen, dass das nicht immer möglich ist. Bei der Implementierung
-            von<a
-              href="../code/parsing/arithmetic-in-class/ArithmeticGrammar.java"
-            >ArithmeticGrammar.java</a>zum Beispiel
+            von<a href="../code/parsing/arithmetic-in-class/ArithmeticGrammar.java">ArithmeticGrammar.java</a>zum Beispiel
             haben wir manchmal das erste Zeichen von $w$ betrachten müssen. Allerdings behalten wir erst
             einmal obigen Wunsch als Idealziel.
             Um ihn zu formalisieren, fragen wir uns, wann es denn
@@ -257,10 +225,10 @@
           <ol>
             <li>
               <b>Schlechter Fall 1:</b>
-              Es gibt für eine Wortform \(\gamma\) zwei
+              Es gibt für eine Wortform  zwei
               korrekte Linksreduktionsschritte:
-              \(\gamma \rstep{} \gamma'\) und
-              \(\gamma \rstep{} \gamma''\).
+               und
+              .
               In diesem Falle gäbe es
               <i>zwei verschiedene</i>
               Rechtsableitungen
@@ -270,18 +238,18 @@
               \end{align*}
               <p>
                 (wir nehmen an, dass man aus jedem Nichtterminal
-                mindestens ein Wort \(u \in \Sigma^*\) ableiten kann; andernfalls
+                mindestens ein Wort  ableiten kann; andernfalls
                 kann man solche
                 <i>nutzlosen</i>
                 Nichtterminale eliminieren).
-                Das Wort \(w\) hat also zwei verschiedene Ableitungsbäume.
+                Das Wort  hat also zwei verschiedene Ableitungsbäume.
                 Die Grammatik ist somit mehrdeutig.
                 Mit uneindeutigen Grammatiken beschäftigen wir uns zunächst gar nicht;
                 sie sind von einem praktischen Standpunkt aus auch
                 unattraktiv: wenn z.B. eine Programmiersprache eine mehrdeutige Grammatik
                 hätte, dann wäre ja für gewisse Programme nicht eindeutig
                 festzustellen, was damit gemeint ist.
-                Wir nehmen also an, dass die Grammatik \(G\) eindeutig ist und somit
+                Wir nehmen also an, dass die Grammatik  eindeutig ist und somit
                 dieser Fall nicht eintreten kann.
               </p>
             </li>
@@ -297,7 +265,7 @@
               \end{align*}
               <p>
                 <i>nicht</i>
-                korrekt, obwohl \(\alpha\beta w'\) eine
+                korrekt, obwohl  eine
                 gültige Wortform ist.
                 Dieser Fall ist schlecht, weil der Parser nur
                 $\alpha \beta$ gelesen hat und somit nicht
@@ -309,12 +277,8 @@
               </p>
             </li>
           </ol>
-          <div
-            class="well container subtheorem theorem"
-          >
-            <span
-              class="numbered-title"
-            >Beispiel
+          <div class="well container subtheorem theorem">
+            <span class="numbered-title">Beispiel
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
               </span>Erinnern Sie sich: unsere obige Grammatik
             \begin{align*}
@@ -328,12 +292,12 @@
             \begin{align*}
             aaX \rstep{} aaS
             \end{align*}
-            ist korrekt (hier also \(w = \epsilon)\), aber leider ist
+            ist korrekt (hier also , aber leider ist
             \begin{align*}
             aaXb \rstep{} aaSb
             \end{align*}
-            nicht korrekt (hier \(w' = b)\), da \(aaXb\) gültig ist,
-            \(aaSb\) aber nicht. Die Entscheidung für eine Reduktionsregel
+            nicht korrekt (hier , da  gültig ist,
+             aber nicht. Die Entscheidung für eine Reduktionsregel
             kann also nicht ohne Wissen über das, was dahinter kommt,
             getroffen werden.
           </div>
@@ -345,13 +309,11 @@
             id="def-LR0"
             class="well container theorem"
           >
-            <span
-              class="numbered-title"
-            >Definition
+            <span class="numbered-title">Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
               </span>
-            <b>(\(LR(0)\)-Grammatiken)</b>
-            Eine kontextfreie Grammatik heißt \(LR(0)\)-Grammatik,
+            <b>(-Grammatiken)</b>
+            Eine kontextfreie Grammatik heißt -Grammatik,
             wenn keiner der obigen schlechten Fälle eintritt.
             Formal, wenn (1) die Grammatik eindeutig ist und (2) wenn ein
             korrekter Linksreduktionsschritt
@@ -362,14 +324,14 @@
             \begin{align*}
             \alpha \beta w' \rstep{} \alpha X w'
             \end{align*}
-            korrekt sind, sofern $w' \in \Sigma^*$ ist und \(\alpha \beta w'\) selbst eine gültige
+            korrekt sind, sofern $w' \in \Sigma^*$ ist und  selbst eine gültige
             Wortform ist.
             <p>
               In Worten/Graustufen: wenn wir
               \begin{align*}
               \alpha \beta \textcolor{gray}{w} \rstep{} \alpha X \textcolor{gray}{w}
               \end{align*}
-              guten Gewissens anwenden dürfen, ohne auch nur ein Zeichen von \(w\)
+              guten Gewissens anwenden dürfen, ohne auch nur ein Zeichen von 
               gelesen zu haben, sofern wir sicher sind, dass es irgendein $w$ gibt, das
               $\alpha \beta w$ zu einer gültigen Wortform macht.
             </p>
@@ -379,9 +341,7 @@
             class="well container theorem"
           >
             <p>
-              <span
-                class="numbered-title"
-              >Lemma
+              <span class="numbered-title">Lemma
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
                 </span>
               <b>(LR(0), äquivalente Formulierung).</b>
@@ -408,9 +368,7 @@
               </li>
             </ol>
           </div>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <p>
               <b>Beweis.</b>
               Der Beweis ist leider etwas mechanisch und
@@ -421,19 +379,13 @@
               einem knapperen, klareren Beweis, der nicht so viele
               Fallunterscheidungen enthält.
             </p>
-            <div
-              class="well container-fluid subtheorem"
-            >
+            <div class="well container-fluid subtheorem">
               <p>
-                <span
-                  class="numbered-title"
-                >Wenn-Dann-Richtung.</span>Wenn $G$ eine LR(0)-Grammatik ist, dann gelten
+                <span class="numbered-title">Wenn-Dann-Richtung.</span>Wenn $G$ eine LR(0)-Grammatik ist, dann gelten
                 die Schlussfolgerungen des Lemmas.
               </p>
             </div>
-            <div
-              class="well container-fluid subtheorem"
-            >
+            <div class="well container-fluid subtheorem">
               <p>
                 <b>Beweis.</b>
                 Um Punkt 1 zu zeigen,
@@ -475,25 +427,18 @@
                 $\alpha \beta \varphi w' \rstep{} \alpha X \varphi w'$
                 gar kein Linksreduktionsschritt, geschweige denn ein
                 korrekter.
-                <span
-                  class="qed"
-                >\(\square\)</span>
+                <span class="qed">
+                  </span>
               </p>
             </div>
-            <div
-              class="well container-fluid subtheorem"
-            >
+            <div class="well container-fluid subtheorem">
               <p>
-                <span
-                  class="numbered-title"
-                >Nur-dann-Richtung.</span>Wenn die Grammatik $G$ die
+                <span class="numbered-title">Nur-dann-Richtung.</span>Wenn die Grammatik $G$ die
                 Schlussfolgerungen des Lemmas erfüllt und
                 müssen zeigen, dass sie auch LG(0).
               </p>
             </div>
-            <div
-              class="well container-fluid subtheorem"
-            >
+            <div class="well container-fluid subtheorem">
               <p>
                 <b>Beweis.</b>
                 Als erstes zeigen wir, dass $G$ eindeutig ist; dass es
@@ -565,26 +510,20 @@
                 der Schlussfolgerung des Lemmas $\varphi$
                 mindestens ein Nichtterminal enthalten. Das
                 kann aber nicht sein, da $\varphi$ ein Präfix von $w'$
-                ist. (3) kann aus dem gleichen Grund nicht gelten.<span
-                  class="qed"
-                >\(\square\)</span>
+                ist. (3) kann aus dem gleichen Grund nicht gelten.<span class="qed">
+                  </span>
               </p>
             </div>
             <p>
               Wir haben nun beide Richtungen gezeigt und somit
-              das Lemma bewiesen.<span
-                class="qed"
-              >\(\square\)</span>
+              das Lemma bewiesen.<span class="qed">
+                </span>
             </p>
           </div>
-          <div
-            class="well well-lg numbered-exercise container"
-          >
-            <span
-              class="numbered-title"
-            >Übungsaufgabe
+          <div class="well well-lg numbered-exercise container">
+            <span class="numbered-title">Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-              </span>Zeigen Sie, dass die folgende Grammatik \(LR(0)\) ist:
+              </span>Zeigen Sie, dass die folgende Grammatik  ist:
             \begin{align*}
             S&amp;\rightarrow aS \\
             S&amp;\rightarrow Bc \\
@@ -594,12 +533,8 @@
             Als ersten Schritt sollten Sie sich überlegen, wie gültige
             Wortformen überhaupt aussehen können.
           </div>
-          <div
-            class="well well-lg numbered-exercise container"
-          >
-            <span
-              class="numbered-title"
-            >Übungsaufgabe
+          <div class="well well-lg numbered-exercise container">
+            <span class="numbered-title">Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
               </span>Wir ändern die Grammatik etwas ab:
             \begin{align*}
@@ -608,17 +543,13 @@
             B&amp;\rightarrow aBb \\
             B&amp;\rightarrow ab
             \end{align*}
-            Die erzeugte Sprache ist \(\{ a^* a^m b^m \ | \ m \geq 1\}\).
-            Zeigen Sie, dass die Grammatik nicht \(LR(0)\) ist.
+            Die erzeugte Sprache ist .
+            Zeigen Sie, dass die Grammatik nicht  ist.
           </div>
-          <div
-            class="well well-lg numbered-exercise container"
-          >
-            <span
-              class="numbered-title"
-            >Übungsaufgabe
+          <div class="well well-lg numbered-exercise container">
+            <span class="numbered-title">Übungsaufgabe
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-              </span>Zeigen Sie, dass die folgende Grammatik \(LR(0)\) ist:
+              </span>Zeigen Sie, dass die folgende Grammatik  ist:
             \begin{align*}
             S&amp;\rightarrow aS \\
             S&amp;\rightarrow BC \\
@@ -639,16 +570,16 @@
           <ol>
             <li>
               Wie können wir verifizieren, ob eine gegebene Grammatik
-              die \(LR(0)\)-Bedingung erfüllt?
+              die -Bedingung erfüllt?
             </li>
             <li>
               Falls sie es tut, wie können wir für eine gegebene gültige Wortform
-              \(\gamma\) den korrekten Reduktionsschritt
+               den korrekten Reduktionsschritt
               \begin{align*}
               \gamma = \alpha \beta w \rstep{} \alpha X w
               \end{align*}
               finden? Insbesondere die Zerlegung in
-              \(\gamma = \alpha \beta w\)?
+              ?
             </li>
           </ol>
           <p>
@@ -657,9 +588,7 @@
             des DK-Automaten erledigt werden (DK steht als Abkürzung für Donald Knuth,
             der als erstes diese Idee hatte).
           </p>
-          <div
-            class="container alert alert-warning"
-          >
+          <div class="container alert alert-warning">
             <b>Hinweis.</b>
             Was nun folgt, ist mathematisch
             recht herausfordernd. Lesen Sie daher gerne auch

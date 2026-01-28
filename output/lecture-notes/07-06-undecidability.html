@@ -19,7 +19,7 @@
 <body>
 <section
   count="47"
-  .="BookLevelSectionCounter 47"
+  _="BookLevelSectionCounter 47"
   title_gr="Haltproblem und Unentscheidbarkeit"
   title_en="undecidability"
   number="7.6"
@@ -27,43 +27,21 @@
   counter="ExoCtr"
   path="/lecture-notes47"
 >
-  <div
-    id="link-to-toc"
-  >
-    <a
-      href="../vorlesungsskript.html"
-    >Inhaltsverzeichnis</a><a
-      href="07-05-Turing-universal.html"
-    >&lt;&lt; Kapitel 7.5</a>
+  <div id="link-to-toc">
+    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="07-05-Turing-universal.html">&lt;&lt; Kapitel 7.5</a>
   </div>
   <div
     id="link-to-overview"
     style="text-align: end"
   >
-    <a
-      href="/"
-    >zur Kursübersicht</a><a
-      href="07-07-Post-correspondence-problem.html"
-    >Kapitel 7.7 &gt;&gt;</a>
+    <a href="/">zur Kursübersicht</a><a href="07-07-Post-correspondence-problem.html">Kapitel 7.7 &gt;&gt;</a>
   </div>
-  <div
-    id="rightSideWrapper"
-  >
-    <div
-      class="content"
-    >
-      <div
-        class="chapter"
-      >
-        <div
-          class="subChapter"
-        >
-          <h1
-            class="hidden-title"
-          >
-            <span
-              class="subChapterTitle"
-            >::::ChapterCtr.6
+  <div id="rightSideWrapper">
+    <div class="content">
+      <div class="chapter">
+        <div class="subChapter">
+          <h1 class="hidden-title">
+            <span class="subChapterTitle">::::ChapterCtr.6
               Turingmaschinen, Haltproblem und Unentscheidbarkeit</span>
           </h1>
           <p>
@@ -132,25 +110,19 @@
             Wir zeigen nun, dass $\halt$ unentscheidbar ist, dass es also keine Möglichkeit gibt,
             das Nichtterminieren einer Maschine $M$ auf Eingabe $x$ vorauszusehen und abzufangen.
           </p>
-          <div
-            class="well container theorem"
-          >
-            <span
-              class="numbered-title"
-            >Theorem
+          <div class="well container theorem">
+            <span class="numbered-title">Theorem
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
               </span>
             <b>(Unentscheidbarkeit des Halteproblems).</b>
-            Die Sprache \(\halt\) ist unentscheidbar.
+            Die Sprache  ist unentscheidbar.
           </div>
           <p>
             Ich gebe erst einmal einen kurzen und knappen Widerspruchsbeweis. Falls das ihnen zu schnell
             ging,
             lesen Sie den zweiten Beweis, in dem ich mir mehr Zeit nehme.
           </p>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <p>
               <b>Kurzer Beweis per Wiederspruch.</b>
               Nehmen wir an, es gäbe eine Maschine $H$,
@@ -192,14 +164,11 @@
             <p>
               Also $\enc(D) \in \negdiag \Longleftrightarrow \enc(M) \not \in \negdiag$, ein Widerspruch.
               Unsere
-              Annahme, dass $\halt$ entscheidbar sei, ist also falsch.<span
-                class="qed"
-              >\(\square\)</span>
+              Annahme, dass $\halt$ entscheidbar sei, ist also falsch.<span class="qed">
+                </span>
             </p>
           </div>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <b>Ausführlicher Beweis.</b>
             Ich finde Beweise durch Widerspruch immer
             etwas unintuitiv, weil man die ganze Zeit im Konjunktiv argumentieren muss.
@@ -208,105 +177,85 @@
             indem wir nämlich ein Eingabewort $z \in \Sigma^*$ konstruieren, auf dem $M$ scheitert, also
             entweder
             <ol>
-              <li
-                \(f_H(z)="\texttt{accept}\) aber \(z \not \in \halt\), oder"
-              >
+              <li>
+                aber , oder
               </li>
-              <li
-                \(f_H(z)="\texttt{reject}\) aber \(z \in \halt\) , oder"
-              >
+              <li>
+                aber  , oder
               </li>
-              <li
-                \(f_H(z)="\texttt{undefined}\), d.h. $H$ terminiert auf Eingabewort $z$ nicht."
-              >
+              <li>
+                , d.h. $H$ terminiert auf Eingabewort $z$ nicht.
               </li>
             </ol>
-            Wir setzen nun $y := \enc(D)$ und $z := yy$, wobei \(D\) eine neue
-            Turingmaschine ist, die wir auf Basis von \(H\)
+            Wir setzen nun $y := \enc(D)$ und $z := yy$, wobei  eine neue
+            Turingmaschine ist, die wir auf Basis von 
             konstruieren werden.
             Also noch einmal. Für eine beliebige, uns gegebene
-            Turingmaschine \(H\), werden wir eine neue Turingmaschine
-            \(D\) bauen und sie codieren als \(y := \enc(D)\), so dass
+            Turingmaschine , werden wir eine neue Turingmaschine
+             bauen und sie codieren als , so dass
             entweder
             <ol>
-              <li
-                \(f_H(yy)="\texttt{accept}\) aber \(yy \not \in \halt\), oder"
-              >
+              <li>
+                aber , oder
               </li>
-              <li
-                \(f_H(yy)="\texttt{reject}\) aber \(yy \in \halt\), oder"
-              >
+              <li>
+                aber , oder
               </li>
-              <li
-                \(f_H(yy)="\texttt{undefined}\)."
-              >
+              <li>
+                .
               </li>
             </ol>
-            Wenn uns dies gelingt, so haben wir gezeigt, dass \(H\) nicht
-            die Sprache \(\halt\) entscheidet: im Fall 3 terminiert
-            \(H\) ja nicht einmal; in Fall 1 und 2 liefert \(H\) zwar
+            Wenn uns dies gelingt, so haben wir gezeigt, dass  nicht
+            die Sprache  entscheidet: im Fall 3 terminiert
+             ja nicht einmal; in Fall 1 und 2 liefert  zwar
             eine Antwort, aber die falsche.
-            Der Code für \(D\) ist sehr einfach:
-<pre
-  class="listing"
->
+            Der Code für  ist sehr einfach:
+<pre class="listing">
 <code>def D(x):</code>
- 
-<code>if H(xx) == accept then</code>
- 
- 
-<code>reject</code>
- 
- 
-<code>else</code>
- 
- 
-<code>accept</code>
+ <code>if H(xx) == accept then</code> 
+ <code>reject</code> 
+ <code>else</code> 
+ <code>accept</code>
 </pre>
             <p>
               Zur Erinnerung: $y := \enc(D)$. Wir unterscheiden drei Fälle.
             </p>
             <ul>
-              <li
-                \(H(yy)="\texttt{reject}\). Dann geht der Aufruf von"
-              >
-                \(D(y)\) also in den
+              <li>
+                . Dann geht der Aufruf von
+                 also in den
                 <tt>else</tt>-Teil
                 in den Zeilen 4-5 und
-                \(D(y) = \texttt{accept}\), somit
+                , somit
                 $yy = \enc(D)y \in \halt$ Wir befinden uns
-                in Fall 1: \(y y \in \halt\) aber \(H(yy)= \texttt{reject}\).
-                Die Maschine \(H\) hat eine falsche Antwort
-                für \(\halt\) geliefert.
-              </li>
-              <li
-                \(H(yy)="\texttt{accept}\). Dann geht"
-              >
-                der Aufruf von \(D(y)\) in Zeile 3,
-                und \(D(y) = \texttt{reject}\), somit \(yy = \enc(D) y \not \in \halt\).
-                Wir befinden uns in Fall 2: \(yy \not \in \halt\)
-                und \(H(yy) = \texttt{accept}\). Die Maschine
-                \(H\) hat abermals eine falsche Antwort geliefert.
+                in Fall 1:  aber .
+                Die Maschine  hat eine falsche Antwort
+                für  geliefert.
               </li>
               <li>
-                \(H(yy)\) terminiert nicht. Dann befinden
-                wir uns in Fall 3: \(H\) kann
-                \(\halt\) nicht entscheiden,
+                . Dann geht
+                der Aufruf von  in Zeile 3,
+                und , somit .
+                Wir befinden uns in Fall 2: 
+                und . Die Maschine
+                 hat abermals eine falsche Antwort geliefert.
+              </li>
+              <li>
+                terminiert nicht. Dann befinden
+                wir uns in Fall 3:  kann
+                 nicht entscheiden,
                 denn Mindestbedingung hierfür wäre ja,
                 auf jedem Eingabewort zu terminieren.
               </li>
             </ul>
-            <p>
-            </p>
-            In jedem Fall sehen wir, dass \(H\) auf dem Eingabewort
-            \(yy\) einen Fehler macht und somit \(\halt\) nicht
+            In jedem Fall sehen wir, dass  auf dem Eingabewort
+             einen Fehler macht und somit  nicht
             entscheidet. Da das für
             <i>jede</i>
             Turingmaschine
             geht, schließen wir: keine Turingmaschine kann
-            die Sprache \(\halt\) entscheiden; sie ist unentscheidbar.<span
-              class="qed"
-            >\(\square\)</span>
+            die Sprache  entscheiden; sie ist unentscheidbar.<span class="qed">
+              </span>
           </div>
           <p>
             Ein Student hat am 26. Juni 2024 angemerkt, dass die Sprache
@@ -328,9 +277,7 @@
             auch Fragen wie "Kann das Programm abstürzen?" oder "Kann ein unautorisierter Nutzer Zugang zu
             XYZ erhalten?" unentscheidbar.
           </p>
-          <div
-            class="alert-info"
-          >
+          <div class="alert-info">
             Das Wort
             <i>Unentscheidbarkeit</i>
             verwenden wir hier in seiner

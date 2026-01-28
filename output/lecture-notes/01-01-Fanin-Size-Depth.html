@@ -19,7 +19,7 @@
 <body>
 <section
   count="2"
-  .="BookLevelSectionCounter 2"
+  _="BookLevelSectionCounter 2"
   title_gr="Tiefe, Fan-In"
   title_en="Fanin Size Depth"
   number="1.1"
@@ -27,55 +27,29 @@
   counter="ExoCtr"
   path="/lecture-notes2"
 >
-  <div
-    id="link-to-toc"
-  >
-    <a
-      href="../vorlesungsskript.html"
-    >Inhaltsverzeichnis</a><a
-      href="01-00-Boolean-circuits.html"
-    >&lt;&lt; Kapitel 1.0</a>
+  <div id="link-to-toc">
+    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="01-00-Boolean-circuits.html">&lt;&lt; Kapitel 1.0</a>
   </div>
   <div
     id="link-to-overview"
     style="text-align: end"
   >
-    <a
-      href="/"
-    >zur Kursübersicht</a><a
-      href="01-02-truth-tables-cnf-dnf.html"
-    >Kapitel 1.2 &gt;&gt;</a>
+    <a href="/">zur Kursübersicht</a><a href="01-02-truth-tables-cnf-dnf.html">Kapitel 1.2 &gt;&gt;</a>
   </div>
-  <div
-    id="rightSideWrapper"
-  >
-    <div
-      class="content"
-    >
-      <div
-        class="chapter"
-      >
-        <div
-          class="subChapter"
-        >
-          <h1
-            class="hidden-title"
-          >
-            <span
-              class="subChapterTitle"
-            >::::ChapterCtr.1
+  <div id="rightSideWrapper">
+    <div class="content">
+      <div class="chapter">
+        <div class="subChapter">
+          <h1 class="hidden-title">
+            <span class="subChapterTitle">::::ChapterCtr.1
               Größe, Tiefe, Fan-In</span>
           </h1>
           <p>
             Für Boolesche Schaltkreise gibt es drei Komplexitätsparameter, die uns
             interessieren.
           </p>
-          <div
-            class="well container theorem"
-          >
-            <span
-              class="numbered-title"
-            >Definition
+          <div class="well container theorem">
+            <span class="numbered-title">Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
               </span>Die
             <i>Größe</i>
@@ -90,9 +64,7 @@
             ist der maximale Rein-Grad aller Knoten, also
             der maximale Fan-in aller Gates.
           </div>
-          <div
-            class="alter-warning"
-          >
+          <div class="alter-warning">
             <b>Vorsicht.</b>
             Manchmal werden zur Bestimmung der Tiefe die NOT-Gates
             nicht mitgezählt. Entlang eines Pfades wird also gelegentlich nur die Anzahl
@@ -111,35 +83,21 @@
             wir AND- und OR-Gates mit mehr als zwei Inputs als verschachteltes AND oder OR darstellen:
           </p>
           <figure>
-            <img
-              style="height:10em"
-              src="../img/circuits/and-n-fold-linear-depth.svg"
-              loading="lazy"
-            >
             oder alternativ:
-            <img
-              style="height:10em"
-              src="../img/circuits/and-n-fold-log-depth.svg"
-              loading="lazy"
-            >
           </figure>
           <p>
-            In beiden Fällen ersetzen wir ein AND-Gate von Fan-in \(n\) durch
-            \(n-1\) AND-Gates von je Fan-in 2. Wenn wir allerdings die
+            In beiden Fällen ersetzen wir ein AND-Gate von Fan-in  durch
+             AND-Gates von je Fan-in 2. Wenn wir allerdings die
             <i>Tiefe</i>
-            betrachten, so sehen wir, dass der linke Schaltkreis Tiefe \(n-1\) hat,
-            der rechte jedoch nur \(\ceil{\log_2(n)}\). Ganz allgemein stellen wir fest:
+            betrachten, so sehen wir, dass der linke Schaltkreis Tiefe  hat,
+            der rechte jedoch nur . Ganz allgemein stellen wir fest:
           </p>
-          <div
-            class="well container theorem"
-          >
-            <span
-              class="numbered-title"
-            >Theorem
+          <div class="well container theorem">
+            <span class="numbered-title">Theorem
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-              </span>Sei \(C\) ein Schaltkreis Maximum-Fan-in \(k\), Größe \(s\) und Tiefe \(d\).
-            Dann gibt es einen äquivalenten Schaltkreis \(C'\) mit Maximum-Fan-in \(2\),
-            Größe höchstens \(s (k-1)\) und Tiefe höchstens \(d \ceil {\log_2 k}\).
+              </span>Sei  ein Schaltkreis Maximum-Fan-in , Größe  und Tiefe .
+            Dann gibt es einen äquivalenten Schaltkreis  mit Maximum-Fan-in ,
+            Größe höchstens  und Tiefe höchstens .
           </div>
         </div>
       </div>

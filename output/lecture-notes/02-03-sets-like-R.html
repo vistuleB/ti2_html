@@ -19,7 +19,7 @@
 <body>
 <section
   count="11"
-  .="BookLevelSectionCounter 11"
+  _="BookLevelSectionCounter 11"
   title_gr="die so groß wie $\R$ sind"
   title_en="sets like R"
   number="2.3"
@@ -27,43 +27,21 @@
   counter="ExoCtr"
   path="/lecture-notes11"
 >
-  <div
-    id="link-to-toc"
-  >
-    <a
-      href="../vorlesungsskript.html"
-    >Inhaltsverzeichnis</a><a
-      href="02-02-examples-of-equipotent-sets.html"
-    >&lt;&lt; Kapitel 2.2</a>
+  <div id="link-to-toc">
+    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="02-02-examples-of-equipotent-sets.html">&lt;&lt; Kapitel 2.2</a>
   </div>
   <div
     id="link-to-overview"
     style="text-align: end"
   >
-    <a
-      href="/"
-    >zur Kursübersicht</a><a
-      href="02-04-diagonalization.html"
-    >Kapitel 2.4 &gt;&gt;</a>
+    <a href="/">zur Kursübersicht</a><a href="02-04-diagonalization.html">Kapitel 2.4 &gt;&gt;</a>
   </div>
-  <div
-    id="rightSideWrapper"
-  >
-    <div
-      class="content"
-    >
-      <div
-        class="chapter"
-      >
-        <div
-          class="subChapter"
-        >
-          <h1
-            class="hidden-title"
-          >
-            <span
-              class="subChapterTitle"
-            >::::ChapterCtr.3
+  <div id="rightSideWrapper">
+    <div class="content">
+      <div class="chapter">
+        <div class="subChapter">
+          <h1 class="hidden-title">
+            <span class="subChapterTitle">::::ChapterCtr.3
               Mengen, die so groß wie $\R$ sind</span>
           </h1>
           <p>
@@ -84,22 +62,16 @@
             Zahlen gibt als natürliche; dass also $\R$ nicht abzählbar ist. Aber
             eins nach dem anderen.
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
-              <span
-                class="numbered-title"
-              >Beobachtung
+              <span class="numbered-title">Beobachtung
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
                 </span>
               Es gilt $\R \approx
               (0,1)$, wobei $(0,1)$ das offene Einheitsintervall ist.
             </p>
           </div>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <p>
               <b>Beweis.</b>
               Wir können eine Bijektion explizit hinschreiben:
@@ -125,36 +97,25 @@
               Und somit ist $f$ eine Bijektion von $\R$ auf den Wertebereich von
               $f$, also $(0,1)$.
             </p>
-            <span
-              class="qed"
-            >\(\square\)</span>
+            <span class="qed">
+              </span>
           </div>
-          <div
-            class="well well-lg numbered-exercise container"
-          >
+          <div class="well well-lg numbered-exercise container">
             <p>
-              <span
-                class="numbered-title"
-              >Übungsaufgabe
+              <span class="numbered-title">Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
                 </span>Zeigen Sie $\R \approx \R^+$.
             </p>
           </div>
-          <div
-            class="well well-lg numbered-exercise container"
-          >
+          <div class="well well-lg numbered-exercise container">
             <p>
-              <span
-                class="numbered-title"
-              >Übungsaufgabe
+              <span class="numbered-title">Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
                 </span>Zeigen Sie, dass $\R_0^+ \approx \R^+$ gilt. Sie müssen "die 0
               verschwinden lassen".
             </p>
           </div>
-          <div
-            class="well well-lg numbered-exercise container"
-          >
+          <div class="well well-lg numbered-exercise container">
             <p>
               <span
                 id="exercise-open-closed-half-open"
@@ -176,9 +137,7 @@
             syntaktisch. Es ist allerdings bequemer, sich ein $\phi \in
             \{0,1\}^{\N}$ als unendliche $0/1$-Folge vorzustellen.
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
               <span
                 id="theorem-R-bitstrings"
@@ -188,16 +147,11 @@
                 </span>$\R \approx \{0,1\}^{\N}$.
             </p>
           </div>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <p>
               <b>Beweis.</b>
               Die Beweisidee ist einfach, allerdings gehen erst einmal ein paar
-              Dinge schief, die man wieder flicken muss. Da laut<span
-                data-ref="exercise-open-closed-half-open"
-                class="reference"
-              ></span>$\R \approx [0,1)$ gilt, reicht es, eine Bijektion $f : [0,1)
+              Dinge schief, die man wieder flicken muss. Da laut$\R \approx [0,1)$ gilt, reicht es, eine Bijektion $f : [0,1)
               \rightarrow \{0,1\}^{\N}$ zu konstruieren. So geht's:
             </p>
             <p>
@@ -232,13 +186,9 @@
               \rightarrow \{0,1\}^{\N}$ zu bauen, müssen wir die Lücken füllen,
               die $f$ lässt - also $X$.
             </p>
-            <div
-              class="well well-lg numbered-exercise container-fluid"
-            >
+            <div class="well well-lg numbered-exercise container-fluid">
               <p>
-                <span
-                  class="numbered-title"
-                >Übungsaufgabe
+                <span class="numbered-title">Übungsaufgabe
                   <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
                   </span>Sei $Y := \{ a<i>1 a</i>2 a<i>3 \dots \in \{0,1\}^{\N} \ | \ \exists\ n
                   \geq 1: a</i>i = 0 \ \forall i \geq n\}$ die Menge aller $0/1$-Folgen
@@ -249,37 +199,24 @@
                 Zeigen Sie, dass $Y \approx X \cup Y$ gilt.
               </p>
             </div>
-            <div
-              class="well well-lg numbered-exercise container-fluid"
-            >
+            <div class="well well-lg numbered-exercise container-fluid">
               <p>
-                <span
-                  class="numbered-title"
-                >Übungsaufgabe
+                <span class="numbered-title">Übungsaufgabe
                   <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
                   </span>Verwenden Sie die vorherige Übungsaufgabe, um $Y$ zu verdoppeln
                 und somit eine Bijektion von $[0,1) \rightarrow \{0,1\}^{\N}$ zu
                 konstruieren. Vielleicht hilft Ihnen folgendes Bild:
               </p>
-              <figure>
-                <img
-                  style="width: 80%"
-                  src="../img/infinite-sets/interval-sequences-fill-the-gaps.svg"
-                >
-              </figure>
             </div>
-            <span
-              class="qed"
-            >\(\square\)</span>
+            <span class="qed">
+              </span>
           </div>
           <p>
             Als nächstes zeigen wir, dass $\R \approx \R^2$ gilt. Dies ist schon
             erstaunlich: der Zahlenstrahl und die zweidimensionale Ebene sollen
             also gleichviele Elemente haben!
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
               <span
                 id="theorem-square-interval"
@@ -289,15 +226,10 @@
                 </span>Es gilt $\R^2 \approx \R$.
             </p>
           </div>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <p>
               <b>Beweis.</b>
-              Mithilfe von<span
-                data-ref="theorem-R-bitstrings"
-                class="reference"
-              ></span>
+              Mithilfe von
               geht
               das ganz einfach. Da $\R \approx \{0,1\}^\N$ gilt, reicht es
               nämlich, eine Bijektion $\{0,1\}^\N \times \{0,1\}^\N \rightarrow
@@ -314,16 +246,12 @@
             </p>
             \begin{align*} (a<i>1 a</i>2 a<i>3 \dots, b</i>1 b<i>2 b</i>3 \dots) \mapsto (a<i>1 b</i>1
             a<i>2 b</i>2 a<i>3 b</i>3 \dots) \end{align*} Dies ist die gewünschte Bijektion
-            $\{0,1\}^\N \times \{0,1\}^\N \rightarrow \{0,1\}^\N$ .<span
-              class="qed"
-            >\(\square\)</span>
+            $\{0,1\}^\N \times \{0,1\}^\N \rightarrow \{0,1\}^\N$ .<span class="qed">
+              </span>
           </div>
           <p>
             Aus der Funktion $f: \{0,1\}^{\N} \times \{0,1\}^{\N} \mapsto
-            \{0,1\}^{\N}$ aus<span
-              data-ref="theorem-square-interval"
-              class="reference"
-            ></span>können wir eine (fast) bijektive Funktion $[0,1) \times [0,1)
+            \{0,1\}^{\N}$ auskönnen wir eine (fast) bijektive Funktion $[0,1) \times [0,1)
             \rightarrow [0,1)$ bauen. Wir nehmen zwei Zahlen $0 \leq x,y \lt 1$,
             schreiben sie in Binärdarstellung und vereinigen sie dann per
             Reißverschlussverfahren zu einer Zahl, z.B.
@@ -343,11 +271,6 @@
             versuchen, sie zu plotten:
           </p>
           <figure>
-            <img
-              style="height: 20em"
-              src="../img/infinite-sets/bijection-square-interval.png"
-            >
-            <br>
             <div>
               Plot der (Fast-) Bijektion $f : [0,1) \times [0,1) \rightarrow
               [0,1)$. Ausgabewerte sind mit Farbwerten / Helligkeitswerten
@@ -370,13 +293,9 @@
           <p>
             also $f^{-1}(1/7) = (2/7, 1/7)$.
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
-              <span
-                class="numbered-title"
-              >Beobachtung
+              <span class="numbered-title">Beobachtung
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
                 </span>
               Die Funktion
@@ -401,9 +320,7 @@
               </li>
             </ul>
           </div>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <p>
               <b>Beweis.</b>
               Wir zeigen den ersten Punkt. Sei $0 \leq z \lt 1/2$ und $(x,y) =
@@ -411,9 +328,8 @@
               (0.00z<i>3z</i>4z_5\dots)$. Die ersten beiden Bits nach dem Komma sind
               $0$, und somit sind die jeweils ersten Bits von $x$ und $y$ auch 0,
               was $x,y \lt 1/2$ bedeutet. Punkt 2 bis 4 folgen aus ähnlichen
-              Überlegungen.<span
-                class="qed"
-              >\(\square\)</span>
+              Überlegungen.<span class="qed">
+                </span>
             </p>
           </div>
           <p>
@@ -422,12 +338,6 @@
             unten und bewegt sich nach rechts oben. Grafisch stelle ich das wie
             folgt (und etwas unbeholfen) dar:
           </p>
-          <figure>
-            <img
-              style="height: 10em"
-              src="../img/infinite-sets/interval-to-square.svg"
-            >
-          </figure>
           <p>
             Beachten Sie, dass die Verbindungslinien zwischen den Kreisen Sprünge
             sind, also Unstetigkeitsstellen von $f^{-1}$. Innerhalb der
@@ -435,104 +345,6 @@
             \frac{1}{2}\right)$) sieht der Graph wieder ganz ähnlich aus. Hier
             sehen Sie die ersten paar Schritte dieser "Verfeinerung".
           </p>
-          <figure
-            class="centered-figure well container"
-          >
-            <a
-              data-slide="prev"
-              href="#interval-to-square"
-              class="left carousel-control-prev-icon"
-            >
-              <div
-                class="carousel-nav-icon"
-              >
-                <img
-                  src="../img/carousel-prev-icon.svg"
-                >
-              </div>
-            </a><a
-              data-slide="next"
-              href="#interval-to-square"
-              class="right carousel-control-next-icon"
-            >
-              <div
-                class="carousel-nav-icon"
-              >
-                <img
-                  src="../img/carousel-next-icon.svg"
-                >
-              </div>
-            </a>
-            <div
-              style="display: inline-block"
-              data-interval="false"
-              class="carousel"
-              id="interval-to-square"
-            >
-              <ol
-                class="carousel-indicators"
-              >
-                <li
-                  class="active"
-                  data-slide-to="1"
-                  data-target="#interval-to-square"
-                >
-                </li>
-                <li
-                  data-slide-to="2"
-                  data-target="#interval-to-square"
-                >
-                </li>
-                <li
-                  data-slide-to="3"
-                  data-target="#interval-to-square"
-                >
-                </li>
-                <li
-                  data-slide-to="4"
-                  data-target="#interval-to-square"
-                >
-                </li>
-              </ol>
-              <div
-                style="display: inline-block"
-                class="carousel-inner"
-              >
-                <div
-                  class="item active"
-                >
-                  <img
-                    style="height: 15em"
-                    src="../img/infinite-sets/interval-to-square-animation/figures-01-01.svg"
-                  >
-                </div>
-                <div
-                  class="item"
-                >
-                  <img
-                    style="height: 15em"
-                    src="../img/infinite-sets/interval-to-square-animation/figures-01-02.svg"
-                  >
-                </div>
-                <div
-                  class="item"
-                >
-                  <img
-                    style="height: 15em"
-                    src="../img/infinite-sets/interval-to-square-animation/figures-01-03.svg"
-                  >
-                </div>
-                <div
-                  class="item"
-                >
-                  <img
-                    style="height: 15em"
-                    src="../img/infinite-sets/interval-to-square-animation/figures-01-04.svg"
-                  >
-                </div>
-              </div>
-            </div>
-          </figure>
           <p>
             Wir wissen nun, dass $\R \approx \R^2$ gilt. Ebenso können wir $\R
             \approx \R^{k}$ für jedes $k \in \N^+$ zeigen. Wie sieht es aber mit
@@ -540,21 +352,15 @@
             \rightarrow \R$ oder, etwas freundlicher formuliert, die Menge aller
             unendlichen Folgen reeller Zahlen: $r<i>1, r</i>2, r_3, \dots$.
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
-              <span
-                class="numbered-title"
-              >Theorem
+              <span class="numbered-title">Theorem
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
                 </span>
               $\R \approx \R^{\N}$.
             </p>
           </div>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <p>
               <b>Beweis.</b>
               Da $\R \approx \cuben$ gilt, reicht es, zu zeigen, dass
@@ -569,55 +375,33 @@
                 $r</i>{i,j}$ das $j$-te Bit der $i$-ten Folge, dann sieht unsere
               Tabelle so aus:
             </p>
-            <figure>
-              <img
-                style="width: 40%"
-                src="../img/infinite-sets/table-infinite-sequences.svg"
-              >
-            </figure>
             <p>
               Wir wollen jetzt eine Bijektion $f : \cuben \times \cuben
               \rightarrow \cuben$ definieren. Dafür wenden wir den gleichen Trick
               an wie in dem Beweis, dass $\N \approx \N \times \N$ ist: wir
               zerlegen die Tabelle in Diagonalen und arbeiten jede separat ab:
             </p>
-            <figure>
-              <img
-                style="width: 40%"
-                src="../img/infinite-sets/table-infinite-sequences-with-blue.svg"
-              >
-            </figure>
             <p>
               Schließlich definieren wir unsere Folge $s<i>1 s</i>2 s_3 \dots \in
               \cuben$:
             </p>
-            <figure>
-              <img
-                style="width: 40%"
-                src="../img/infinite-sets/table-infinite-sequences-with-s.svg"
-              >
-            </figure>
-            <span
-              class="qed"
-            >\(\square\)</span>
+            <span class="qed">
+              </span>
           </div>
           <p>
             Wir haben also die Beweisidee von $\N \times \N \approx \N$ recycelt.
             Diese Beobachtung motiviert den folgenden, etwas kurz angebundenen
             Beweis:
           </p>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <p>
               <b>Zweiter Beweis.</b>
               Um zu zeigen, dass $\R^\N \approx \R$ gilt, rechnen wir:
             </p>
             \begin{align} \R^\N&amp;\approx \left(\cuben\right)^{\N} \\&amp;\approx
             \cube^{\N \times \N} \\&amp;\approx \cube^{\N} \\&amp;\approx \R \ .
-            \end{align}<span
-              class="qed"
-            >\(\square\)</span>
+            \end{align}<span class="qed">
+              </span>
           </div>
           <p>
             Dürfen wir das? Dürfen wir Rechenregeln wie $\left(x^{b}\right)^c =
@@ -651,9 +435,7 @@
           </p>
           \begin{align*} A \uplus B := \{ (a,0) \ | \ a \in A\} \cup \{ (b,1) \ |
            b \in B\} \ . \end{align*}
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
               <span
                 id="calculating-with-cardinals"
@@ -684,9 +466,7 @@
             "mengentheoretisch-arithmetischen" Ausdruck eine Menge $A$ durch eine
             äquipotente Menge $A'$ ersetzen können:
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
               <span
                 id="replacing-equipotent-cardinals"
@@ -717,23 +497,13 @@
             zusammengefasst habe. Punkt 4 folgt nämlich nicht unmittelbar aus
             Punkt 3 sondern erfordert einen separaten Beweis.
           </p>
-          <div
-            class="well well-lg numbered-exercise container"
-          >
+          <div class="well well-lg numbered-exercise container">
             <p>
-              <span
-                class="numbered-title"
-              >Übungsaufgabe
+              <span class="numbered-title">Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
                 </span>
               Beweisen Sie so
-              viele Punkte von<span
-                data-ref="calculating-with-cardinals"
-                class="reference"
-              ></span>und<span
-                data-ref="replacing-equipotent-cardinals"
-                class="reference"
-              ></span>, wie Sie wollen.
+              viele Punkte vonund, wie Sie wollen.
             </p>
             <p>
               <b>Hinweis.</b>
@@ -749,13 +519,9 @@
             Wir betrachten $2^{\N}$, die Potenzmenge von $\N$, also die Menge
             aller Teilmengen.
           </p>
-          <div
-            class="well well-lg numbered-exercise container"
-          >
+          <div class="well well-lg numbered-exercise container">
             <p>
-              <span
-                class="numbered-title"
-              >Übungsaufgabe
+              <span class="numbered-title">Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
                 </span>Zeigen Sie, dass $2^{\N} \approx \cuben$ gilt.
             </p>
@@ -805,13 +571,9 @@
             wählen, sie finden immer noch ein $B$ dazwischen: $\{0\} \subsetneq B
             \subsetneq A$.
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
-              <span
-                class="numbered-title"
-              >Definition
+              <span class="numbered-title">Definition
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.8</NumberedTitle>
                 </span>
               <b>(Dichte Partialordnung)</b>
@@ -829,13 +591,9 @@
             ist nicht dicht: es gilt $\{2\} \subsetneq \{2,3\}$, aber es gibt
             keine Menge zwischen den beiden.
           </p>
-          <div
-            class="well well-lg numbered-exercise container"
-          >
+          <div class="well well-lg numbered-exercise container">
             <p>
-              <span
-                class="numbered-title"
-              >Übungsaufgabe
+              <span class="numbered-title">Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.8</NumberedTitle>
                 </span>Finden Sie in $(2^\N, \subseteq)$ eine Kette $X$, so dass $(X,
               \subseteq)$ dicht ist. Also: eine Menge $X$, so dass für alle $A,C

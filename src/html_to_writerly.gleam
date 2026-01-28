@@ -1,4 +1,5 @@
-import blamedlines as bl
+import blame as bl
+import io_lines as io_l
 import gleam/int
 import gleam/io
 import gleam/list
@@ -10,13 +11,14 @@ import html_pipeline
 import infrastructure as infra
 import simplifile
 import vxml.{type VXML} as vp
-import vxml_renderer as vr
+import desugaring as vr
 import writerly as wp
+import on
 
 const ins = string.inspect
 
 fn blame_us(message: String) -> bl.Blame {
-  bl.Blame(message, -1, -1, [])
+  bl.Ext([], message)
 }
 
 fn each_prev_next(
@@ -50,7 +52,7 @@ fn construct_left_nav(prev_file: Option(String)) {
       blame_us("toc link"),
       "a",
       [
-        vp.BlamedAttribute(
+        vp.Attr(
           blame_us("toc link attribute"),
           "href",
           "../vorlesungsskript.html",
@@ -58,7 +60,7 @@ fn construct_left_nav(prev_file: Option(String)) {
       ],
       [
         vp.T(blame_us("toc link text node"), [
-          vp.BlamedContent(blame_us("toc link content"), "Inhaltsverzeichnis"),
+          vp.Line(blame_us("toc link content"), "Inhaltsverzeichnis"),
         ]),
       ],
     )
@@ -81,7 +83,7 @@ fn construct_left_nav(prev_file: Option(String)) {
           blame_us("Prev section link"),
           "a",
           [
-            vp.BlamedAttribute(
+            vp.Attr(
               blame_us("Prev section attribute"),
               "href",
               prev_file,
@@ -89,7 +91,7 @@ fn construct_left_nav(prev_file: Option(String)) {
           ],
           [
             vp.T(blame_us("Prev section text node"), [
-              vp.BlamedContent(
+              vp.Line(
                 blame_us("Prev section content"),
                 "&lt;&lt; Kapitel " <> prev_number,
               ),
@@ -104,7 +106,7 @@ fn construct_left_nav(prev_file: Option(String)) {
   vp.V(
     blame_us("left nav div"),
     "div",
-    [vp.BlamedAttribute(blame_us("left nav attribute"), "id", "link-to-toc")],
+    [vp.Attr(blame_us("left nav attribute"), "id", "link-to-toc")],
     list.flatten([[toc_link], prev_section_link]),
   )
 }
@@ -114,10 +116,10 @@ fn construct_right_nav(next_file: Option(String)) {
     vp.V(
       blame_us("overview link"),
       "a",
-      [vp.BlamedAttribute(blame_us("overview link attribute"), "href", "/")],
+      [vp.Attr(blame_us("overview link attribute"), "href", "/")],
       [
         vp.T(blame_us("overview link text node"), [
-          vp.BlamedContent(
+          vp.Line(
             blame_us("overview link content"),
             "zur Kursübersicht",
           ),
@@ -143,7 +145,7 @@ fn construct_right_nav(next_file: Option(String)) {
           blame_us("next section link"),
           "a",
           [
-            vp.BlamedAttribute(
+            vp.Attr(
               blame_us("next section attribute"),
               "href",
               next_file,
@@ -151,7 +153,7 @@ fn construct_right_nav(next_file: Option(String)) {
           ],
           [
             vp.T(blame_us("next section text node"), [
-              vp.BlamedContent(
+              vp.Line(
                 blame_us("next section content"),
                 "Kapitel " <> next_number <> " &gt;&gt;",
               ),
@@ -167,12 +169,12 @@ fn construct_right_nav(next_file: Option(String)) {
     blame_us("right nav div"),
     "div",
     [
-      vp.BlamedAttribute(
+      vp.Attr(
         blame_us("right nav attribute"),
         "id",
         "link-to-overview",
       ),
-      vp.BlamedAttribute(
+      vp.Attr(
         blame_us("right nav attribute"),
         "style",
         "text-align: end",
@@ -182,9 +184,9 @@ fn construct_right_nav(next_file: Option(String)) {
   )
 }
 
-fn splitter(vxml: VXML, file: String) -> Result(List(#(String, VXML, Nil)), a) {
+fn splitter(vxml: VXML, file: String) -> Result(List(vr.OutputFragment(Nil, VXML)), a) {
   let wly_file = file |> string.drop_end(5) <> ".wly"
-  Ok([#(wly_file, vxml, Nil)])
+  Ok([vr.OutputFragment(Nil, wly_file, vxml)])
 }
 
 fn remove_line_break_from_end(res: String) -> String {
@@ -217,8 +219,8 @@ fn get_title_internal(vxml: VXML) -> String {
     vp.T(_, _) -> ""
     vp.V(_, _, _, children) -> {
       case
-        infra.children_with_class(vxml, "subChapterTitle"),
-        infra.children_with_class(vxml, "chapterTitle")
+        infra.v_children_with_class(vxml, "subChapterTitle"),
+        infra.v_children_with_class(vxml, "chapterTitle")
       {
         [found, ..], _ -> title_from_vxml(found)
         _, [found, ..] -> title_from_vxml(found)
@@ -242,11 +244,11 @@ fn get_title(vxmls: List(VXML)) -> String {
 }
 
 fn emitter(
-  triple: #(String, VXML, Nil),
-  prev_file: Option(String),
-  next_file: Option(String),
-) -> Result(#(String, List(bl.BlamedLine), Nil), String) {
-  let #(filename, vxml, Nil) = triple
+  fragment: vr.OutputFragment(Nil, VXML),
+  _prev_file: Option(String),
+  _next_file: Option(String),
+) -> Result(vr.OutputFragment(Nil, List(io_l.OutputLine)), String) {
+  let vr.OutputFragment(_, filename, vxml) = fragment
   let title_en =
     filename
     |> string.drop_end(4)
@@ -257,12 +259,12 @@ fn emitter(
   let chapter_number_as_string =
     filename |> string.split_once("-") |> result.unwrap(#("", "")) |> pair.first
   let assert True = chapter_number_as_string != ""
-  let number =
-    filename
-    |> string.split("-")
-    |> list.take(2)
-    |> list.map(remove_0_at_start)
-    |> string.join(".")
+  // let number =
+  //   filename
+  //   |> string.split("-")
+  //   |> list.take(2)
+  //   |> list.map(remove_0_at_start)
+  //   |> string.join(".")
   let assert [chapter_number, section_number] =
     filename
     |> string.split("-")
@@ -292,26 +294,27 @@ fn emitter(
     }
   }
 
-  let root =
-    vp.V(
-      blame_us("Root"),
-      "section",
-      [
-        vp.BlamedAttribute(blame_us("section title"), "title_gr", title_german),
-        vp.BlamedAttribute(blame_us("section title"), "title_en", title_en),
-        vp.BlamedAttribute(blame_us("section title"), "number", number),
-        // Counter attributes
-        vp.BlamedAttribute(blame_us("section def counter"), "counter", "DefCtr"),
-        vp.BlamedAttribute(blame_us("section exo counter"), "counter", "ExoCtr"),
-      ],
-      [construct_left_nav(prev_file), construct_right_nav(next_file), vxml],
-    )
-  let writerlys = wp.vxmls_to_writerlys([root])
+  // let root =
+  //   vp.V(
+  //     blame_us("Root"),
+  //     "section",
+  //     [
+  //       vp.Attr(blame_us("section title"), "title_gr", title_german),
+  //       vp.Attr(blame_us("section title"), "title_en", title_en),
+  //       vp.Attr(blame_us("section title"), "number", number),
+  //       // Counter attributes
+  //       vp.Attr(blame_us("section def counter"), "counter", "DefCtr"),
+  //       vp.Attr(blame_us("section exo counter"), "counter", "ExoCtr"),
+  //     ],
+  //     [construct_left_nav(prev_file), construct_right_nav(next_file), vxml],
+  //   )
 
-  Ok(#(
-    chapter_directory <> "/" <> filename,
-    wp.writerlys_to_blamed_lines(writerlys),
-    Nil,
+  let writerlys = wp.vxml_to_writerlys(vxml)
+
+  Ok(vr.OutputFragment(
+    classifier: Nil,
+    path: chapter_directory <> "/" <> filename,
+    payload: wp.writerlys_to_output_lines(writerlys),
   ))
 }
 
@@ -347,11 +350,22 @@ fn directory_files_else_file(
   }
 }
 
+fn html_purifying_assembler(
+  path: String,
+) -> Result(#(List(io_l.InputLine), option.Option(a)), simplifile.FileError) {
+  use content <- on.ok(simplifile.read(path))
+  let lines = 
+    content
+    |> vp.bad_html_pre_processor
+    |> io_l.string_to_input_lines(path, 0)
+  Ok(#(lines, option.None))
+}
+
 pub fn html_to_writerly(
   path: String,
   amendments: vr.CommandLineAmendments,
 ) -> Nil {
-  use #(dir, files) <- infra.on_error_on_ok(
+  use #(dir, files) <- on.error_ok(
     directory_files_else_file(path),
     fn(e) { io.print("failed to load files from " <> path <> ": " <> ins(e)) },
   )
@@ -360,48 +374,45 @@ pub fn html_to_writerly(
 
   each_prev_next(files, option.None, fn(file, prev, next) {
     let path = dir <> "/" <> file
-    use <- infra.on_false_on_true(
-      amendments.spotlight_args_files
+    use <- on.eager_false_true(
+      amendments.only_paths
       |> list.any(fn(f) { string.contains(path, f) || string.is_empty(f) })
-        || list.is_empty(amendments.spotlight_args_files),
+        || list.is_empty(amendments.only_paths),
       Nil,
     )
 
-    io.println("html_to_writerly converting " <> path <> " to writerly (?)")
+    io.println("")
+    io.println("html_to_writerly will try to convert " <> path <> " to .wly 👇")
+    io.println("")
 
     let parameters =
-      vr.RendererParameters(input_dir: path, output_dir: option.Some("."))
-      |> vr.amend_renderer_paramaters_by_command_line_amendment(amendments)
-
-    io.println("after amend_renderer...")
+      vr.RendererParameters(input_dir: path, output_dir: ".", prettifier_behavior: vr.PrettifierOff)
+      |> vr.amend_renderer_paramaters_by_command_line_amendments(amendments)
 
     let renderer =
       vr.Renderer(
-        assembler: bl.path_to_blamed_lines_easy_mode,
-        source_parser: vr.default_html_source_parser(_, amendments.spotlight_args),
+        assembler: html_purifying_assembler,
+        parser: vr.default_html_parser(_, amendments.only_key_values),
         pipeline: html_pipeline.html_pipeline(),
         splitter: fn(vxml) { splitter(vxml, file) },
-        emitter: fn(pair) { emitter(pair, prev, next) },
+        emitter: fn(fragment) { emitter(fragment, prev, next) },
+        writer: vr.default_writer,
         prettifier: vr.empty_prettifier,
       )
+      |> vr.amend_renderer_by_command_line_amendments(amendments)
 
-    io.println("after renderer = ...")
+    let renderer_options =
+      vr.vanilla_options()
+      |> vr.amend_renderer_options_by_command_line_amendments(amendments)
 
-    let debug_options =
-      vr.empty_renderer_debug_options("../renderer_artifacts")
-      |> vr.amend_renderer_debug_options_by_command_line_amendment(
-        amendments,
-        html_pipeline.html_pipeline(),
-      )
-
-    io.println("after debug_options = ...")
-
-    case vr.run_renderer(renderer, parameters, debug_options) {
-      Ok(Nil) -> Nil
+    case vr.run_renderer(renderer, parameters, renderer_options) {
+      Ok(_) -> Nil
       Error(error) -> {
         io.println("\nrenderer error on path " <> path <> ":")
         io.println(ins(error))
       }
     }
   })
+
+  io.println("")
 }

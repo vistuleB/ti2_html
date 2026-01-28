@@ -19,7 +19,7 @@
 <body>
 <section
   count="7"
-  .="BookLevelSectionCounter 7"
+  _="BookLevelSectionCounter 7"
   title_gr="und obere Schranken"
   title_en="lower and upper bounds"
   number="1.6"
@@ -27,43 +27,21 @@
   counter="ExoCtr"
   path="/lecture-notes7"
 >
-  <div
-    id="link-to-toc"
-  >
-    <a
-      href="../vorlesungsskript.html"
-    >Inhaltsverzeichnis</a><a
-      href="01-05-majority.html"
-    >&lt;&lt; Kapitel 1.5</a>
+  <div id="link-to-toc">
+    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="01-05-majority.html">&lt;&lt; Kapitel 1.5</a>
   </div>
   <div
     id="link-to-overview"
     style="text-align: end"
   >
-    <a
-      href="/"
-    >zur Kursübersicht</a><a
-      href="02-00-infinite-sets.html"
-    >Kapitel 2.0 &gt;&gt;</a>
+    <a href="/">zur Kursübersicht</a><a href="02-00-infinite-sets.html">Kapitel 2.0 &gt;&gt;</a>
   </div>
-  <div
-    id="rightSideWrapper"
-  >
-    <div
-      class="content"
-    >
-      <div
-        class="chapter"
-      >
-        <div
-          class="subChapter"
-        >
-          <h1
-            class="hidden-title"
-          >
-            <span
-              class="subChapterTitle"
-            >::::ChapterCtr.6
+  <div id="rightSideWrapper">
+    <div class="content">
+      <div class="chapter">
+        <div class="subChapter">
+          <h1 class="hidden-title">
+            <span class="subChapterTitle">::::ChapterCtr.6
               Untere und obere Schranken</span>
           </h1>
           <p>
@@ -75,13 +53,9 @@
             zuerst eine CNF oder DNF bauen und dann auf Fan-in 2 bestehen). Die offensichtliche
             Frage: geht es besser? Die Antwort: Ja, aber nicht viel besser.
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
-              <span
-                class="numbered-title"
-              >Theorem
+              <span class="numbered-title">Theorem
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
                 </span>
               <b>(Shannon).</b>
@@ -90,9 +64,7 @@
               als $\Omega(2^n / n)$ haben.
             </p>
           </div>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <p>
               <b>Beweis.</b>
               Die Beweismethode ist vielleicht neu für Sie, aber in der Komplexitätstheorie und
@@ -115,13 +87,9 @@
               mit $n$ Variablen. Warum? Die Wahrheitstabelle hat $2^n$ Zeilen. Sie könnne sich
               also $2^n$ mal für $0$ oder $1$ entscheiden.
             </p>
-            <div
-              class="well container-fluid subtheorem"
-            >
+            <div class="well container-fluid subtheorem">
               <p>
-                <span
-                  class="numbered-title"
-                >Behauptung
+                <span class="numbered-title">Behauptung
                   <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
                   </span>
                 Sei $s \geq n \geq 1$. Dann gibt es
@@ -129,9 +97,7 @@
                 $s^{2s+1}$ Schaltkreise mit $n$ Input-Variablen, Fan-in 2 und $s$ Gates.
               </p>
             </div>
-            <div
-              class="well container-fluid"
-            >
+            <div class="well container-fluid">
               <p>
                 <b>Beweis.</b>
                 Wir bauen den Schaltkreis, indem wir erst einmal $s$ Gates unbeschriftet "hinmalen".
@@ -161,10 +127,7 @@
                   </ul>
                   <p>
                     Insgesamt haben wir also
-                    $$
-                    n + (s-1) + 2 {s-1 \choose 2} = n + s - 1 + (s-1)(s-2) =
-                    n + s^2 - 2s + 1 \leq s^2
-                    $$
+                    
                     Möglichkeiten.
                   </p>
                 </li>
@@ -177,15 +140,9 @@
                 Um die Gesamtzahl der Möglichkeiten abzuschätzen, müssen wir das alles multiplizieren.
                 Wir haben höchstens
               </p>
-              $$
-              \underbrace{s}_{\textnormal{Output-Gate wählen}} \cdot \underbrace{\prod_{i=1}^s
-              (s^2)}_{\textnormal{jedes Gate beschriften}}
-              = s \cdot (s^2)^s = s^{2s+1}
-              $$
               Möglichkeiten. Es gibt also höchstens $s^{2s+1}$ verschiedene Schaltkreise mit $s$ Gates,
-              Fan-in 2 und $n$ Variablen.<span
-                class="qed"
-              >\(\square\)</span>
+              Fan-in 2 und $n$ Variablen.<span class="qed">
+                </span>
             </div>
             <p>
               Wählen wir nun $s := 2^{n} / (2n)$. Wieviele Schaltkreise mit $n$ Variablen, Fan-in 2 und
@@ -199,18 +156,13 @@
             <p>
               Also: es gibt mehr Boolesche Funktionen in $n$ Variablen, als es Boolesche Schaltkreise
               mit $\frac{2^n}{2n}$ Gates gibt. Somit benötigen manche Boolesche Funktionen
-              mehr als $\frac{2^n}{2n}$ Gates.<span
-                class="qed"
-              >\(\square\)</span>
+              mehr als $\frac{2^n}{2n}$ Gates.<span class="qed">
+                </span>
             </p>
           </div>
-          <div
-            class="well well-lg numbered-exercise container"
-          >
+          <div class="well well-lg numbered-exercise container">
             <p>
-              <span
-                class="numbered-title"
-              >Übungsaufgabe
+              <span class="numbered-title">Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
                 </span>In Theorem und Beweis sprechen wir die ganze Zeit nur von Schaltkreisen
               mit Fan-in 2. Was geschieht, wenn wir beliebigen Fan-in erlauben?
@@ -234,13 +186,9 @@
             <i>können</i>, weil also die dafür
             benötigten Berechnungen effizient durchführbar sind.
           </p>
-          <div
-            class="well container subtheorem"
-          >
+          <div class="well container subtheorem">
             <p>
-              <span
-                class="numbered-title"
-              >Forschungsprojekt.</span>
+              <span class="numbered-title">Forschungsprojekt.</span>
               Finde eine konkret
               beschreibbare Funktion $f: \fcube$, die exponentiell viele (oder zumindest superpolynomiell
               viele)
@@ -252,13 +200,9 @@
             Entscheidungsproblem, dass für eine "schwierige" Komplexitätsklasse vollständig
             ist, einen Kandidaten. Also zum Beispiel Graphenfärbbarkeit.
           </p>
-          <div
-            class="well container subtheorem"
-          >
+          <div class="well container subtheorem">
             <p>
-              <span
-                class="numbered-title"
-              >Entscheidungsproblem 3-Färbbarkeit.</span>
+              <span class="numbered-title">Entscheidungsproblem 3-Färbbarkeit.</span>
               Gegeben
               ein Graph $G = (V,E)$, gibt es eine Funktion
             </p>
@@ -277,13 +221,9 @@
             eines der großen offenen Probleme der Mathematik insgesamt gilt. Die
             Frage, ob NP-Probleme polynomiell große Schaltkreise haben, ist noch offener.
           </p>
-          <div
-            class="well well-lg numbered-exercise container"
-          >
+          <div class="well well-lg numbered-exercise container">
             <p>
-              <span
-                class="numbered-title"
-              >Übungsaufgabe
+              <span class="numbered-title">Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
                 </span>Formal gesehen ist Graphenfärbbarkeit eine Sprache
               $L \subseteq \Sigma^*$ über einem Alphabet $\Sigma$, dass uns
@@ -300,22 +240,16 @@
             als $\frac{2^{n}}{2n}$ Gates nicht geht. Diese beiden Schranken lassen
             aber immer noch eine Lücke der Größenordnung $n$. Können wir sie schließen?
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
-              <span
-                class="numbered-title"
-              >Theorem
+              <span class="numbered-title">Theorem
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
                 </span>
               <b>(Lupanov)</b>. Für jede Boolesche
               Funktion in $n$ Variablen gibt es einen Schaltkreis mit Fan-in 2 und $O(2^n / n)$ Gates.
             </p>
           </div>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <p>
               <b>Beweis.</b>
               Der Beweis fußt auf zwei Kernideen: erstens bauen wir den Schaltkreis nicht
@@ -348,13 +282,9 @@
               als Konstanten eh nur 0 und 1 gibt.
               Ein Polynom $p(\x)$ berechnet eine Boolesche Funktion $\fcube$.
             </p>
-            <div
-              class="well well-lg numbered-exercise container-fluid"
-            >
+            <div class="well well-lg numbered-exercise container-fluid">
               <p>
-                <span
-                  class="numbered-title"
-                >Übungsaufgabe
+                <span class="numbered-title">Übungsaufgabe
                   <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
                   </span>Zeigen Sie, dass sich jede Boolesche Funktion $f$
                 als $\F_2$-Polynom schreiben lässt.
@@ -377,13 +307,9 @@
               Da wir über $\F_2$ arbeiten, beschränken wir uns aber eh auf multilineare Polynome,
               wo also alle Exponenten 1 sind.
             </p>
-            <div
-              class="well well-lg numbered-exercise container"
-            >
+            <div class="well well-lg numbered-exercise container">
               <p>
-                <span
-                  class="numbered-title"
-                >Übungsaufgabe
+                <span class="numbered-title">Übungsaufgabe
                   <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
                   </span>Zeigen Sie, dass sich jede Funktion $f :\fcube$
                 <i>eindeutig</i>
@@ -413,13 +339,9 @@
               <i>alle</i>
               $2^n$ Monome vertreten sind, bestehen nicht alle Monome aus $n$ Variablen.
             </p>
-            <div
-              class="well well-lg numbered-exercise container"
-            >
+            <div class="well well-lg numbered-exercise container">
               <p>
-                <span
-                  class="numbered-title"
-                >Übungsaufgabe
+                <span class="numbered-title">Übungsaufgabe
                   <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
                   </span>Rechnen Sie genauer! Wenn Sie alle Monome berechnen wollen,
                 brauchen Sie
@@ -436,13 +358,9 @@
               AND-Gates und $2^n-1$ XOR-Gates berechnet. Wir zeigen in der Tat
               etwas mehr:
             </p>
-            <div
-              class="well container-fluid theorem"
-            >
+            <div class="well container-fluid theorem">
               <p>
-                <span
-                  class="numbered-title"
-                >Lemma
+                <span class="numbered-title">Lemma
                   <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
                   </span>
                 Es gibt einen
@@ -450,16 +368,8 @@
                 $2^n$ Output-Gates, eines für jedes Monom $x^{I}$, der
                 $2^n$ Gates hat.
               </p>
-              <figure>
-                <img
-                  style="height:10em"
-                  src="../img/circuits/all-monomials.svg"
-                >
-              </figure>
             </div>
-            <div
-              class="well container-fluid"
-            >
+            <div class="well container-fluid">
               <p>
                 <b>Beweis.</b>
                 Die Idee ist: wenn wir $x<i>1 x</i>2 x<i>3 x</i>4$ berechnen wollen,
@@ -482,82 +392,9 @@
                   Um $C</i>n$ zu bauen, schaffen wir für jedes $I \subseteq [n-1]$
                 ein AND-Gate, das $\x^{I} \wedge x_n$ berechnet.
               </p>
-              <figure
-                class="centered-figure well container-fluid"
-              >
-                <a
-                  data-slide="prev"
-                  href="#all-monomials"
-                  class="left carousel-control-prev-icon"
-                >
-                  <div
-                    class="carousel-nav-icon"
-                  >
-                    <img
-                      src="../img/carousel-prev-icon.svg"
-                    >
-                  </div>
-                </a><a
-                  data-slide="next"
-                  href="#all-monomials"
-                  class="right carousel-control-next-icon"
-                >
-                  <div
-                    class="carousel-nav-icon"
-                  >
-                    <img
-                      src="../img/carousel-next-icon.svg"
-                    >
-                  </div>
-                </a>
-                <div
-                  style="display:inline-block"
-                  data-interval="false"
-                  class="carousel"
-                  id="all-monomials"
-                >
-                  <ol
-                    class="carousel-indicators"
-                  >
-                    <li
-                      class="active"
-                      data-slide-to="1"
-                      data-target="#all-monomials"
-                    >
-                    </li>
-                    <li
-                      data-slide-to="2"
-                      data-target="#all-monomials"
-                    >
-                    </li>
-                  </ol>
-                  <div
-                    style="display:inline-block"
-                    class="carousel-inner"
-                  >
-                    <div
-                      class="item active"
-                    >
-                      <img
-                        style="width:100%"
-                        src="../img/circuits/all-monomials-1.svg"
-                      >
-                    </div>
-                    <div
-                      class="item"
-                    >
-                      <img
-                        style="width:100%"
-                        src="../img/circuits/all-monomials-2.svg"
-                      >
-                    </div>
-                  </div>
-                </div>
-              </figure>
               Insgesamt erhalten wir $2^n$ Gates, von denen jedes gleichzeitig ein
-              Ouptut-Gate ist.<span
-                class="qed"
-              >\(\square\)</span>
+              Ouptut-Gate ist.<span class="qed">
+                </span>
             </div>
             <p>
               Die zweite Kernidee ist, dass Synergien auftreten, dass
@@ -584,13 +421,9 @@
                 <i>alle</i>
                 Funktionen in $z<i>1,\dots,z</i>k$.
               </p>
-              <div
-                class="well container-fluid subtheorem"
-              >
+              <div class="well container-fluid subtheorem">
                 <p>
-                  <span
-                    class="numbered-title"
-                  >Lemma
+                  <span class="numbered-title">Lemma
                     <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
                     </span>
                   Es gibt einen
@@ -599,26 +432,18 @@
                   Fan-in 2 und insgesamt $2^k + 2^{2^k}$ Gates (AND-Gates und XOR-Gates).
                 </p>
               </div>
-              <div
-                class="well well-lg numbered-exercise container-fluid"
-              >
+              <div class="well well-lg numbered-exercise container-fluid">
                 <p>
-                  <span
-                    class="numbered-title"
-                  >Übungsaufgabe
+                  <span class="numbered-title">Übungsaufgabe
                     <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
                     </span>Beweisen Sie das Lemma. Konstrukieren Sie zuerst wie
                   im vorherigen Lemma einen Schaltkreis, der Ihnen alle
                   Monome berechnet.
                 </p>
               </div>
-              <div
-                class="well well-lg numbered-exercise container-fluid"
-              >
+              <div class="well well-lg numbered-exercise container-fluid">
                 <p>
-                  <span
-                    class="numbered-title"
-                  >Übungsaufgabe
+                  <span class="numbered-title">Übungsaufgabe
                     <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
                     </span>Zeigen Sie, dass die obige Konstruktion verbessert werden kann, indem
                   Sie einen Schaltkreis mit nur $2^{2^k}$ Gates bauen.
@@ -676,9 +501,7 @@
               Ich habe keine explizite Formel, um das für $k$ aufzulösen, also
               setze ich auf gut Glück $k = \log n$ und wir erhalten
             </p>
-            <p
-              style="color:red"
-            >
+            <p style="color:red">
               \begin{align*}
               (\ref{size-lupanov})&amp;= 2^{2^k} + 3 \cdot 2^{n-k} + 2^k - 1 \\
               &amp;= 2^{2^{\log n}} + \dots
@@ -699,9 +522,8 @@
             O\pfrac{2^n}{n} \ .
             \end{align*}
             <p>
-              Das ist die behauptete Schranke.<span
-                class="qed"
-              >\(\square\)</span>
+              Das ist die behauptete Schranke.<span class="qed">
+                </span>
             </p>
           </div>
         </div>

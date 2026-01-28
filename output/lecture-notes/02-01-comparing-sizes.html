@@ -19,7 +19,7 @@
 <body>
 <section
   count="9"
-  .="BookLevelSectionCounter 9"
+  _="BookLevelSectionCounter 9"
   title_gr="ist größer?"
   title_en="comparing sizes"
   number="2.1"
@@ -27,43 +27,21 @@
   counter="ExoCtr"
   path="/lecture-notes9"
 >
-  <div
-    id="link-to-toc"
-  >
-    <a
-      href="../vorlesungsskript.html"
-    >Inhaltsverzeichnis</a><a
-      href="02-00-infinite-sets.html"
-    >&lt;&lt; Kapitel 2.0</a>
+  <div id="link-to-toc">
+    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="02-00-infinite-sets.html">&lt;&lt; Kapitel 2.0</a>
   </div>
   <div
     id="link-to-overview"
     style="text-align: end"
   >
-    <a
-      href="/"
-    >zur Kursübersicht</a><a
-      href="02-02-examples-of-equipotent-sets.html"
-    >Kapitel 2.2 &gt;&gt;</a>
+    <a href="/">zur Kursübersicht</a><a href="02-02-examples-of-equipotent-sets.html">Kapitel 2.2 &gt;&gt;</a>
   </div>
-  <div
-    id="rightSideWrapper"
-  >
-    <div
-      class="content"
-    >
-      <div
-        class="chapter"
-      >
-        <div
-          class="subChapter"
-        >
-          <h1
-            class="hidden-title"
-          >
-            <span
-              class="subChapterTitle"
-            >::::ChapterCtr.1
+  <div id="rightSideWrapper">
+    <div class="content">
+      <div class="chapter">
+        <div class="subChapter">
+          <h1 class="hidden-title">
+            <span class="subChapterTitle">::::ChapterCtr.1
               Wer ist größer?</span>
           </h1>
           <p>
@@ -101,18 +79,12 @@
           </p>
           <p>
             Eine rigorose und belastbare Weise, unendliche Mengen hinsichtlich
-            ihrer Größe zu vergleichen, hat<a
-              href="https://en.wikipedia.org/wiki/Georg_Cantor"
-            >Georg Cantor</a>Ende des 19. Jahrhunderts gefunden. Sie war anfangs nicht
+            ihrer Größe zu vergleichen, hat<a href="https://en.wikipedia.org/wiki/Georg_Cantor">Georg Cantor</a>Ende des 19. Jahrhunderts gefunden. Sie war anfangs nicht
             unumstritten.
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
-              <span
-                class="numbered-title"
-              >Beispiel
+              <span class="numbered-title">Beispiel
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
                 </span>
               Beginnen wir mit einem
@@ -122,12 +94,6 @@
               Weise gleich groß. Ihre Elemente lassen sich nämlich einander
               paarweise zuordnen:
             </p>
-            <figure>
-              <img
-                style="width: 70%"
-                src="../img/infinite-sets/N-N-plus.svg"
-              >
-            </figure>
             <p>
               Wir können diese Zuordnung auch mit einer einfachen Formel
               beschreiben. Die Funktion
@@ -150,13 +116,9 @@
             3, und so weiter. Das Hotel ist also voll belegt, kann aber dennoch
             weitere Gäste aufnehmen.
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
-              <span
-                class="numbered-title"
-              >Beispiel
+              <span class="numbered-title">Beispiel
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
                 </span>
               Ermutigt von unserem
@@ -166,22 +128,10 @@
               wie $\N$ und $\N^+$ in der obigen Abbildung. Um die Elemente
               paarweise zuzuordnen, müssen wir hin- und herspringen:
             </p>
-            <figure>
-              <img
-                style="width: 70%"
-                src="../img/infinite-sets/N-to-Z.svg"
-              >
-            </figure>
             <p>
               Dies ist etwas unübersichtlich. Besser geht es, wenn wir $\Z$
               umstellen:
             </p>
-            <figure>
-              <img
-                style="width: 70%"
-                src="../img/infinite-sets/N-to-Z-nicer.svg"
-              >
-            </figure>
             <p>
               Wir können also unsere Bijektion $f : \N \rightarrow \Z$ wie folgt
               definieren:
@@ -190,13 +140,9 @@
             \frac{n}{2}&amp;\textnormal{ wenn $n$ gerade ist,} \\ - \frac{n+1}{2}&amp;
             \textnormal{ wenn $n$ ungerade ist.} \end{cases} \end{align*}
           </div>
-          <div
-            class="well well-lg numbered-exercise container"
-          >
+          <div class="well well-lg numbered-exercise container">
             <p>
-              <span
-                class="numbered-title"
-              >Übungsaufgabe
+              <span class="numbered-title">Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
                 </span>Finden Sie eine "geschlossene" Form für die Bijektion $f : \N
               \rightarrow \Z$. Mit "geschlossen" meine ich, dass Sie sie mit den
@@ -210,13 +156,9 @@
               nicht etwa eine "Funktion zweiter Klasse".
             </p>
           </div>
-          <div
-            class="well well-lg numbered-exercise container"
-          >
+          <div class="well well-lg numbered-exercise container">
             <p>
-              <span
-                class="numbered-title"
-              >Übungsaufgabe
+              <span class="numbered-title">Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
                 </span>Finden Sie die Umkehrfunktion $f^{-1} : \Z \rightarrow \N$. Gerne
               anfangs mit Fallunterscheidung, dann bitte als geschlossene Formel
@@ -226,13 +168,9 @@
           <p>
             Wir sind nun reif für eine formale Definition:
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
-              <span
-                class="numbered-title"
-              >Definition
+              <span class="numbered-title">Definition
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
                 </span>
               Zwei Mengen $A$ und
@@ -251,13 +189,9 @@
             reflexiv, symmetrisch und transitiv und ist somit eine
             <i>Äquivalenzrelation</i>.
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
-              <span
-                class="numbered-title"
-              >Definition
+              <span class="numbered-title">Definition
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
                 </span>
               Eine Menge $A$ mit $A
@@ -286,13 +220,9 @@
             Der Begriff der Gleichmächtigkeit liefert uns nun eine wunderbar
             einfache und rigorose Definition von Unendlichkeit.
           </p>
-          <div
-            class="well container theorem"
-          >
+          <div class="well container theorem">
             <p>
-              <span
-                class="numbered-title"
-              >Definition
+              <span class="numbered-title">Definition
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
                 </span>
               Eine Menge $A$ heißt
@@ -304,13 +234,9 @@
             Als Beispiel haben wir $\N^+ \subsetneq \N$ mit $\N^+ \approx \N$
             gesehen. Also ist $\N$ im obigen Sinne unendlich.
           </p>
-          <div
-            class="well well-lg numbered-exercise container"
-          >
+          <div class="well well-lg numbered-exercise container">
             <p>
-              <span
-                class="numbered-title"
-              >Übungsaufgabe
+              <span class="numbered-title">Übungsaufgabe
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
                 </span>Zeigen Sie: wenn eine Menge $A$ unendlich ist (im Sinne der obigen
               Definition), dann gibt es eine Teilmenge $X \subseteq A$ mit $X

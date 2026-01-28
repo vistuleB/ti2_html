@@ -19,7 +19,7 @@
 <body>
 <section
   count="30"
-  .="BookLevelSectionCounter 30"
+  _="BookLevelSectionCounter 30"
   title_gr="Grammatiken und Kellerautomaten"
   title_en="cfg to pda"
   number="5.2"
@@ -27,84 +27,56 @@
   counter="ExoCtr"
   path="/lecture-notes30"
 >
-  <div
-    id="link-to-toc"
-  >
-    <a
-      href="../vorlesungsskript.html"
-    >Inhaltsverzeichnis</a><a
-      href="05-01-ableitungen.html"
-    >&lt;&lt; Kapitel 5.1</a>
+  <div id="link-to-toc">
+    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="05-01-ableitungen.html">&lt;&lt; Kapitel 5.1</a>
   </div>
   <div
     id="link-to-overview"
     style="text-align: end"
   >
-    <a
-      href="/"
-    >zur Kursübersicht</a><a
-      href="05-03-exercise-design-grammars.html"
-    >Kapitel 5.3 &gt;&gt;</a>
+    <a href="/">zur Kursübersicht</a><a href="05-03-exercise-design-grammars.html">Kapitel 5.3 &gt;&gt;</a>
   </div>
-  <div
-    id="rightSideWrapper"
-  >
-    <div
-      class="content"
-    >
-      <div
-        class="chapter"
-      >
-        <div
-          class="subChapter"
-        >
-          <h1
-            class="hidden-title"
-          >
-            <span
-              class="subChapterTitle"
-            >::::ChapterCtr.2
+  <div id="rightSideWrapper">
+    <div class="content">
+      <div class="chapter">
+        <div class="subChapter">
+          <h1 class="hidden-title">
+            <span class="subChapterTitle">::::ChapterCtr.2
               Kontextfreie Grammatiken und Kellerautomaten</span>
           </h1>
-          <div
-            class="well container theorem"
-          >
-            <span
-              class="numbered-title"
-            >Theorem
+          <div class="well container theorem">
+            <span class="numbered-title">Theorem
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-              </span>Zu jeder kontextfreien Grammatik \(G = (\Sigma, N, S, P)\) gibt es
-            einen Kellerautomaten \(M = (\Sigma, Q, \Gamma, \qstart, \delta)\), der
-            die gleiche Sprache akzeptiert, also \(L(G) = L(M)\).
+              </span>Zu jeder kontextfreien Grammatik  gibt es
+            einen Kellerautomaten , der
+            die gleiche Sprache akzeptiert, also .
           </div>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <b>Beweis.</b>
             Der Beweis ist vergleichsweise einfach, weil wir die Grammatik eins zu eins in
             Automatentransitionen übersetzen können.
             Die Idee ist, dass die Symbole auf dem Stack, von unten nach oben gelesen, zu jedem Zeitpunkt
             eine Wortform bilden, aus der der noch nicht gelesene Teil des Restwortes ableitbar ist.
-            Wenn oben auf dem Stack also ein Terminalsymbol \(x\) liegt und \(x\) auch das nächste
-            Inputzeichen ist, dann poppen wir \(x\) vom Stack und lesen \(x\), d.h. schieben den
-            Lesekopf um ein Zeichen nach rechts; der Stack ist von \(x \alpha\) auf \(\alpha\) geschruft
-            und das Restwort von \(xw\) auf \(w\); wenn also \(x\alpha \Rightarrow^* xw\) galt, so gilt
-            nun immer noch \(\alpha \Rightarrow^* w\).
-            Wenn ein Nichtterminal \(X\) oben auf dem Stack liegt, dieser also die Form
-            \(X \alpha\) hat, und \(w\) das Restwort ist, dann gilt also \(X \alpha \Rightarrow^* w\).
+            Wenn oben auf dem Stack also ein Terminalsymbol  liegt und  auch das nächste
+            Inputzeichen ist, dann poppen wir  vom Stack und lesen , d.h. schieben den
+            Lesekopf um ein Zeichen nach rechts; der Stack ist von  auf  geschruft
+            und das Restwort von  auf ; wenn also  galt, so gilt
+            nun immer noch .
+            Wenn ein Nichtterminal  oben auf dem Stack liegt, dieser also die Form
+             hat, und  das Restwort ist, dann gilt also .
             Der Automat rät nun nichtdeterministisch die erste in der Ableitung angewandte Produktion
-            \(X \rightarrow \beta\), löscht \(X\) vom Stack und pusht \(\beta\). Der Stack ist
-            nun \(\beta \alpha\), und \(\beta \alpha \Rightarrow^* w\). Entscheidend ist der
+            , löscht  vom Stack und pusht . Der Stack ist
+            nun , und . Entscheidend ist der
             Nichtdeterminismus:
             es
             <i>gibt</i>
-            eine korrekte Produktion \(X \rightarrow \beta\), die schlussendlich zu \(w\)
+            eine korrekte Produktion , die schlussendlich zu 
             führt;
             der Automat
             <i>kann</i>
-            also diese Transition anwenden.<br>Formaler: Die Zustände des Automaten
-            sind \(Q = \{\qstart, q_1, \qend\}\), das Stackalphabet ist
-            \(\Gamma = \Sigma \cup N \cup \{\$\}\) und die Transitionsregeln sind
+            also diese Transition anwenden.Formaler: Die Zustände des Automaten
+            sind , das Stackalphabet ist
+             und die Transitionsregeln sind
             \begin{align*}
             (q<i>1, x)&amp;\step{x} (q</i>1, \epsilon) \quad \textnormal{für jedes $x \in \Sigma$}\\
             (q<i>1, A)&amp;\step{\epsilon} (q</i>1, \beta) \quad \textnormal{für jede Produktion $A \rightarrow
@@ -112,20 +84,15 @@
             (\qstart, \epsilon)&amp;\step{\epsilon} (q<i>1, S \$) \\
               (q</i>1, \$)&amp;\step{\epsilon} (\qend, \epsilon)
             \end{align*}
-            Auf einen formalen Beweis, dass \(L(M) = L(G)\) ist, verzichte ich an dieser Stelle.
+            Auf einen formalen Beweis, dass  ist, verzichte ich an dieser Stelle.
             Besser als Sipser in seinem Lehrbuch
             <i>Introduction to the Theory of Computing</i>
             könnte
-            ich das eh nicht.<span
-              class="qed"
-            >\(\square\)</span>
+            ich das eh nicht.<span class="qed">
+              </span>
           </div>
-          <div
-            class="well subtheorem container theorem"
-          >
-            <span
-              class="numbered-title"
-            >Beispiel
+          <div class="well subtheorem container theorem">
+            <span class="numbered-title">Beispiel
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
               </span>Betrachten wir die Grammatik
             \begin{align*}
@@ -143,25 +110,24 @@
               oben auf dem Stack bedeutet dann
               <i>ich will jetzt sofort ein
                 <tt>[</tt>lesen</i>;
-              ein Nichtterminal wie \(A\) oben auf dem Stack bedeutet, dass
-              wir als nächstes ein von \(A\) ableitbares Wort, also ein \(A \rightarrow w \in
-              \Sigma^*\) lesen wollen.
-              Um ein \(w\) mit \(A \rightarrow w\) lesen zu können, müssen wir
+              ein Nichtterminal wie  oben auf dem Stack bedeutet, dass
+              wir als nächstes ein von  ableitbares Wort, also ein  lesen wollen.
+              Um ein  mit  lesen zu können, müssen wir
               <i>sofort</i>
               ein<tt>{</tt>
-              lesen, dann ein Wort \(v\) mit \(B \rightarrow v\), dann ein
+              lesen, dann ein Wort  mit , dann ein
               <tt>}</tt>
               und
               so weiter.
               Wir können das also im Automaten implementieren, indem wir
-              \(A\) vom Stack löschen und durch \(\texttt{\{} B \texttt{\}} S\) auf den Stack legen,
+               vom Stack löschen und durch  auf den Stack legen,
               mit dem linkesten Symbol zuoberst. Wenn wir für ein Nichtterminal mehrere Regeln
-              haben, also z.B. \(X \rightarrow \alpha\) und \(X \rightarrow \beta\),
-              dann können ein \(X\) auf dem Stack sowohl durch \(\alpha\) als auch durch \(\beta\)
+              haben, also z.B.  und ,
+              dann können ein  auf dem Stack sowohl durch  als auch durch 
               ersetzen.
               Hierfür benötigen wir den Nichtdeterminismus. Beachten Sie, dass wir ein Nichtterminal
               grundsätzlich immer durch die entsprechende rechte Seite ersetzen können, egal, was das
-              nächste Zeichen ist; es wird im Automaten also ein \(\step{\epsilon}\)-Übergang sein.
+              nächste Zeichen ist; es wird im Automaten also ein -Übergang sein.
             </p>
             Konkret also bauen wir für obige Grammatik die folgenden Automatentransitionen:
             \begin{align*}
@@ -185,7 +151,7 @@
             (q<i>1,\texttt{)})&amp;\step{\texttt{)}} (q</i>1, \epsilon) \\
             \end{align*}
             Dies ist völlig mechanisch und benötigt kein Nachdenken. Wie fangen wir an?
-            Wir legen anfangs ein \(S\) auf den leeren Stack. Wenn dieses \(S\) abgearbeitet
+            Wir legen anfangs ein  auf den leeren Stack. Wenn dieses  abgearbeitet
             ist und das Wort zu Ende ist, akzeptieren wir, und nur dann. Um festzustellen,
             dass wir wirklich den Stack ganz leer gemacht haben, brauchen wir die
             Markierung
@@ -194,527 +160,56 @@
             (\qstart, \epsilon) \step{\epsilon} (q<i>1, S \$) \\
               (q</i>1, \$) \step{\epsilon} (\qend, \epsilon)
             \end{align*}
-            Unsere Maschine hat also nur drei Zustände: \(\qstart\), \(q_1\) und
-            \(\qend\), welches der akeptierende Endzustand ist. Beachten Sie,
-            dass es von \(\qend\) aus keine ausgehenden Transitionen gibt;
-            sollte es also nach Erreichen von \(\qend\) noch weitere Zeichen
+            Unsere Maschine hat also nur drei Zustände: ,  und
+            , welches der akeptierende Endzustand ist. Beachten Sie,
+            dass es von  aus keine ausgehenden Transitionen gibt;
+            sollte es also nach Erreichen von  noch weitere Zeichen
             im Eingabewort geben, so kann der Automat keine weiteren Schritte durchführen,
             was einem
             <i>reject</i>
-            entspricht. Erreichen des Zustandes \(\qend\) führt also
+            entspricht. Erreichen des Zustandes  führt also
             nur dann zu einem
             <i>accept</i>, wenn dies am Ende des Wortes geschieht.
-            <figure
-              class="centered-figure well"
-            >
-              <a
-                data-slide="prev"
-                href="#cfg-to-pda"
-                class="left carousel-control-prev-icon"
-              >
-                <div
-                  class="carousel-nav-icon"
-                >
-                  <img
-                    src="../img/carousel-prev-icon.svg"
-                  >
-                </div>
-              </a><a
-                data-slide="next"
-                href="#cfg-to-pda"
-                class="right carousel-control-next-icon"
-              >
-                <div
-                  class="carousel-nav-icon"
-                >
-                  <img
-                    src="../img/carousel-next-icon.svg"
-                  >
-                </div>
-              </a>
-              <div
-                style="display:inline-block"
-                data-interval="false"
-                class="carousel"
-                id="cfg-to-pda"
-              >
-                <div
-                  style="display:inline-block"
-                  class="carousel-inner"
-                >
-                  <div
-                    class="item active"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/01.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/02.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/03.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/04.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/05.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/06.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/07.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/08.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/09.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/10.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/11.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/12.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/13.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/14.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/15.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/16.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/17.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/18.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/19.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/20.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/21.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/22.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/23.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/24.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/25.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/26.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/27.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/28.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/29.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/30.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/31.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/32.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/33.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/34.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/35.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/36.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/37.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/38.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/39.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/40.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/41.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/42.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/43.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/44.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/45.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/46.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/47.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/48.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/49.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/50.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/51.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/52.svg"
-                    >
-                  </div>
-                  <div
-                    class="item"
-                  >
-                    <img
-                      style="height:22em"
-                      src="../img/context-free/cfg-to-pda/53.svg"
-                    >
-                  </div>
-                </div>
-              </div>
-            </figure>
           </div>
           <p>
             Die Gegenrichtung ist schwieriger.
           </p>
-          <div
-            class="well container theorem"
-          >
-            <span
-              class="numbered-title"
-            >Theorem
+          <div class="well container theorem">
+            <span class="numbered-title">Theorem
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-              .</span>Zu jedem Kellerautomaten \(M\) gibt es eine kontextfreie Grammatik \(G\)
-            mit \(L(M) = L(G)\).
+              .</span>Zu jedem Kellerautomaten  gibt es eine kontextfreie Grammatik 
+            mit .
           </div>
           <p>
             Ich folge hier im Wesentlichen dem Beweis aus Sipsers Kapitel 2.
           </p>
-          <div
-            class="well container"
-          >
+          <div class="well container">
             <b>Beweis.</b>
-            Sei \(M = (\Sigma, Q, \Gamma, \qstart, F, \delta)\) der Kellerautomat.
+            Sei  der Kellerautomat.
             Als erstes führen wir drei Schönheitsoperation durch:
             <ol>
               <li>
-                Der Automat hat einen einzigen akzeptierenden Zustand \(\qend\). Dies
-                können wir einfach durch \(\epsilon\)-Übergänge erreichen.
+                Der Automat hat einen einzigen akzeptierenden Zustand . Dies
+                können wir einfach durch -Übergänge erreichen.
               </li>
               <li>
                 Der Automat leert den Stack, bevor er akzeptiert. Dies können wir
-                z.B. dadurch erreichen, dass wir anfangs ein \(\$\) auf den Stack legen
-                und am Ende den Stack poppen, bis wir \(\$\) gepoppt haben.
+                z.B. dadurch erreichen, dass wir anfangs ein  auf den Stack legen
+                und am Ende den Stack poppen, bis wir  gepoppt haben.
               </li>
               <li>
                 Für jede Transition
                 \begin{align*}
                 (p, x) \step{a} (q, y)
                 \end{align*}
-                ist genau eines von \(x,y\) leer (und das andere ist genau ein Stacksymbol aus
-                \(\Gamma\)).
+                ist genau eines von  leer (und das andere ist genau ein Stacksymbol aus
+                ).
                 Eine
                 Transition
-                der Form \((p, \epsilon) \step{a} (q, x) \) nennen wir eine
+                der Form  nennen wir eine
                 <i>Push-Operation</i>,
                 eine der Form
-                \((p, y) \step{a} (q, \epsilon) \) nennen wir eine
+                 nennen wir eine
                 <i>Pop-Operation</i>.
                 Der Automat kann in diese Form gebracht werden, indem wir Zwischenzustände einführen:
                 \begin{align*}
@@ -726,7 +221,7 @@
                 \epsilon) \ .
                 \end{align*}
                 Im zweiten Falle pushen wir also pro Forma ein ansonsten irrelevantes Symbol
-                \(\bigstar\) auf
+                 auf
                 den
                 Stack, um es gleich darauf runterzupoppen.
               </li>
@@ -734,25 +229,25 @@
             <p>
               Wenn nun der Automat die eben beschriebene Form hat, so ist die
               Idee, dass wir für
-              jedes Paar \(p,q\) von Zuständen ein Nichtterminalsymbol \(A_{pq}\) einführen, dass
-              genau die Wörter \(w\) ableiten kann, für die
+              jedes Paar  von Zuständen ein Nichtterminalsymbol  einführen, dass
+              genau die Wörter  ableiten kann, für die
               \begin{align*}
               (p, \epsilon) \Step{w}^* (q,\epsilon)
               \end{align*}
-              gilt, die also den Automaten von \(p\) nach \(q\) bringen können, wobei der Stack am Anfang
+              gilt, die also den Automaten von  nach  bringen können, wobei der Stack am Anfang
               und am Ende leer
               ist. Dies kann auf zwei Weisen geschehen:
             </p>
             <ol>
               <li>
-                Fall 1: in der Konfigurationsfolge von \((p, \epsilon) \Step{w}^* (q,\epsilon) \)
-                wird der Stack zwischendurch auch mal leer, und zwar nachdem der Präfix \(u\) des Wortes
-                \(w = uv\) gelesen ist, und der Automat ist zu diesem Zeitpunkt im Zustand \(r\). Also:
+                Fall 1: in der Konfigurationsfolge von 
+                wird der Stack zwischendurch auch mal leer, und zwar nachdem der Präfix  des Wortes
+                 gelesen ist, und der Automat ist zu diesem Zeitpunkt im Zustand . Also:
                 \begin{align*}
                 (p, \epsilon) \Step{u}^* (r,\epsilon) \Step{v}^* (q,\epsilon) \ .
                 \end{align*}
                 Es sollte also (wenn unsere Konstruktion erfolgreich ist) gelten, dass
-                \(A_{pr} \Rightarrow^* u\) und \(A_{rq} \Rightarrow^* v\). Wir führen daher die
+                 und . Wir führen daher die
                 Grammatikproduktion
                 \begin{align*}
                 A<i>{pq} \rightarrow A</i>{pr} A_{rq}
@@ -760,26 +255,26 @@
                 ein.
               </li>
               <li>
-                Fall 2: in der Konfigurationsfolge von \((p, \epsilon) \Step{w}^* (q,\epsilon) \)
+                Fall 2: in der Konfigurationsfolge von 
                 ist der Stack zwischendurch nie leer. Das heißt wiederum, dass das im ersten
-                Schritt gepushte Stacksymbol \(x\) am Ende gepoppt wird, also \(w = avb\) mit
+                Schritt gepushte Stacksymbol  am Ende gepoppt wird, also  mit
                 \begin{align*}
                 (p, \epsilon) \step{a} (r, x) \Step{v}^* (s,x) \step{b} (q,\epsilon)
                 \end{align*}
                 Hier ist wichtig zu wissen, dass die erste Operation eine Push-Operation sein muss:
-                Pop kann sie eh nicht sein, und die Möglichkeit \((p,\epsilon) \step{a} (r, \epsilon)\)
+                Pop kann sie eh nicht sein, und die Möglichkeit 
                 haben
                 wir durch unsere Schönheitsoperationen ausgeschlossen. Des weiteren ist zu beachten,
-                dass in der Konfigurationsfolge von \((r, x) \Step{v}^* (s,x)\) der Stack nie
-                leer wird. Keine Transition "liest" also das unterste Zeichen \(x\) -- denn
-                dann müsste nacha Schönheitsoperation das \(x\) ja gepoppt werden und der Stack
+                dass in der Konfigurationsfolge von  der Stack nie
+                leer wird. Keine Transition "liest" also das unterste Zeichen  -- denn
+                dann müsste nacha Schönheitsoperation das  ja gepoppt werden und der Stack
                 würde vollständig geleert. In anderen Worten: die Konfigurationsfolge wäre auch dann
-                gültig, wenn Anfangs- und Endstack nicht \([x]\) sondern \(\epsilon\), also der leere
+                gültig, wenn Anfangs- und Endstack nicht  sondern , also der leere
                 Stack wäre:
                 \begin{align*}
                 (r, \epsilon) \Step{v}^* (s,\epsilon) \ .
                 \end{align*}
-                Wenn unsere Konstruktion Erfolg hat, hieße das also \(A_{rs} \Rightarrow^* v\) und somit
+                Wenn unsere Konstruktion Erfolg hat, hieße das also  und somit
                 ist
                 \begin{align*}
                 A<i>{pq} \rightarrow a A</i>{rs} b
@@ -789,33 +284,28 @@
             </ol>
             <p>
               Schlussendlich führen wir noch die offensichtlich korrekten
-              Regeln \(A_pp \rightarrow \epsilon\) ein, da ja
-              \((p, \epsilon) \Step{\epsilon}^* (p, \epsilon)\) offensichtlich gilt (da ja
-              \(\Step{}^*\) auch die aus null Übergangen bestehende Konfigurationsfolge erlaubt).
+              Regeln  ein, da ja
+               offensichtlich gilt (da ja
+               auch die aus null Übergangen bestehende Konfigurationsfolge erlaubt).
             </p>
-            Zusammenfassend gesagt besteht unsere Grammatik \(G\) aus drei unterschiedlichen Typen von
+            Zusammenfassend gesagt besteht unsere Grammatik  aus drei unterschiedlichen Typen von
             Regeln:
             \begin{align*}
-            A<i>{pp}&amp;\rightarrow \epsilon \textnormal{ für jeden Zustand \(p \in Q\)} \\
+            A<i>{pp}&amp;\rightarrow \epsilon \textnormal{ für jeden Zustand } \\
               A</i>{pq}&amp;\rightarrow A<i>{pr}A</i>{rq} \textnormal{ für alle Zustände $p,q,r \in Q$} \\
             A<i>{pq}&amp;\rightarrow a A</i>{rs} b \textnormal{ für alle Pushp-Pop-Paare
             $(p,\epsilon) \step{a} (r,x)$, $(s,x) \step{b} (q,\epsilon)$ von Transitionen}
             \end{align*}
             <p>
-              Das Startsymbol der Grammatik ist natürlich \(A_{\qstart, \qend}\).
+              Das Startsymbol der Grammatik ist natürlich .
             </p>
-            Auch hier verzichte ich auf einen formalen Beweis, dass \(L(G)=L(M)\) gilt. Der Beweis
+            Auch hier verzichte ich auf einen formalen Beweis, dass  gilt. Der Beweis
             verwendet (wenig überraschend) Induktion über die Länge der Ableitung bzw. Induktion über die
-            Länge der Konfigurationsfolge und ist in Sipsers Lehrbuch im Detail erklärt.<span
-              class="qed"
-            >\(\square\)</span>
+            Länge der Konfigurationsfolge und ist in Sipsers Lehrbuch im Detail erklärt.<span class="qed">
+              </span>
           </div>
-          <div
-            class="well container theorem"
-          >
-            <span
-              class="numbered-title"
-            >Beispiel
+          <div class="well container theorem">
+            <span class="numbered-title">Beispiel
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
               </span>Wir betrachten die Sprache
             \begin{align*}
@@ -823,18 +313,18 @@
             \end{align*}
             Diese ist
             <i>nicht</i>
-            regulär, da der Präfix und der Suffix aus \(a\) die gleiche
-            Länge \(m\) haben müssen.
+            regulär, da der Präfix und der Suffix aus  die gleiche
+            Länge  haben müssen.
             Wir bauen zuerst einen Kellerautomaten und übersetzen den dann entsprechend dem Schema
             aus dem letzten Theorem in eine Grammatik. Dann vergleichen wir die entstandene
             Grammatik mit der, die wir per Hand aus der obigen Sprachbeschreibung bauen würden.
             <p>
-              Unser Automat hat einen Zustand \(q_1\), in welchem er führenden \(a\)'s auf den Stack
-              legt und einen Zustand \(q_3\), in welchem er die \(a\)'s am Ende liest und
-              vom Stack poppt. Zwischen den beiden \(b\)'s in der Mitte ist er in einem
-              Zustand \(q_2\), in welchem er die Eingabesymbole mehr oder weniger ignoriert.
+              Unser Automat hat einen Zustand , in welchem er führenden 's auf den Stack
+              legt und einen Zustand , in welchem er die 's am Ende liest und
+              vom Stack poppt. Zwischen den beiden 's in der Mitte ist er in einem
+              Zustand , in welchem er die Eingabesymbole mehr oder weniger ignoriert.
               Der Automat muss nichtdeterministisch sein, da er "erraten" muss, welches
-              \(b\) das letzte ist, weil er dann mit dem Stack-Poppen beginnen muss.
+               das letzte ist, weil er dann mit dem Stack-Poppen beginnen muss.
             </p>
             \begin{align*}
             (\qstart, \epsilon)&amp;\step{\epsilon} (q<i>1, \$) \\ \hline
@@ -849,18 +339,16 @@
             <p>
               Die beiden rot gefärbten Transitionen benötigen eine Schönheitsoperation:
             </p>
-            <span
-              style="color:purple"
-            >\begin{align*}
+            <span style="color:purple">\begin{align*}
               (q<i>2, \epsilon)&amp;\step{a} (q'</i>2, x) \\
               (q<i>2, \epsilon)&amp;\step{b} (q'</i>2, x) \\
               (q'<i>2, x)&amp;\step{\epsilon} (q</i>2, \epsilon) \\
               \end{align*}</span>
             <p>
-              Unsere Zustandsmenge ist also \(Q = \{\qstart, q_1, q_2, q'_2, q_3, \qend\}\).
-              Rein theoretisch müssten wir nun für alle Tripel \(p,r,q\) von Zuständen
-              eine Produktion \(A_{pq} \rightarrow A_{pr} A_{rq}\) einführen, also
-              allein hierfür schon \(5^3 = 125\) Produktionen. Wir können das reduzieren,
+              Unsere Zustandsmenge ist also .
+              Rein theoretisch müssten wir nun für alle Tripel  von Zuständen
+              eine Produktion  einführen, also
+              allein hierfür schon  Produktionen. Wir können das reduzieren,
               indem wir die im Beweis beschriebene mechanische Prozedur mit
               ein wenig selbständigem Denken kombinieren.
             </p>
@@ -868,38 +356,21 @@
               Die erste Beobachtung ist, dass wir gar nicht von jedem Zustand zu jedem
               kommen können, sondern nur "vorwärts", also wie in diesem Diagramm:
             </p>
-            <figure>
-              <img
-                style="height:10em"
-                src="../img/context-free/pda-to-cfg-diagram.svg"
-                loading="lazy"
-              >
-            </figure>
             <p>
-              Nichtterminale wie \(A_{31}\) führen wir also gar nicht erst ein. Auch schreiben
-              wir \(A_{13}\) statt \(A_{q_1q_3}\) und verwenden die Indizes 0 für \(\qstart\) und
-              4 für \(\qend\). Als zweite Beobachtung sehen wir, dass man mit leerem
-              Stapel beispielsweise gar nicht von \(\qstart\) nach \(q_3\) kommt:
-              auf dem Weg dorthin wird ein \(\$\) gepusht und nie gepoppt; gleiches
+              Nichtterminale wie  führen wir also gar nicht erst ein. Auch schreiben
+              wir  statt  und verwenden die Indizes 0 für  und
+              4 für . Als zweite Beobachtung sehen wir, dass man mit leerem
+              Stapel beispielsweise gar nicht von  nach  kommt:
+              auf dem Weg dorthin wird ein  gepusht und nie gepoppt; gleiches
               gilt für viele weitere Zustandspaare. Das erweiterte Diagramm hier gibt
-              eine Orientierung. Neben jeden Zustand haben wir schematisch den Stack gemalt:
-            </p>
-            <figure>
-              <img
-                style="height:10em"
-                src="../img/context-free/pda-to-cfg-diagram-stack.svg"
-                loading="lazy"
-              >
-            </figure>
-            <p>
-              Die einzigen Nichtterminale sind also die "trivialen" der Form \(A_{qq}\) und darüberhinaus
+              eine Orientierung. Neben jeden Zustand haben wir schematisch den Stack gemalt:Die einzigen Nichtterminale sind also die "trivialen" der Form  und darüberhinaus
               \begin{align*}
               A<i>{04}, A</i>{13}
               \end{align*}
-              Da man von \(\qstart\) zu sich selber und von \(\qend\) zu sich selber
-              nur mit dem leeren Wort gelant, ersetzen wir \(A_{00}\) und \(A_{44}\) sofort durch
-              \(\epsilon\).
-              Als Produktionen der Form \(A_{pq} \rightarrow A_{pr} A_{rq}\) erhalten wir also:
+              Da man von  zu sich selber und von  zu sich selber
+              nur mit dem leeren Wort gelant, ersetzen wir  und  sofort durch
+              .
+              Als Produktionen der Form  erhalten wir also:
               \begin{align*}
               A<i>{11}&amp;\rightarrow A</i>{11} A<i>{11} \\
                 A</i>{13}&amp;\rightarrow A<i>{11} A</i>{13} \\
@@ -909,23 +380,23 @@
                 \end{align*}
                 Schon deutlich besser als die 125 Produktionen, die wir bekämen, wenn wir stur an der
                 Methode im Beweis festhalten würden. Wir brauchen noch Produktionen der
-                Form \(A_{pq} \rightarrow a A_{rs} b\). Dafür müssen wir nach
-                Push-Pop-Paaren \((p,\epsilon) \step{a} (r,x)\), \((s,x) \step{b} (q,\epsilon)\) suchen.
-                Stack-Symbole sind \(a, b, x\). Suchen wir also zuerst nach Paaren von Transitionen,
-                die \(a\) pushen und poppen.
+                Form . Dafür müssen wir nach
+                Push-Pop-Paaren ,  suchen.
+                Stack-Symbole sind . Suchen wir also zuerst nach Paaren von Transitionen,
+                die  pushen und poppen.
                 \begin{align*}
                 (q</i>1, \epsilon) \step{a} (q<i>1, a) \textnormal{ und }
                 (q</i>3, a) \step{a} (q<i>3, \epsilon) \textnormal{ ergibt die Produktion }
                 A</i>{13} \rightarrow a A<i>{13} a
                 \end{align*}
-                Das waren die einzigen Transitionen, in denen \(a\) gepusht und gepoppt wird.
-                Betrachten wir als nächstes das Stacksymbol \(b\):
+                Das waren die einzigen Transitionen, in denen  gepusht und gepoppt wird.
+                Betrachten wir als nächstes das Stacksymbol :
                 \begin{align*}
                 (q</i>1, \epsilon) \step{b} (q<i>2, b) \textnormal{ und }
                 (q</i>2, b) \step{a} (q<i>3, \epsilon) \textnormal{ ergibt die Produktion }
                 A</i>{13} \rightarrow b A<i>{22} b
                 \end{align*}
-                Nun zu den Transitionen mit Stacksymbol \(x\). Da gibt es zwei
+                Nun zu den Transitionen mit Stacksymbol . Da gibt es zwei
                 Push-Transitionen und eine Pop-Transition, also zwei Paare:
                 \begin{align*}
                 (q</i>2, \epsilon) \step{a} (q'<i>2, x) \textnormal { und }
@@ -961,11 +432,11 @@
               \textcolor{red}{A<i>{33}}&amp;\textcolor{red}{\rightarrow \epsilon} \\
                 \textcolor{red}{A</i>{44}}&amp;\textcolor{red}{\rightarrow \epsilon} \\
               \end{align*}
-              wobei \(A_{04}\) das Startsymbol ist.
+              wobei  das Startsymbol ist.
               Wir haben diejenigen Nichtterminale und Produktionen rot markiert, aus denen nur
-              \(\epsilon\) hervorgehen kann. Wir können die Grammatik nun entsprechend vereinfachen.
+               hervorgehen kann. Wir können die Grammatik nun entsprechend vereinfachen.
               Zusätzlich
-              löschen wir \(A_{04}\) und ernennen \(A_{13}\) zu unserem Startsymbol:
+              löschen wir  und ernennen  zu unserem Startsymbol:
               \begin{align*}
               A<i>{22}&amp;\rightarrow A</i>{22} A<i>{22} \\
                 A</i>{13}&amp;\rightarrow a A<i>{13} a \\
@@ -976,17 +447,17 @@
               \end{align*}
             </p>
             <p>
-              Überlegen wir nun, ausgehend von dieser Grammatik, was wir aus dem Startsymbol \(A_{13}\)
+              Überlegen wir nun, ausgehend von dieser Grammatik, was wir aus dem Startsymbol 
               ableiten
-              können. Die einzigen zwei Produktionen mit \(A_{13}\) sind
-              \(A_{13} \rightarrow a A_{13} a\) und \(A_{13} \rightarrow b A_{22}\), also
+              können. Die einzigen zwei Produktionen mit  sind
+               und , also
               gilt
               \begin{align*}
               A<i>{13} \Rightarrow^* a^m b A</i>{22} b a^m \ .
               \end{align*}
-              Aus \(A_{22}\) können wir per Produktion \(A_{22} \rightarrow A_{22} A_{22}\)
-              erst einmal alle Wortformem der Form \(A_{22}^*\) ableiten; per
-              \(A_{22} \rightarrow a \ | \ b \ | \ \epsilon\) dann alle Wortform \((a|b)^*\).
+              Aus  können wir per Produktion 
+              erst einmal alle Wortformem der Form  ableiten; per
+               dann alle Wortform .
               Also:
               \begin{align*}
               A_{13} \Step{}^* a^m b (a|b)^* b a^m \ .

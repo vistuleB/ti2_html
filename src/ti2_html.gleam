@@ -1,5 +1,5 @@
 import argv
-import blamedlines.{type Blame, type BlamedLine, Blame, BlamedLine}
+import blame.{type Blame} as bl
 import gleam/io
 import gleam/list
 import gleam/option.{Some}
@@ -7,9 +7,10 @@ import gleam/string
 import html_to_writerly
 import infrastructure as infra
 import pipeline
-import vxml.{type VXML, BlamedAttribute}
-import vxml_renderer as vr
-import writerly as wp
+import vxml.{type VXML, Attr}
+import io_lines.{type OutputLine, OutputLine}
+import desugaring as vr
+import on
 
 const ins = string.inspect
 
@@ -28,7 +29,7 @@ type Ti2EmitterError {
 }
 
 fn blame_us(message: String) -> Blame {
-  Blame(message, -1, -1, [])
+  bl.Ext([], message)
 }
 
 fn prepend_0(number: String) {
@@ -38,17 +39,17 @@ fn prepend_0(number: String) {
   }
 }
 
-fn ti2_splitter(
+fn our_splitter(
   root: VXML,
-) -> Result(List(#(String, VXML, FragmentType)), Ti2SplitterError) {
+) -> Result(List(vr.OutputFragment(FragmentType, VXML)), Ti2SplitterError) {
   let chapter_vxmls = infra.descendants_with_tag(root, "section")
   // io.println(
   //   "the number of chapters found was: "
   //   <> chapter_vxmls |> list.length |> string.inspect,
   // )
-  use toc_vxml <- infra.on_error_on_ok(
-    infra.unique_child_with_tag(root, "TOCAuthorSuppliedContent"),
-    with_on_error: fn(error) {
+  use toc_vxml <- on.error_ok(
+    infra.v_unique_child_with_singleton_error(root, "TOCAuthorSuppliedContent"),
+    fn(error) {
       case error {
         infra.MoreThanOne -> Error(MoreThanOneTOCAuthorSuppliedContent)
         infra.LessThanOne -> Error(NoTOCAuthorSuppliedContent)
@@ -58,18 +59,18 @@ fn ti2_splitter(
 
   Ok(
     list.flatten([
-      [#("vorlesungsskript.html", toc_vxml, TOCAuthorSuppliedContent)],
+      [vr.OutputFragment(TOCAuthorSuppliedContent, "vorlesungsskript.html", toc_vxml)],
       list.index_map(chapter_vxmls, fn(vxml, index) {
-        let assert Some(title_attr) = infra.v_attribute_with_key(vxml, "title_en")
-        let assert Some(number_attribute) = infra.v_attribute_with_key(vxml, "number")
+        let assert Some(title_attr) = infra.v_first_attr_with_key(vxml, "title_en")
+        let assert Some(number_attribute) = infra.v_first_attr_with_key(vxml, "number")
         let section_name =
-          number_attribute.value
+          number_attribute.val
           |> string.split(".")
           |> list.map(prepend_0)
           |> string.join("-")
           <> "-"
-          <> title_attr.value |> string.replace(" ", "-")
-        #("lecture-notes/" <> section_name <> ".html", vxml, Chapter(index + 1))
+          <> title_attr.val |> string.replace(" ", "-")
+        vr.OutputFragment(Chapter(index + 1), "lecture-notes/" <> section_name <> ".html", vxml)
       }),
     ]),
   )
@@ -80,13 +81,13 @@ fn ti2_section_emitter(
   fragment: VXML,
   fragment_type: FragmentType,
   number: Int,
-) -> Result(#(String, List(BlamedLine), FragmentType), Ti2EmitterError) {
+) -> Result(vr.OutputFragment(FragmentType, List(OutputLine)), Ti2EmitterError) {
   let number_attribute =
-    BlamedAttribute(blame_us("lbp_fragment_emitterL65"), "count", ins(number))
+    Attr(blame_us("lbp_fragment_emitterL65"), "count", ins(number))
 
-  use fragment <- infra.on_error_on_ok(
-    over: infra.prepend_unique_key_attribute(fragment, number_attribute),
-    with_on_error: fn(_) {
+  use fragment <- on.error_ok(
+    infra.v_prepend_unique_key_attr(fragment, number_attribute),
+    on_error: fn(_) {
       Error(NumberAttributeAlreadyExists(fragment_type, number))
     },
   )
@@ -94,12 +95,12 @@ fn ti2_section_emitter(
   let lines =
     list.flatten([
       [
-        BlamedLine(
+        OutputLine(
           blame_us("ti2_fragment_emitter"),
           0,
           "<!DOCTYPE html>\n<html>\n<head>",
         ),
-        BlamedLine(
+        OutputLine(
           blame_us("ti2_fragment_emitter"),
           2,
           "    <link rel=\"icon\" href=\"data:,\">
@@ -117,77 +118,75 @@ fn ti2_section_emitter(
     <script type=\"text/javascript\" src=\"../sendCmdTo3003.js\"></script>
     <script type=\"text/javascript\" id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js\"></script>",
         ),
-        BlamedLine(blame_us("ti2_fragment_emitter"), 0, "</head>\n<body>"),
+        OutputLine(blame_us("ti2_fragment_emitter"), 0, "</head>\n<body>"),
       ],
-      vxml.vxml_to_html_blamed_lines(fragment, 0, 2),
+      vxml.vxml_to_html_output_lines(fragment, 0, 2),
       [
-        BlamedLine(blame_us("ti2_fragment_emitter"), 0, "</body>"),
-        BlamedLine(blame_us("ti2_fragment_emitter"), 0, ""),
+        OutputLine(blame_us("ti2_fragment_emitter"), 0, "</body>"),
+        OutputLine(blame_us("ti2_fragment_emitter"), 0, ""),
       ],
     ])
 
-  Ok(#(path, lines, fragment_type))
+  Ok(vr.OutputFragment(fragment_type, path, lines))
 }
 
 fn toc_emitter(
   path: String,
   fragment: VXML,
   fragment_type: FragmentType,
-) -> Result(#(String, List(BlamedLine), FragmentType), Ti2EmitterError) {
+) -> Result(vr.OutputFragment(FragmentType, List(OutputLine)), Ti2EmitterError) {
   let lines =
     list.flatten([
       [
-        BlamedLine(blame_us("toc_emitter"), 0, "<!DOCTYPE html>"),
-        BlamedLine(blame_us("toc_emitter"), 0, "<html>"),
-        BlamedLine(blame_us("toc_emitter"), 0, "<head>"),
-        BlamedLine(blame_us("toc_emitter"), 2, "<link rel=\"icon\" type=\"image/x-icon\" href=\"logo.png\">"),
-        BlamedLine(blame_us("toc_emitter"), 2, "<meta charset=\"utf-8\">"),
-        BlamedLine(blame_us("toc_emitter"), 2, "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"),
-        BlamedLine(blame_us("toc_emitter"), 2, "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">"),
-        BlamedLine(blame_us("toc_emitter"), 2, "<link rel=\"stylesheet\" href=\"lecture-notes.css\">"),
-        BlamedLine(blame_us("toc_emitter"), 2, "<link rel=\"stylesheet\" type=\"text/css\" href=\"TI.css\" />"),
-        BlamedLine(blame_us("toc_emitter"), 2, "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js\"></script>"),
-        BlamedLine(blame_us("toc_emitter"), 2, "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\"></script>"),
-        BlamedLine(blame_us("toc_emitter"), 2, "<script type=\"text/javascript\" src=\"./mathjax_setup.js\"></script>"),
-        BlamedLine(blame_us("toc_emitter"), 2, "<script type=\"text/javascript\" id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js\"></script>"),
-        BlamedLine(blame_us("toc_emitter"), 0, "</head>"),
-        BlamedLine(blame_us("toc_emitter"), 0, "<body>"),
-        BlamedLine(blame_us("toc_emitter"), 0, "  <div>"),
-        BlamedLine(blame_us("toc_emitter"), 0, "    <p><a href=\"index.html\">zur Kursübersicht</a></p>"),
-        BlamedLine(blame_us("toc_emitter"), 0, "  </div>"),
-        BlamedLine(blame_us("toc_emitter"), 0, "  <div class=\"container\" style=\"text-align:center;\">"),
-        BlamedLine(blame_us("toc_emitter"), 0, "    <div style=\"text-align:center;margin-bottom:4em;\">"),
-        BlamedLine(blame_us("toc_emitter"), 0, "      <h1><span class=\"coursename\">Theoretische Informatik 2</span> - Vorlesungsskript</h1>"),
-        BlamedLine(blame_us("toc_emitter"), 0, "      <h3>Bachelor-Studium Informatik</h3>"),
-        BlamedLine(blame_us("toc_emitter"), 0, "      <h3>Dominik Scheder, TU Chemnitz</h3>"),
-        BlamedLine(blame_us("toc_emitter"), 0, "    </div>"),
-        BlamedLine(blame_us("toc_emitter"), 0, "    <div class=\"row content\">"),
-        BlamedLine(blame_us("toc_emitter"), 0, "      <div class=\"col-sm-9 text-left\">"),
-        BlamedLine(blame_us("toc_emitter"), 0, "        <div id=\"table-of-content-div\">"),
+        OutputLine(blame_us("toc_emitter"), 0, "<!DOCTYPE html>"),
+        OutputLine(blame_us("toc_emitter"), 0, "<html>"),
+        OutputLine(blame_us("toc_emitter"), 0, "<head>"),
+        OutputLine(blame_us("toc_emitter"), 2, "<link rel=\"icon\" type=\"image/x-icon\" href=\"logo.png\">"),
+        OutputLine(blame_us("toc_emitter"), 2, "<meta charset=\"utf-8\">"),
+        OutputLine(blame_us("toc_emitter"), 2, "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"),
+        OutputLine(blame_us("toc_emitter"), 2, "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">"),
+        OutputLine(blame_us("toc_emitter"), 2, "<link rel=\"stylesheet\" href=\"lecture-notes.css\">"),
+        OutputLine(blame_us("toc_emitter"), 2, "<link rel=\"stylesheet\" type=\"text/css\" href=\"TI.css\" />"),
+        OutputLine(blame_us("toc_emitter"), 2, "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js\"></script>"),
+        OutputLine(blame_us("toc_emitter"), 2, "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\"></script>"),
+        OutputLine(blame_us("toc_emitter"), 2, "<script type=\"text/javascript\" src=\"./mathjax_setup.js\"></script>"),
+        OutputLine(blame_us("toc_emitter"), 2, "<script type=\"text/javascript\" id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js\"></script>"),
+        OutputLine(blame_us("toc_emitter"), 0, "</head>"),
+        OutputLine(blame_us("toc_emitter"), 0, "<body>"),
+        OutputLine(blame_us("toc_emitter"), 0, "  <div>"),
+        OutputLine(blame_us("toc_emitter"), 0, "    <p><a href=\"index.html\">zur Kursübersicht</a></p>"),
+        OutputLine(blame_us("toc_emitter"), 0, "  </div>"),
+        OutputLine(blame_us("toc_emitter"), 0, "  <div class=\"container\" style=\"text-align:center;\">"),
+        OutputLine(blame_us("toc_emitter"), 0, "    <div style=\"text-align:center;margin-bottom:4em;\">"),
+        OutputLine(blame_us("toc_emitter"), 0, "      <h1><span class=\"coursename\">Theoretische Informatik 2</span> - Vorlesungsskript</h1>"),
+        OutputLine(blame_us("toc_emitter"), 0, "      <h3>Bachelor-Studium Informatik</h3>"),
+        OutputLine(blame_us("toc_emitter"), 0, "      <h3>Dominik Scheder, TU Chemnitz</h3>"),
+        OutputLine(blame_us("toc_emitter"), 0, "    </div>"),
+        OutputLine(blame_us("toc_emitter"), 0, "    <div class=\"row content\">"),
+        OutputLine(blame_us("toc_emitter"), 0, "      <div class=\"col-sm-9 text-left\">"),
+        OutputLine(blame_us("toc_emitter"), 0, "        <div id=\"table-of-content-div\">"),
       ],
       fragment
-        |> infra.get_children
-        |> list.map(fn(vxml) {
-          vxml.vxml_to_html_blamed_lines(vxml, 8, 2)
-        })
-        |> list.flatten,
+      |> infra.v_get_children
+      |> list.map(vxml.vxml_to_html_output_lines(_, 8, 2))
+      |> list.flatten,
       [
-        BlamedLine(blame_us("toc_emitter"), 0, "        </div>"),
-        BlamedLine(blame_us("toc_emitter"), 0, "      </div>"),
-        BlamedLine(blame_us("toc_emitter"), 0, "    </div>"),
-        BlamedLine(blame_us("toc_emitter"), 0, "  </div>"),
-        BlamedLine(blame_us("toc_emitter"), 0, "</body>"),
-        BlamedLine(blame_us("toc_emitter"), 0, ""),
+        OutputLine(blame_us("toc_emitter"), 0, "        </div>"),
+        OutputLine(blame_us("toc_emitter"), 0, "      </div>"),
+        OutputLine(blame_us("toc_emitter"), 0, "    </div>"),
+        OutputLine(blame_us("toc_emitter"), 0, "  </div>"),
+        OutputLine(blame_us("toc_emitter"), 0, "</body>"),
+        OutputLine(blame_us("toc_emitter"), 0, ""),
       ],
     ])
 
-  Ok(#(path, lines, fragment_type))
+  Ok(vr.OutputFragment(fragment_type, path, lines))
 }
 
 fn ti2_emitter(
-  pair: #(String, VXML, FragmentType),
-) -> Result(#(String, List(BlamedLine), FragmentType), Ti2EmitterError) {
-  let #(path, vxml, fragment_type) = pair
+  pair: vr.OutputFragment(FragmentType, VXML),
+) -> Result(vr.OutputFragment(FragmentType, List(OutputLine)), Ti2EmitterError) {
+  let vr.OutputFragment(fragment_type, path, vxml) = pair
   case fragment_type {
     Chapter(n) -> ti2_section_emitter(path, vxml, fragment_type, n)
     TOCAuthorSuppliedContent -> toc_emitter(path, vxml, fragment_type)
@@ -204,61 +203,59 @@ pub fn main() {
 
   case args {
     ["--parse-html", path, ..rest] -> {
-      use amendments <- infra.on_error_on_ok(
+      use amendments <- on.error_ok(
         vr.process_command_line_arguments(rest, []),
         fn(error) {
           io.println("")
           io.println("command line error: " <> ins(error))
-          io.println("")
-          vr.cli_usage()
+          vr.basic_cli_usage("\nCommand line options (basic):")
           cli_usage_supplementary()
         },
       )
+
       html_to_writerly.html_to_writerly(path, amendments)
     }
 
     ["--parse-html"] -> {
       io.println("")
       io.println("please provide path to html input")
-      // hint: it's public/pages/
       io.println("")
     }
 
     _ -> {
-      use amendments <- infra.on_error_on_ok(
+      use amendments <- on.error_ok(
         vr.process_command_line_arguments(args, ["--prettier"]),
         fn(error) {
           io.println("")
           io.println("command line error: " <> ins(error))
-          io.println("")
-          vr.cli_usage()
+          vr.basic_cli_usage("\nCommand line options (basic):")
           cli_usage_supplementary()
         },
       )
 
       let renderer =
         vr.Renderer(
-          assembler: wp.assemble_blamed_lines_advanced_mode(_, amendments.spotlight_args_files),
-          source_parser: vr.default_writerly_source_parser(_, amendments.spotlight_args),
+          assembler: vr.default_writerly_assembler(amendments.only_paths),
+          parser: vr.default_writerly_parser(amendments.only_key_values),
           pipeline: pipeline.our_pipeline(),
-          splitter: ti2_splitter,
+          splitter: our_splitter,
           emitter: ti2_emitter,
-          prettifier: vr.guarded_prettier_prettifier(amendments.user_args),
+          writer: vr.default_writer,
+          prettifier: vr.empty_prettifier,
         )
+        |> vr.amend_renderer_by_command_line_amendments(amendments)
 
       let parameters =
         vr.RendererParameters(
           input_dir: "./wly_content",
-          output_dir: Some("./output"),
+          output_dir: "./output",
+          prettifier_behavior: vr.PrettifierOff,
         )
-        |> vr.amend_renderer_paramaters_by_command_line_amendment(amendments)
+        |> vr.amend_renderer_paramaters_by_command_line_amendments(amendments)
 
       let debug_options =
-        vr.empty_renderer_debug_options("../renderer_artifacts")
-        |> vr.amend_renderer_debug_options_by_command_line_amendment(
-          amendments,
-          pipeline.our_pipeline(),
-        )
+        vr.vanilla_options()
+        |> vr.amend_renderer_options_by_command_line_amendments(amendments)
 
       case vr.run_renderer(renderer, parameters, debug_options) {
         Error(error) -> io.println("\nrenderer error: " <> ins(error) <> "\n")

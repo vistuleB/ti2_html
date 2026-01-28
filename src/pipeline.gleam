@@ -1,23 +1,21 @@
 import gleam/list
-import infrastructure.{type Desugarer} as infra
+import infrastructure as infra
 import prefabricated_pipelines as pp
 import desugarer_library as dl
 
-pub fn our_pipeline() -> List(Desugarer) {
+pub fn our_pipeline() -> infra.Pipeline {
   [
     [
-      dl.find_replace(#([#("&ensp;", " ")], []))
+      dl.find_replace__outside(#("&ensp;", " "), [])
     ],
     // pp.normalize_begin_end_align(infra.DoubleDollar),
-    pp.create_mathblock_and_math_elements(
-      #([infra.DoubleDollar], infra.DoubleDollar),
-      #([infra.BackslashParenthesis], infra.BackslashParenthesis)
-    ),
+    pp.create_mathblock_elements([infra.DoubleDollar], infra.DoubleDollar),
+    pp.create_math_elements([infra.BackslashParenthesis], infra.BackslashParenthesis, infra.BackslashParenthesis),
     [
-      dl.add_attributes([#("Book", "counter", "BookLevelSectionCounter")]),
-      dl.associate_counter_by_prepending_incrementing_attribute([#("section", "BookLevelSectionCounter")]),
-      dl.add_attributes([#("section", "path", "/lecture-notes::øøBookLevelSectionCounter")]),
-      dl.unwrap(["WriterlyBlankLine"]),
+      dl.append_attribute(#("Book", "counter", "BookLevelSectionCounter", infra.GoBack)),
+      dl.prepend_counter_incrementing_attribute(#("section", "BookLevelSectionCounter", infra.GoBack)),
+      dl.append_attribute(#("section", "path", "/lecture-notes::øøBookLevelSectionCounter", infra.GoBack)),
+      dl.unwrap("WriterlyBlankLine"),
       dl.concatenate_text_nodes(),
     ],
     pp.symmetric_delim_splitting("`", "`", "code", ["MathBlock", "Math", "code"]),
@@ -25,17 +23,18 @@ pub fn our_pipeline() -> List(Desugarer) {
     pp.symmetric_delim_splitting("\\*", "*", "b", ["MathBlock", "Math", "code"]),
     [
       dl.counters_substitute_and_assign_handles(),
-      dl.handles_generate_ids(),
-      dl.handles_generate_dictionary([#("section", "path")]),
+      dl.handles_add_ids(),
+      dl.handles_generate_dictionary_and_id_list("path"),
       dl.identity(),
       // dl.handles_substitute(),
       dl.concatenate_text_nodes(),
-      dl.unwrap_tags_when_no_child_meets_condition(#(["p"], infra.is_text_or_is_one_of(_, ["b", "i", "a", "span"]))),
-      dl.unwrap_when_child_of([#("p", ["span", "code", "tt", "figcaption", "em"])]),
-      dl.free_children([#("pre", "p"), #("ul", "p"), #("ol", "p"), #("p", "p"), #("figure", "p")]),
-      dl.generate_ti2_table_of_contents_html(#("TOCAuthorSuppliedContent", "li")),
-      dl.fold_tag_contents_into_text(["MathBlock", "Math", "MathDollar"]),
+      dl.unwrap_if_no_child_meets_condition(#("p", infra.is_text_or_is_one_of(_, ["b", "i", "a", "span"]))),
+      dl.unwrap_if_child_of__batch([#("p", ["span", "code", "tt", "figcaption", "em"])]),
+      dl.free_children__batch([#("pre", "p"), #("ul", "p"), #("ol", "p"), #("p", "p"), #("figure", "p")]),
+      dl.ii2_generate_table_of_contents_html(#("TOCAuthorSuppliedContent", "li")),
+      dl.fold_into_text__batch([#("MathBlock", ""), #("Math", ""), #("MathDollar", "")]),
     ]
   ]
   |> list.flatten
+  |> infra.desugarers_2_pipeline
 }

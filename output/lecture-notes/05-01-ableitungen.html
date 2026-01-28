@@ -19,7 +19,7 @@
 <body>
 <section
   count="29"
-  .="BookLevelSectionCounter 29"
+  _="BookLevelSectionCounter 29"
   title_gr="und Ableitungsbäume"
   title_en="ableitungen"
   number="5.1"
@@ -27,64 +27,36 @@
   counter="ExoCtr"
   path="/lecture-notes29"
 >
-  <div
-    id="link-to-toc"
-  >
-    <a
-      href="../vorlesungsskript.html"
-    >Inhaltsverzeichnis</a><a
-      href="05-00-context-free-languages.html"
-    >&lt;&lt; Kapitel 5.0</a>
+  <div id="link-to-toc">
+    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="05-00-context-free-languages.html">&lt;&lt; Kapitel 5.0</a>
   </div>
   <div
     id="link-to-overview"
     style="text-align: end"
   >
-    <a
-      href="/"
-    >zur Kursübersicht</a><a
-      href="05-02-cfg-to-pda.html"
-    >Kapitel 5.2 &gt;&gt;</a>
+    <a href="/">zur Kursübersicht</a><a href="05-02-cfg-to-pda.html">Kapitel 5.2 &gt;&gt;</a>
   </div>
-  <div
-    id="rightSideWrapper"
-  >
-    <div
-      class="content"
-    >
-      <div
-        class="chapter"
-      >
-        <div
-          class="subChapter"
-        >
-          <h1
-            class="hidden-title"
-          >
-            <span
-              class="subChapterTitle"
-            >::::ChapterCtr.1
+  <div id="rightSideWrapper">
+    <div class="content">
+      <div class="chapter">
+        <div class="subChapter">
+          <h1 class="hidden-title">
+            <span class="subChapterTitle">::::ChapterCtr.1
               Ableitungen und Ableitungsbäume</span>
           </h1>
-          <div
-            class="well container theorem"
-          >
-            <span
-              class="numbered-title"
-            >Definition
+          <div class="well container theorem">
+            <span class="numbered-title">Definition
               <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-              (Ableitung)</span>Sei \(G\) eine Grammatik mit Startsymbol \(S\). Die Ableitung eines
-            Wortes \(\alpha\) ist eine Sequenz von Wortformen \( w_0, w_1, \dots,
-            w_n\) mit \(w_0 = S, w_n = \alpha\) und \(w_{i-1} \Longrightarrow
-            w_i\).
+              (Ableitung)</span>Sei  eine Grammatik mit Startsymbol . Die Ableitung eines
+            Wortes  ist eine Sequenz von Wortformen  mit  und .
           </div>
           Das folgende Beispiel ist Beispiel 3.22 aus dem Buch von Aho und Ullman.
           Wir betrachten die klassische kontextfreie Grammatik für arithmetische
           Ausdrücke mit Klammerung: \begin{align*} (1)\ E \rightarrow&amp;E + T \\
           (2)\ E \rightarrow&amp;T \\ (3)\ T \rightarrow&amp;T * F \\ (4)\ T
           \rightarrow&amp;F \\ (5)\ F \rightarrow&amp;(E) \\ (6)\ F \rightarrow&amp;a \\
-          \end{align*} wobei \(E\) das Startsymbol ist. Hier ist ein Beispiel
-          einer Ableitung von \(a * (a+a)\) von der obigen Grammatik.
+          \end{align*} wobei  das Startsymbol ist. Hier ist ein Beispiel
+          einer Ableitung von  von der obigen Grammatik.
           \begin{align*} E&amp;\stackrel{2}{\Longrightarrow} T
           \stackrel{3}{\Longrightarrow} T * F \stackrel{4}{\Longrightarrow} F * F
           \stackrel{6}{\Longrightarrow} a * F&amp;\\&amp;\stackrel{5}{\Longrightarrow}
@@ -124,36 +96,21 @@
             Beachten Sie, dass wir es hier mit einer eindeutigen Grammatik zu tun
             haben, es also nur einen Syntaxbaum gibt:
           </p>
-          <figure>
-            <img
-              style="height: 15em"
-              src="../img/cfg/syntax-tree-a*(a+a).svg"
-              loading="lazy"
-            >
-          </figure>
           <p>
             Rechtsableitung und Linksableitung sowie deren Codierung als
             Zahlenfolge spiegeln also nur zwei verschiedene Weisen wieder, den
             Baum auszugeben.
           </p>
-<pre
-  class="listing container"
->
+<pre class="listing container">
 <code>def treeToLeftDerivation (tree):</code>
- 
-<code>print tree.ruleAtRoot (bzw. drucke nur die Nummer der Regel)</code>
- 
-<code>for child in tree.children (from left ro right):</code>
- 
-<code>treeToLeftDerivation(child)</code>
-<code></code>
-<code>def treeToRightDerivation (tree):</code>
- 
-<code>for child in tree.children (from left ro right):</code>
- 
-<code>treeToLeftDerivation(child)</code>
- 
-<code>print tree.ruleAtRoot (bzw. drucke nur die Nummer der Regel)</code>
+ <code>print tree.ruleAtRoot (bzw. drucke nur die Nummer der Regel)</code>
+ <code>for child in tree.children (from left ro right):</code>
+ <code>treeToLeftDerivation(child)</code>
+`<code>
+</code>def treeToRightDerivation (tree):`
+ <code>for child in tree.children (from left ro right):</code>
+ <code>treeToLeftDerivation(child)</code>
+ <code>print tree.ruleAtRoot (bzw. drucke nur die Nummer der Regel)</code>
 </pre>
           <p>
             Beachten Sie, dass wir in beiden Fällen die Liste Kinder von links
