@@ -1,336 +1,320 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-      <link rel="icon" href="data:,">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
-    <link rel="stylesheet" type="text/css" href="../TI.css" />
-    <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="../numbered-title.js"></script>
-    <script type="text/javascript" src="../mathjax_setup.js"></script>
-    <script type="text/javascript" src="../carousel.js"></script>
-    <script type="text/javascript" src="../sendCmdTo3003.js"></script>
-    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <link rel="icon" href="data:," />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
+  <link rel="stylesheet" type="text/css" href="../TI.css" />
+  <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="../numbered-title.js"></script>
+  <script type="text/javascript" src="../mathjax_setup.js"></script>
+  <script type="text/javascript" src="../carousel.js"></script>
+  <script type="text/javascript" src="../sendCmdTo3003.js"></script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
+
 <body>
-<section
-  count="24"
-  _="BookLevelSectionCounter 24"
-  title_gr="einer regulären Grammatik zu einem endlichen Automaten"
-  title_en="regular grammar to fsm"
-  number="4.4"
-  counter="DefCtr"
-  counter="ExoCtr"
-  path="/lecture-notes24"
->
-  <div id="link-to-toc">
-    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="04-03-nfsm.html">&lt;&lt; Kapitel 4.3</a>
-  </div>
-  <div
-    id="link-to-overview"
-    style="text-align: end"
-  >
-    <a href="/">zur Kursübersicht</a><a href="04-05-regular-expressions.html">Kapitel 4.5 &gt;&gt;</a>
-  </div>
-  <div id="rightSideWrapper">
-    <div class="content">
-      <div class="chapter">
-        <div class="subChapter">
-          <h1 class="hidden-title">
-            <span class="subChapterTitle">::::ChapterCtr.4
-              Von einer regulären Grammatik zu einem endlichen Automaten</span>
-          </h1>
-          <p>
-            In diesem Unterkapitel wollen wir das Gelernte an einem konkreten Beispiel anwenden.
-            Wir beginnen (1) mit einer Beschreibung eines Formats in natürlicher Sprache; (2) basteln uns
-            daraus
-            mit Hilfe des "Baukastenprinzips" eine reguläre Sprache; (3) säubern diese, indem wir Regeln
-            der Form  und  eliminieren; (4) bauen einen
-            nichtdeterministischen
-            endlichen Automaten; (5) transformieren diesen in einen deterministischen endlichen Automaten.
-          </p>
-          <h2>
-            1. Beschreibung des Formats in natürlicher Sprache
-          </h2>
-          <p>
-            Unsere Sprache  soll so ähnlich sein wie die der erlaubten Domainnamen, allerdings mit ein
-            paar Abänderungen,
-            um die obigen Transformationen spannender zu machen. Ein Wort in unserer Sprache besteht aus
-            einer
-            nichtleeren Folge von
-            <i>Labels</i>
-            die jeweils durch einen
-            <code>.</code>
-            separiert sind.
-            Jedes Label ist eine nichtleere Folge von Blöcken (ein nichtleerer String aus Buchstaben und
-            Zahlen), separiert
-            durch
+  <section count="24" _="BookLevelSectionCounter 24" title_gr="einer regulären Grammatik zu einem endlichen Automaten"
+    title_en="regular grammar to fsm" number="4.4" counter="DefCtr" counter="ExoCtr" path="/lecture-notes24">
+    <div id="link-to-toc">
+      <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="04-03-nfsm.html">&lt;&lt; Kapitel 4.3</a>
+    </div>
+    <div id="link-to-overview" style="text-align: end">
+      <a href="/">zur Kursübersicht</a><a href="04-05-regular-expressions.html">Kapitel 4.5 &gt;&gt;</a>
+    </div>
+    <div id="rightSideWrapper">
+      <div class="content">
+        <div class="chapter">
+          <div class="subChapter">
+            <h1 class="hidden-title">
+              <span class="subChapterTitle">::::ChapterCtr.4
+                Von einer regulären Grammatik zu einem endlichen Automaten</span>
+            </h1>
+            <p>
+              In diesem Unterkapitel wollen wir das Gelernte an einem konkreten Beispiel anwenden.
+              Wir beginnen (1) mit einer Beschreibung eines Formats in natürlicher Sprache; (2) basteln uns
+              daraus
+              mit Hilfe des "Baukastenprinzips" eine reguläre Sprache; (3) säubern diese, indem wir Regeln
+              der Form und eliminieren; (4) bauen einen
+              nichtdeterministischen
+              endlichen Automaten; (5) transformieren diesen in einen deterministischen endlichen Automaten.
+            </p>
+            <h2>
+              1. Beschreibung des Formats in natürlicher Sprache
+            </h2>
+            <p>
+              Unsere Sprache soll so ähnlich sein wie die der erlaubten Domainnamen, allerdings mit ein
+              paar Abänderungen,
+              um die obigen Transformationen spannender zu machen. Ein Wort in unserer Sprache besteht aus
+              einer
+              nichtleeren Folge von
+              <i>Labels</i>
+              die jeweils durch einen
+              <code>.</code>
+              separiert sind.
+              Jedes Label ist eine nichtleere Folge von Blöcken (ein nichtleerer String aus Buchstaben und
+              Zahlen), separiert
+              durch
+              <code>:</code>
+              oder
+              <code>-</code>
+              aber niemals durch beides innerhalb eines Blockes.
+              Also:
+            </p>
+            <div style="text-align:center">
+              <code>bla:bla:blue.xyz-12-zx.b:x:yyy:xxx:aaa</code>
+
+            </div>
+            ist ein Wort in , aber
+            <div style="text-align:center">
+              <code>a:b-c.hello</code>
+
+            </div>
+            ist kein Wort in , da das erste Label die Separatoren
             <code>:</code>
-            oder
-            <code>-</code>
-            aber niemals durch beides innerhalb eines Blockes.
-            Also:
-          </p>
-          <div style="text-align:center">
-            <code>bla:bla:blue.xyz-12-zx.b:x:yyy:xxx:aaa</code>
-            
-          </div>
-          ist ein Wort in , aber
-          <div style="text-align:center">
-            <code>a:b-c.hello</code>
-            
-          </div>
-          ist kein Wort in , da das erste Label die Separatoren
-          <code>:</code>
-          und
-          <code>-</code>
-          mischt.
-          Habe ich
-           genau genug beschrieben? Stellen wir eine Meta-Frage: Was zählt überhaupt als
-          <i>genaue
-            Beschreibung</i>
-          einer
-          Sprache? Wir können uns dem Mund fusselig reden und Beispiele und Nicht-Beispiele angeben, am Ende
-          aber werden
-          wir irgendwann beginnen, formale Regeln aufzustellen, die unsere Sprache beschreiben - wir werden
-          also im Prinzip
-          eine
-          <i>Grammatik</i>
-          schreiben. Tun wir dies also.
-          <h2>
-            2. Eine reguläre Grammatik
-          </h2>
-          <p>
-            Beginnen wir mit dem Alphabet.
-            Da es 62 alphanumerische Zeichen gibt:
-            <code>a..zA..Z0..9</code>
-            und wir uns keine unnötige
-            Arbeit machen wollen,
-            beschränken wir uns auf ein Zeichen:
-            <code>a</code>. Dazu kommen die Separatoren
-            <code>:-.</code>. Also: . Stellen Sie sich einfach vor,  stehe
-            für beliebige alphanumerische Zeichen. Sowohl Grammatik als auch Automaten lassen sich einfach
-            anpassen.
-            Wir beginnen ganz unten und schreiben eine Grammatik für
-            Blöcke, also nichtleere Strings aus alphanumerischen Zeichen.
-          </p>
-          \begin{align*}
-          B&amp;\rightarrow a \ | \ aB
-          \end{align*}
-          <p>
-            Als nächstes führen wir ein nichtterminales Symbole  für Labels mit
-            <code>:</code>
-            ein
-            und ein Nichtterminal  für Labels mit
-            <code>-</code>. Wir wählen die Buchstaben ,
-            weil
-            <code>:</code>
-            auf Englisch
-            <i>colon</i>
             und
             <code>-</code>
-            <i>dash</i>
-            heißt.
-            -Labels können wir uns nach dem Baukastenprizip bauen, in dem
-            wir
-            <a href="./04-01-regular-grammars.html#operation-L(.L)*">Theorem 4.1.14</a>
-            anwenden.
-            Wir fügen zur "End-Produktion"  eine weiter Produktion 
-            hinzu und
-            tun das gleiche für . Allerdings benennen wir  in  um, damit keine
-            Verwechslungsgefahr mit
-            dem ursprünglichen  aufkommt. Das gleiche machen wir für .
-          </p>
-          \begin{align*}
-          C&amp;\rightarrow a \ | \ aC \ | \ a{:}C \\
-          D&amp;\rightarrow a \ | \ aD \ | \ a{-}D \\
-          T&amp;\rightarrow C \ | D
-          \end{align*}
-          <p>
-            Von  lassen sich nun also alle Labels ableiten. Wir brauchen nun zum Schluss wieder
-            eine Folge von , mit
-            <code>.</code>
-            separiert, müssen also wieder<a href="./04-01-regular-grammars.html#operation-L(.L)*">Theorem 4.1.14</a>
-            anwenden, dieses
-            mal auf die von  erzeugte Sprache. Im Ergebnis benennen wir das Startsymbol in  um.
-          </p>
-          \begin{align*}
-          S&amp;\rightarrow C \ | \ D \\
-          C&amp;\rightarrow a \ | \ aC \ | \ a{:}C \ | a{.}S \ \\
-          D&amp;\rightarrow a \ | \ aD \ | \ a\text{-}D \ | \ a{.}S \\
-          \end{align*}
-          <p>
-            Um eine "richtig" reguläre Sprache zu erhalten, entzerren wir die erweitert regulären
-            Produktionen
-            wie . Dafür brauchen wir neue Symbole :
-          </p>
-          \begin{align*}
-          S&amp;\rightarrow C \ | \ D \\
-          C&amp;\rightarrow a \ | \ aC \ | \ aC'\ | \ aS' \\
-          C'&amp;\rightarrow {:}C \\
-          D&amp;\rightarrow a \ | \ aD \ | \ a D' \ | \ aS' \\
-          D'&amp;\rightarrow \text{-}D \\
-          S'&amp;\rightarrow {.}S
-          \end{align*}
-          <h2>
-            3. Die reguläre Grammatik säubern
-          </h2>
-          <p>
-            Wir wollen nun alle Produktionen der Form  eliminieren. Hierfür nehmen wir
-            uns
-            <i>ein</i>
-            neues Nichtterminal  und ersetzen  durch 
-            und fügen die Produktion  hinzu.
-          </p>
-          \begin{align*}
-          S&amp;\rightarrow C \ | \ D \\
-          C&amp;\rightarrow aE \ | \ aC \ | \ aC'\ | \ aS' \\
-          C'&amp;\rightarrow {:}C \\
-          D&amp;\rightarrow aE \ | \ aD \ | \ a D' \ | \ aS' \\
-          D'&amp;\rightarrow \text{-}D \\
-          S'&amp;\rightarrow {.}S \\
-          E&amp;\rightarrow \epsilon
-          \end{align*}
-          <p>
-            In einem zweiten Schritt wollen wir die Produktionen  und 
-            eliminieren,
-            sodass wir nur noch Produktionen der From  und 
-            haben.
-            Wir gehen vor wie in
-            <a href="./04-01-regular-grammars.html#theorem-regular-simplified">Theorem
-              4.1.7</a>
-            beschrieben.
-            Wir ersetzen  also durch alle Produktionen der Form ,
-            wobei
-             eine Wortform ist, die sich aus  ableiten lässt und nicht nur aus einem
-            einzelnen Nichtterminal
-            besteht; dies trifft glücklicherweise auf
-            <i>alle</i>
-            rechten Seiten der -Produktionen
-            zu; gleiches gilt
-            für . Wir erhalten:
-          </p>
-          \begin{align*}
-          S&amp;\rightarrow aE \ | \ aC \ | \ aC'\ | \ aS' \ | \ aD \ | \ a D' \\
-          C&amp;\rightarrow aE \ | \ aC \ | \ aC'\ | \ aS' \ \\
-          C'&amp;\rightarrow {:}C \\
-          D&amp;\rightarrow aE \ | \ aD \ | \ a D' \ | \ aS' \ \\
-          D'&amp;\rightarrow \text{-}D \\
-          S'&amp;\rightarrow {.}S \\
-          E&amp;\rightarrow \epsilon
-          \end{align*}
-          <h2>
-            4. Einen nichtdeterministischen endlichen Automaten bauen
-          </h2>
-          <p>
-            Dies sollte nun einfach sein. Wir erschaffen Zustände  und
-            übersetzen jeden Grammatik-Pfeil in einen Automaten-Pfeil.
-          </p>
-          <p>
-            Ich habe die Zeichen
-            <code>.:-</code>
-            rot unterlegt, weil man sie sonst kaum erkennen würde in
-            dem Automaten.
-          </p>
-          <h2>
-            5. Den nichtdeterministischen Automaten in einen deterministischen umwandeln
-          </h2>
-          <p>
-            Unser nichtdeterministischer endlicher Automat hat Zustandsmenge , also insgesamt
-            sieben Zustände. Wenn wir genau nach Buch vorgingen, müssten wir den endlichen Automaten auf der
-            Zustandsmenge 
-            definieren, er hätte also  viele Zustände. Das wäre jetzt für einen Rechner kein
-            Problem, aber
-            in diesem vorlesungsskript doch etwas ungünstig.
-            Wir gehen
-            <i>lazy</i>
-            vor, erschaffen Zustände in  also nur dann, wenn wir sie
-            brauchen.
-            Wir beginnen mit dem Zustand  und legen dann an jeden Zustand Kanten an, jeweils mit
-             beschriftet, und erschaffen, falls nötig, dabei neue Zustände. In der folgenden
-            Animation
-            sehen Sie manchmal den mit einem Kreuz markierten Fehlerzustand (trap state). Die akzeptierenden
-            Zustände sind mit fettem Rand markiert.
-          </p>
-          <figure
-            id="figure-ColonDashPeriod"
-            class="centered-figure well"
-          >
-            <div>
-              <p>
-                Der nichtdeterministische Automat
-              </p>
-            </div>
-            <div
-              style="display:inline-block"
-              data-interval="false"
-              class="carousel"
-              id="nfsm-to-fsm"
-            >
-              <p>
-                Der deterministische Automat, Schritt für Schritt gebaut:
-              </p>
-            </div>
-          </figure>
-          <p>
-            Dieser Automat hat deutlich weniger also 128 Zustände, nämlich mit nur sieben genau so
-            viele wie der nichtdeterministische (es ist Zufall, dass beide gleich viele Zustände haben;
-            messen
-            Sie dieser Tatsache keine Bedeutung bei). Wir könnten nun von diesem Automaten ausgehend
-            wiederum eine reguläre Grammtik bauen, die in diesem Falle sogar einfacher und klarer
-            wäre als die ursprüngliche. Wenn wir erweitert reguläre Grammatiken erlauben, so können
-            wir den deterministischen Automaten besonders konzise in eine Grammatik fassen:
-          </p>
-          \begin{align*}
-          S&amp;\rightarrow aT \\
-          T&amp;\rightarrow {.}S \ | \ aT \ | \ {:}aC \ | \ \text{-}a D \\
-          C&amp;\rightarrow aC \ | \ {:}aC \ | \ {.}S \\
-          D&amp;\rightarrow aD \ | \ \text{-}aD \ | \ {.}S
-          \end{align*}
-          <p>
-            Die Zustände des deterministischen Automaten beschreiben im Prinzip das, was wir uns merken
-            müssen, wenn wir so einen String "parsen": Zustand , der
-            in der Grammatik dann zum Nichtterminal  wird, bedeutet beispielsweise
-            <i>das Label hat schon begonnen, wir wissen aber noch nicht, ob es eines mit
+            mischt.
+            Habe ich
+            genau genug beschrieben? Stellen wir eine Meta-Frage: Was zählt überhaupt als
+            <i>genaue
+              Beschreibung</i>
+            einer
+            Sprache? Wir können uns dem Mund fusselig reden und Beispiele und Nicht-Beispiele angeben, am Ende
+            aber werden
+            wir irgendwann beginnen, formale Regeln aufzustellen, die unsere Sprache beschreiben - wir werden
+            also im Prinzip
+            eine
+            <i>Grammatik</i>
+            schreiben. Tun wir dies also.
+            <h2>
+              2. Eine reguläre Grammatik
+            </h2>
+            <p>
+              Beginnen wir mit dem Alphabet.
+              Da es 62 alphanumerische Zeichen gibt:
+              <code>a..zA..Z0..9</code>
+              und wir uns keine unnötige
+              Arbeit machen wollen,
+              beschränken wir uns auf ein Zeichen:
+              <code>a</code>. Dazu kommen die Separatoren
+              <code>:-.</code>. Also: . Stellen Sie sich einfach vor, stehe
+              für beliebige alphanumerische Zeichen. Sowohl Grammatik als auch Automaten lassen sich einfach
+              anpassen.
+              Wir beginnen ganz unten und schreiben eine Grammatik für
+              Blöcke, also nichtleere Strings aus alphanumerischen Zeichen.
+            </p>
+            \begin{align*}
+            B&amp;\rightarrow a \ | \ aB
+            \end{align*}
+            <p>
+              Als nächstes führen wir ein nichtterminales Symbole für Labels mit
               <code>:</code>
-              oder eines mit
+              ein
+              und ein Nichtterminal für Labels mit
+              <code>-</code>. Wir wählen die Buchstaben ,
+              weil
+              <code>:</code>
+              auf Englisch
+              <i>colon</i>
+              und
               <code>-</code>
-              ist.
-              Der Zustand  bzw. das Nichtterminal  heißt dann
-              `:`</i>wir sind innerhalb eines Labels mit
-            <i>.
-            </i>
-            
-          </p>
-          <div class="well well-lg numbered-exercise container">
+              <i>dash</i>
+              heißt.
+              -Labels können wir uns nach dem Baukastenprizip bauen, in dem
+              wir
+              <a href="./04-01-regular-grammars.html#operation-L(.L)*">Theorem 4.1.14</a>
+              anwenden.
+              Wir fügen zur "End-Produktion" eine weiter Produktion
+              hinzu und
+              tun das gleiche für . Allerdings benennen wir in um, damit keine
+              Verwechslungsgefahr mit
+              dem ursprünglichen aufkommt. Das gleiche machen wir für .
+            </p>
+            \begin{align*}
+            C&amp;\rightarrow a \ | \ aC \ | \ a{:}C \\
+            D&amp;\rightarrow a \ | \ aD \ | \ a{-}D \\
+            T&amp;\rightarrow C \ | D
+            \end{align*}
             <p>
-              <span class="numbered-title">Übungsaufgabe
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-                </span>Erinnern Sie sich an
-              <a href="./04-03-nfsm#exercise-divisibility">Aufgabe 4.3.1</a>. Hier
-              sehen
-              Sie einen nichtdeterministischen endlichen Automaten für die Sprache , also
-              die Sprache aller Wörter  für ein , das durch 4 oder 6 teilbar ist.
-              Da unser Alphabet  eh nur aus einem Zeichen besteht, habe ich auf die
-              Beschriftung
-              der Kanten verzichtet.
+              Von lassen sich nun also alle Labels ableiten. Wir brauchen nun zum Schluss wieder
+              eine Folge von , mit
+              <code>.</code>
+              separiert, müssen also wieder<a href="./04-01-regular-grammars.html#operation-L(.L)*">Theorem 4.1.14</a>
+              anwenden, dieses
+              mal auf die von erzeugte Sprache. Im Ergebnis benennen wir das Startsymbol in um.
+            </p>
+            \begin{align*}
+            S&amp;\rightarrow C \ | \ D \\
+            C&amp;\rightarrow a \ | \ aC \ | \ a{:}C \ | a{.}S \ \\
+            D&amp;\rightarrow a \ | \ aD \ | \ a\text{-}D \ | \ a{.}S \\
+            \end{align*}
+            <p>
+              Um eine "richtig" reguläre Sprache zu erhalten, entzerren wir die erweitert regulären
+              Produktionen
+              wie . Dafür brauchen wir neue Symbole :
+            </p>
+            \begin{align*}
+            S&amp;\rightarrow C \ | \ D \\
+            C&amp;\rightarrow a \ | \ aC \ | \ aC'\ | \ aS' \\
+            C'&amp;\rightarrow {:}C \\
+            D&amp;\rightarrow a \ | \ aD \ | \ a D' \ | \ aS' \\
+            D'&amp;\rightarrow \text{-}D \\
+            S'&amp;\rightarrow {.}S
+            \end{align*}
+            <h2>
+              3. Die reguläre Grammatik säubern
+            </h2>
+            <p>
+              Wir wollen nun alle Produktionen der Form eliminieren. Hierfür nehmen wir
+              uns
+              <i>ein</i>
+              neues Nichtterminal und ersetzen durch
+              und fügen die Produktion hinzu.
+            </p>
+            \begin{align*}
+            S&amp;\rightarrow C \ | \ D \\
+            C&amp;\rightarrow aE \ | \ aC \ | \ aC'\ | \ aS' \\
+            C'&amp;\rightarrow {:}C \\
+            D&amp;\rightarrow aE \ | \ aD \ | \ a D' \ | \ aS' \\
+            D'&amp;\rightarrow \text{-}D \\
+            S'&amp;\rightarrow {.}S \\
+            E&amp;\rightarrow \epsilon
+            \end{align*}
+            <p>
+              In einem zweiten Schritt wollen wir die Produktionen und
+              eliminieren,
+              sodass wir nur noch Produktionen der From und
+              haben.
+              Wir gehen vor wie in
+              <a href="./04-01-regular-grammars.html#theorem-regular-simplified">Theorem
+                4.1.7</a>
+              beschrieben.
+              Wir ersetzen also durch alle Produktionen der Form ,
+              wobei
+              eine Wortform ist, die sich aus ableiten lässt und nicht nur aus einem
+              einzelnen Nichtterminal
+              besteht; dies trifft glücklicherweise auf
+              <i>alle</i>
+              rechten Seiten der -Produktionen
+              zu; gleiches gilt
+              für . Wir erhalten:
+            </p>
+            \begin{align*}
+            S&amp;\rightarrow aE \ | \ aC \ | \ aC'\ | \ aS' \ | \ aD \ | \ a D' \\
+            C&amp;\rightarrow aE \ | \ aC \ | \ aC'\ | \ aS' \ \\
+            C'&amp;\rightarrow {:}C \\
+            D&amp;\rightarrow aE \ | \ aD \ | \ a D' \ | \ aS' \ \\
+            D'&amp;\rightarrow \text{-}D \\
+            S'&amp;\rightarrow {.}S \\
+            E&amp;\rightarrow \epsilon
+            \end{align*}
+            <h2>
+              4. Einen nichtdeterministischen endlichen Automaten bauen
+            </h2>
+            <p>
+              Dies sollte nun einfach sein. Wir erschaffen Zustände und
+              übersetzen jeden Grammatik-Pfeil in einen Automaten-Pfeil.
             </p>
             <p>
-              Dieser Automat hat 11 Zustände. Sein Potenzmengenautomat hätte also 
-              Zustände.
-              Führen Sie die Konstruktion
+              Ich habe die Zeichen
+              <code>.:-</code>
+              rot unterlegt, weil man sie sonst kaum erkennen würde in
+              dem Automaten.
+            </p>
+            <h2>
+              5. Den nichtdeterministischen Automaten in einen deterministischen umwandeln
+            </h2>
+            <p>
+              Unser nichtdeterministischer endlicher Automat hat Zustandsmenge , also insgesamt
+              sieben Zustände. Wenn wir genau nach Buch vorgingen, müssten wir den endlichen Automaten auf der
+              Zustandsmenge
+              definieren, er hätte also viele Zustände. Das wäre jetzt für einen Rechner kein
+              Problem, aber
+              in diesem vorlesungsskript doch etwas ungünstig.
+              Wir gehen
               <i>lazy</i>
-              durch, indem Sie vom Startzustand 
-              ausgehend die Folgezustände konstruieren. Wieviele Zustände bekommen Sie?
+              vor, erschaffen Zustände in also nur dann, wenn wir sie
+              brauchen.
+              Wir beginnen mit dem Zustand und legen dann an jeden Zustand Kanten an, jeweils mit
+              beschriftet, und erschaffen, falls nötig, dabei neue Zustände. In der folgenden
+              Animation
+              sehen Sie manchmal den mit einem Kreuz markierten Fehlerzustand (trap state). Die akzeptierenden
+              Zustände sind mit fettem Rand markiert.
             </p>
+            <figure id="figure-ColonDashPeriod" class="centered-figure well">
+              <div>
+                <p>
+                  Der nichtdeterministische Automat
+                </p>
+              </div>
+              <div style="display:inline-block" data-interval="false" class="carousel" id="nfsm-to-fsm">
+                <p>
+                  Der deterministische Automat, Schritt für Schritt gebaut:
+                </p>
+              </div>
+            </figure>
+            <p>
+              Dieser Automat hat deutlich weniger also 128 Zustände, nämlich mit nur sieben genau so
+              viele wie der nichtdeterministische (es ist Zufall, dass beide gleich viele Zustände haben;
+              messen
+              Sie dieser Tatsache keine Bedeutung bei). Wir könnten nun von diesem Automaten ausgehend
+              wiederum eine reguläre Grammtik bauen, die in diesem Falle sogar einfacher und klarer
+              wäre als die ursprüngliche. Wenn wir erweitert reguläre Grammatiken erlauben, so können
+              wir den deterministischen Automaten besonders konzise in eine Grammatik fassen:
+            </p>
+            \begin{align*}
+            S&amp;\rightarrow aT \\
+            T&amp;\rightarrow {.}S \ | \ aT \ | \ {:}aC \ | \ \text{-}a D \\
+            C&amp;\rightarrow aC \ | \ {:}aC \ | \ {.}S \\
+            D&amp;\rightarrow aD \ | \ \text{-}aD \ | \ {.}S
+            \end{align*}
+            <p>
+              Die Zustände des deterministischen Automaten beschreiben im Prinzip das, was wir uns merken
+              müssen, wenn wir so einen String "parsen": Zustand , der
+              in der Grammatik dann zum Nichtterminal wird, bedeutet beispielsweise
+              <i>das Label hat schon begonnen, wir wissen aber noch nicht, ob es eines mit
+                <code>:</code>
+                oder eines mit
+                <code>-</code>
+                ist.
+                Der Zustand bzw. das Nichtterminal heißt dann
+                `:`</i>wir sind innerhalb eines Labels mit
+              <i>.
+              </i>
+
+            </p>
+            <div class="well well-lg numbered-exercise container">
+              <p>
+                <span class="numbered-title">Übungsaufgabe
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
+                </span>Erinnern Sie sich an
+                <a href="./04-03-nfsm#exercise-divisibility">Aufgabe 4.3.1</a>. Hier
+                sehen
+                Sie einen nichtdeterministischen endlichen Automaten für die Sprache , also
+                die Sprache aller Wörter für ein , das durch 4 oder 6 teilbar ist.
+                Da unser Alphabet eh nur aus einem Zeichen besteht, habe ich auf die
+                Beschriftung
+                der Kanten verzichtet.
+              </p>
+              <p>
+                Dieser Automat hat 11 Zustände. Sein Potenzmengenautomat hätte also
+                Zustände.
+                Führen Sie die Konstruktion
+                <i>lazy</i>
+                durch, indem Sie vom Startzustand
+                ausgehend die Folgezustände konstruieren. Wieviele Zustände bekommen Sie?
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 </body>

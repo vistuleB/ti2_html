@@ -1,606 +1,586 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-      <link rel="icon" href="data:,">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
-    <link rel="stylesheet" type="text/css" href="../TI.css" />
-    <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="../numbered-title.js"></script>
-    <script type="text/javascript" src="../mathjax_setup.js"></script>
-    <script type="text/javascript" src="../carousel.js"></script>
-    <script type="text/javascript" src="../sendCmdTo3003.js"></script>
-    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <link rel="icon" href="data:," />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
+  <link rel="stylesheet" type="text/css" href="../TI.css" />
+  <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="../numbered-title.js"></script>
+  <script type="text/javascript" src="../mathjax_setup.js"></script>
+  <script type="text/javascript" src="../carousel.js"></script>
+  <script type="text/javascript" src="../sendCmdTo3003.js"></script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
+
 <body>
-<section
-  count="21"
-  _="BookLevelSectionCounter 21"
-  title_gr="Grammatiken"
-  title_en="regular grammars"
-  number="4.1"
-  counter="DefCtr"
-  counter="ExoCtr"
-  path="/lecture-notes21"
->
-  <div id="link-to-toc">
-    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="04-00-formal-languages.html">&lt;&lt; Kapitel 4.0</a>
-  </div>
-  <div
-    id="link-to-overview"
-    style="text-align: end"
-  >
-    <a href="/">zur Kursübersicht</a><a href="04-02-finite-state-machines.html">Kapitel 4.2 &gt;&gt;</a>
-  </div>
-  <div id="rightSideWrapper">
-    <div class="content">
-      <div class="chapter">
-        <div class="subChapter">
-          <h1 class="hidden-title">
-            <span class="subChapterTitle">::::ChapterCtr.1
-              Reguläre Grammatiken</span>
-          </h1>
-          <p>
-            Reguläre Grammatiken sind eine Untermenge der kontextfreien
-            Grammatiken. Sie sind einerseits mächtig genug, um viele Dinge
-            modellieren zu können (zum Beispiel syntaktisch korrekte
-            Emailadressen), andererseits restriktiv genug, um algorithmisch gut
-            bearbeitbar zu sein. Insbesondere ist das Parsen von regulären
-            Grammatiken immer in linearer Zeit möglich.
-          </p>
-          <div
-            id="def-regular"
-            class="well container theorem"
-          >
-            <span class="numbered-title">Definition
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-              </span>Eine kontextfreie Sprache  heißt
-            <i>regulär</i>, wenn jede Produktion eine der folgenden vier Formen
-            hat: \begin{align*} X&amp;\rightarrow aY \\ X&amp;\rightarrow a \\ X&amp;
-            \rightarrow Y \\ X&amp;\rightarrow \epsilon \end{align*} Eine Sprache
-             heißt
-            <i>regulär</i>, wenn es eine reguläre
-            Grammatik  gibt, die sie erzeugt, also .
-          </div>
-          <div class="well container theorem">
-            <span class="numbered-title">Beispiel
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-              </span>Die folgende Grammatik über dem Alphabet , den
-            nichtterminalen Symbolen  und den Regeln \begin{align*} E&amp;
-            \rightarrow 1O \ | \ \epsilon \\ O&amp;\rightarrow 1E \end{align*}
-            erzeugt die Sprache .
-          </div>
-          <div
-            id="example-aaabb"
-            class="well container theorem"
-          >
-            <span class="numbered-title">Beispiel
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-              </span>Die folgende Grammatik haben wir bereits im letzten Abschnitt
-            kennengelernt. Sie ist nicht regulär: \begin{align*} S&amp;\rightarrow A
-            B \\ A&amp;\rightarrow \epsilon \ | \ a A \\ B&amp;\rightarrow \epsilon \
-            | \ b B \ . \\ \end{align*}
+  <section count="21" _="BookLevelSectionCounter 21" title_gr="Grammatiken" title_en="regular grammars" number="4.1"
+    counter="DefCtr" counter="ExoCtr" path="/lecture-notes21">
+    <div id="link-to-toc">
+      <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="04-00-formal-languages.html">&lt;&lt; Kapitel
+        4.0</a>
+    </div>
+    <div id="link-to-overview" style="text-align: end">
+      <a href="/">zur Kursübersicht</a><a href="04-02-finite-state-machines.html">Kapitel 4.2 &gt;&gt;</a>
+    </div>
+    <div id="rightSideWrapper">
+      <div class="content">
+        <div class="chapter">
+          <div class="subChapter">
+            <h1 class="hidden-title">
+              <span class="subChapterTitle">::::ChapterCtr.1
+                Reguläre Grammatiken</span>
+            </h1>
             <p>
-              Sie ist nicht regulär, weil die erste Regel 
-              gegen die Definition regulärer Grammatiken verstößt. Allerdings
-              können wir leicht eine reguläre Grammatik  angeben, die die
-              gleiche Sprache erzeugt:
+              Reguläre Grammatiken sind eine Untermenge der kontextfreien
+              Grammatiken. Sie sind einerseits mächtig genug, um viele Dinge
+              modellieren zu können (zum Beispiel syntaktisch korrekte
+              Emailadressen), andererseits restriktiv genug, um algorithmisch gut
+              bearbeitbar zu sein. Insbesondere ist das Parsen von regulären
+              Grammatiken immer in linearer Zeit möglich.
             </p>
-            \begin{align*} S&amp;\rightarrow \epsilon \ |\ a S \ | \ b T \\ T&amp;
-            \rightarrow \epsilon \ | \ b T \ . \end{align*} Hier ist
-            beispielsweise eine Ableitung des Wortes : \begin{align*} S
-            \Rightarrow aS \Rightarrow aaS \Rightarrow aabT \Rightarrow aabbT
-            \Rightarrow aabbbT \Rightarrow aabbb \end{align*}
-            <p>
-              Wir sehen, dass wir eine Folge von 's erzeugen können, bei der
-              ersten Produktion eines  auf das Nichtterminal  wechseln,
-              welches dann ausschließlich weitere 's erzeugen kann.
-            </p>
-          </div>
-          <p>
-            Wir sehen: jede Wortform in der Ableitung besteht aus einer Folge von
-            Terminalen, eventuell ganz am Schluss gefolgt von einem Nichtterminal.
-            Halten wir diese erste Beobachtung formal fest.
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Beobachtung
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-              </span>Sei  eine reguläre Grammatik und  eine Ableitung einer Wortform . Dann hat  die Form  für  und .
-          </div>
-          <p>
-            Sie sollen nun an einer Reihe von Übungsaufgaben arbeiten, um ein
-            Gefühl dafür zu bekommen, was reguläre Grammatiken tun können und was
-            nicht.
-          </p>
-          <div class="well well-lg numbered-exercise container">
-            <span class="numbered-title">Übungsaufgabe
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-              </span>Betrachten Sie die Gramatik über : \begin{align*}
-            S&amp;\rightarrow 1 S \ | \ 0 S \ | \ 0 \end{align*} Leiten Sie das Wort
-             ab. Beschreiben Sie in eigenen Worten die erzeugte Sprache.
-          </div>
-          <div
-            id="example-xxx1yyy"
-            class="well well-lg numbered-exercise container"
-          >
-            <span class="numbered-title">Übungsaufgabe
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-              </span>Betrachten Sie die Grammatik über : \begin{align*}
-            A&amp;\rightarrow 0 A \ | 1 A \ | 1 B \\ B&amp;\rightarrow 0 C \ | 1 C \\
-            C&amp;\rightarrow 0 D \ | 1 D \\ D&amp;\rightarrow 0 E \ | 1 E \\ E&amp;
-            \rightarrow \epsilon \ \end{align*} mit Startsymbol . Leiten Sie
-            das Wort  ab und beschreiben Sie die erzeugte Sprache in
-            eigenen Worten.
-          </div>
-          <div class="well well-lg numbered-exercise container">
-            <span class="numbered-title">Übungsaufgabe
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-              </span>Betrachten Sie das Alphabet  und die Sprache  Schreiben
-            Sie eine reguläre Grammatik für .
-          </div>
-          <div class="well well-lg numbered-exercise container">
-            <span class="numbered-title">Übungsaufgabe
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-              </span>Betrachten Sie die Sprache \begin{align*} L := \{x \in \{a,b\}^* \ | \
-            \textnormal{in $x$ kommt $b$ mindestens 4 mal vor }\} \ \end{align*}
-            und entwerfen Sie eine reguläre Grammatik für .
-          </div>
-          <div class="well well-lg numbered-exercise container">
-            <span class="numbered-title">Übungsaufgabe
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-              </span>Sei  und  die Sprache
-            aller Strings der Form  wobei  und jedes , also zum Beispiel
-            <code>a.bba.aba</code>
-            aber nicht
-            <code>aba</code>
-            und auch nicht
-            <code>a.b..a</code>
-            Entwerfen Sie eine reguläre Grammatik für diese Sprache.
-          </div>
-          <div class="well well-lg numbered-exercise container">
-            <span class="numbered-title">Übungsaufgabe
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
-              </span>Unsere<a href="./04-00-formal-languages.html#email-context-free-grammar">Grammatik für korrekte Emailadressen</a>im letzten Abschnitt war
-            <i>nicht</i>
-            regulär. Allerdings können wir
-            eine reguläre Grammatik angeben, die die gleiche Sprache erzeugt.
-            <p>
-              Entwerfen Sie eine reguläre Grammatik für die Sprache aller
-              korrekter Emailadressen über dem Alphabet . Sie dürfen natürlich noch weitere Buchstaben
-              zulassen, dann schreiben Sie sich aber schnell zu Tode.
-            </p>
-          </div>
-          <h2>
-            Erweitert reguläre Grammatiken
-          </h2>
-          <p>
-            In einer Übungsaufgabe oben wurden Sie aufgefordert, eine reguläre
-            Grammatik zu schreiben für die Sprache aller  mit  durch 3
-            teilbar. Hier ist eine besonders einfache Lösung:
-          </p>
-          \begin{align*} S \rightarrow \epsilon \ | \ 111S \end{align*}
-          <p>
-            Sehen Sie, Sie können hier Einsen nur in Dreierblöcken erzeugen.
-            Leider ist diese Grammatik nicht regulär nach unserer obigen
-            Definition. Was tun wir, wenn wir nicht zufrieden sind mit einer
-            Definition? Wir wandeln sie ab.
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Definition
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-              </span>Eine Grammatik  heißt
-            <i>erweitert regulär</i>, wenn jede Produktion eine der folgenden
-            Formen hat: \begin{align*} X&amp;\rightarrow \alpha Y \\ X&amp;\rightarrow
-            \alpha \\ \end{align*} hat, wobei  und  ist. Im Unterschied zu den eigentlich regulären Grammatiken
-            erlauben wir also mehrere terminale Symbole auf der rechten Seite,
-            sofern Sie
-            <i>vor</i>
-            dem Nichtterminal vorkommen.
-          </div>
-          <div class="well container theorem">
-            <span class="numbered-title">Theorem
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
-              </span>Sei  eine erweitert reguläre Grammatik. Dann
-            existiert eine reguläre Grammatik , die
-            die gleiche Sprache erzeugt: .
-          </div>
-          <div class="well container">
-            <b>Beweis.</b>
-            Wir ersetzen einfach jede Regel der Form  durch  reguläre Regeln: \begin{align*} X&amp;
-            \rightarrow a<i>1 X</i>2 \\ X<i>2&amp;\rightarrow a</i>2 X<i>3 \\ \dots \\ X</i>k&amp;
-            \rightarrow a_k Y \end{align*} wobei wir darauf achten, dass  "frische" Nichtterminalsymbole sind. Falls  ist, so ist die Regel bereits in einer in regulären
-            Grammatiken erlaubten Form:  oder .<span class="qed">
-              </span>
-          </div>
-          <div class="proof">
-            <p>
-              Wir können nun, wenn wir reguläre Grammatik entwerfen wollen, die
-              bequemeren erweitert regulären Sprachen verwenden; wenn wir Dinge
-              über reguläre Grammatik beweisen wollen (oder deren Grenzen
-              studieren wollen), können wir uns auf die eigentlichen regulären
-              Grammatiken beschränken, da wir wissen, dass beide Definition eh
-              gleich mächtig sind.
-            </p>
-            <h2>
-              Reguläre Grammatiken vereinfachen
-            </h2>
-            Das letzte Theorem erlaubt uns, eine Definition von regulären
-            Grammatiken zu verwenden, die uns mehr erlaubt. Im Folgenden zeigen
-            wir, wie man die Form der Grammatiken noch stärker einschränken kann,
-            ohne dass Sie an Mächtigkeit einbüßen. Per<a href="#def-regular">Definition 4.1</a>
-            hat jede Produktion in einer
-            regulären Grammatik eine der folgenden vier Formen: \begin{align*} 1.
-            \quad X&amp;\rightarrow aY \\ 2. \quad X&amp;\rightarrow a \\ 3. \quad X&amp;
-            \rightarrow Y \\ 4. \quad X&amp;\rightarrow \epsilon \end{align*}
-            <p>
-              Wir zeigen nun, dass man auf Produktionen der Form 2 und 3
-              verzichten kann.
-            </p>
-            <div
-              id="theorem-regular-simplified"
-              class="well container theorem"
-            >
-              <span class="numbered-title">Theorem
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
-                </span>Sei  eine reguläre Grammatik. Dann gibt es
-              eine äquivalente reguläre Grammatik ,
-              die nur Regeln vom Typ 1 und 4 enthält.
+            <div id="def-regular" class="well container theorem">
+              <span class="numbered-title">Definition
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
+              </span>Eine kontextfreie Sprache heißt
+              <i>regulär</i>, wenn jede Produktion eine der folgenden vier Formen
+              hat: \begin{align*} X&amp;\rightarrow aY \\ X&amp;\rightarrow a \\ X&amp;
+              \rightarrow Y \\ X&amp;\rightarrow \epsilon \end{align*} Eine Sprache
+              heißt
+              <i>regulär</i>, wenn es eine reguläre
+              Grammatik gibt, die sie erzeugt, also .
             </div>
-            <div class="well container">
-              <b>Beweis.</b>
-              Produktionen vom Typ 2, also von der Form  können
-              wir leicht eliminieren, indem wir ein neues Nichtterminalsymbol  einführen, jedes  durch
-               ersetzen und die Produktion  hinzufügen.
+            <div class="well container theorem">
+              <span class="numbered-title">Beispiel
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
+              </span>Die folgende Grammatik über dem Alphabet , den
+              nichtterminalen Symbolen und den Regeln \begin{align*} E&amp;
+              \rightarrow 1O \ | \ \epsilon \\ O&amp;\rightarrow 1E \end{align*}
+              erzeugt die Sprache .
+            </div>
+            <div id="example-aaabb" class="well container theorem">
+              <span class="numbered-title">Beispiel
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
+              </span>Die folgende Grammatik haben wir bereits im letzten Abschnitt
+              kennengelernt. Sie ist nicht regulär: \begin{align*} S&amp;\rightarrow A
+              B \\ A&amp;\rightarrow \epsilon \ | \ a A \\ B&amp;\rightarrow \epsilon \
+              | \ b B \ . \\ \end{align*}
               <p>
-                Produktionen der Form  zu eliminieren ist etwas
-                komplizierter. Die Idee ist, dass in einer von  ausgehende
-                Ableitung eines Wortes irgendwann zum ersten Mal eine Wortform
-                 vorkommen muss, die nicht ein einzelnes
-                Nichtterminalsymbol ist, also  mit . Wir definieren nun  als neue Menge von Produktionen,
-                die keine Produktionen von der Form  enthalten.<span class="qed">
-                  </span>
+                Sie ist nicht regulär, weil die erste Regel
+                gegen die Definition regulärer Grammatiken verstößt. Allerdings
+                können wir leicht eine reguläre Grammatik angeben, die die
+                gleiche Sprache erzeugt:
+              </p>
+              \begin{align*} S&amp;\rightarrow \epsilon \ |\ a S \ | \ b T \\ T&amp;
+              \rightarrow \epsilon \ | \ b T \ . \end{align*} Hier ist
+              beispielsweise eine Ableitung des Wortes : \begin{align*} S
+              \Rightarrow aS \Rightarrow aaS \Rightarrow aabT \Rightarrow aabbT
+              \Rightarrow aabbbT \Rightarrow aabbb \end{align*}
+              <p>
+                Wir sehen, dass wir eine Folge von 's erzeugen können, bei der
+                ersten Produktion eines auf das Nichtterminal wechseln,
+                welches dann ausschließlich weitere 's erzeugen kann.
               </p>
             </div>
             <p>
-              Im vorhergehenden Beweis haben wir nicht formal gezeigt, dass
-               gilt. Unser Kernargument war das etwas saloppe
-              "irgendwann muss ja mal eine Produktion kommen, die nicht von der
-              Form  ist". Anstatt den Beweis formal
-              durchzuführen, stellen wir uns lieber eine interessantere Frage: wie
-              können wir die neuen Produktionen  im konkreten Fall die
-              Mengen berechnen? Dann das müssen wir ja tun, wenn wir eine solche
-              Transformation durchführen wollen. Im Prinzip müssen wir alle
-              Nichtterminale  und alle Produktionen 
-              mit  durchgehen und überprüfen, ob  gilt. Dies können wir beispielsweise überprüfen,
-              indem wir die Mengen \begin{align*} N<i>k(X) := \{ Y \in N \ | \
-                \textnormal{ es gibt } X</i>1,\dots, X<i>{l-1} \textnormal{ mit } X
-                \rightarrow X</i>1 \rightarrow X<i>2 \cdots X</i>{l-1} \rightarrow Y
-              \textnormal{ und } l \leq k \} \end{align*} definieren, also die
-              Menge derjenigen Nichtterminalsymbole, die sich in bis zu 
-              Schritten von  aus ableiten lassen. Wir berechnen die 
-              iterativ wie folgt: \begin{align*} N<i>0 (X)&amp;:= \{X\} \ , \\ N</i>{k+1}
-              (X)&amp;:= N<i>k \cup \{Z \in N \ | \ \textnormal{ es gibt } Y \in
-                N</i>k(X) \textnormal{ mit } Y \rightarrow Z \} \ . \end{align*} Die
-              Menge  lässt sich also mit zwei geschachtelten
-              <code>for</code>-Schleifen berechnen: eine über die 
-              und eine über die Produktionen . Um
-               für
-              <i>alle</i>
-              zu berechnen, brauchen wir eine weitere
-              <code>for</code>-Schleife. Wir berechnen nun  für
-              steigende , bis keine weitere Veränderung eintritt.
+              Wir sehen: jede Wortform in der Ableitung besteht aus einer Folge von
+              Terminalen, eventuell ganz am Schluss gefolgt von einem Nichtterminal.
+              Halten wir diese erste Beobachtung formal fest.
             </p>
             <div class="well container theorem">
               <span class="numbered-title">Beobachtung
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.8</NumberedTitle>
-                </span>Wenn , dann ist
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
+              </span>Sei eine reguläre Grammatik und eine Ableitung einer Wortform . Dann hat die Form für und .
             </div>
             <p>
-              Da die Menge  nur wachsen kann, gilt nach höchstens  Schritten  und somit  Das geht auch aus einer
-              anderen Überlegung hervor: wenn man überhaupt 
-              ableiten kann, dann auch in maximal  Schritten, denn
-              ansonsten kämen ja in der Ableitung ein Nichtterminal doppelt vor
-              und man könnte abkürzen.
-            </p>
-            <div
-              id="exercise-no-a-or-no-b"
-              class="well well-lg numbered-exercise container"
-            >
-              <span class="numbered-title">Übungsaufgabe
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
-                </span>Sei . Die Grammatik mit den Regeln  erzeugt die Sprache aller
-              Wörter, die kein  enthalten. Die Grammatik  erzeugt die Wörter, die kein 
-              enthalten. Die Grammatik  mit Startsymbol  und den
-              Produktionen \begin{align*} S&amp;\rightarrow A \ | \ B \\ A&amp;
-              \rightarrow \epsilon \ | \ b A \ | \ c A \\ B&amp;\rightarrow \epsilon
-               | \ a B \ | \ c B \end{align*} erzeugt die Sprache aller Wörter,
-              die kein  oder kein  enthalten.
-              <p>
-                Die Grammatik  ist regulär, enthält aber Produktionen vom Typ
-                3, zum Beispiel . Schreiben Sie eine
-                äquivalente Grammatik , die nur Produktionen von der Form
-                 und  enthält.
-              </p>
-            </div>
-            <p>
-              Wir können zwar auf Produktionen vom Typ 2 und 3 verzichten. Dies
-              hat allerdings seinen Preis, wie die folgende Übungsaufgabe zeigt:
+              Sie sollen nun an einer Reihe von Übungsaufgaben arbeiten, um ein
+              Gefühl dafür zu bekommen, was reguläre Grammatiken tun können und was
+              nicht.
             </p>
             <div class="well well-lg numbered-exercise container">
               <span class="numbered-title">Übungsaufgabe
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.8</NumberedTitle>
-                </span>Betrachten Sie die folgende Grammatik über  mit den Nichtterminalsymbolen  und den insgesamt  Produktionen
-              \begin{align*} S&amp;\rightarrow a<i>1 A</i>1 | a<i>2 A</i>2 | a<i>3 A</i>3 | \dots |
-              a<i>n A</i>n \\ A<i>1&amp;\rightarrow a</i>1 | A<i>2 \\ \dots \\ A</i>i&amp;\rightarrow
-              a<i>{i} | A</i>{i+1}\\ \dots \\ A<i>{n-1}&amp;\rightarrow a</i>{n-1} | A<i>n \\
-                A</i>n&amp;\rightarrow a_n \end{align*}
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
+              </span>Betrachten Sie die Gramatik über : \begin{align*}
+              S&amp;\rightarrow 1 S \ | \ 0 S \ | \ 0 \end{align*} Leiten Sie das Wort
+              ab. Beschreiben Sie in eigenen Worten die erzeugte Sprache.
+            </div>
+            <div id="example-xxx1yyy" class="well well-lg numbered-exercise container">
+              <span class="numbered-title">Übungsaufgabe
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
+              </span>Betrachten Sie die Grammatik über : \begin{align*}
+              A&amp;\rightarrow 0 A \ | 1 A \ | 1 B \\ B&amp;\rightarrow 0 C \ | 1 C \\
+              C&amp;\rightarrow 0 D \ | 1 D \\ D&amp;\rightarrow 0 E \ | 1 E \\ E&amp;
+              \rightarrow \epsilon \ \end{align*} mit Startsymbol . Leiten Sie
+              das Wort ab und beschreiben Sie die erzeugte Sprache in
+              eigenen Worten.
+            </div>
+            <div class="well well-lg numbered-exercise container">
+              <span class="numbered-title">Übungsaufgabe
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
+              </span>Betrachten Sie das Alphabet und die Sprache Schreiben
+              Sie eine reguläre Grammatik für .
+            </div>
+            <div class="well well-lg numbered-exercise container">
+              <span class="numbered-title">Übungsaufgabe
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
+              </span>Betrachten Sie die Sprache \begin{align*} L := \{x \in \{a,b\}^* \ | \
+              \textnormal{in $x$ kommt $b$ mindestens 4 mal vor }\} \ \end{align*}
+              und entwerfen Sie eine reguläre Grammatik für .
+            </div>
+            <div class="well well-lg numbered-exercise container">
+              <span class="numbered-title">Übungsaufgabe
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
+              </span>Sei und die Sprache
+              aller Strings der Form wobei und jedes , also zum Beispiel
+              <code>a.bba.aba</code>
+              aber nicht
+              <code>aba</code>
+              und auch nicht
+              <code>a.b..a</code>
+              Entwerfen Sie eine reguläre Grammatik für diese Sprache.
+            </div>
+            <div class="well well-lg numbered-exercise container">
+              <span class="numbered-title">Übungsaufgabe
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
+              </span>Unsere<a href="./04-00-formal-languages.html#email-context-free-grammar">Grammatik für korrekte
+                Emailadressen</a>im letzten Abschnitt war
+              <i>nicht</i>
+              regulär. Allerdings können wir
+              eine reguläre Grammatik angeben, die die gleiche Sprache erzeugt.
               <p>
-                Schreiben Sie eine äquivalente Grammatik ohne Produktionen der
-                Form . Wieviele Produktion hat Ihre neue
-                Grammatik?
+                Entwerfen Sie eine reguläre Grammatik für die Sprache aller
+                korrekter Emailadressen über dem Alphabet . Sie dürfen natürlich noch weitere Buchstaben
+                zulassen, dann schreiben Sie sich aber schnell zu Tode.
               </p>
             </div>
-            <h2 id="baukasten">
-              Reguläre Sprachen nach Baukastenprinzip bauen
+            <h2>
+              Erweitert reguläre Grammatiken
             </h2>
-            Eine schöne Eigenschaft von regulären Grammatiken ist, dass sie
-            mächtig genug sind, um uns zu erlauben, die nach dem Baukastenprinzip
-            zu komplizierteren Einheiten zusammenzufügen. Formate wie
-            beispielsweise Emailadressen sind oft aufgebaut nach Mustern wie
-            <ul>
-              <li>
-                Ding 1, dann Ding 2, wie beispielsweise
-                <i>Username, dann
-                  <code>@</code>, dann Domainname</i>
-                
-              </li>
-              <li>
-                Ding, bliebig oft wiederholt, wie beispielsweise
-                <i>eine beliebig lange Folge von Labels, mit
-                  <code>.</code>
-                  separiert.</i>
-                
-              </li>
-              <li>
-                Ding 1 oder Ding 2. Beispielsweise
-                <i>Bindestrich oder alphanumerisches Zeichen</i>.
-              </li>
-            </ul>
-            <div class="well container theorem">
-              <span class="numbered-title">Lemma
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.9</NumberedTitle>
-                </span>Seien  und  zwei reguläre Sprachen. Dann ist  auch regulär.
-            </div>
-            <div class="well container">
-              <b>Beweis.</b>
-              Unsere Strategie ist, reguläre Grammatiken  für  und
-               für  zu betrachten und daraus eine neue reguläre
-              Grammatik  für  zu bauen. Aus  sollen also
-              genau diejenigen Strings ableitbar sein, die in  oder 
-              enthalten sind.
-              <p>
-                Seien nun  und  die beiden regulären Grammatiken. Wir
-                gehen davon aus, dass , dass es also
-                bei den nichtterminalen Symbolen keinen Zweifel gibt, zu welcher
-                Grammatik sie gehören. Falls dies nicht der Fall sein sollte,
-                können wir zum Beispiel die Symbole in  einfach umbenennen.
-                Wir erschaffen nun ein neues Startsymbol  und bauen uns eine neue Grammatik, in dem wir die zwei neuen
-                Regeln \begin{align*} S&amp;\rightarrow S<i>1 \\ S&amp;\rightarrow S</i>2
-                \end{align*} hinzufügen. Formal also  In einer Ableitung
-                aus  müssen wir uns also im ersten Schritt entscheiden, ob
-                wir nach  oder nach  gehen und somit ein Wort in
-                 oder eines in  ableiten wollen.
-              </p>
-              <span class="qed">
-                </span>
-            </div>
             <p>
-              In einem nächsten Schritt werden wir zeigen, dass Konstrukte wie
-              <i>Ding 1, gefolgt von Ding 2</i>
-              mit regulären Grammatiken
-              realisierbar sind.
+              In einer Übungsaufgabe oben wurden Sie aufgefordert, eine reguläre
+              Grammatik zu schreiben für die Sprache aller mit durch 3
+              teilbar. Hier ist eine besonders einfache Lösung:
+            </p>
+            \begin{align*} S \rightarrow \epsilon \ | \ 111S \end{align*}
+            <p>
+              Sehen Sie, Sie können hier Einsen nur in Dreierblöcken erzeugen.
+              Leider ist diese Grammatik nicht regulär nach unserer obigen
+              Definition. Was tun wir, wenn wir nicht zufrieden sind mit einer
+              Definition? Wir wandeln sie ab.
             </p>
             <div class="well container theorem">
               <span class="numbered-title">Definition
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.10</NumberedTitle>
-                </span>
-              <b>(Kleenesche Hülle).</b>
-              Seien  zwei Sprachen. Die
-              Verknüpfungssprache  ist definiert als
-              \begin{align*} L<i>1 \circ L</i>2 := \{ \alpha \beta \ | \ \alpha \in
-              L<i>1, \beta \in L</i>2\} \ . \end{align*}
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
+              </span>Eine Grammatik heißt
+              <i>erweitert regulär</i>, wenn jede Produktion eine der folgenden
+              Formen hat: \begin{align*} X&amp;\rightarrow \alpha Y \\ X&amp;\rightarrow
+              \alpha \\ \end{align*} hat, wobei und ist. Im Unterschied zu den eigentlich regulären Grammatiken
+              erlauben wir also mehrere terminale Symbole auf der rechten Seite,
+              sofern Sie
+              <i>vor</i>
+              dem Nichtterminal vorkommen.
             </div>
             <div class="well container theorem">
-              <span class="numbered-title">Lemma
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.11</NumberedTitle>
-                </span>Seien  und  zwei reguläre Sprachen. Dann ist  auch regulär.
-            </div>
-            <div class="well container">
-              <b>Beweis.</b>
-              Wir im letzten Beweis nehmen wir uns eine reguläre Grammatik  für  und  für . Ob die beiden Alphabete die gleichen sind, also
-              beide , oder zwei verschiedene, also , ist nicht entscheidend, da wir im letzteren Fall 
-              und  als Sprachen über dem Alphabet  betrachten können.
-              <p>
-                Wir führen nun wiederum ein neues Startsymbol  ein und fügen die Regel 
-                hinzu. Es sollte nun klar sein, dass wir aus  genau die
-                Wörter der Form  mit 
-                und  ableiten können, also genau die in
-                . Leider ist die Regel 
-                nicht regulär, da auf der rechten Seite zwei nichtterminale
-                Symbole vorkommen.
-              </p>
-              <p>
-                Wir müssen anders vorgehen. Wir ändern die Regeln von  so
-                ab, dass immer, wenn in einer -Regle die Ableitung endet,
-                wir das Zeichen  anhängen:
-              </p>
-              \begin{align*} \begin{array}{l|l} \textnormal{Regel in $G<i>1$}&amp;
-                \textnormal{wird zu} \\ \hline X \rightarrow aY&amp;X \rightarrow aY
-                \ X \rightarrow a&amp;X \rightarrow aS</i>2 \\ X \rightarrow Y&amp;X
-              \rightarrow Y \\ X \rightarrow \epsilon&amp;Y \rightarrow S_2 \ .
-              \end{array} \end{align*}
-              <p>
-                Die Menge an Produktionen der Grammatik  besteht dann aus den
-                nach dieser Tabelle modifizierten Produktionen  von
-                , zusammen mit den (unmodifizierten) Regeln von .
-                Das Startsymbol von  ist .
-              </p>
-              <span class="qed">
-                </span>
-            </div>
-            In einem dritten Lemma werden wir zeigen, dass die Konstruktion
-            <i>Ding, beliebig oft wiederholt</i>
-            mit regulären Sprachen möglich
-            ist.
-            <div class="well container theorem">
-              <span class="numbered-title">Definition
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.12</NumberedTitle>
-                </span>Sei . Die Sprache  ist die Menge
-              \begin{align*} L^n := \{ \alpha<i>1 \alpha</i>2 \dots \alpha<i>n \ | \
-                \alpha</i>i \in L \ \forall 1 \leq i \leq n \} \ . \end{align*}
-              Insbesondere ist  und . Die Menge
-               ist nun \begin{align*} L^* := L^0 \cup L^1 \cup L^2 \cup L^3
-              \cup \dots \end{align*} also die Sprache der Wörter der Form
-              , wobei  beliebig und jedes
-               ist.
-            </div>
-            <div class="well container theorem">
-              <span class="numbered-title">Lemma
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.13</NumberedTitle>
-                </span>Sei  eine reguläre Sprache. Dann ist  auch regulär.
-            </div>
-            <div class="well container">
-              <b>Beweis.</b>
-              Sei  eine reguläre Grammatik für . Wir
-              könnten ein neues Startsymbol  einführen und \begin{align*} S'
-              &amp;\rightarrow \epsilon \\ S'&amp;\rightarrow SS' \end{align*} als zwei
-              neue Regeln einführen. Natürlich geht das nicht, denn  ist nicht erlaubt in regulären Grammatiken.
-              Ähnlich wie im vorherigen Beweis fangen wir das Ende einer
-              -Ableitung ab: \begin{align*} \begin{array}{l|l}
-              \textnormal{Regel in $G$}&amp;\textnormal{wird zu} \\ \hline X
-              \rightarrow aY&amp;X \rightarrow aY \\ X \rightarrow a&amp;X \rightarrow
-              aS \\ X \rightarrow Y&amp;X \rightarrow Y \\ X \rightarrow \epsilon&amp;
-              Y \rightarrow S \ . \end{array} \end{align*} Um überhaupt eine
-              Ableitung beenden zu können, fügen wir 
-              noch als Regel hinzu.<span class="qed">
-                </span>
-            </div>
-            <div class="well well-lg numbered-exercise container">
-              <span class="numbered-title">Übungsaufgabe
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.9</NumberedTitle>
-                </span>Hier sehen Sie einen URL mit Query-String:
-              <p>
-                <code>https://web1.hszg.de/modulkatalog/index.php?activTopic=3&amp;activNav=2&amp;stid=566&amp;frei=1&amp;kennz=suche&amp;activCont=1</code>
-                
-              </p>
-              Der URL besteht aus mehreren Teilen:
-              <ol>
-                <li>
-                  Dem Protokoll. Hier ist das
-                  <code>https</code>; es kann aber
-                  auch
-                  <code>http</code>
-                  oder
-                  <code>ftp</code>
-                  sein.
-                </li>
-                <li>
-                  Dem
-                  <code>://</code>
-                  nach dem Protokoll.
-                </li>
-                <li>
-                  Dem Domainnamen, hier
-                  <code>web1.hszg.de</code>.
-                </li>
-                <li>
-                  Optional nun einem Pfad, hier
-                  <code>/modulkatalog/index.php</code>.
-                </li>
-                <li>
-                  Falls ein Pfad enthalten ist, dann optional ein
-                  <code>?</code>,
-                  gefolgt von einem Query-String; dieser besteht aus beliebig
-                  vielen, aber mindestens einem Paar der Form Key=Value, wobei die
-                  Paare mit einem
-                  <code>&amp;</code>
-                  separiert sind.
-                </li>
-              </ol>
-              <p>
-                Zeigen Sie, dass die Sprache der syntaktisch korrekten URLs (in
-                dem gerade beschriebenen Format) regulär ist. Sie können entweder
-                direkt eine reguläre Grammatik angeben oder mit dem
-                Baukastenprinzip und den drei letzten Lemmas argumentieren.
-              </p>
-            </div>
-            <p>
-              Wir führen ein weiteres Baukastenwerkzeug ein, weil es in der Praxis
-              recht häufig vorkommt.
-            </p>
-            <div
-              id="operation-L(.L)*"
-              class="well container theorem"
-            >
               <span class="numbered-title">Theorem
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.14</NumberedTitle>
-                </span>Sei  eine reguläre Sprache und  ein neues Terminalsymbol. Die Sprache aller nichtleeren
-              Folgen von -Wörten, die durch  separiert sind, also formal
-              \begin{align*} L' := L \circ ( \{c\} \circ L)^* \end{align*} ist
-              wiederum regulär.
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
+              </span>Sei eine erweitert reguläre Grammatik. Dann
+              existiert eine reguläre Grammatik , die
+              die gleiche Sprache erzeugt: .
             </div>
             <div class="well container">
               <b>Beweis.</b>
-              Dies folgt sofort aus den vorherigen Theorem, weil wir nur
-              Konkatenation  und Kleenesche Hülle  verwenden.
-              Dennoch lohne es sich, explizit für  eine Grammatik zu bauen.
-              Es ist auch recht einfach. Sei \(G =  eine
-              reguläre Grammatik für . Die Grammatik  für  hat
-              die gleichen Nichtterminale und das gleiche Startsymbol, gibt uns
-              aber zusätzlich die Möglichkeit, wenn eine -Ableitung aufhört,
-              dann wieder ein  anzuhängen und wieder mit 
-              weiterzumachen. Also: wir beginnen mit , fügen aber noch
-              weitere Produktionen hinzu. Nämlich:
-              <p>
-                Für jede -Produktion der Form 
-                fügen wir  hinzu.
-              </p>
-              <p>
-                Für jede -Produktion der Form  fügen wir
-                 hinzu.
-              </p>
-              Die neue Grammatik  ist eine
-              <i>erweitert reguläre Grammatik</i>, da Regeln wie  auf der rechten Seite zwei Terminalsymbole haben. Wir müssen
-              sie also erst noch in eine "richtig reguläre" umwandeln. In
-              konkreten Anwendungne empfiehlt es dazu, die Nichtterminale von
-               umzubenennen, damit keien Verwechslungsgefahr droht.<span class="qed">
-                </span>
+              Wir ersetzen einfach jede Regel der Form durch reguläre Regeln: \begin{align*} X&amp;
+              \rightarrow a<i>1 X</i>2 \\ X<i>2&amp;\rightarrow a</i>2 X<i>3 \\ \dots \\ X</i>k&amp;
+              \rightarrow a_k Y \end{align*} wobei wir darauf achten, dass "frische" Nichtterminalsymbole sind. Falls
+              ist, so ist die Regel bereits in einer in regulären
+              Grammatiken erlaubten Form: oder .<span class="qed">
+              </span>
             </div>
-            <p>
-              Wir können noch sehr viel mehr Operationen mit regulären Sprachen
-              machen als Vereinigung, Konkatenation und Kleenesche Hülle.
-              Beispielsweise Umkehrung und Komplement, also beispielsweise
-            </p>
-            <ul>
-              <li>
-                Alle Emailadressen, von rechts nach links gelesen (Umkehrung);
-              </li>
-              <li>
-                Die Menge aller syntaktisch inkorrekten Emailadressen
-                (Komplement).
-              </li>
-            </ul>
-            Mit den Werkzeugen, die wir uns bis jetzt erarbeitet haben, können wir
-            eine Grammatik für das Komplement nicht konstruieren. Wir brauchen
-            etwas mehr Maschinerie.
+            <div class="proof">
+              <p>
+                Wir können nun, wenn wir reguläre Grammatik entwerfen wollen, die
+                bequemeren erweitert regulären Sprachen verwenden; wenn wir Dinge
+                über reguläre Grammatik beweisen wollen (oder deren Grenzen
+                studieren wollen), können wir uns auf die eigentlichen regulären
+                Grammatiken beschränken, da wir wissen, dass beide Definition eh
+                gleich mächtig sind.
+              </p>
+              <h2>
+                Reguläre Grammatiken vereinfachen
+              </h2>
+              Das letzte Theorem erlaubt uns, eine Definition von regulären
+              Grammatiken zu verwenden, die uns mehr erlaubt. Im Folgenden zeigen
+              wir, wie man die Form der Grammatiken noch stärker einschränken kann,
+              ohne dass Sie an Mächtigkeit einbüßen. Per<a href="#def-regular">Definition 4.1</a>
+              hat jede Produktion in einer
+              regulären Grammatik eine der folgenden vier Formen: \begin{align*} 1.
+              \quad X&amp;\rightarrow aY \\ 2. \quad X&amp;\rightarrow a \\ 3. \quad X&amp;
+              \rightarrow Y \\ 4. \quad X&amp;\rightarrow \epsilon \end{align*}
+              <p>
+                Wir zeigen nun, dass man auf Produktionen der Form 2 und 3
+                verzichten kann.
+              </p>
+              <div id="theorem-regular-simplified" class="well container theorem">
+                <span class="numbered-title">Theorem
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
+                </span>Sei eine reguläre Grammatik. Dann gibt es
+                eine äquivalente reguläre Grammatik ,
+                die nur Regeln vom Typ 1 und 4 enthält.
+              </div>
+              <div class="well container">
+                <b>Beweis.</b>
+                Produktionen vom Typ 2, also von der Form können
+                wir leicht eliminieren, indem wir ein neues Nichtterminalsymbol einführen, jedes durch
+                ersetzen und die Produktion hinzufügen.
+                <p>
+                  Produktionen der Form zu eliminieren ist etwas
+                  komplizierter. Die Idee ist, dass in einer von ausgehende
+                  Ableitung eines Wortes irgendwann zum ersten Mal eine Wortform
+                  vorkommen muss, die nicht ein einzelnes
+                  Nichtterminalsymbol ist, also mit . Wir definieren nun als neue Menge von Produktionen,
+                  die keine Produktionen von der Form enthalten.<span class="qed">
+                  </span>
+                </p>
+              </div>
+              <p>
+                Im vorhergehenden Beweis haben wir nicht formal gezeigt, dass
+                gilt. Unser Kernargument war das etwas saloppe
+                "irgendwann muss ja mal eine Produktion kommen, die nicht von der
+                Form ist". Anstatt den Beweis formal
+                durchzuführen, stellen wir uns lieber eine interessantere Frage: wie
+                können wir die neuen Produktionen im konkreten Fall die
+                Mengen berechnen? Dann das müssen wir ja tun, wenn wir eine solche
+                Transformation durchführen wollen. Im Prinzip müssen wir alle
+                Nichtterminale und alle Produktionen
+                mit durchgehen und überprüfen, ob gilt. Dies können wir beispielsweise überprüfen,
+                indem wir die Mengen \begin{align*} N<i>k(X) := \{ Y \in N \ | \
+                  \textnormal{ es gibt } X</i>1,\dots, X<i>{l-1} \textnormal{ mit } X
+                  \rightarrow X</i>1 \rightarrow X<i>2 \cdots X</i>{l-1} \rightarrow Y
+                \textnormal{ und } l \leq k \} \end{align*} definieren, also die
+                Menge derjenigen Nichtterminalsymbole, die sich in bis zu
+                Schritten von aus ableiten lassen. Wir berechnen die
+                iterativ wie folgt: \begin{align*} N<i>0 (X)&amp;:= \{X\} \ , \\ N</i>{k+1}
+                (X)&amp;:= N<i>k \cup \{Z \in N \ | \ \textnormal{ es gibt } Y \in
+                  N</i>k(X) \textnormal{ mit } Y \rightarrow Z \} \ . \end{align*} Die
+                Menge lässt sich also mit zwei geschachtelten
+                <code>for</code>-Schleifen berechnen: eine über die
+                und eine über die Produktionen . Um
+                für
+                <i>alle</i>
+                zu berechnen, brauchen wir eine weitere
+                <code>for</code>-Schleife. Wir berechnen nun für
+                steigende , bis keine weitere Veränderung eintritt.
+              </p>
+              <div class="well container theorem">
+                <span class="numbered-title">Beobachtung
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.8</NumberedTitle>
+                </span>Wenn , dann ist
+              </div>
+              <p>
+                Da die Menge nur wachsen kann, gilt nach höchstens Schritten und somit Das geht auch aus einer
+                anderen Überlegung hervor: wenn man überhaupt
+                ableiten kann, dann auch in maximal Schritten, denn
+                ansonsten kämen ja in der Ableitung ein Nichtterminal doppelt vor
+                und man könnte abkürzen.
+              </p>
+              <div id="exercise-no-a-or-no-b" class="well well-lg numbered-exercise container">
+                <span class="numbered-title">Übungsaufgabe
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
+                </span>Sei . Die Grammatik mit den Regeln erzeugt die Sprache aller
+                Wörter, die kein enthalten. Die Grammatik erzeugt die Wörter, die kein
+                enthalten. Die Grammatik mit Startsymbol und den
+                Produktionen \begin{align*} S&amp;\rightarrow A \ | \ B \\ A&amp;
+                \rightarrow \epsilon \ | \ b A \ | \ c A \\ B&amp;\rightarrow \epsilon
+                | \ a B \ | \ c B \end{align*} erzeugt die Sprache aller Wörter,
+                die kein oder kein enthalten.
+                <p>
+                  Die Grammatik ist regulär, enthält aber Produktionen vom Typ
+                  3, zum Beispiel . Schreiben Sie eine
+                  äquivalente Grammatik , die nur Produktionen von der Form
+                  und enthält.
+                </p>
+              </div>
+              <p>
+                Wir können zwar auf Produktionen vom Typ 2 und 3 verzichten. Dies
+                hat allerdings seinen Preis, wie die folgende Übungsaufgabe zeigt:
+              </p>
+              <div class="well well-lg numbered-exercise container">
+                <span class="numbered-title">Übungsaufgabe
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.8</NumberedTitle>
+                </span>Betrachten Sie die folgende Grammatik über mit den Nichtterminalsymbolen und den insgesamt
+                Produktionen
+                \begin{align*} S&amp;\rightarrow a<i>1 A</i>1 | a<i>2 A</i>2 | a<i>3 A</i>3 | \dots |
+                a<i>n A</i>n \\ A<i>1&amp;\rightarrow a</i>1 | A<i>2 \\ \dots \\ A</i>i&amp;\rightarrow
+                a<i>{i} | A</i>{i+1}\\ \dots \\ A<i>{n-1}&amp;\rightarrow a</i>{n-1} | A<i>n \\
+                  A</i>n&amp;\rightarrow a_n \end{align*}
+                <p>
+                  Schreiben Sie eine äquivalente Grammatik ohne Produktionen der
+                  Form . Wieviele Produktion hat Ihre neue
+                  Grammatik?
+                </p>
+              </div>
+              <h2 id="baukasten">
+                Reguläre Sprachen nach Baukastenprinzip bauen
+              </h2>
+              Eine schöne Eigenschaft von regulären Grammatiken ist, dass sie
+              mächtig genug sind, um uns zu erlauben, die nach dem Baukastenprinzip
+              zu komplizierteren Einheiten zusammenzufügen. Formate wie
+              beispielsweise Emailadressen sind oft aufgebaut nach Mustern wie
+              <ul>
+                <li>
+                  Ding 1, dann Ding 2, wie beispielsweise
+                  <i>Username, dann
+                    <code>@</code>, dann Domainname</i>
+
+                </li>
+                <li>
+                  Ding, bliebig oft wiederholt, wie beispielsweise
+                  <i>eine beliebig lange Folge von Labels, mit
+                    <code>.</code>
+                    separiert.</i>
+
+                </li>
+                <li>
+                  Ding 1 oder Ding 2. Beispielsweise
+                  <i>Bindestrich oder alphanumerisches Zeichen</i>.
+                </li>
+              </ul>
+              <div class="well container theorem">
+                <span class="numbered-title">Lemma
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.9</NumberedTitle>
+                </span>Seien und zwei reguläre Sprachen. Dann ist auch regulär.
+              </div>
+              <div class="well container">
+                <b>Beweis.</b>
+                Unsere Strategie ist, reguläre Grammatiken für und
+                für zu betrachten und daraus eine neue reguläre
+                Grammatik für zu bauen. Aus sollen also
+                genau diejenigen Strings ableitbar sein, die in oder
+                enthalten sind.
+                <p>
+                  Seien nun und die beiden regulären Grammatiken. Wir
+                  gehen davon aus, dass , dass es also
+                  bei den nichtterminalen Symbolen keinen Zweifel gibt, zu welcher
+                  Grammatik sie gehören. Falls dies nicht der Fall sein sollte,
+                  können wir zum Beispiel die Symbole in einfach umbenennen.
+                  Wir erschaffen nun ein neues Startsymbol und bauen uns eine neue Grammatik, in dem wir die zwei neuen
+                  Regeln \begin{align*} S&amp;\rightarrow S<i>1 \\ S&amp;\rightarrow S</i>2
+                  \end{align*} hinzufügen. Formal also In einer Ableitung
+                  aus müssen wir uns also im ersten Schritt entscheiden, ob
+                  wir nach oder nach gehen und somit ein Wort in
+                  oder eines in ableiten wollen.
+                </p>
+                <span class="qed">
+                </span>
+              </div>
+              <p>
+                In einem nächsten Schritt werden wir zeigen, dass Konstrukte wie
+                <i>Ding 1, gefolgt von Ding 2</i>
+                mit regulären Grammatiken
+                realisierbar sind.
+              </p>
+              <div class="well container theorem">
+                <span class="numbered-title">Definition
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.10</NumberedTitle>
+                </span>
+                <b>(Kleenesche Hülle).</b>
+                Seien zwei Sprachen. Die
+                Verknüpfungssprache ist definiert als
+                \begin{align*} L<i>1 \circ L</i>2 := \{ \alpha \beta \ | \ \alpha \in
+                L<i>1, \beta \in L</i>2\} \ . \end{align*}
+              </div>
+              <div class="well container theorem">
+                <span class="numbered-title">Lemma
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.11</NumberedTitle>
+                </span>Seien und zwei reguläre Sprachen. Dann ist auch regulär.
+              </div>
+              <div class="well container">
+                <b>Beweis.</b>
+                Wir im letzten Beweis nehmen wir uns eine reguläre Grammatik für und für . Ob die beiden Alphabete die
+                gleichen sind, also
+                beide , oder zwei verschiedene, also , ist nicht entscheidend, da wir im letzteren Fall
+                und als Sprachen über dem Alphabet betrachten können.
+                <p>
+                  Wir führen nun wiederum ein neues Startsymbol ein und fügen die Regel
+                  hinzu. Es sollte nun klar sein, dass wir aus genau die
+                  Wörter der Form mit
+                  und ableiten können, also genau die in
+                  . Leider ist die Regel
+                  nicht regulär, da auf der rechten Seite zwei nichtterminale
+                  Symbole vorkommen.
+                </p>
+                <p>
+                  Wir müssen anders vorgehen. Wir ändern die Regeln von so
+                  ab, dass immer, wenn in einer -Regle die Ableitung endet,
+                  wir das Zeichen anhängen:
+                </p>
+                \begin{align*} \begin{array}{l|l} \textnormal{Regel in $G<i>1$}&amp;
+                  \textnormal{wird zu} \\ \hline X \rightarrow aY&amp;X \rightarrow aY
+                  \ X \rightarrow a&amp;X \rightarrow aS</i>2 \\ X \rightarrow Y&amp;X
+                \rightarrow Y \\ X \rightarrow \epsilon&amp;Y \rightarrow S_2 \ .
+                \end{array} \end{align*}
+                <p>
+                  Die Menge an Produktionen der Grammatik besteht dann aus den
+                  nach dieser Tabelle modifizierten Produktionen von
+                  , zusammen mit den (unmodifizierten) Regeln von .
+                  Das Startsymbol von ist .
+                </p>
+                <span class="qed">
+                </span>
+              </div>
+              In einem dritten Lemma werden wir zeigen, dass die Konstruktion
+              <i>Ding, beliebig oft wiederholt</i>
+              mit regulären Sprachen möglich
+              ist.
+              <div class="well container theorem">
+                <span class="numbered-title">Definition
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.12</NumberedTitle>
+                </span>Sei . Die Sprache ist die Menge
+                \begin{align*} L^n := \{ \alpha<i>1 \alpha</i>2 \dots \alpha<i>n \ | \
+                  \alpha</i>i \in L \ \forall 1 \leq i \leq n \} \ . \end{align*}
+                Insbesondere ist und . Die Menge
+                ist nun \begin{align*} L^* := L^0 \cup L^1 \cup L^2 \cup L^3
+                \cup \dots \end{align*} also die Sprache der Wörter der Form
+                , wobei beliebig und jedes
+                ist.
+              </div>
+              <div class="well container theorem">
+                <span class="numbered-title">Lemma
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.13</NumberedTitle>
+                </span>Sei eine reguläre Sprache. Dann ist auch regulär.
+              </div>
+              <div class="well container">
+                <b>Beweis.</b>
+                Sei eine reguläre Grammatik für . Wir
+                könnten ein neues Startsymbol einführen und \begin{align*} S'
+                &amp;\rightarrow \epsilon \\ S'&amp;\rightarrow SS' \end{align*} als zwei
+                neue Regeln einführen. Natürlich geht das nicht, denn ist nicht erlaubt in regulären Grammatiken.
+                Ähnlich wie im vorherigen Beweis fangen wir das Ende einer
+                -Ableitung ab: \begin{align*} \begin{array}{l|l}
+                \textnormal{Regel in $G$}&amp;\textnormal{wird zu} \\ \hline X
+                \rightarrow aY&amp;X \rightarrow aY \\ X \rightarrow a&amp;X \rightarrow
+                aS \\ X \rightarrow Y&amp;X \rightarrow Y \\ X \rightarrow \epsilon&amp;
+                Y \rightarrow S \ . \end{array} \end{align*} Um überhaupt eine
+                Ableitung beenden zu können, fügen wir
+                noch als Regel hinzu.<span class="qed">
+                </span>
+              </div>
+              <div class="well well-lg numbered-exercise container">
+                <span class="numbered-title">Übungsaufgabe
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.9</NumberedTitle>
+                </span>Hier sehen Sie einen URL mit Query-String:
+                <p>
+                  <code>https://web1.hszg.de/modulkatalog/index.php?activTopic=3&amp;activNav=2&amp;stid=566&amp;frei=1&amp;kennz=suche&amp;activCont=1</code>
+
+                </p>
+                Der URL besteht aus mehreren Teilen:
+                <ol>
+                  <li>
+                    Dem Protokoll. Hier ist das
+                    <code>https</code>; es kann aber
+                    auch
+                    <code>http</code>
+                    oder
+                    <code>ftp</code>
+                    sein.
+                  </li>
+                  <li>
+                    Dem
+                    <code>://</code>
+                    nach dem Protokoll.
+                  </li>
+                  <li>
+                    Dem Domainnamen, hier
+                    <code>web1.hszg.de</code>.
+                  </li>
+                  <li>
+                    Optional nun einem Pfad, hier
+                    <code>/modulkatalog/index.php</code>.
+                  </li>
+                  <li>
+                    Falls ein Pfad enthalten ist, dann optional ein
+                    <code>?</code>,
+                    gefolgt von einem Query-String; dieser besteht aus beliebig
+                    vielen, aber mindestens einem Paar der Form Key=Value, wobei die
+                    Paare mit einem
+                    <code>&amp;</code>
+                    separiert sind.
+                  </li>
+                </ol>
+                <p>
+                  Zeigen Sie, dass die Sprache der syntaktisch korrekten URLs (in
+                  dem gerade beschriebenen Format) regulär ist. Sie können entweder
+                  direkt eine reguläre Grammatik angeben oder mit dem
+                  Baukastenprinzip und den drei letzten Lemmas argumentieren.
+                </p>
+              </div>
+              <p>
+                Wir führen ein weiteres Baukastenwerkzeug ein, weil es in der Praxis
+                recht häufig vorkommt.
+              </p>
+              <div id="operation-L(.L)*" class="well container theorem">
+                <span class="numbered-title">Theorem
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.14</NumberedTitle>
+                </span>Sei eine reguläre Sprache und ein neues Terminalsymbol. Die Sprache aller nichtleeren
+                Folgen von -Wörten, die durch separiert sind, also formal
+                \begin{align*} L' := L \circ ( \{c\} \circ L)^* \end{align*} ist
+                wiederum regulär.
+              </div>
+              <div class="well container">
+                <b>Beweis.</b>
+                Dies folgt sofort aus den vorherigen Theorem, weil wir nur
+                Konkatenation und Kleenesche Hülle verwenden.
+                Dennoch lohne es sich, explizit für eine Grammatik zu bauen.
+                Es ist auch recht einfach. Sei \(G = eine
+                reguläre Grammatik für . Die Grammatik für hat
+                die gleichen Nichtterminale und das gleiche Startsymbol, gibt uns
+                aber zusätzlich die Möglichkeit, wenn eine -Ableitung aufhört,
+                dann wieder ein anzuhängen und wieder mit
+                weiterzumachen. Also: wir beginnen mit , fügen aber noch
+                weitere Produktionen hinzu. Nämlich:
+                <p>
+                  Für jede -Produktion der Form
+                  fügen wir hinzu.
+                </p>
+                <p>
+                  Für jede -Produktion der Form fügen wir
+                  hinzu.
+                </p>
+                Die neue Grammatik ist eine
+                <i>erweitert reguläre Grammatik</i>, da Regeln wie auf der rechten Seite zwei Terminalsymbole haben. Wir
+                müssen
+                sie also erst noch in eine "richtig reguläre" umwandeln. In
+                konkreten Anwendungne empfiehlt es dazu, die Nichtterminale von
+                umzubenennen, damit keien Verwechslungsgefahr droht.<span class="qed">
+                </span>
+              </div>
+              <p>
+                Wir können noch sehr viel mehr Operationen mit regulären Sprachen
+                machen als Vereinigung, Konkatenation und Kleenesche Hülle.
+                Beispielsweise Umkehrung und Komplement, also beispielsweise
+              </p>
+              <ul>
+                <li>
+                  Alle Emailadressen, von rechts nach links gelesen (Umkehrung);
+                </li>
+                <li>
+                  Die Menge aller syntaktisch inkorrekten Emailadressen
+                  (Komplement).
+                </li>
+              </ul>
+              Mit den Werkzeugen, die wir uns bis jetzt erarbeitet haben, können wir
+              eine Grammatik für das Komplement nicht konstruieren. Wir brauchen
+              etwas mehr Maschinerie.
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 </body>

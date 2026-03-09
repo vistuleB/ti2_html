@@ -1,576 +1,573 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-      <link rel="icon" href="data:,">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
-    <link rel="stylesheet" type="text/css" href="../TI.css" />
-    <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="../numbered-title.js"></script>
-    <script type="text/javascript" src="../mathjax_setup.js"></script>
-    <script type="text/javascript" src="../carousel.js"></script>
-    <script type="text/javascript" src="../sendCmdTo3003.js"></script>
-    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <link rel="icon" href="data:," />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
+  <link rel="stylesheet" type="text/css" href="../TI.css" />
+  <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="../numbered-title.js"></script>
+  <script type="text/javascript" src="../mathjax_setup.js"></script>
+  <script type="text/javascript" src="../carousel.js"></script>
+  <script type="text/javascript" src="../sendCmdTo3003.js"></script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
+
 <body>
-<section
-  count="42"
-  _="BookLevelSectionCounter 42"
-  title_gr="Formale Definition und Beispiele"
-  title_en="Turing machines definition"
-  number="7.1"
-  counter="DefCtr"
-  counter="ExoCtr"
-  path="/lecture-notes42"
->
-  <div id="link-to-toc">
-    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="07-00-Turing-machines.html">&lt;&lt; Kapitel 7.0</a>
-  </div>
-  <div
-    id="link-to-overview"
-    style="text-align: end"
-  >
-    <a href="/">zur Kursübersicht</a><a href="07-02-Turing-machines-examples.html">Kapitel 7.2 &gt;&gt;</a>
-  </div>
-  <div id="rightSideWrapper">
-    <div class="content">
-      <div class="chapter">
-        <div class="subChapter">
-          <h1 class="hidden-title">
-            <span class="subChapterTitle">::::ChapterCtr.1
-              Turingmaschinen: Formale Definition und Beispiele</span>
-          </h1>
-          <p>
-            Eine Turingmaschine besteht aus einem
-            <i>Band</i>, das in Zellen unterteilt ist und
-            in beide Richtungen unbegrenzt ist,
-            und einem
-            <i>Schreib-Lese-Kopf</i>.
-            Dieser befindet sich in jedem Schritt auf einer
-            Zelle. Wie auch der endliche Automat oder der
-            Kellerautomat hat die Turingmaschine einen internen
-            <i>Zustand</i>.
-            In jedem Schritt liest die Maschine das Zeichen, das sich in der aktuellen
-            Zelle des Bandes befindet (dort, wo der Kopf steht). Abhängig vom gelesenen Zeichen
-             und dem internen Zustand  schreibt die Turingmaschine ein neues Symbol
-             in die Zelle, wechselt in einen neuen Zustand  und bewegt
-            den Kopf um maximal eine Zelle, also nach link, rechts, oder gar nicht.
-          </p>
-          <p>
-            Sie können sich das Band auch als Magnetband vorstellen, das nach vorn oder nach hinten gespult
-            wird, anstatt dass der Kopf sich bewegt. Am Anfang steht auf dem Band das
-            <i>Eingabewort</i>
-            und der Kopf auf dem ersten Symbol dieses Wortes. Die Turingmaschine
-            wendet
-            nun ihre Regeln an, bis Sie einen
-            <i>Endzustand</i>
-            erreicht. Bei
-            <i>Entscheidungsproblemen</i>, wo uns nur
-            eine Ja/Nein-Antwort interessiert, wird die Antwort durch den Entzustand angegeben:
-            der Zustand $\qaccept$ entspricht einem
-            <i>Ja</i>, der Zustand
-            $\qreject$ entspricht einem
-            <i>Nein</i>. Diese zwei Endzustände reichen im Allgemeinen
-            aus. Wenn wir von der Maschine eine komplexere Ausgabe als Ja/Nein erwarten, so
-            betrachten wir als
-            <i>Ausgabe der Turingmaschine</i>
-            den Inhalt des Bandes zu dem
-            Zeitpunkt, da die Maschine den Zustand $\qaccept$ erreicht.
-            Was brauchen wir also, um so eine Turingmaschine
-            und ihre Arbeitsweise zu beschreiben?
-          </p>
-          <div class="well container theorem">
+  <section count="42" _="BookLevelSectionCounter 42" title_gr="Formale Definition und Beispiele"
+    title_en="Turing machines definition" number="7.1" counter="DefCtr" counter="ExoCtr" path="/lecture-notes42">
+    <div id="link-to-toc">
+      <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="07-00-Turing-machines.html">&lt;&lt; Kapitel
+        7.0</a>
+    </div>
+    <div id="link-to-overview" style="text-align: end">
+      <a href="/">zur Kursübersicht</a><a href="07-02-Turing-machines-examples.html">Kapitel 7.2 &gt;&gt;</a>
+    </div>
+    <div id="rightSideWrapper">
+      <div class="content">
+        <div class="chapter">
+          <div class="subChapter">
+            <h1 class="hidden-title">
+              <span class="subChapterTitle">::::ChapterCtr.1
+                Turingmaschinen: Formale Definition und Beispiele</span>
+            </h1>
             <p>
-              <span class="numbered-title">Definition
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
+              Eine Turingmaschine besteht aus einem
+              <i>Band</i>, das in Zellen unterteilt ist und
+              in beide Richtungen unbegrenzt ist,
+              und einem
+              <i>Schreib-Lese-Kopf</i>.
+              Dieser befindet sich in jedem Schritt auf einer
+              Zelle. Wie auch der endliche Automat oder der
+              Kellerautomat hat die Turingmaschine einen internen
+              <i>Zustand</i>.
+              In jedem Schritt liest die Maschine das Zeichen, das sich in der aktuellen
+              Zelle des Bandes befindet (dort, wo der Kopf steht). Abhängig vom gelesenen Zeichen
+              und dem internen Zustand schreibt die Turingmaschine ein neues Symbol
+              in die Zelle, wechselt in einen neuen Zustand und bewegt
+              den Kopf um maximal eine Zelle, also nach link, rechts, oder gar nicht.
+            </p>
+            <p>
+              Sie können sich das Band auch als Magnetband vorstellen, das nach vorn oder nach hinten gespult
+              wird, anstatt dass der Kopf sich bewegt. Am Anfang steht auf dem Band das
+              <i>Eingabewort</i>
+              und der Kopf auf dem ersten Symbol dieses Wortes. Die Turingmaschine
+              wendet
+              nun ihre Regeln an, bis Sie einen
+              <i>Endzustand</i>
+              erreicht. Bei
+              <i>Entscheidungsproblemen</i>, wo uns nur
+              eine Ja/Nein-Antwort interessiert, wird die Antwort durch den Entzustand angegeben:
+              der Zustand $\qaccept$ entspricht einem
+              <i>Ja</i>, der Zustand
+              $\qreject$ entspricht einem
+              <i>Nein</i>. Diese zwei Endzustände reichen im Allgemeinen
+              aus. Wenn wir von der Maschine eine komplexere Ausgabe als Ja/Nein erwarten, so
+              betrachten wir als
+              <i>Ausgabe der Turingmaschine</i>
+              den Inhalt des Bandes zu dem
+              Zeitpunkt, da die Maschine den Zustand $\qaccept$ erreicht.
+              Was brauchen wir also, um so eine Turingmaschine
+              und ihre Arbeitsweise zu beschreiben?
+            </p>
+            <div class="well container theorem">
+              <p>
+                <span class="numbered-title">Definition
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
                 </span>
-              <b>(Turingmaschine).</b>
-              Eine
-              Turingmaschine besteht aus folgenden Elementen:
-            </p>
-            <ol>
-              <li>
-                Einem endlichen Eingabe-Alphabet . Dies sind die Symbole, die für das
-                Eingabewort in
-                Frage kommen.
-              </li>
-              <li>
-                Einem endlichen Bandalphabet ; das sind die Symbole, die auf dem Band
-                stehen dürfen. Offensichtlich muss  gelten. Jede
-                Zelle kann genau ein Zeichen aus  enthalten. Darüberhinaus
-                gibt es noch das sogenannte Blanksymbol . Dies
-                zeigt an, dass die Zelle im Moment leer ist. Im obigen Beispiel ist
-                die Zelle links vom ersten  beispielsweise leer.
-                Am Anfang steht auf dem Band also ein Eingabewort  und
-                rechts und links davon unendlich viele -Symbole.
-              </li>
-              <li>
-                Einer endliche Menge  an inneren Zuständen. Dies entspricht in etwa
-                den Prozessor-Registern eines Computers. Ein Zustand 
-                ist der Startzustand, in welchem sich die Maschine zu Beginn befindet.
-              </li>
-              <li>
-                Einer Zustandsübergangsfunktion , die sagt, was die Turingmaschine tun soll,
-                wenn Sie im Zustand  ist und Zeichen  liest. Formal:
-                \begin{align*}
-                \delta : Q \times \Gamma \rightarrow Q \times \Gamma \times \lsr \ ,
-                \end{align*}
-                wobei
-                <tt>L</tt>
-                für
-                <i>gehe eine Zelle nach links</i>
-                steht,<tt>R</tt>
-                für rechts und
-                <tt>S</tt>
-                für
-                <i>stay</i>, also die Anweisung, den Kopf
-                nicht zu bewegen.
-              </li>
-              <li>
-                Zwei besonderen Zuständen $\qaccept$ und $\qreject$.
-              </li>
-            </ol>
-          </div>
-          <p>
-            Für die Turingmaschine in dem obigen Beispiel haben wir zwei Regeln gesehen:
-            \begin{align*}
-            \delta(q<i>2, b)&amp;= (q</i>3, a, \texttt{R}) \\
-            \delta(q<i>3, \#)&amp;= (q</i>4, b, \texttt{L})
-            \end{align*}
-          </p>
-          <h3>
-            Was macht eine Turingmaschine?
-          </h3>
-          Sie haben nun wohl bereits eine vage Vorstellung, was eine Turingmaschine macht.
-          Versuchen wir, es noch weiter zu formalisieren. Um den
-          <i>Gesamtzustand</i>
-          der
-          Turingmaschine zu beschreiben, also eine vollständige Momentaufnahme, reicht
-          nicht der aktuelle innere Zustand ; wir brauchen auch den Bandinhalt und insbesondere
-          die Position, an der sich der Kopf befindet. Das alles zusammen nennt
-          man die
-          <i>Konfiguration der Turingmaschine</i>. Wir wollen sie mit
-          uns bereits bekannten mathematischen Begriffen beschreiben.
-          <div class="well container theorem">
-            <span class="numbered-title">Definition
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-              </span>Die
-            <i>Konfiguration</i>
-            einer Turingmaschine ist ein Element in
-            , also
-            \begin{align*}
-            C = u q v
-            \end{align*}
-            wobei  der Bandinhalt ist, der
-            Schreib-Lese-Kopf auf dem ersten Zeichen von  steht und  der
-            innere Zustand der Turingmaschine ist. Das  in 
-            kennzeichnet also sowohl die Position des Schreib-Lese-Kopfes auf dem Band
-            sowie den inneren Zustand
-            Die Menge aller Konfigurationen ist
-            \begin{align*}
-            \mathcal{C} := \Gamma^* \times Q \times \Gamma^<b>
-              \end{align</b>}
-            Der
-            <i>Zustand einer Konfiguration</i>
-            ist , also der innere
-            Zustand, in dem sich die Maschine gerade befindet.
-            Wir bezeichnen mit $\state(C)$. Formal:
-            \begin{align*}
-            \state: \mathcal{C}&amp;\rightarrow Q \\
-            uqv&amp;\mapsto q \ .
-            \end{align*}
-            Eine Konfiguration  ist
-            eine
-            <i>akzeptierende Endkonfiguration</i>
-            wenn $\state(C) = \qaccept$ ist;
-            eine
-            <i>ablehnende Endkonfiguration</i>
-            , wenn $\state(C) = \qreject$ ist.
-            In beiden Fällen ist  eine
-            <i>Endkonfiguration</i>.
-          </div>
-          <p>
-            Wenn also das Eingabewort  und $\qstart$ der Startzustand ist, dann ist
-            \begin{align*}
-            C_{\rm start} = \qstart{} w
-            \end{align*}
-            die
-            <i>Startkonfiguration</i>.
-          </p>
-          <div class="alert-info">
-            <b>Die Rolle des -Symbols</b>. Das Band der Turingmaschine ist ja
-            unendlich.
-            Um eine Momentaufnahme dennoch als endliches Objekt beschreiben zu können,
-            lassen wir die -Symbole links und rechts vom "eigentlichen" Bandinhalt weg.
-            Bei einer Konfiguration  stehen also links vom  und rechts vom  unendlich
-            viele -Symbole auf dem Band. Nach der formalen Definition
-             ist es nicht verboten, dass  auch mit
-            einem -Symbol beginnt oder  mit einem aufhört. Allerdings wären die
-            Konfiguration
-             und  genauso gut mit
-             beschrieben. Wir können uns also auf die Konvention einigen, dass
-             nie am Rande einer Konfiguration  steht.
-            Beachten Sie auch, dass die Zellen nicht "numeriert" sind. Die beiden folgenden
-            Momentaufnahmenkönnen also beide mit der Konfiguration  beschrieben werden, obwohl
-            die Zellen nun andere Inhalte haben, weil die Turingmaschine es irgendwie geschafft
-            hat, den ganzen Bandinhalt um eins nach rechts zu kopieren. Es sollte klar
-            sein, dass die Turingmaschine keine Möglichkeit hat, die obere von der unteren
-            Situation zu unterscheiden, und dass es somit nur recht und billig ist, beide
-            als eine identische Konfiguration aufzufassen.
-            <p>
-              All diese Schwierigkeiten verschwinden, wenn wir uns den Speicher einer Turingmaschine
-              nicht
-              als unendliches Band vorstellen, sondern als zwei Stapel, einer links vom Kopf und einer
-              rechts vom Kopf. Allerdings hat sich die Vorstellung vom Band irgendwie als
-              Standard durchgesetzt. Hier sehen Sie die gleiche Konfiguration in dem Modell
-              mit zwei Stapeln:
-            </p>
-            <p>
-              Alternativ können wir auch der Turingmaschine verbieten, das Blank-Symbol $\Box$ jemals
-              zu schreiben. Dann wäre also
-              $\delta: Q \times \Gamma \rightarrow Q \times (\Gamma \setminus \{\Box\}) \times \lsr$.
-              All diese Betrachtungsweisen unterscheiden sich nicht wesentlich. Wir bleiben
-              bei unserem "alten" $\delta$, erlauben also, $\Box$ zu schreiben, und
-              leben damit, dass $uqv$ und $\Box \Box u q v \Box$ formal zwei verschiedene Konfigurationen
-              sind, auch wenn beide irgendwie das selbe beschreiben.
-            </p>
-          </div>
-          <p>
-            Formal definiert  nun auch
-            eine Funktion auf der Menge der Konfigurationen:
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Definition
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-              </span>
-            <b>(erweiterte Zustandsübergangsfunktion)</b>
-            Die erweiterte Zustandsübergangsfunktion einer Turingmaschine ist
-            \begin{align*}
-            \hat{\delta} : \mathcal{C} \rightarrow \mathcal{C} \
-            \end{align*}
-            Sie beschreibt für eine Konfiguration , welches die Konfiguration
-            im nächsten Schritt ist.
-            Per Konvention
-            legen wir fest, dass
-             gilt, wenn  eine Endkonfiguration ist.
-          </div>
-          Unsere obige Turingmaschine hat beispielsweise die Regeln
-           und
-          , und somit würden
-          \begin{align*}
-          \hat{\delta}(aaAq<i>2b\#ba)&amp;= aaAaq</i>3\#ba \\
-          \hat{\delta}(aaAaq<i>3\#ba)&amp;= aaAq</i>4abba \\
-          \hat{\delta}(abAq<i>2bba\#)&amp;= abAaq</i>3ba\# \\
-          \end{align*}
-          gelten. Sie sehen:
-          Die Definition von $\hat{\delta}$ ist nichts wirklich Tiefgründiges, sondern einfach
-          eine Implementierung der Turingmaschinen-Momentaufnahme mit uns bereits
-          geläufigen mathematischen "Datenstrukturen" (hier: der Menge $\Gamma^* \times Q \times \Gamma^<b>$).
-            Stellen Sie sich einfach
-            vor, Sie müssten eine Turingmaschine in Java implementieren. Dann würden Sie es wahrscheilich
-            irgendwie so ähnlich machen.
-            <h3>
-              Ausgabekonfiguration einer Turingmaschine
-            </h3>
-            Die Funktion  bildet aus einer Konfiguration die
-            Folgekonfiguration. Wir definieren nun
-            \begin{align</b>}
-          \hat{\delta}^{(i)} (C) := \underbrace{\hat{\delta}(\hat{\delta}(\dots (\hat{\delta}}<i>{i \textnormal{
-            mal}} (C) \dots)))
-            \end{align*}
-            also die Konfiguration, die die Turingmaschine nach  Rechenschritten erreicht hat.
-            Weiterhin definieren wir
-             als die Endkonfiguration, die bei wiederholter
-            Anwendung von $\hat{\delta}$ schlussendlich erreicht wird.
-            Hier taucht ein Problem auf: es ist nicht gesagt, dass die Turingmaschine,
-            von Konfiguration  beginnend, überhaupt irgendwann in einer Endkonfiguration landen
-            wird. Daher kann  auch
-            <tt>undefined</tt>
-            sein:
-            \begin{align*}
-            \hat{\delta}^* (C) := \begin{cases}
-            \hat{\delta}^{(i)} (C)&amp;
-            \textnormal{ wenn es ein  gibt, so dass $\hat{\delta}^{(i)} (C)$ eine Endkonfiguration ist} \\
-            \texttt{undefined}&amp;\textnormal{sonst.}
-            \end{cases}
-            \end{align*}
-            <p>
-              Nochmal zur Verdeutlichung: wenn $\delta^{(i)}(C)$ eine Endkonfiguration ist,
-              dann ist auch $\delta^{(j)}(C)$ eine, für jedes $j \geq i$, weil
-              wir $\hat{\delta}(C') = C'$ für jede Endkonfiguration $C'$ definiert haben.
-              Es spielt also in der obigen Formulierung
-              <i>wenn es ein $i$ gibt</i>
-              keine Rolle, welches solche $i$ wir wählen.
-            </p>
-            Für ein Eingabewort  können wir nun das Ergebnis der Berechnung
-            von Turingmaschine  auf  definieren:
-            \begin{align*}
-            \hat{M}(x) := \hat{\delta}^* (\qstart{} x</i>1 x<i>2 x</i>3 \dots x_n) \ .
-          \end{align*}
-          Wir beginnen also mit der Startkonfiguration und lassen die Turingmaschine dann
-          laufen, bis sie einen Endzustand erreicht. Die erreichte Konfiguration bezeichnen
-          wir mit . Falls nie ein Endzustand erreicht wird (die Turingmaschine also
-          endlos läuft),
-          ist
-          <tt>undefined</tt>.
-          <h2>
-            Sprachen entscheiden
-          </h2>
-          <p>
-            Ein
-            <i>Entscheidungsproblem</i>
-            ist eine Funktion , beispielsweise:
-            <i>gegeben ein Wort,
-              stellt dieses Wort ein korrektes Java-Programm dar?</i>
-            oder
-            <i>gegeben eine Zahl in Dezimalschreibweise, ist dies
-              eine Primzahl?</i>
-            Eine äquivalente Sichtweise ist die
-            eines Entscheidungsproblems als
-            <i>Sprache</i>
-            .
-            Wir identifizieren  hier mit der Menge aller Wörter  mit
-            . Wenn wir es mit einem Entscheidungsproblem
-            zu tun haben und dieses mit einer Turingmaschine lösen wollen,
-            so interessiert uns am Endergebnis  (also der erreichten Endkonfiguration)
-            nicht der Bandinhalt, sondern nur, ob der Zustand
-            <tt>accept</tt>
-            oder<tt>reject</tt>
-            ist. Wir definieren daher
-            \begin{align*}
-            f_M(x) = \begin{cases}
-            \texttt{accept}&amp;\textnormal{ falls $\state(\hat{M}(x)) = \qaccept$, wenn also $\hat{M}(x)$
-            eine akzeptierende Endkonfiguration ist, }\\
-            \texttt{reject}&amp;\textnormal{ falls $\state(\hat{M}(x)) = \qreject$ ,}\\
-            \texttt{undefined}&amp;\textnormal{ falls $\hat{M}(x) = \texttt{undefined}$ }
-            \end{cases}
-            \end{align*}
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Definition
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-              </span>
-            <b>(Turingmaschine entscheidet eine Sprache)</b>
-            Eine Turingmaschine
-            <i>entscheidet</i>
-            die Sprache  wenn
-            <ol>
-              <li>
-                für alle ,
-              </li>
-              <li>
-                für alle .
-              </li>
-            </ol>
-            Insbesondere heißt das, dass  auf jedem Eingabewort terminiert.
-            <p>
-              Eine Sprache  heißt
-              <i>entscheidbar</i>, wenn
-              es eine Turingmaschine gibt, die sie entscheidet.
-            </p>
-          </div>
-          <div class="well container theorem">
-            <span class="numbered-title">Definition
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-              </span>
-            <b>(Turingmaschine akzeptiert eine Sprache)</b>
-            Eine Turingmaschine
-            <i>akzeptiert</i>
-            die Sprache
-             wenn
-            \begin{align*}
-            x \in L \Longleftrightarrow f_M(x) = \texttt{accept}
-            \end{align*}
-            für alle  gilt. Das heißt, dass  für 
-            entweder irgendwann den Endzustand $\qreject$ erreicht oder
-            nie einen Endzustand erreicht.
-            <p>
-              Eine Sprache  heißt
-              <i>semi-entscheidbar</i>,
-              wenn es eine Turingmaschine  gibt, die  akzeptiert.
-            </p>
-          </div>
-          <p>
-            In beiden Definition verlangen wir natürlich, dass
-             das Eingabealphabet der Turingmaschine ist.
-          </p>
-          <h2>
-            Funktionen berechnen
-          </h2>
-          <p>
-            Oft wollen wir nicht nur eine Sprache 
-            entscheiden, sondern eine Funktion 
-            berechnen. Mit einer Turingmaschine heißt das einfach, dass
-            bei Eingabe  die Turingmaschine in einer
-            akzeptierenden Endkonfiguration  landet, und in  steht
-            dann  auf dem Band. Formal müssen wir noch klären, was
-            <i>
-              steht
-              auf dem Band</i>
-            bedeutet.
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Definition
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
-              </span>
-            <b>(Turingmaschine berechnet eine Funktion)</b>
-            Seien  zwei endliche Alphabete und
-            \begin{align*}
-            g : \Sigma<i>1^* \rightarrow \Sigma</i>2^<b>
-              \end{align</b>}
-            eine Funktion. Eine Turingmaschine
-            <i>berechnet die Funktion
-            </i>, wenn
-            <ol>
-              <li>
-                das Eingabealphabet von  ist,
-              </li>
-              <li>
-                gilt und
-                ; das Blank-Symbol
-                ist also weder Teil das Eingabealphabets noch des Ausgabealphabets.
-              </li>
-              <li>
-                $M$ terminiert für jedes $x \in \Sigma^*$.
-              </li>
-              <li>
-                In der Endkonfiguration $\hat{M}(x)$ steht auf dem Arbeitsband das
-                Wort  und der Kopf steht ganz links, also
-                $\hat{M}(x) = \qaccept{} g(x)$.
-              </li>
-            </ol>
-          </div>
-          <h2>
-            Turingmaschinen und formale Grammatiken
-          </h2>
-          <p>
-            Da Turingmaschinen sowohl in dem Kurs<a href="../../BerKrea/index.html">Berechenbarkeit und Kreativität</a>als auch<a href="../../TI-2/index.html">Theoretische Informatik</a>vorkommen, teilen sich die beiden Kurse diese Seiten.
-            Für Berechenbarkeit und Kreativität ist der Rest dieses Teilkapitels
-            allerdings weniger relevant, da formale Grammatiken nicht Teil des Kurses waren.
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Theorem
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
-              </span>Sei  eine Turingmaschine und  die von ihr akzeptierte Sprache.
-            Dann gibt es eine formale Grammatik  mit . In anderen Worten:
-            formale Grammatiken sind mindestens so mächtig wie Turingmaschinen.
-          </div>
-          <div class="well container">
-            <b>Beweis.</b>
-            Die Idee ist, dass wir eine Grammatik  schreiben, die
-            "in umgekehrter Reihenfolge" läuft, also
-            \begin{align*}
-            \texttt{\$} q_{\rm start} w \texttt{.} \Step{}^* S
-            \end{align*}
-            ableiten kann genau dann, wenn  gilt. Wir brauchen
-             und  als Randmarkierungen. Wir lassen hier
-            temporär zu, dass die linke Seite ausschließlich aus Terminalsymbolen bestehen kann.
-            <p>
-              Hierfür definieren wir für jede Regel der Turingmaschine eine Grammatik-Regel:
-              \begin{align*}
-              \begin{array}{lcl}
-              \delta(q,x) = (r,y,\texttt{S} )&amp;\textnormal{wird zur Produktion}&amp;qx \rightarrow ry \\
-              \delta(q,x) = (y,r,\texttt{R})&amp;\textnormal{wird zur Produktionen}&amp;qx \rightarrow yr \\
-              \delta(q,x) = (y,r,\texttt{L})&amp;\textnormal{wird zu den Produktionen}&amp;aqx \rightarrow ray
-              \textnormal{ für alle $a \in \Gamma$}
-              \end{array}
-              \end{align*}
-              Die Asymmetrie zwischen den Regeln, die den Kopf nach rechts verschieben und denen, die ihn
-              nach links verschieben, ergibt sich aus unserer Konvention, die Konfigurationen  so
-              zu
-              interpretieren, dass der Kopf auf dem ersten Symbol von 
-              und nicht etwa auf dem letzten von  steht.
-              Ein Problem ergibt sich, wenn  am Rand steht. Hierfür erlauben wir,
-              an den Rändern der Konfiguration -Symbole zu erzeugen:
-              \begin{align*}
-              \texttt{\$}&amp;\rightarrow \texttt{\$} \square \\
-              \texttt{.}&amp;\rightarrow \square \texttt{.} \
-              \end{align*}
-              Wenn der Kopf also vor dem  stehen sollte,
-              dann können wir
-              \begin{align*}
-              \texttt{\$}uq\texttt{.} \Step{} \texttt{\$}uq\square \texttt{.}
-              \end{align*}
-              anwenden und dann die Produktion, die der Regel von  entspricht.
-              Es sollte nun klar sein, dass folgendes gilt:
-            </p>
-            <div class="well subtheorem theorem">
-              <span class="numbered-title">Beobachtung
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.8</NumberedTitle>
-                </span>Wenn  gilt, die Turingmaschine also in
-               Schritten von Konfiguration  nach  übergeht, dann gilt in der gerade
-              entwickelten Grammatik auch
-              \begin{align*}
-              \texttt{\$}uqv\texttt{.} \Step{}^* \texttt{\$}\square^* u'q'v'\square^<b>\texttt{.}
-                \end{align</b>}
+                <b>(Turingmaschine).</b>
+                Eine
+                Turingmaschine besteht aus folgenden Elementen:
+              </p>
+              <ol>
+                <li>
+                  Einem endlichen Eingabe-Alphabet . Dies sind die Symbole, die für das
+                  Eingabewort in
+                  Frage kommen.
+                </li>
+                <li>
+                  Einem endlichen Bandalphabet ; das sind die Symbole, die auf dem Band
+                  stehen dürfen. Offensichtlich muss gelten. Jede
+                  Zelle kann genau ein Zeichen aus enthalten. Darüberhinaus
+                  gibt es noch das sogenannte Blanksymbol . Dies
+                  zeigt an, dass die Zelle im Moment leer ist. Im obigen Beispiel ist
+                  die Zelle links vom ersten beispielsweise leer.
+                  Am Anfang steht auf dem Band also ein Eingabewort und
+                  rechts und links davon unendlich viele -Symbole.
+                </li>
+                <li>
+                  Einer endliche Menge an inneren Zuständen. Dies entspricht in etwa
+                  den Prozessor-Registern eines Computers. Ein Zustand
+                  ist der Startzustand, in welchem sich die Maschine zu Beginn befindet.
+                </li>
+                <li>
+                  Einer Zustandsübergangsfunktion , die sagt, was die Turingmaschine tun soll,
+                  wenn Sie im Zustand ist und Zeichen liest. Formal:
+                  \begin{align*}
+                  \delta : Q \times \Gamma \rightarrow Q \times \Gamma \times \lsr \ ,
+                  \end{align*}
+                  wobei
+                  <tt>L</tt>
+                  für
+                  <i>gehe eine Zelle nach links</i>
+                  steht,<tt>R</tt>
+                  für rechts und
+                  <tt>S</tt>
+                  für
+                  <i>stay</i>, also die Anweisung, den Kopf
+                  nicht zu bewegen.
+                </li>
+                <li>
+                  Zwei besonderen Zuständen $\qaccept$ und $\qreject$.
+                </li>
+              </ol>
             </div>
-            Als nächstes definieren wir
-            <i>Aufräumregeln</i>: wenn , dann
-            können wir jedes Zeichen löschen:
-            \begin{align*}
-            \texttt{accept}\ x&amp;\rightarrow \texttt{accept} \\
-            x\ \texttt{accept}&amp;\rightarrow \texttt{accept}
-            \end{align*}
-            wobei  ein Nichtterminal der Grammatik ist.
-            Und somit gilt auch
-            \begin{align*}
-            \texttt{\$} u \ \texttt{accept} \ v \texttt{.}&amp;\Step{}^<b>
-              \texttt{\$}\ \texttt{accept} \ \texttt{.}
-              \end{align</b>}
-            Als letzte Regel definieren wir:
-            \begin{align*}
-            \texttt{\$ }\ \texttt{accept}\ \texttt{.} \rightarrow S
-            \end{align*}
-            Wir haben nun eine Grammatik mit den folgenden Eigenschaften:
-            \begin{align*}
-            M(x<i>1 x</i>2 \dots x<i>n) = \texttt{accept}&amp;\textnormal{ genau dann, wenn }
-              \texttt{\$} \texttt{start} x</i>1 x<i>2 \dots x</i>n \texttt{.} \Step{}^* S
-            \end{align*}
-            Wir bauen nun eine weitere Grammatik , in der wir jede Produktion 
-            umdrehen, also durch  ersetzen. Zusätzlich definieren wir
-            Abschlussregeln
-            \begin{align*}
-            \texttt{\$}&amp;\rightarrow \epsilon \\
-            \texttt{.}&amp;\rightarrow \epsilon \\
-            \texttt{start}&amp;\rightarrow \epsilon
-            \end{align*}
-            die die Randmarkierungen ersetzen. In dieser Grammatik gilt nun für
-            alle Wörter :
-            \begin{align*}
-            x \in L(M) \Longleftrightarrow S \rightarrow
-            G: S \Step{}^* x
-            \end{align*}
-            und somit gilt . Zusammenfassend besitzt  also die Produktionen
-            \begin{align*}
-            S&amp;\step{1} \texttt{\$} \ \texttt{accept} \ \texttt{.} \\
-            \texttt{accept}&amp;\step{2} x \ \texttt{accept} \ | \ \texttt{accept} \ x \quad
-            \tag{ für jedes } \\
-            ry&amp;\step{3} qx \quad \tag{ wenn $\delta(q,x) = (r,y, \texttt{S})$}\\
-            yr&amp;\step{4} qx \quad \tag{ wenn $\delta(q,x) = (r,y, \texttt{R})$}\\
-            ray&amp;\step{5} aqx \quad \tag{ wenn $\delta(q,x) = (r,y, \texttt{L})$, für jedes } \\
-            \texttt{\$} \square&amp;\step{6} \texttt{\$} \\
-            \texttt{.}\square&amp;\step{7} \texttt{.} \\
-            \texttt{\$}&amp;\step{8} \epsilon \\
-            \texttt{.}&amp;\step{9} \epsilon \\
-            \texttt{start}&amp;\step{10} \epsilon
-            \end{align*}
-            Um also ein Wort  abzuleiten, müssen wir
-            die akzeptierende Endkonfiguration  von  "erraten" und dann
-            per Produktionen 1 und 2 die Wortform  ableiten. Von da
-            an verwenden wir die Produktionen 3, 4, 5, 6, 7, um die Berechnung der Turingmaschine
-             von hinten nach vorne zu simulieren, bis wir bei
-             angelangt sind. Dann
-            lassen wir  mit den Produktionen 8, 9, 10
-            verschwinden und haben  abgeleitet.<span class="qed">
+            <p>
+              Für die Turingmaschine in dem obigen Beispiel haben wir zwei Regeln gesehen:
+              \begin{align*}
+              \delta(q<i>2, b)&amp;= (q</i>3, a, \texttt{R}) \\
+              \delta(q<i>3, \#)&amp;= (q</i>4, b, \texttt{L})
+              \end{align*}
+            </p>
+            <h3>
+              Was macht eine Turingmaschine?
+            </h3>
+            Sie haben nun wohl bereits eine vage Vorstellung, was eine Turingmaschine macht.
+            Versuchen wir, es noch weiter zu formalisieren. Um den
+            <i>Gesamtzustand</i>
+            der
+            Turingmaschine zu beschreiben, also eine vollständige Momentaufnahme, reicht
+            nicht der aktuelle innere Zustand ; wir brauchen auch den Bandinhalt und insbesondere
+            die Position, an der sich der Kopf befindet. Das alles zusammen nennt
+            man die
+            <i>Konfiguration der Turingmaschine</i>. Wir wollen sie mit
+            uns bereits bekannten mathematischen Begriffen beschreiben.
+            <div class="well container theorem">
+              <span class="numbered-title">Definition
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
+              </span>Die
+              <i>Konfiguration</i>
+              einer Turingmaschine ist ein Element in
+              , also
+              \begin{align*}
+              C = u q v
+              \end{align*}
+              wobei der Bandinhalt ist, der
+              Schreib-Lese-Kopf auf dem ersten Zeichen von steht und der
+              innere Zustand der Turingmaschine ist. Das in
+              kennzeichnet also sowohl die Position des Schreib-Lese-Kopfes auf dem Band
+              sowie den inneren Zustand
+              Die Menge aller Konfigurationen ist
+              \begin{align*}
+              \mathcal{C} := \Gamma^* \times Q \times \Gamma^<b>
+                \end{align</b>}
+              Der
+              <i>Zustand einer Konfiguration</i>
+              ist , also der innere
+              Zustand, in dem sich die Maschine gerade befindet.
+              Wir bezeichnen mit $\state(C)$. Formal:
+              \begin{align*}
+              \state: \mathcal{C}&amp;\rightarrow Q \\
+              uqv&amp;\mapsto q \ .
+              \end{align*}
+              Eine Konfiguration ist
+              eine
+              <i>akzeptierende Endkonfiguration</i>
+              wenn $\state(C) = \qaccept$ ist;
+              eine
+              <i>ablehnende Endkonfiguration</i>
+              , wenn $\state(C) = \qreject$ ist.
+              In beiden Fällen ist eine
+              <i>Endkonfiguration</i>.
+            </div>
+            <p>
+              Wenn also das Eingabewort und $\qstart$ der Startzustand ist, dann ist
+              \begin{align*}
+              C_{\rm start} = \qstart{} w
+              \end{align*}
+              die
+              <i>Startkonfiguration</i>.
+            </p>
+            <div class="alert-info">
+              <b>Die Rolle des -Symbols</b>. Das Band der Turingmaschine ist ja
+              unendlich.
+              Um eine Momentaufnahme dennoch als endliches Objekt beschreiben zu können,
+              lassen wir die -Symbole links und rechts vom "eigentlichen" Bandinhalt weg.
+              Bei einer Konfiguration stehen also links vom und rechts vom unendlich
+              viele -Symbole auf dem Band. Nach der formalen Definition
+              ist es nicht verboten, dass auch mit
+              einem -Symbol beginnt oder mit einem aufhört. Allerdings wären die
+              Konfiguration
+              und genauso gut mit
+              beschrieben. Wir können uns also auf die Konvention einigen, dass
+              nie am Rande einer Konfiguration steht.
+              Beachten Sie auch, dass die Zellen nicht "numeriert" sind. Die beiden folgenden
+              Momentaufnahmenkönnen also beide mit der Konfiguration beschrieben werden, obwohl
+              die Zellen nun andere Inhalte haben, weil die Turingmaschine es irgendwie geschafft
+              hat, den ganzen Bandinhalt um eins nach rechts zu kopieren. Es sollte klar
+              sein, dass die Turingmaschine keine Möglichkeit hat, die obere von der unteren
+              Situation zu unterscheiden, und dass es somit nur recht und billig ist, beide
+              als eine identische Konfiguration aufzufassen.
+              <p>
+                All diese Schwierigkeiten verschwinden, wenn wir uns den Speicher einer Turingmaschine
+                nicht
+                als unendliches Band vorstellen, sondern als zwei Stapel, einer links vom Kopf und einer
+                rechts vom Kopf. Allerdings hat sich die Vorstellung vom Band irgendwie als
+                Standard durchgesetzt. Hier sehen Sie die gleiche Konfiguration in dem Modell
+                mit zwei Stapeln:
+              </p>
+              <p>
+                Alternativ können wir auch der Turingmaschine verbieten, das Blank-Symbol $\Box$ jemals
+                zu schreiben. Dann wäre also
+                $\delta: Q \times \Gamma \rightarrow Q \times (\Gamma \setminus \{\Box\}) \times \lsr$.
+                All diese Betrachtungsweisen unterscheiden sich nicht wesentlich. Wir bleiben
+                bei unserem "alten" $\delta$, erlauben also, $\Box$ zu schreiben, und
+                leben damit, dass $uqv$ und $\Box \Box u q v \Box$ formal zwei verschiedene Konfigurationen
+                sind, auch wenn beide irgendwie das selbe beschreiben.
+              </p>
+            </div>
+            <p>
+              Formal definiert nun auch
+              eine Funktion auf der Menge der Konfigurationen:
+            </p>
+            <div class="well container theorem">
+              <span class="numbered-title">Definition
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
               </span>
+              <b>(erweiterte Zustandsübergangsfunktion)</b>
+              Die erweiterte Zustandsübergangsfunktion einer Turingmaschine ist
+              \begin{align*}
+              \hat{\delta} : \mathcal{C} \rightarrow \mathcal{C} \
+              \end{align*}
+              Sie beschreibt für eine Konfiguration , welches die Konfiguration
+              im nächsten Schritt ist.
+              Per Konvention
+              legen wir fest, dass
+              gilt, wenn eine Endkonfiguration ist.
+            </div>
+            Unsere obige Turingmaschine hat beispielsweise die Regeln
+            und
+            , und somit würden
+            \begin{align*}
+            \hat{\delta}(aaAq<i>2b\#ba)&amp;= aaAaq</i>3\#ba \\
+            \hat{\delta}(aaAaq<i>3\#ba)&amp;= aaAq</i>4abba \\
+            \hat{\delta}(abAq<i>2bba\#)&amp;= abAaq</i>3ba\# \\
+            \end{align*}
+            gelten. Sie sehen:
+            Die Definition von $\hat{\delta}$ ist nichts wirklich Tiefgründiges, sondern einfach
+            eine Implementierung der Turingmaschinen-Momentaufnahme mit uns bereits
+            geläufigen mathematischen "Datenstrukturen" (hier: der Menge $\Gamma^* \times Q \times \Gamma^<b>$).
+              Stellen Sie sich einfach
+              vor, Sie müssten eine Turingmaschine in Java implementieren. Dann würden Sie es wahrscheilich
+              irgendwie so ähnlich machen.
+              <h3>
+                Ausgabekonfiguration einer Turingmaschine
+              </h3>
+              Die Funktion bildet aus einer Konfiguration die
+              Folgekonfiguration. Wir definieren nun
+              \begin{align
+            </b>}
+            \hat{\delta}^{(i)} (C) := \underbrace{\hat{\delta}(\hat{\delta}(\dots (\hat{\delta}}<i>{i \textnormal{
+              mal}} (C) \dots)))
+              \end{align*}
+              also die Konfiguration, die die Turingmaschine nach Rechenschritten erreicht hat.
+              Weiterhin definieren wir
+              als die Endkonfiguration, die bei wiederholter
+              Anwendung von $\hat{\delta}$ schlussendlich erreicht wird.
+              Hier taucht ein Problem auf: es ist nicht gesagt, dass die Turingmaschine,
+              von Konfiguration beginnend, überhaupt irgendwann in einer Endkonfiguration landen
+              wird. Daher kann auch
+              <tt>undefined</tt>
+              sein:
+              \begin{align*}
+              \hat{\delta}^* (C) := \begin{cases}
+              \hat{\delta}^{(i)} (C)&amp;
+              \textnormal{ wenn es ein gibt, so dass $\hat{\delta}^{(i)} (C)$ eine Endkonfiguration ist} \\
+              \texttt{undefined}&amp;\textnormal{sonst.}
+              \end{cases}
+              \end{align*}
+              <p>
+                Nochmal zur Verdeutlichung: wenn $\delta^{(i)}(C)$ eine Endkonfiguration ist,
+                dann ist auch $\delta^{(j)}(C)$ eine, für jedes $j \geq i$, weil
+                wir $\hat{\delta}(C') = C'$ für jede Endkonfiguration $C'$ definiert haben.
+                Es spielt also in der obigen Formulierung
+                <i>wenn es ein $i$ gibt</i>
+                keine Rolle, welches solche $i$ wir wählen.
+              </p>
+              Für ein Eingabewort können wir nun das Ergebnis der Berechnung
+              von Turingmaschine auf definieren:
+              \begin{align*}
+              \hat{M}(x) := \hat{\delta}^* (\qstart{} x
+            </i>1 x<i>2 x</i>3 \dots x_n) \ .
+            \end{align*}
+            Wir beginnen also mit der Startkonfiguration und lassen die Turingmaschine dann
+            laufen, bis sie einen Endzustand erreicht. Die erreichte Konfiguration bezeichnen
+            wir mit . Falls nie ein Endzustand erreicht wird (die Turingmaschine also
+            endlos läuft),
+            ist
+            <tt>undefined</tt>.
+            <h2>
+              Sprachen entscheiden
+            </h2>
+            <p>
+              Ein
+              <i>Entscheidungsproblem</i>
+              ist eine Funktion , beispielsweise:
+              <i>gegeben ein Wort,
+                stellt dieses Wort ein korrektes Java-Programm dar?</i>
+              oder
+              <i>gegeben eine Zahl in Dezimalschreibweise, ist dies
+                eine Primzahl?</i>
+              Eine äquivalente Sichtweise ist die
+              eines Entscheidungsproblems als
+              <i>Sprache</i>
+              .
+              Wir identifizieren hier mit der Menge aller Wörter mit
+              . Wenn wir es mit einem Entscheidungsproblem
+              zu tun haben und dieses mit einer Turingmaschine lösen wollen,
+              so interessiert uns am Endergebnis (also der erreichten Endkonfiguration)
+              nicht der Bandinhalt, sondern nur, ob der Zustand
+              <tt>accept</tt>
+              oder<tt>reject</tt>
+              ist. Wir definieren daher
+              \begin{align*}
+              f_M(x) = \begin{cases}
+              \texttt{accept}&amp;\textnormal{ falls $\state(\hat{M}(x)) = \qaccept$, wenn also $\hat{M}(x)$
+              eine akzeptierende Endkonfiguration ist, }\\
+              \texttt{reject}&amp;\textnormal{ falls $\state(\hat{M}(x)) = \qreject$ ,}\\
+              \texttt{undefined}&amp;\textnormal{ falls $\hat{M}(x) = \texttt{undefined}$ }
+              \end{cases}
+              \end{align*}
+            </p>
+            <div class="well container theorem">
+              <span class="numbered-title">Definition
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
+              </span>
+              <b>(Turingmaschine entscheidet eine Sprache)</b>
+              Eine Turingmaschine
+              <i>entscheidet</i>
+              die Sprache wenn
+              <ol>
+                <li>
+                  für alle ,
+                </li>
+                <li>
+                  für alle .
+                </li>
+              </ol>
+              Insbesondere heißt das, dass auf jedem Eingabewort terminiert.
+              <p>
+                Eine Sprache heißt
+                <i>entscheidbar</i>, wenn
+                es eine Turingmaschine gibt, die sie entscheidet.
+              </p>
+            </div>
+            <div class="well container theorem">
+              <span class="numbered-title">Definition
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
+              </span>
+              <b>(Turingmaschine akzeptiert eine Sprache)</b>
+              Eine Turingmaschine
+              <i>akzeptiert</i>
+              die Sprache
+              wenn
+              \begin{align*}
+              x \in L \Longleftrightarrow f_M(x) = \texttt{accept}
+              \end{align*}
+              für alle gilt. Das heißt, dass für
+              entweder irgendwann den Endzustand $\qreject$ erreicht oder
+              nie einen Endzustand erreicht.
+              <p>
+                Eine Sprache heißt
+                <i>semi-entscheidbar</i>,
+                wenn es eine Turingmaschine gibt, die akzeptiert.
+              </p>
+            </div>
+            <p>
+              In beiden Definition verlangen wir natürlich, dass
+              das Eingabealphabet der Turingmaschine ist.
+            </p>
+            <h2>
+              Funktionen berechnen
+            </h2>
+            <p>
+              Oft wollen wir nicht nur eine Sprache
+              entscheiden, sondern eine Funktion
+              berechnen. Mit einer Turingmaschine heißt das einfach, dass
+              bei Eingabe die Turingmaschine in einer
+              akzeptierenden Endkonfiguration landet, und in steht
+              dann auf dem Band. Formal müssen wir noch klären, was
+              <i>
+                steht
+                auf dem Band</i>
+              bedeutet.
+            </p>
+            <div class="well container theorem">
+              <span class="numbered-title">Definition
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
+              </span>
+              <b>(Turingmaschine berechnet eine Funktion)</b>
+              Seien zwei endliche Alphabete und
+              \begin{align*}
+              g : \Sigma<i>1^* \rightarrow \Sigma</i>2^<b>
+                \end{align</b>}
+              eine Funktion. Eine Turingmaschine
+              <i>berechnet die Funktion
+              </i>, wenn
+              <ol>
+                <li>
+                  das Eingabealphabet von ist,
+                </li>
+                <li>
+                  gilt und
+                  ; das Blank-Symbol
+                  ist also weder Teil das Eingabealphabets noch des Ausgabealphabets.
+                </li>
+                <li>
+                  $M$ terminiert für jedes $x \in \Sigma^*$.
+                </li>
+                <li>
+                  In der Endkonfiguration $\hat{M}(x)$ steht auf dem Arbeitsband das
+                  Wort und der Kopf steht ganz links, also
+                  $\hat{M}(x) = \qaccept{} g(x)$.
+                </li>
+              </ol>
+            </div>
+            <h2>
+              Turingmaschinen und formale Grammatiken
+            </h2>
+            <p>
+              Da Turingmaschinen sowohl in dem Kurs<a href="../../BerKrea/index.html">Berechenbarkeit und
+                Kreativität</a>als auch<a href="../../TI-2/index.html">Theoretische Informatik</a>vorkommen, teilen sich
+              die beiden Kurse diese Seiten.
+              Für Berechenbarkeit und Kreativität ist der Rest dieses Teilkapitels
+              allerdings weniger relevant, da formale Grammatiken nicht Teil des Kurses waren.
+            </p>
+            <div class="well container theorem">
+              <span class="numbered-title">Theorem
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
+              </span>Sei eine Turingmaschine und die von ihr akzeptierte Sprache.
+              Dann gibt es eine formale Grammatik mit . In anderen Worten:
+              formale Grammatiken sind mindestens so mächtig wie Turingmaschinen.
+            </div>
+            <div class="well container">
+              <b>Beweis.</b>
+              Die Idee ist, dass wir eine Grammatik schreiben, die
+              "in umgekehrter Reihenfolge" läuft, also
+              \begin{align*}
+              \texttt{\$} q_{\rm start} w \texttt{.} \Step{}^* S
+              \end{align*}
+              ableiten kann genau dann, wenn gilt. Wir brauchen
+              und als Randmarkierungen. Wir lassen hier
+              temporär zu, dass die linke Seite ausschließlich aus Terminalsymbolen bestehen kann.
+              <p>
+                Hierfür definieren wir für jede Regel der Turingmaschine eine Grammatik-Regel:
+                \begin{align*}
+                \begin{array}{lcl}
+                \delta(q,x) = (r,y,\texttt{S} )&amp;\textnormal{wird zur Produktion}&amp;qx \rightarrow ry \\
+                \delta(q,x) = (y,r,\texttt{R})&amp;\textnormal{wird zur Produktionen}&amp;qx \rightarrow yr \\
+                \delta(q,x) = (y,r,\texttt{L})&amp;\textnormal{wird zu den Produktionen}&amp;aqx \rightarrow ray
+                \textnormal{ für alle $a \in \Gamma$}
+                \end{array}
+                \end{align*}
+                Die Asymmetrie zwischen den Regeln, die den Kopf nach rechts verschieben und denen, die ihn
+                nach links verschieben, ergibt sich aus unserer Konvention, die Konfigurationen so
+                zu
+                interpretieren, dass der Kopf auf dem ersten Symbol von
+                und nicht etwa auf dem letzten von steht.
+                Ein Problem ergibt sich, wenn am Rand steht. Hierfür erlauben wir,
+                an den Rändern der Konfiguration -Symbole zu erzeugen:
+                \begin{align*}
+                \texttt{\$}&amp;\rightarrow \texttt{\$} \square \\
+                \texttt{.}&amp;\rightarrow \square \texttt{.} \
+                \end{align*}
+                Wenn der Kopf also vor dem stehen sollte,
+                dann können wir
+                \begin{align*}
+                \texttt{\$}uq\texttt{.} \Step{} \texttt{\$}uq\square \texttt{.}
+                \end{align*}
+                anwenden und dann die Produktion, die der Regel von entspricht.
+                Es sollte nun klar sein, dass folgendes gilt:
+              </p>
+              <div class="well subtheorem theorem">
+                <span class="numbered-title">Beobachtung
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.8</NumberedTitle>
+                </span>Wenn gilt, die Turingmaschine also in
+                Schritten von Konfiguration nach übergeht, dann gilt in der gerade
+                entwickelten Grammatik auch
+                \begin{align*}
+                \texttt{\$}uqv\texttt{.} \Step{}^* \texttt{\$}\square^* u'q'v'\square^<b>\texttt{.}
+                  \end{align</b>}
+              </div>
+              Als nächstes definieren wir
+              <i>Aufräumregeln</i>: wenn , dann
+              können wir jedes Zeichen löschen:
+              \begin{align*}
+              \texttt{accept}\ x&amp;\rightarrow \texttt{accept} \\
+              x\ \texttt{accept}&amp;\rightarrow \texttt{accept}
+              \end{align*}
+              wobei ein Nichtterminal der Grammatik ist.
+              Und somit gilt auch
+              \begin{align*}
+              \texttt{\$} u \ \texttt{accept} \ v \texttt{.}&amp;\Step{}^<b>
+                \texttt{\$}\ \texttt{accept} \ \texttt{.}
+                \end{align</b>}
+              Als letzte Regel definieren wir:
+              \begin{align*}
+              \texttt{\$ }\ \texttt{accept}\ \texttt{.} \rightarrow S
+              \end{align*}
+              Wir haben nun eine Grammatik mit den folgenden Eigenschaften:
+              \begin{align*}
+              M(x<i>1 x</i>2 \dots x<i>n) = \texttt{accept}&amp;\textnormal{ genau dann, wenn }
+                \texttt{\$} \texttt{start} x</i>1 x<i>2 \dots x</i>n \texttt{.} \Step{}^* S
+              \end{align*}
+              Wir bauen nun eine weitere Grammatik , in der wir jede Produktion
+              umdrehen, also durch ersetzen. Zusätzlich definieren wir
+              Abschlussregeln
+              \begin{align*}
+              \texttt{\$}&amp;\rightarrow \epsilon \\
+              \texttt{.}&amp;\rightarrow \epsilon \\
+              \texttt{start}&amp;\rightarrow \epsilon
+              \end{align*}
+              die die Randmarkierungen ersetzen. In dieser Grammatik gilt nun für
+              alle Wörter :
+              \begin{align*}
+              x \in L(M) \Longleftrightarrow S \rightarrow
+              G: S \Step{}^* x
+              \end{align*}
+              und somit gilt . Zusammenfassend besitzt also die Produktionen
+              \begin{align*}
+              S&amp;\step{1} \texttt{\$} \ \texttt{accept} \ \texttt{.} \\
+              \texttt{accept}&amp;\step{2} x \ \texttt{accept} \ | \ \texttt{accept} \ x \quad
+              \tag{ für jedes } \\
+              ry&amp;\step{3} qx \quad \tag{ wenn $\delta(q,x) = (r,y, \texttt{S})$}\\
+              yr&amp;\step{4} qx \quad \tag{ wenn $\delta(q,x) = (r,y, \texttt{R})$}\\
+              ray&amp;\step{5} aqx \quad \tag{ wenn $\delta(q,x) = (r,y, \texttt{L})$, für jedes } \\
+              \texttt{\$} \square&amp;\step{6} \texttt{\$} \\
+              \texttt{.}\square&amp;\step{7} \texttt{.} \\
+              \texttt{\$}&amp;\step{8} \epsilon \\
+              \texttt{.}&amp;\step{9} \epsilon \\
+              \texttt{start}&amp;\step{10} \epsilon
+              \end{align*}
+              Um also ein Wort abzuleiten, müssen wir
+              die akzeptierende Endkonfiguration von "erraten" und dann
+              per Produktionen 1 und 2 die Wortform ableiten. Von da
+              an verwenden wir die Produktionen 3, 4, 5, 6, 7, um die Berechnung der Turingmaschine
+              von hinten nach vorne zu simulieren, bis wir bei
+              angelangt sind. Dann
+              lassen wir mit den Produktionen 8, 9, 10
+              verschwinden und haben abgeleitet.<span class="qed">
+              </span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 </body>

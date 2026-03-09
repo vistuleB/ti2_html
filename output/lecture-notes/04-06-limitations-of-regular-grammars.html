@@ -1,483 +1,477 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-      <link rel="icon" href="data:,">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
-    <link rel="stylesheet" type="text/css" href="../TI.css" />
-    <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="../numbered-title.js"></script>
-    <script type="text/javascript" src="../mathjax_setup.js"></script>
-    <script type="text/javascript" src="../carousel.js"></script>
-    <script type="text/javascript" src="../sendCmdTo3003.js"></script>
-    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <link rel="icon" href="data:," />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
+  <link rel="stylesheet" type="text/css" href="../TI.css" />
+  <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="../numbered-title.js"></script>
+  <script type="text/javascript" src="../mathjax_setup.js"></script>
+  <script type="text/javascript" src="../carousel.js"></script>
+  <script type="text/javascript" src="../sendCmdTo3003.js"></script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
+
 <body>
-<section
-  count="26"
-  _="BookLevelSectionCounter 26"
-  title_gr="Grenzen regulärer Sprachen"
-  title_en="limitations of regular grammars"
-  number="4.6"
-  counter="DefCtr"
-  counter="ExoCtr"
-  path="/lecture-notes26"
->
-  <div id="link-to-toc">
-    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="04-05-regular-expressions.html">&lt;&lt; Kapitel 4.5</a>
-  </div>
-  <div
-    id="link-to-overview"
-    style="text-align: end"
-  >
-    <a href="/">zur Kursübersicht</a><a href="04-07-exercises.html">Kapitel 4.7 &gt;&gt;</a>
-  </div>
-  <div id="rightSideWrapper">
-    <div class="content">
-      <div class="chapter">
-        <div class="subChapter">
-          <h1 class="hidden-title">
-            <span class="subChapterTitle">::::ChapterCtr.6
-              Die Grenzen regulärer Sprachen</span>
-          </h1>
-          <p>
-            Noch spannender, als zu erkunden, was möglich ist, ist aus Sicht eines theoretischen
-            Informatikers, zu erkunden, was
-            <i>nicht möglich</i>
-            ist. Also Grenzen aufzuzeigen.
-            Wir haben in den letzten vier Teilkapiteln gezeigt, was man mit regulären Sprachen und endlichen
-            Automaten
-            alles beschreiben kann.
-            Nun wollen wir die Grenzen regulärer Sprachen verstehen, also das, was sie nicht mehr
-            beschreiben können.
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Beispiel
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-              </span>Sei  die Sprache aller Wörter über dem Alphabet , die die Form
-             haben; also eine beliebig lange Folge von s, gefolgt von genau so vielen
-            s.
-            Hier ist eine kontextfreie Grammatik für :
-            \begin{align*}
-            S&amp;\rightarrow \epsilon \\
-            S&amp;\rightarrow aSb
-            \end{align*}
+  <section count="26" _="BookLevelSectionCounter 26" title_gr="Grenzen regulärer Sprachen"
+    title_en="limitations of regular grammars" number="4.6" counter="DefCtr" counter="ExoCtr" path="/lecture-notes26">
+    <div id="link-to-toc">
+      <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="04-05-regular-expressions.html">&lt;&lt; Kapitel
+        4.5</a>
+    </div>
+    <div id="link-to-overview" style="text-align: end">
+      <a href="/">zur Kursübersicht</a><a href="04-07-exercises.html">Kapitel 4.7 &gt;&gt;</a>
+    </div>
+    <div id="rightSideWrapper">
+      <div class="content">
+        <div class="chapter">
+          <div class="subChapter">
+            <h1 class="hidden-title">
+              <span class="subChapterTitle">::::ChapterCtr.6
+                Die Grenzen regulärer Sprachen</span>
+            </h1>
             <p>
-              Können wir eine reguläre Grammatik für  schreiben? Irgendwie klingt das nicht
-              plausibel.
-              Reguläre Grammatiken können ja immer nur ein Wort von links nach rechts erzeugen; für 
-              scheint
-              das irgendwie nicht zu reichen.
+              Noch spannender, als zu erkunden, was möglich ist, ist aus Sicht eines theoretischen
+              Informatikers, zu erkunden, was
+              <i>nicht möglich</i>
+              ist. Also Grenzen aufzuzeigen.
+              Wir haben in den letzten vier Teilkapiteln gezeigt, was man mit regulären Sprachen und endlichen
+              Automaten
+              alles beschreiben kann.
+              Nun wollen wir die Grenzen regulärer Sprachen verstehen, also das, was sie nicht mehr
+              beschreiben können.
             </p>
-            <div class="well well-lg numbered-exercise">
-              <span class="numbered-title">Übungsaufgabe
+            <div class="well container theorem">
+              <span class="numbered-title">Beispiel
                 <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-                </span>Versuchen Sie ein paar Minuten, eine reguläre Grammatik für  zu schreiben oder
-              versuchen Sie,
-              zu argumentieren, dass das nicht möglich ist.
-            </div>
-            <p>
-              Wir sind nun also recht überzeugt, dass  nicht regulär ist. Nur, wie können wir das
-              formal beweisen?
-              Vielleicht könnten wir annehmen, dass es eine reguläre Grammatik 
-              gibt und dann
-              argumentieren, dass  nicht richtig ist; zum Beispiel Produktionen danach einteilen,
-              ob sie  oder  machen, und dann die darin involvieren
-              Nichtterminale  und  weiter betrachten.
-            </p>
-            <p>
-              Zu Hilfe kommt uns die Tatsache, dass wir für reguläre Sprachen nun viele äquivalente
-              Modelle gefunden haben:
-            </p>
-            <ol>
-              <li>
-                Reguläre Grammatiken.
-              </li>
-              <li>
-                Erweitert reguläre Grammatiken, die also Produktionen wie 
-                erlauben.
-              </li>
-              <li>
-                Vereinfachte reguläre Grammatiken, in denen Produktionen wie  und  nicht vorkommen;
-                wo also die rechte Seite nie aus einem einzelnen Zeichen besteht.
-              </li>
-              <li>
-                Endliche Automaten.
-              </li>
-              <li>
-                Nichtdeterministische endliche Automaten.
-              </li>
-            </ol>
-            <p>
-              Formal sind all diese Modelle gleich mächtig: wir können ein Modell in ein anderes umwandeln,
-              ohne
-              das die erzeugte bzw. akzeptierte Sprache sich ändern. Wenn wir nun zeigen wollen:
-              <i>
-                ist nicht regulär</i>, dann können wir das
-              <i>einfachste</i>
-              Modell nehmen und
-              dagegen argumentieren. Nach meinem Darfürhalten sind endliche Automaten das einfachste der
-              fünf aufgeführten
-              Modelle. Also:
-            </p>
-            <p>
-              Angenommen,  wäre regulär. Dann gäbe es auch einen endlichen Automaten ,
-              der  akzeptiert. Wir müssen zeigen, dass das nicht sein kann. Also dem Automaten 
-              einen Fehler nachweisen.
-              Ein endlicher Automat kann sich ja nur beschränkt viele Dinge "merken": er weiß nur, in
-              welchem Zustand er
-              gerade ist. Um Wörter der Form  zu erkennen, müsste er sich allerdings merken,
-              wieviele 's er bereits
-              gelesen hat. Vergisst er es, kann er bei den folgenden 's nicht mehr richtig mitzählen.
-              Unser Plan ist also, das Gedächtnis des Automaten zu überfordern.
-            </p>
-            <p>
-              Setzen wir diesen Plan in die Tat um. Wir füttern dem Automaten eine Folge von
-               und
-              beobachten die Zustandsfolge , die sich daraus ergibt. Formal:
+              </span>Sei die Sprache aller Wörter über dem Alphabet , die die Form
+              haben; also eine beliebig lange Folge von s, gefolgt von genau so vielen
+              s.
+              Hier ist eine kontextfreie Grammatik für :
               \begin{align*}
-              q<i>i := \hat{\delta}(q</i>0, a^i) \ ,
+              S&amp;\rightarrow \epsilon \\
+              S&amp;\rightarrow aSb
               \end{align*}
-              wobei  das Wort ist, dass aus  vielen 's hintereinander besteht.
-              Da der Automat nur  viele Zustände hat,
-              muss sich nach mindestens  vielen 's eine Wiederholung einstellen, also
-               für . Die Wörter  und  bringen also
-              den Automaten beide in den Zustand ; der Automat kann also nicht unterscheiden, ob er
-              gerade
-               viele oder  viele 's gelesen hat. Nun schlagen wir zu:
-            </p>
-            <p>
-              Wir füttern den Automaten mit dem Wort . Der Automat landet in einem Zustand
-              :
-              \begin{align*}
-              q<i>0 \step{a^i} q</i>i \step{b^i} q^<b>
-                \end{align</b>}
-              Das Wort  ist in der Sprache . Dere Zustand  muss also ein
-              akzeptierender Zustand sein.
-              Nun füttern wir ihn mit dem Wort . Der Automat landet wo?
-              \begin{align*}
-              q<i>0 \step{a^j} q</i>i
-              \end{align*}
-              da ja  und  ihn in den selben Zustand bringen. Daraufhin geschieht abermals
-              , also insgesamt
-              \begin{align*}
-              q<i>0 \step{a^j} q</i>i \step{b^i} q^<b>
-                \end{align</b>}
-              Wir haben aber bereits gesehen, dass  ein akzeptierender Zustand sein muss; also
-              akzeptiert der Automat
-              auch ; das ist aber ein Fehler, denn . Der Automat ist also
-              fehlerhaft.
-              Da wir dieses Argument ganz allgemein für einen endlichen Automaten  geführt haben,
-              schließen wir:
-            </p>
-            <div style="text-align:center">
-              Wenn  ein endlicher Automat ist, dann gilt . Daher ist  keine
-              reguläre Sprache.
-            </div>
-            <p>
-              Zusammenfassend lautet unser Argument: wenn der Automat die Präfixe  und
-               nicht
-              unterscheiden kann, dann kann er die Wörter  und  auch
-              nicht unterscheiden;
-              er muss also entweder beide akzeptieren oder beide ablehnen.
-            </p>
-          </div>
-          <p>
-            Das Argument, dass die Sprache  nicht regulär ist, war nicht allzu
-            schwer, fühlt sich
-            aber etwas
-            <i>ad hoc</i>
-            an, also für diesen Fall maßgeschneidert. Es stellt sich aber heraus,
-            dass man
-            bei
-            <i>allen</i>
-            nicht-regulären Sprachen ein solches Argument anführen kann. Die Hauptarbeit
-            besteht nun darin, Konzepte wie
-            <i>der Automat kann  nicht von 
-              unterscheiden</i>
-            und
-            <i>der Automat muss aber  von  unterscheiden können</i>
-            zu
-            formalisieren.
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Definition
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-              </span>
-            <b>-Äquivalenz</b>
-            Sei  ein (deterministischer) endlicher Automat. Zwei Wörter
-             sind
-            <i>-äquivalent</i>, geschrieben
-            \begin{align*}
-            \alpha \equiv_M \beta \ ,
-            \end{align*}
-            wenn  gilt; wenn sie also
-            den Automaten in den gleichen Zustand bringen.
-          </div>
-          <p>
-            Wir können bereits ein bisschen über  aussagen. Wenn beispielsweise  ein
-            endlicher Automat für die Sprache  ist und
-             gilt, dann sind entweder beide Wörter in  (nämlich
-            wenn  ein akzeptierender Zustand ist)
-            oder beide Wörter nicht in  (falls es kein akzeptierender Zustand ist).
-          </p>
-          <p>
-            Auch sehen wir: wenn , dann gilt :
-             und  brigen den Automaten in den gleichen Zustand, und danach liest er in
-            beiden
-            Fällen das Wort , endet also in beiden Fällen im gleichen Zustand.
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Definition
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-              </span>
-            <b>-Äquivalenz</b>
-            Sei  eine Sprache. Zwei Wörter  sind
-            <i>-äquivalent</i>, geschrieben
-            \begin{align*}
-            \alpha \equiv_L \beta \ ,
-            \end{align*}
-            wenn für alle  die Wörter
-             und  entweder
-            beide in  oder beide nicht in  sind.
-          </div>
-          <div class="well container theorem">
-            <span class="numbered-title">Beobachtung
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-              </span>Sei  die vom endlichen Automaten  akzeptierte Sprache.
-            Wenn  gilt, dann auch .
-          </div>
-          <div class="well container">
-            <b>Beweis.</b>
-            Nehmen wir an ; es gibt also einen Zustand  mit
-            \begin{align*}
-            \qstart \Step{\alpha} q \textnormal{ und } \qstart \Step{\beta} q
-            \end{align*}
-            Des weiteren sei , also
-            \begin{align*}
-            \qstart \Step{\alpha} q \Step{\gamma} q' \textnormal{ und } \qstart \Step{\beta} q \Step{\gamma}
-            q'
-            \end{align*}
-            also
-            \begin{align*}
-            \qstart \Step{\alpha\gamma} q' \textnormal{ und } \qstart \Step{\beta\gamma} q'
-            \end{align*}
-            Abhängig davon, ob  oder nicht, sind  und  entweder
-            <i>beide in
-            </i>
-            oder
-            <i>beide nicht in
-            </i>. In anderen Worten: .<span class="qed">
-              </span>
-          </div>
-          <p>
-            Hier ist nun ein allgemeiner Angriffsplan, wie man zeigt, dass eine Sprache  nicht regulär
-            ist: wir finden
-            eine unendliche Folge von Wörtern , die alle nicht
-            -äquivalent sind. Wenn nun  ein endlicher Automat mit Zustandsmenge  ist, dann
-            müssen sich
-            unter  Eingabewörter mindestens zwei äquivalente finden, da sie ja nicht alle den
-            Automaten in einen
-            anderen Zustand bringen. Der Automat  kann also die Sprache  nicht erkennen.
-            Formaler:
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Definition
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-              </span>Sei . Der
-            <i>Index von
-            </i>
-            ist die Anzahl von Äquivalenzklassen
-            der Relation
-            , also die größtmögliche Anzahl gegenseitig nichtäquivalenter Wörter
-            ; dies ist möglicherweise unendlich.
-          </div>
-          <div class="well container theorem">
-            <span class="numbered-title">Beobachtung
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
-              </span>Sei  ein endlicher Automat von  die von ihm akzeptierte Sprache.
-            Dann ist der Index von  höchstens die Anzahl  von Zuständen.
-            Im Umkehrschluss heißt das: wenn  unendlichen Index hat, dann gibt es keinen endlichen
-            Automaten, der  akzeptiert;  ist demnach nicht regulär.
-          </div>
-          <div class="well container">
-            <b>Beweis.</b>
-            Wenn der Index von  größer wäre als , dann hieße das, dass wir
-             nicht -äquivalente  finden können.
-            Sei  der Zustand, in dem der Automat landet,
-            wenn er das Eingabewort  abarbeitet. Die Zustände
-             können nicht alle verschieden sein; es gibt unter diesen Wörtern also
-             mit . Das heißt aber, dass es ein
-             gibt mit  und 
-            (oder
-            umgekehrt).
-            Da  die Sprache  akzeptiert, muss auch folgendes gelten:
-            \begin{align*}
-            \qstart \Step{\alpha<i>i \gamma} q \in F \\
-              \qstart \Step{\alpha</i>j \gamma} q' \not \in F \ ,
-            \end{align*}
-            was aber nicht sein kann, da  und daher auch , also
-             gelten würde.<span class="qed">
-              </span>
-          </div>
-          <div class="well container theorem">
-            <span class="numbered-title">Beispiel
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
-              </span>Die Sprache  ist nicht regulär.
-            <p>
-              In der Tat hat diese Sprache unendlichen Index. Die Wörter  sind
-              alle
-              nicht -äquivalent. Für  und  könnten wir zum Beispiel 
-              wählen,
-              um zu zeigen, dass  und  ist.
-            </p>
-          </div>
-          <div class="well container theorem">
-            <span class="numbered-title">Beispiel
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.8</NumberedTitle>
-              </span>Sei  die Sprache aller Palindrome. Also der Wörter  mit
-            , wobei  das Wort  in umgekehrter Reihnfolge gelesen
-            ist.
-            Die Sprache  ist ein klassisches Beispiel einer kontextfreien Sprache:
-            \begin{align*}
-            S \rightarrow \epsilon \ | \ aSa \ | \ bSb
-            \end{align*}
-            Sie ist nicht regulär: die Wörter  sind alle nicht -äquivalent, da
-             aber  ist.
-          </div>
-          <div class="well well-lg numbered-exercise container">
-            <span class="numbered-title">Übungsaufgabe
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-              </span>Betrachten Sie die Sprache aller , die gleich viele 's wie 's
-            haben:
-            \begin{align*}
-            S \rightarrow \epsilon \ | \ aSbS \ | \ bSaS
-            \end{align*}
-            Zeigen Sie, dass diese Sprache nicht regulär ist.
-          </div>
-          <p>
-            Wie mächtig ist diese "Index-Methode"? Es stellt sich heraus, dass sie
-            <i>vollständig</i>
-            ist:
-            wenn eine Sprache  endlichen Index hat, dann ist sie auch regulär.
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Theorem
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.9</NumberedTitle>
-              </span>Eine Sprache  ist genau dann regulär, wenn sie endlichen Index hat.
-          </div>
-          <div class="well container">
-            <b>Beweis.</b>
-            Eine Richtung haben wir bereits weiter oben gezeigt: wenn es zu  einen endlichen Automaten
-            mit Zustandsmenge  gibt, dann ist der Index von  höchstens .
-            <p>
-              Für die andere Richtung nehmen wir an, dass der Index von  endlich ist,
-              sagen wir . Es gibt also
-              , die alle paarweise nicht -äquivalent sind.
-              Allerdings ist  ist auch die größte solche Zahl; dies heißt, jedes weitere
-               ist äquivalent zu einem dieser .
-              In anderen Worten: wir können  in Teilmengen partitionieren:
-              \begin{align*}
-              \Sigma = A<i>1 \cup A</i>2 \cup \dots \cup A<i>n \ ,
-                \end{align*}
-                so dass innerhalb eines  alle Wörter äquivalent sind, und zwischen
-                zwei verschiedenen  alle nicht äquivalent sind:
+              <p>
+                Können wir eine reguläre Grammatik für schreiben? Irgendwie klingt das nicht
+                plausibel.
+                Reguläre Grammatiken können ja immer nur ein Wort von links nach rechts erzeugen; für
+                scheint
+                das irgendwie nicht zu reichen.
+              </p>
+              <div class="well well-lg numbered-exercise">
+                <span class="numbered-title">Übungsaufgabe
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
+                </span>Versuchen Sie ein paar Minuten, eine reguläre Grammatik für zu schreiben oder
+                versuchen Sie,
+                zu argumentieren, dass das nicht möglich ist.
+              </div>
+              <p>
+                Wir sind nun also recht überzeugt, dass nicht regulär ist. Nur, wie können wir das
+                formal beweisen?
+                Vielleicht könnten wir annehmen, dass es eine reguläre Grammatik
+                gibt und dann
+                argumentieren, dass nicht richtig ist; zum Beispiel Produktionen danach einteilen,
+                ob sie oder machen, und dann die darin involvieren
+                Nichtterminale und weiter betrachten.
+              </p>
+              <p>
+                Zu Hilfe kommt uns die Tatsache, dass wir für reguläre Sprachen nun viele äquivalente
+                Modelle gefunden haben:
+              </p>
+              <ol>
+                <li>
+                  Reguläre Grammatiken.
+                </li>
+                <li>
+                  Erweitert reguläre Grammatiken, die also Produktionen wie
+                  erlauben.
+                </li>
+                <li>
+                  Vereinfachte reguläre Grammatiken, in denen Produktionen wie und nicht vorkommen;
+                  wo also die rechte Seite nie aus einem einzelnen Zeichen besteht.
+                </li>
+                <li>
+                  Endliche Automaten.
+                </li>
+                <li>
+                  Nichtdeterministische endliche Automaten.
+                </li>
+              </ol>
+              <p>
+                Formal sind all diese Modelle gleich mächtig: wir können ein Modell in ein anderes umwandeln,
+                ohne
+                das die erzeugte bzw. akzeptierte Sprache sich ändern. Wenn wir nun zeigen wollen:
+                <i>
+                  ist nicht regulär</i>, dann können wir das
+                <i>einfachste</i>
+                Modell nehmen und
+                dagegen argumentieren. Nach meinem Darfürhalten sind endliche Automaten das einfachste der
+                fünf aufgeführten
+                Modelle. Also:
+              </p>
+              <p>
+                Angenommen, wäre regulär. Dann gäbe es auch einen endlichen Automaten ,
+                der akzeptiert. Wir müssen zeigen, dass das nicht sein kann. Also dem Automaten
+                einen Fehler nachweisen.
+                Ein endlicher Automat kann sich ja nur beschränkt viele Dinge "merken": er weiß nur, in
+                welchem Zustand er
+                gerade ist. Um Wörter der Form zu erkennen, müsste er sich allerdings merken,
+                wieviele 's er bereits
+                gelesen hat. Vergisst er es, kann er bei den folgenden 's nicht mehr richtig mitzählen.
+                Unser Plan ist also, das Gedächtnis des Automaten zu überfordern.
+              </p>
+              <p>
+                Setzen wir diesen Plan in die Tat um. Wir füttern dem Automaten eine Folge von
+                und
+                beobachten die Zustandsfolge , die sich daraus ergibt. Formal:
                 \begin{align*}
-                \forall 1 \leq i \leq n&amp;\forall \alpha, \beta \in A</i>i:&amp;\quad \alpha \equiv<i>L \beta \\
-                \forall 1 \leq i \lt j \leq n&amp;\forall \alpha\in A</i>i, \beta\in A<i>j :&amp;\quad \alpha \not
-                \equiv</i>L \beta
-              \end{align*}
-              Die Menge von Mengen  nennt man eine Partition oder
-              Partitionierung von .
-            </p>
+                q<i>i := \hat{\delta}(q</i>0, a^i) \ ,
+                \end{align*}
+                wobei das Wort ist, dass aus vielen 's hintereinander besteht.
+                Da der Automat nur viele Zustände hat,
+                muss sich nach mindestens vielen 's eine Wiederholung einstellen, also
+                für . Die Wörter und bringen also
+                den Automaten beide in den Zustand ; der Automat kann also nicht unterscheiden, ob er
+                gerade
+                viele oder viele 's gelesen hat. Nun schlagen wir zu:
+              </p>
+              <p>
+                Wir füttern den Automaten mit dem Wort . Der Automat landet in einem Zustand
+                :
+                \begin{align*}
+                q<i>0 \step{a^i} q</i>i \step{b^i} q^<b>
+                  \end{align</b>}
+                Das Wort ist in der Sprache . Dere Zustand muss also ein
+                akzeptierender Zustand sein.
+                Nun füttern wir ihn mit dem Wort . Der Automat landet wo?
+                \begin{align*}
+                q<i>0 \step{a^j} q</i>i
+                \end{align*}
+                da ja und ihn in den selben Zustand bringen. Daraufhin geschieht abermals
+                , also insgesamt
+                \begin{align*}
+                q<i>0 \step{a^j} q</i>i \step{b^i} q^<b>
+                  \end{align</b>}
+                Wir haben aber bereits gesehen, dass ein akzeptierender Zustand sein muss; also
+                akzeptiert der Automat
+                auch ; das ist aber ein Fehler, denn . Der Automat ist also
+                fehlerhaft.
+                Da wir dieses Argument ganz allgemein für einen endlichen Automaten geführt haben,
+                schließen wir:
+              </p>
+              <div style="text-align:center">
+                Wenn ein endlicher Automat ist, dann gilt . Daher ist keine
+                reguläre Sprache.
+              </div>
+              <p>
+                Zusammenfassend lautet unser Argument: wenn der Automat die Präfixe und
+                nicht
+                unterscheiden kann, dann kann er die Wörter und auch
+                nicht unterscheiden;
+                er muss also entweder beide akzeptieren oder beide ablehnen.
+              </p>
+            </div>
             <p>
-              Beachten Sie: wenn  und , dann gilt auch
-              . (Überlegen Sie sich, warum!) Auch gilt für jedes :
-              entweder sind alle Wörter in  in der Sprache, also  oder
-              keines, also \(A_i \cap L = \emptyset). Des weiteren gibt es genau ein , welches das
-              leere Wort
-               enthält.
+              Das Argument, dass die Sprache nicht regulär ist, war nicht allzu
+              schwer, fühlt sich
+              aber etwas
+              <i>ad hoc</i>
+              an, also für diesen Fall maßgeschneidert. Es stellt sich aber heraus,
+              dass man
+              bei
+              <i>allen</i>
+              nicht-regulären Sprachen ein solches Argument anführen kann. Die Hauptarbeit
+              besteht nun darin, Konzepte wie
+              <i>der Automat kann nicht von
+                unterscheiden</i>
+              und
+              <i>der Automat muss aber von unterscheiden können</i>
+              zu
+              formalisieren.
             </p>
-            <p>
-              Wir bauen nun einen endlichen Automaten mit der Zustandsmenge .
-              Für  führen wir die Produktion
-              \begin{align*}
-              i \step{x} j
-              \end{align*}
-              ein, wenn es ein  mit  gibt.
-              Sehen Sie nun: wenn wir ein anderes  nehmen,
-              dann gilt , also ist auch . In anderen
-              Worten: es gibt nur
-              <i>eine</i>
-              Produktion der Form , d.h. die
-              Produktionen
-              sind in der Tat ein
-              <i>Funktion</i>
-              und der Automat ist
-              <i>determinisitsch</i>.
-              Als Anfangszustand wählen wir dasjenige , für das  gilt.
-              Akzeptierende Zustände sind diejenigen , für die  gilt. Also:
-              \begin{align*}
-              Q&amp;:= \{1,2,\dots,n\} \\
-              \qstart&amp;:= \textnormal{ das $i$, für das $\epsilon \in A<i>i$} \\
-                F&amp;:= \{j \in Q \ | \ A</i>j \subseteq L\} \\
-              \delta&amp;:= (i,x) \mapsto \textnormal{(das eindeutige $j$, für das es ein $\alpha \in A<i>i$
-                gibt mit $\alpha x \in A</i>j$).}
-              \end{align*}
-              Der Automat  erkennt die Sprache ; die Anzahl
-              seiner Zustände ist gleich dem Index der Sprache .
-            </p>
-            <span class="qed">
+            <div class="well container theorem">
+              <span class="numbered-title">Definition
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
               </span>
-          </div>
-          <p>
-            Wir können den Index nicht nur verwenden, um zu argumentieren, dass eine Sprache nicht regulär
-            ist, sondern auch, um zu zeigen,
-            dass eine bestimmte Menge an Zuständen optimal ist.
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Beispiel
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.10</NumberedTitle>
-              </span>Der nichtdeterministische endliche Automatakzeptiert die Sprache  aller , deren viertletzter Buchstabe eine 1
-            ist.
-            Unsere Konstruktion, ihn deterministisch zu machen, würde 16 Zustände erzeugen. Ist dies
-            optimal? Ja, ist es:
-            <div class="well subtheorem theorem">
-              <span class="numbered-title">Behauptung
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.11</NumberedTitle>
-                </span>Die Sprache  hat Index 16. Alle Wörter in  sind nicht -äquivalent.
-            </div>
-            <div class="well subtheorem">
-              <b>Beweis.</b>
-              Seien  zwei verschiedene
-              Wörter. Dann gibt es ein
-               mit  und  (oder umgekehrt).
-              Sei , also ein String bestehend aus  Nullen. Das viertletzte
-              Zeichen
-              von  ist 0, das viertletzte Zeichen von  ist 1; also
-              gilt , und somit .
-              Der Index ist also
-              <i>mindestens</i>
-              16. Das er höchstens 16 ist, sehen wir, indem wir
-              einen
-              determinisitschen Automaten mit 16 Zuständen bauen.<span class="qed">
-                </span>
+              <b>-Äquivalenz</b>
+              Sei ein (deterministischer) endlicher Automat. Zwei Wörter
+              sind
+              <i>-äquivalent</i>, geschrieben
+              \begin{align*}
+              \alpha \equiv_M \beta \ ,
+              \end{align*}
+              wenn gilt; wenn sie also
+              den Automaten in den gleichen Zustand bringen.
             </div>
             <p>
-              Allgemeiner: sei  die Sprache aller , deren
-              -letztes Zeichen eine 1 ist. Dann gibt es für  einen nichtdeterministischen
-              endlichen Automaten mit  Zuständen und einen determinisitschen mit
-               Zuständen. Es gibt keinen determinisitschen Automaten mit weniger
-              als  Zuständen.
+              Wir können bereits ein bisschen über aussagen. Wenn beispielsweise ein
+              endlicher Automat für die Sprache ist und
+              gilt, dann sind entweder beide Wörter in (nämlich
+              wenn ein akzeptierender Zustand ist)
+              oder beide Wörter nicht in (falls es kein akzeptierender Zustand ist).
             </p>
+            <p>
+              Auch sehen wir: wenn , dann gilt :
+              und brigen den Automaten in den gleichen Zustand, und danach liest er in
+              beiden
+              Fällen das Wort , endet also in beiden Fällen im gleichen Zustand.
+            </p>
+            <div class="well container theorem">
+              <span class="numbered-title">Definition
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
+              </span>
+              <b>-Äquivalenz</b>
+              Sei eine Sprache. Zwei Wörter sind
+              <i>-äquivalent</i>, geschrieben
+              \begin{align*}
+              \alpha \equiv_L \beta \ ,
+              \end{align*}
+              wenn für alle die Wörter
+              und entweder
+              beide in oder beide nicht in sind.
+            </div>
+            <div class="well container theorem">
+              <span class="numbered-title">Beobachtung
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
+              </span>Sei die vom endlichen Automaten akzeptierte Sprache.
+              Wenn gilt, dann auch .
+            </div>
+            <div class="well container">
+              <b>Beweis.</b>
+              Nehmen wir an ; es gibt also einen Zustand mit
+              \begin{align*}
+              \qstart \Step{\alpha} q \textnormal{ und } \qstart \Step{\beta} q
+              \end{align*}
+              Des weiteren sei , also
+              \begin{align*}
+              \qstart \Step{\alpha} q \Step{\gamma} q' \textnormal{ und } \qstart \Step{\beta} q \Step{\gamma}
+              q'
+              \end{align*}
+              also
+              \begin{align*}
+              \qstart \Step{\alpha\gamma} q' \textnormal{ und } \qstart \Step{\beta\gamma} q'
+              \end{align*}
+              Abhängig davon, ob oder nicht, sind und entweder
+              <i>beide in
+              </i>
+              oder
+              <i>beide nicht in
+              </i>. In anderen Worten: .<span class="qed">
+              </span>
+            </div>
+            <p>
+              Hier ist nun ein allgemeiner Angriffsplan, wie man zeigt, dass eine Sprache nicht regulär
+              ist: wir finden
+              eine unendliche Folge von Wörtern , die alle nicht
+              -äquivalent sind. Wenn nun ein endlicher Automat mit Zustandsmenge ist, dann
+              müssen sich
+              unter Eingabewörter mindestens zwei äquivalente finden, da sie ja nicht alle den
+              Automaten in einen
+              anderen Zustand bringen. Der Automat kann also die Sprache nicht erkennen.
+              Formaler:
+            </p>
+            <div class="well container theorem">
+              <span class="numbered-title">Definition
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
+              </span>Sei . Der
+              <i>Index von
+              </i>
+              ist die Anzahl von Äquivalenzklassen
+              der Relation
+              , also die größtmögliche Anzahl gegenseitig nichtäquivalenter Wörter
+              ; dies ist möglicherweise unendlich.
+            </div>
+            <div class="well container theorem">
+              <span class="numbered-title">Beobachtung
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
+              </span>Sei ein endlicher Automat von die von ihm akzeptierte Sprache.
+              Dann ist der Index von höchstens die Anzahl von Zuständen.
+              Im Umkehrschluss heißt das: wenn unendlichen Index hat, dann gibt es keinen endlichen
+              Automaten, der akzeptiert; ist demnach nicht regulär.
+            </div>
+            <div class="well container">
+              <b>Beweis.</b>
+              Wenn der Index von größer wäre als , dann hieße das, dass wir
+              nicht -äquivalente finden können.
+              Sei der Zustand, in dem der Automat landet,
+              wenn er das Eingabewort abarbeitet. Die Zustände
+              können nicht alle verschieden sein; es gibt unter diesen Wörtern also
+              mit . Das heißt aber, dass es ein
+              gibt mit und
+              (oder
+              umgekehrt).
+              Da die Sprache akzeptiert, muss auch folgendes gelten:
+              \begin{align*}
+              \qstart \Step{\alpha<i>i \gamma} q \in F \\
+                \qstart \Step{\alpha</i>j \gamma} q' \not \in F \ ,
+              \end{align*}
+              was aber nicht sein kann, da und daher auch , also
+              gelten würde.<span class="qed">
+              </span>
+            </div>
+            <div class="well container theorem">
+              <span class="numbered-title">Beispiel
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
+              </span>Die Sprache ist nicht regulär.
+              <p>
+                In der Tat hat diese Sprache unendlichen Index. Die Wörter sind
+                alle
+                nicht -äquivalent. Für und könnten wir zum Beispiel
+                wählen,
+                um zu zeigen, dass und ist.
+              </p>
+            </div>
+            <div class="well container theorem">
+              <span class="numbered-title">Beispiel
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.8</NumberedTitle>
+              </span>Sei die Sprache aller Palindrome. Also der Wörter mit
+              , wobei das Wort in umgekehrter Reihnfolge gelesen
+              ist.
+              Die Sprache ist ein klassisches Beispiel einer kontextfreien Sprache:
+              \begin{align*}
+              S \rightarrow \epsilon \ | \ aSa \ | \ bSb
+              \end{align*}
+              Sie ist nicht regulär: die Wörter sind alle nicht -äquivalent, da
+              aber ist.
+            </div>
+            <div class="well well-lg numbered-exercise container">
+              <span class="numbered-title">Übungsaufgabe
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
+              </span>Betrachten Sie die Sprache aller , die gleich viele 's wie 's
+              haben:
+              \begin{align*}
+              S \rightarrow \epsilon \ | \ aSbS \ | \ bSaS
+              \end{align*}
+              Zeigen Sie, dass diese Sprache nicht regulär ist.
+            </div>
+            <p>
+              Wie mächtig ist diese "Index-Methode"? Es stellt sich heraus, dass sie
+              <i>vollständig</i>
+              ist:
+              wenn eine Sprache endlichen Index hat, dann ist sie auch regulär.
+            </p>
+            <div class="well container theorem">
+              <span class="numbered-title">Theorem
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.9</NumberedTitle>
+              </span>Eine Sprache ist genau dann regulär, wenn sie endlichen Index hat.
+            </div>
+            <div class="well container">
+              <b>Beweis.</b>
+              Eine Richtung haben wir bereits weiter oben gezeigt: wenn es zu einen endlichen Automaten
+              mit Zustandsmenge gibt, dann ist der Index von höchstens .
+              <p>
+                Für die andere Richtung nehmen wir an, dass der Index von endlich ist,
+                sagen wir . Es gibt also
+                , die alle paarweise nicht -äquivalent sind.
+                Allerdings ist ist auch die größte solche Zahl; dies heißt, jedes weitere
+                ist äquivalent zu einem dieser .
+                In anderen Worten: wir können in Teilmengen partitionieren:
+                \begin{align*}
+                \Sigma = A<i>1 \cup A</i>2 \cup \dots \cup A<i>n \ ,
+                  \end{align*}
+                  so dass innerhalb eines alle Wörter äquivalent sind, und zwischen
+                  zwei verschiedenen alle nicht äquivalent sind:
+                  \begin{align*}
+                  \forall 1 \leq i \leq n&amp;\forall \alpha, \beta \in A</i>i:&amp;\quad \alpha \equiv<i>L \beta \\
+                  \forall 1 \leq i \lt j \leq n&amp;\forall \alpha\in A</i>i, \beta\in A<i>j :&amp;\quad \alpha \not
+                  \equiv</i>L \beta
+                \end{align*}
+                Die Menge von Mengen nennt man eine Partition oder
+                Partitionierung von .
+              </p>
+              <p>
+                Beachten Sie: wenn und , dann gilt auch
+                . (Überlegen Sie sich, warum!) Auch gilt für jedes :
+                entweder sind alle Wörter in in der Sprache, also oder
+                keines, also \(A_i \cap L = \emptyset). Des weiteren gibt es genau ein , welches das
+                leere Wort
+                enthält.
+              </p>
+              <p>
+                Wir bauen nun einen endlichen Automaten mit der Zustandsmenge .
+                Für führen wir die Produktion
+                \begin{align*}
+                i \step{x} j
+                \end{align*}
+                ein, wenn es ein mit gibt.
+                Sehen Sie nun: wenn wir ein anderes nehmen,
+                dann gilt , also ist auch . In anderen
+                Worten: es gibt nur
+                <i>eine</i>
+                Produktion der Form , d.h. die
+                Produktionen
+                sind in der Tat ein
+                <i>Funktion</i>
+                und der Automat ist
+                <i>determinisitsch</i>.
+                Als Anfangszustand wählen wir dasjenige , für das gilt.
+                Akzeptierende Zustände sind diejenigen , für die gilt. Also:
+                \begin{align*}
+                Q&amp;:= \{1,2,\dots,n\} \\
+                \qstart&amp;:= \textnormal{ das $i$, für das $\epsilon \in A<i>i$} \\
+                  F&amp;:= \{j \in Q \ | \ A</i>j \subseteq L\} \\
+                \delta&amp;:= (i,x) \mapsto \textnormal{(das eindeutige $j$, für das es ein $\alpha \in A<i>i$
+                  gibt mit $\alpha x \in A</i>j$).}
+                \end{align*}
+                Der Automat erkennt die Sprache ; die Anzahl
+                seiner Zustände ist gleich dem Index der Sprache .
+              </p>
+              <span class="qed">
+              </span>
+            </div>
+            <p>
+              Wir können den Index nicht nur verwenden, um zu argumentieren, dass eine Sprache nicht regulär
+              ist, sondern auch, um zu zeigen,
+              dass eine bestimmte Menge an Zuständen optimal ist.
+            </p>
+            <div class="well container theorem">
+              <span class="numbered-title">Beispiel
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.10</NumberedTitle>
+              </span>Der nichtdeterministische endliche Automatakzeptiert die Sprache aller , deren viertletzter
+              Buchstabe eine 1
+              ist.
+              Unsere Konstruktion, ihn deterministisch zu machen, würde 16 Zustände erzeugen. Ist dies
+              optimal? Ja, ist es:
+              <div class="well subtheorem theorem">
+                <span class="numbered-title">Behauptung
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.11</NumberedTitle>
+                </span>Die Sprache hat Index 16. Alle Wörter in sind nicht -äquivalent.
+              </div>
+              <div class="well subtheorem">
+                <b>Beweis.</b>
+                Seien zwei verschiedene
+                Wörter. Dann gibt es ein
+                mit und (oder umgekehrt).
+                Sei , also ein String bestehend aus Nullen. Das viertletzte
+                Zeichen
+                von ist 0, das viertletzte Zeichen von ist 1; also
+                gilt , und somit .
+                Der Index ist also
+                <i>mindestens</i>
+                16. Das er höchstens 16 ist, sehen wir, indem wir
+                einen
+                determinisitschen Automaten mit 16 Zuständen bauen.<span class="qed">
+                </span>
+              </div>
+              <p>
+                Allgemeiner: sei die Sprache aller , deren
+                -letztes Zeichen eine 1 ist. Dann gibt es für einen nichtdeterministischen
+                endlichen Automaten mit Zuständen und einen determinisitschen mit
+                Zuständen. Es gibt keinen determinisitschen Automaten mit weniger
+                als Zuständen.
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 </body>

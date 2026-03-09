@@ -1,562 +1,555 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-      <link rel="icon" href="data:,">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
-    <link rel="stylesheet" type="text/css" href="../TI.css" />
-    <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="../numbered-title.js"></script>
-    <script type="text/javascript" src="../mathjax_setup.js"></script>
-    <script type="text/javascript" src="../carousel.js"></script>
-    <script type="text/javascript" src="../sendCmdTo3003.js"></script>
-    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <link rel="icon" href="data:," />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
+  <link rel="stylesheet" type="text/css" href="../TI.css" />
+  <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="../numbered-title.js"></script>
+  <script type="text/javascript" src="../mathjax_setup.js"></script>
+  <script type="text/javascript" src="../carousel.js"></script>
+  <script type="text/javascript" src="../sendCmdTo3003.js"></script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
+
 <body>
-<section
-  count="40"
-  _="BookLevelSectionCounter 40"
-  title_gr="Grammatiken"
-  title_en="general grammars"
-  number="6.0"
-  counter="DefCtr"
-  counter="ExoCtr"
-  path="/lecture-notes40"
->
-  <div id="link-to-toc">
-    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="05-10-not-context-free.html">&lt;&lt; Kapitel 5.10</a>
-  </div>
-  <div
-    id="link-to-overview"
-    style="text-align: end"
-  >
-    <a href="/">zur Kursübersicht</a><a href="07-00-Turing-machines.html">Kapitel 7.0 &gt;&gt;</a>
-  </div>
-  <div id="rightSideWrapper">
-    <div class="content">
-      <div class="chapter">
-        <div class="subChapter">
-          <h1 class="hidden-title">
-            <span class="chapterTitle">6.
-              Allgemeine Grammatiken</span>
-          </h1>
-          <p>
-            Wir haben nun ausführlich über kontextfreie Grammatiken gesprochen
-            und auch Sprachen gesehen, die nicht mit kontextfreien Grammatiken
-            zu beschreiben (und somit auch nicht mit Parsern oder allgemein mit
-            Kellerautomaten) zu entscheiden sind. Da stellen sich die folgenden Fragen:
-          </p>
-          <ol>
-            <li>
-              Wie mann man die Definition kontextfreier Grammatiken sinnvoll erweitern,
-              so dass sie beispielsweise auch Sprachen wie
-               umfassen?
-            </li>
-            <li>
-              Gibt es eine natürliche Barriere, jenseits derer es
-              keinen vernünftigen Begriff des "Beschreiben könnens" gibt?
-              Oder kann man immer noch allgemeinere Regelwerke zulassen?
-            </li>
-            <li>
-              Gibt es für die (noch zu definierende) allgemeinere Art von
-              Grammatiken auch eine Art Automat, so wie die endlichen Automaten
-              für die regulären Grammatiken und die Kellerautomaten für die kontextfreien?
-            </li>
-          </ol>
-          Punkt 1 werden wir in diesem Kapitel diskutieren. Punkt 2 und 3 werden Gegenstand
-          des nächsten Kapitels sein, in welchem wir die Turing-Maschinen einführen.
-          <h3>
-            Allgemeine formale Grammatiken
-          </h3>
-          <div class="well container theorem">
-            <span class="numbered-title">Definition
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
+  <section count="40" _="BookLevelSectionCounter 40" title_gr="Grammatiken" title_en="general grammars" number="6.0"
+    counter="DefCtr" counter="ExoCtr" path="/lecture-notes40">
+    <div id="link-to-toc">
+      <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="05-10-not-context-free.html">&lt;&lt; Kapitel
+        5.10</a>
+    </div>
+    <div id="link-to-overview" style="text-align: end">
+      <a href="/">zur Kursübersicht</a><a href="07-00-Turing-machines.html">Kapitel 7.0 &gt;&gt;</a>
+    </div>
+    <div id="rightSideWrapper">
+      <div class="content">
+        <div class="chapter">
+          <div class="subChapter">
+            <h1 class="hidden-title">
+              <span class="chapterTitle">6.
+                Allgemeine Grammatiken</span>
+            </h1>
+            <p>
+              Wir haben nun ausführlich über kontextfreie Grammatiken gesprochen
+              und auch Sprachen gesehen, die nicht mit kontextfreien Grammatiken
+              zu beschreiben (und somit auch nicht mit Parsern oder allgemein mit
+              Kellerautomaten) zu entscheiden sind. Da stellen sich die folgenden Fragen:
+            </p>
+            <ol>
+              <li>
+                Wie mann man die Definition kontextfreier Grammatiken sinnvoll erweitern,
+                so dass sie beispielsweise auch Sprachen wie
+                umfassen?
+              </li>
+              <li>
+                Gibt es eine natürliche Barriere, jenseits derer es
+                keinen vernünftigen Begriff des "Beschreiben könnens" gibt?
+                Oder kann man immer noch allgemeinere Regelwerke zulassen?
+              </li>
+              <li>
+                Gibt es für die (noch zu definierende) allgemeinere Art von
+                Grammatiken auch eine Art Automat, so wie die endlichen Automaten
+                für die regulären Grammatiken und die Kellerautomaten für die kontextfreien?
+              </li>
+            </ol>
+            Punkt 1 werden wir in diesem Kapitel diskutieren. Punkt 2 und 3 werden Gegenstand
+            des nächsten Kapitels sein, in welchem wir die Turing-Maschinen einführen.
+            <h3>
+              Allgemeine formale Grammatiken
+            </h3>
+            <div class="well container theorem">
+              <span class="numbered-title">Definition
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
               </span>
-            <b>(formale Grammatik)</b>
-            Eine formale Grammatik ist gegeben durch ein endliches Alphabet
-             aus
-            <i>Terminalsymbolen</i>, einer endlichen Menge
-             von
-            <i>Nichtterminalen</i>, einem Startsymbol
-             und einer endlichen Menge an Produktionen
-            \begin{align*}
-            \alpha \rightarrow \beta
-            \end{align*}
-            wobei 
-            und . Letzeres
-            bedeutet einfach, dass die linke Seite  mindestens ein
-            Nichtterminal enthalten muss.
-          </div>
-          <p>
-            Die Definition formaler Grammatik umschließt offensichtlich die der kontextfreien:
-            sie verbietet nicht, dass alle linken Seiten  aus genau einem
-            Nichtterminal bestehen; in diesem Falle hätten wir eine kontextfreie Grammatik.
-            Sie verbietet auch nicht, dass zusätzlich alle rechten Seiten
-             sind, also höchstens ein
-            Nichtterminal enthalten, welches ganz rechts stehen muss. In diesem Falle
-            würde es sich um eine reguläre Grammatik handeln.
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Definition
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-              </span>
-            <b>(Ableitung und erzeugte Sprache)</b>. Sei  eine formale
-            Grammtik und  zwei Wortformen.
-            Wir schreiben , wenn wir
-            \begin{align*}
-            \gamma<i>1&amp;= u \alpha v \\
-              \gamma</i>2&amp;= u \beta v
-            \end{align*}
-            schreiben können für Wortformen , sodass  eine
-            Produktion von  ist.
-          </div>
-          <div class="well container theorem">
-            <span class="numbered-title">Beispiel
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-              </span>Betrachten wir die allgemeine Grammatik mit
-            Terminalalphabet , Nichtterminalsymbolen
-            , Startsymbol  und den Produktionen
-            \begin{align*}
-            S&amp;\step{1} ABCS \ | \ \epsilon \\
-            AB&amp;\step{2} BA \\
-            BA&amp;\step{3} AB \\
-            AC&amp;\step{4} CA \\
-            CA&amp;\step{5} AC \\
-            BC&amp;\step{6} CB \\
-            CB&amp;\step{7} BC \\
-            A&amp;\step{8} a \\
-            B&amp;\step{9} b \\
-            C&amp;\step{10} c
-            \end{align*}
-            <p>
-              Nun schauen wir uns eine Beispielableitung an:
-            </p>
-            \begin{align*}
-            S \Step{1} ABCS \Step{1} ABCABCS \Step{2}
-            ABCABC \Step{5} ABACBC \Step{3} AABCBC
-            \Step{8,8,9,9,10,10}^* aabcbc
-            \end{align*}
-          </div>
-          <p>
-            Die obige Beispielableitung illustriert, dass allgemeine formale Grammatiken
-            etwas können, das kontextfreie Grammatiken nicht bieten konnten:
-            das Vertauschen von Symbolen. Das mag nicht als besonders viel erscheinen,
-            wird sich aber als
-            <i>Game Changer</i>
-            herausstellen.
-          </p>
-          <p>
-            Sobald wir eine Wortform erreicht haben, die nur aus Terminalsymbolen
-            besteht (also ein
-            <i>Wort</i>
-            geworden ist), muss unsere Ableitung
-            aufhören: wir können keine weitere Produktion anwenden, da jede
-            linke Seite mindestens ein Nichtterminal enthält. Diese Einschränkung
-            in der Definition allgemeiner formaler Grammatiken ist nicht wirklich
-            notwenig, sie macht Dinge allerdings klar, wo eine Ableitung zu Ende ist / sein muss.
-            Es handelt sich also gewissermaßen um das Gegenteil von Syntax-Antizucker (mir ist
-            gerade keine Substanz eingefallen, deren Geschmack universell als abstoßend empfunden wird).
-            Wir können Grammatiken, die verbotene Produktionen der Form
-             mit
-             enthalten, immer "auf Linie" bringen, indem
-            wir jedes Terminalsymbol  in den Produktionen durch ein neues Nichtterminal
-             ersetzen und schließlich Produktionen  einführen.
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Beispiel
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-              </span>Versuchen wir nun, eine allgemeine formale Grammatik für die Sprache
-            \begin{align*}
-            L = \{a^nb^nc^n \ | \ n \geq 0\}
-            \end{align*}
-            zu erstellen. Wir haben ja bereits gesehen, dass es zu dieser Sprache keine
-            kontextfreie Grammatik gibt. Als ersten Versuch kopieren wir
-            die obige Grammatik, allerdings lassen wir nur die Vertauschungsregeln zu, die
-            die Buchstaben in die richtige Reihenfolge bringen:
-            \begin{align*}
-            S&amp;\step{} ABCS \ | \ \epsilon \\
-            BA&amp;\step{} AB \\
-            CA&amp;\step{} AC \\
-            CB&amp;\step{} BC \\
-            A&amp;\step{} a \\
-            B&amp;\step{} b \\
-            C&amp;\step{} c
-            \end{align*}
-            Offensichtlich kann jedes Wort in  erzeugt werden, allerdings
-            auch Wörter wie , die nicht in  sind. Können wir
-            die erzeugte Sprache beschreiben? Ich glaube, es ist die Sprache
-            aller -Wörter  mit
-            gilt
-            \begin{align*}
-            &amp;\#<i>a(w) \geq \#</i>b(w) \geq \#<i>c(w) \quad \textnormal{und} \\
-              &amp;\#</i>a(v) \geq \#<i>b(v) \geq \#</i>c(v) \quad \textnormal{für alle Präfixe $v$ von $w$}
-            \end{align*}
-            wobei  die Anzahl der in  enthaltenen  ist.
-            <p>
-              Nachdem also unser erster Versuch gescheitert ist, unternehmen wir einen
-              zweiten. Wir stellen uns die Ableitung als aus zwei Phasen
-              bestehend vor. In der ersten wird eine Wortform
-               erzeugt mit
+              <b>(formale Grammatik)</b>
+              Eine formale Grammatik ist gegeben durch ein endliches Alphabet
+              aus
+              <i>Terminalsymbolen</i>, einer endlichen Menge
+              von
+              <i>Nichtterminalen</i>, einem Startsymbol
+              und einer endlichen Menge an Produktionen
               \begin{align*}
-              \#<i>A(w) = \#</i>B(w) = \#_C(w)
+              \alpha \rightarrow \beta
               \end{align*}
-              erzeugt. In einer zweiten wandert ein Kontrollsymbol
-              von links nach rechts durch und wandelt jeden Großbuchstaben
-              in einen Kleinbuchstaben um, weigert sich aber bei
-              Großbuchstaben, die in der falschen Reihenfolge stehen.
-              Wir brauchen nun sieben Nichtterminale
-              . Für  haben wir die Produktionen
-              \begin{align*}
-              S&amp;\step{1} SABC \\
-              S&amp;\step{2} X
-              \end{align*}
-              so dass  gilt. Als nächstes brauchen wir
-              die Vertauschregeln, um alles in die richtige Reihenfolge zu bringen:
-              \begin{align*}
-              BA&amp;\step{3} AB \\
-              CA&amp;\step{4} AC \\
-              CB&amp;\step{5} BC
-              \end{align*}
-              Die Nichtterminale  stehen für folgendes:
-            </p>
-            <ul>
-              <li>
-                : will  in  umwandeln:
-                \begin{align*}
-                XA&amp;\step{6} aX
-                \end{align*}
-                Zu jedem Zeitpunkt können wir beschließen, nun keine
-                 in  mehr umzuwandeln, sondern nun -Symbole zu erwarten:
-                \begin{align*}
-                X&amp;\step{7} Y
-                \end{align*}
-              </li>
-              <li>
-                : will  in  umwandeln oder mit  fortfahren:
-                \begin{align*}
-                YB&amp;\step{8} bY \\
-                Y&amp;\step{9} Z
-                \end{align*}
-              </li>
-              <li>
-                : will  in  umwandeln. Wir
-                können aber auch einfach aufhören, zum Beispiel
-                wenn wir den rechten Rand erreicht haben:
-                \begin{align*}
-                ZC&amp;\step{10} cZ \\
-                Z&amp;\step{11} \epsilon
-                \end{align*}
-              </li>
-            </ul>
-            <p>
-              Nun müssen wir zeigen, dass die Grammatik die Sprache  erzeugt. Für
-              jedes Wort  müssen wir zeigen, dass wir es ableiten können:
-              \begin{align*}
-              &amp;S \Step{1}^* S(ABC)^n \Step{2} X(ABC)^n
-              \Step{3,4,5}^* X A^n B^n C^n\\
-              &amp;\Step{6}^* a^n X B^n C^n
-              \Step{7} a^n Y B^n C^n
-              \Step{8}^* a^n b^n Y C^n
-              \Step{9} a^n b^n Z C^n
-              \Step{10}^* a^n b^n c^n Z
-              \Step{11}^* a^n b^n c^n
-              \end{align*}
-            </p>
-            <p>
-              Als zweites müssen wir zeigen, dass jedes abgeleitete Wort
-               auch in  ist,
-              also die Form  haben. Wir machen das
-              nur zu 80% formal.
-            </p>
-            <p>
-              Die erste Beobachtung ist: solange  in der Wortform 
-              vorkommt, hat diese die Form 
-              mit  enthält gleich viele
-               wie  wie .
-            </p>
-            <div class="well subtheorem theorem">
-              <span class="numbered-title">Behauptung
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-                </span>Sei  die Anahl der  und  in der Wortform .
-              Wenn , dann gilt
-              <ol>
-                <li>
-                  
-                </li>
-                <li>
-                  Außer  enthält  höchstens ein
-                  weiteres Symbol, und dies ist in .
-                </li>
-                <li>
-                  Wenn  das Symbol  enthält, dann ist
-                  .
-                  Wenn es  enthält, dann ist
-                  .
-                  Wenn es  enthält, dann ist es
-                  .
-                  In allen drei Fällen enthält  keine Terminalsymbole.
-                </li>
-                <li>
-                  Wenn es kein Symbol in  enthält, dann ist es von
-                  der Form  und  enthält
-                  keine Terminalsymbole.
-                </li>
-              </ol>
+              wobei
+              und . Letzeres
+              bedeutet einfach, dass die linke Seite mindestens ein
+              Nichtterminal enthalten muss.
             </div>
-            Wir behaupten also, dass das  in Punkt 3 aus den Nichtterminalen
-             besteht, die jedoch nicht in der korrekten Reihenfolge sein müssen.
-            Wir können auch gar nicht verbieten, dass in einer Ableitung
-            die Vertausch-Regeln 3,4,5 und die Kontroll-Regeln 6,7,8,9,10,11
-            vermischt angewandt werden.
             <p>
-              Die Behauptung kann man beispielsweise mit Induktion über die
-              Länge der Ableitung zeigen. Intuitiv gesprochen: Sie gilt unmittelbar,
-              nachdem  angewandt wurde; danach
-              überträgt sich ihre Gültigkeit Schritt
-              für Schritt (z.B. weil Terminalsymbol immer nur links vom Symbol 
-              erzeugt werden können).
+              Die Definition formaler Grammatik umschließt offensichtlich die der kontextfreien:
+              sie verbietet nicht, dass alle linken Seiten aus genau einem
+              Nichtterminal bestehen; in diesem Falle hätten wir eine kontextfreie Grammatik.
+              Sie verbietet auch nicht, dass zusätzlich alle rechten Seiten
+              sind, also höchstens ein
+              Nichtterminal enthalten, welches ganz rechts stehen muss. In diesem Falle
+              würde es sich um eine reguläre Grammatik handeln.
+            </p>
+            <div class="well container theorem">
+              <span class="numbered-title">Definition
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
+              </span>
+              <b>(Ableitung und erzeugte Sprache)</b>. Sei eine formale
+              Grammtik und zwei Wortformen.
+              Wir schreiben , wenn wir
+              \begin{align*}
+              \gamma<i>1&amp;= u \alpha v \\
+                \gamma</i>2&amp;= u \beta v
+              \end{align*}
+              schreiben können für Wortformen , sodass eine
+              Produktion von ist.
+            </div>
+            <div class="well container theorem">
+              <span class="numbered-title">Beispiel
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
+              </span>Betrachten wir die allgemeine Grammatik mit
+              Terminalalphabet , Nichtterminalsymbolen
+              , Startsymbol und den Produktionen
+              \begin{align*}
+              S&amp;\step{1} ABCS \ | \ \epsilon \\
+              AB&amp;\step{2} BA \\
+              BA&amp;\step{3} AB \\
+              AC&amp;\step{4} CA \\
+              CA&amp;\step{5} AC \\
+              BC&amp;\step{6} CB \\
+              CB&amp;\step{7} BC \\
+              A&amp;\step{8} a \\
+              B&amp;\step{9} b \\
+              C&amp;\step{10} c
+              \end{align*}
+              <p>
+                Nun schauen wir uns eine Beispielableitung an:
+              </p>
+              \begin{align*}
+              S \Step{1} ABCS \Step{1} ABCABCS \Step{2}
+              ABCABC \Step{5} ABACBC \Step{3} AABCBC
+              \Step{8,8,9,9,10,10}^* aabcbc
+              \end{align*}
+            </div>
+            <p>
+              Die obige Beispielableitung illustriert, dass allgemeine formale Grammatiken
+              etwas können, das kontextfreie Grammatiken nicht bieten konnten:
+              das Vertauschen von Symbolen. Das mag nicht als besonders viel erscheinen,
+              wird sich aber als
+              <i>Game Changer</i>
+              herausstellen.
             </p>
             <p>
-              Wenn nun also  und  kein
-              Nichtterminal  enthält, also , dann
-              können keine weiteren Produktionen angewandt werden und die
-              Ableitung endet. Wenn das also ein Wort sein soll, muss
-               gelten und somit  gelten.
-              Da nach Behauptung die Anzahl der drei Symbole gleich sein muss,
-              gilt also  und somit .
+              Sobald wir eine Wortform erreicht haben, die nur aus Terminalsymbolen
+              besteht (also ein
+              <i>Wort</i>
+              geworden ist), muss unsere Ableitung
+              aufhören: wir können keine weitere Produktion anwenden, da jede
+              linke Seite mindestens ein Nichtterminal enthält. Diese Einschränkung
+              in der Definition allgemeiner formaler Grammatiken ist nicht wirklich
+              notwenig, sie macht Dinge allerdings klar, wo eine Ableitung zu Ende ist / sein muss.
+              Es handelt sich also gewissermaßen um das Gegenteil von Syntax-Antizucker (mir ist
+              gerade keine Substanz eingefallen, deren Geschmack universell als abstoßend empfunden wird).
+              Wir können Grammatiken, die verbotene Produktionen der Form
+              mit
+              enthalten, immer "auf Linie" bringen, indem
+              wir jedes Terminalsymbol in den Produktionen durch ein neues Nichtterminal
+              ersetzen und schließlich Produktionen einführen.
             </p>
-          </div>
-          <div class="well container theorem">
-            <span class="numbered-title">Beispiel
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
+            <div class="well container theorem">
+              <span class="numbered-title">Beispiel
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
+              </span>Versuchen wir nun, eine allgemeine formale Grammatik für die Sprache
+              \begin{align*}
+              L = \{a^nb^nc^n \ | \ n \geq 0\}
+              \end{align*}
+              zu erstellen. Wir haben ja bereits gesehen, dass es zu dieser Sprache keine
+              kontextfreie Grammatik gibt. Als ersten Versuch kopieren wir
+              die obige Grammatik, allerdings lassen wir nur die Vertauschungsregeln zu, die
+              die Buchstaben in die richtige Reihenfolge bringen:
+              \begin{align*}
+              S&amp;\step{} ABCS \ | \ \epsilon \\
+              BA&amp;\step{} AB \\
+              CA&amp;\step{} AC \\
+              CB&amp;\step{} BC \\
+              A&amp;\step{} a \\
+              B&amp;\step{} b \\
+              C&amp;\step{} c
+              \end{align*}
+              Offensichtlich kann jedes Wort in erzeugt werden, allerdings
+              auch Wörter wie , die nicht in sind. Können wir
+              die erzeugte Sprache beschreiben? Ich glaube, es ist die Sprache
+              aller -Wörter mit
+              gilt
+              \begin{align*}
+              &amp;\#<i>a(w) \geq \#</i>b(w) \geq \#<i>c(w) \quad \textnormal{und} \\
+                &amp;\#</i>a(v) \geq \#<i>b(v) \geq \#</i>c(v) \quad \textnormal{für alle Präfixe $v$ von $w$}
+              \end{align*}
+              wobei die Anzahl der in enthaltenen ist.
+              <p>
+                Nachdem also unser erster Versuch gescheitert ist, unternehmen wir einen
+                zweiten. Wir stellen uns die Ableitung als aus zwei Phasen
+                bestehend vor. In der ersten wird eine Wortform
+                erzeugt mit
+                \begin{align*}
+                \#<i>A(w) = \#</i>B(w) = \#_C(w)
+                \end{align*}
+                erzeugt. In einer zweiten wandert ein Kontrollsymbol
+                von links nach rechts durch und wandelt jeden Großbuchstaben
+                in einen Kleinbuchstaben um, weigert sich aber bei
+                Großbuchstaben, die in der falschen Reihenfolge stehen.
+                Wir brauchen nun sieben Nichtterminale
+                . Für haben wir die Produktionen
+                \begin{align*}
+                S&amp;\step{1} SABC \\
+                S&amp;\step{2} X
+                \end{align*}
+                so dass gilt. Als nächstes brauchen wir
+                die Vertauschregeln, um alles in die richtige Reihenfolge zu bringen:
+                \begin{align*}
+                BA&amp;\step{3} AB \\
+                CA&amp;\step{4} AC \\
+                CB&amp;\step{5} BC
+                \end{align*}
+                Die Nichtterminale stehen für folgendes:
+              </p>
+              <ul>
+                <li>
+                  : will in umwandeln:
+                  \begin{align*}
+                  XA&amp;\step{6} aX
+                  \end{align*}
+                  Zu jedem Zeitpunkt können wir beschließen, nun keine
+                  in mehr umzuwandeln, sondern nun -Symbole zu erwarten:
+                  \begin{align*}
+                  X&amp;\step{7} Y
+                  \end{align*}
+                </li>
+                <li>
+                  : will in umwandeln oder mit fortfahren:
+                  \begin{align*}
+                  YB&amp;\step{8} bY \\
+                  Y&amp;\step{9} Z
+                  \end{align*}
+                </li>
+                <li>
+                  : will in umwandeln. Wir
+                  können aber auch einfach aufhören, zum Beispiel
+                  wenn wir den rechten Rand erreicht haben:
+                  \begin{align*}
+                  ZC&amp;\step{10} cZ \\
+                  Z&amp;\step{11} \epsilon
+                  \end{align*}
+                </li>
+              </ul>
+              <p>
+                Nun müssen wir zeigen, dass die Grammatik die Sprache erzeugt. Für
+                jedes Wort müssen wir zeigen, dass wir es ableiten können:
+                \begin{align*}
+                &amp;S \Step{1}^* S(ABC)^n \Step{2} X(ABC)^n
+                \Step{3,4,5}^* X A^n B^n C^n\\
+                &amp;\Step{6}^* a^n X B^n C^n
+                \Step{7} a^n Y B^n C^n
+                \Step{8}^* a^n b^n Y C^n
+                \Step{9} a^n b^n Z C^n
+                \Step{10}^* a^n b^n c^n Z
+                \Step{11}^* a^n b^n c^n
+                \end{align*}
+              </p>
+              <p>
+                Als zweites müssen wir zeigen, dass jedes abgeleitete Wort
+                auch in ist,
+                also die Form haben. Wir machen das
+                nur zu 80% formal.
+              </p>
+              <p>
+                Die erste Beobachtung ist: solange in der Wortform
+                vorkommt, hat diese die Form
+                mit enthält gleich viele
+                wie wie .
+              </p>
+              <div class="well subtheorem theorem">
+                <span class="numbered-title">Behauptung
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
+                </span>Sei die Anahl der und in der Wortform .
+                Wenn , dann gilt
+                <ol>
+                  <li>
+
+                  </li>
+                  <li>
+                    Außer enthält höchstens ein
+                    weiteres Symbol, und dies ist in .
+                  </li>
+                  <li>
+                    Wenn das Symbol enthält, dann ist
+                    .
+                    Wenn es enthält, dann ist
+                    .
+                    Wenn es enthält, dann ist es
+                    .
+                    In allen drei Fällen enthält keine Terminalsymbole.
+                  </li>
+                  <li>
+                    Wenn es kein Symbol in enthält, dann ist es von
+                    der Form und enthält
+                    keine Terminalsymbole.
+                  </li>
+                </ol>
+              </div>
+              Wir behaupten also, dass das in Punkt 3 aus den Nichtterminalen
+              besteht, die jedoch nicht in der korrekten Reihenfolge sein müssen.
+              Wir können auch gar nicht verbieten, dass in einer Ableitung
+              die Vertausch-Regeln 3,4,5 und die Kontroll-Regeln 6,7,8,9,10,11
+              vermischt angewandt werden.
+              <p>
+                Die Behauptung kann man beispielsweise mit Induktion über die
+                Länge der Ableitung zeigen. Intuitiv gesprochen: Sie gilt unmittelbar,
+                nachdem angewandt wurde; danach
+                überträgt sich ihre Gültigkeit Schritt
+                für Schritt (z.B. weil Terminalsymbol immer nur links vom Symbol
+                erzeugt werden können).
+              </p>
+              <p>
+                Wenn nun also und kein
+                Nichtterminal enthält, also , dann
+                können keine weiteren Produktionen angewandt werden und die
+                Ableitung endet. Wenn das also ein Wort sein soll, muss
+                gelten und somit gelten.
+                Da nach Behauptung die Anzahl der drei Symbole gleich sein muss,
+                gilt also und somit .
+              </p>
+            </div>
+            <div class="well container theorem">
+              <span class="numbered-title">Beispiel
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
               </span>Im
-            <a href="./05-10-not-context-free.html">Teilkapitel 5.10</a>
-            gab
-            es
-            <a href="./05-10-not-context-free.html#exericse-power-2">Übungsaufgabe 5.10.2</a>,
-            in der zu zeigen war, dass
-            \begin{align*}
-            L = \{ 1^n \ | \ n = 2^d \textnormal{ für ein $d \in \N$ }\}
-            \end{align*}
-            nicht kontextfrei ist. Allerdings ist  kein sehr kompliziertes Gebilde.
-            So könnten Sie recht einfach ein Programm schreiben, dass für ein Eingabewort
-            prüft, ob es in  ist. Können wir also auch eine formale Grammatik
-            schreiben?
+              <a href="./05-10-not-context-free.html">Teilkapitel 5.10</a>
+              gab
+              es
+              <a href="./05-10-not-context-free.html#exericse-power-2">Übungsaufgabe 5.10.2</a>,
+              in der zu zeigen war, dass
+              \begin{align*}
+              L = \{ 1^n \ | \ n = 2^d \textnormal{ für ein $d \in \N$ }\}
+              \end{align*}
+              nicht kontextfrei ist. Allerdings ist kein sehr kompliziertes Gebilde.
+              So könnten Sie recht einfach ein Programm schreiben, dass für ein Eingabewort
+              prüft, ob es in ist. Können wir also auch eine formale Grammatik
+              schreiben?
+              <p>
+                Dies geht sogar nohc einfacher als die obigen Sprachen. Wir
+                schaffen eine Startregel:
+                \begin{align*}
+                S&amp;\step{1} L1R
+                \end{align*}
+                Die Nichtterminale und zeigen den linken und rechten Rand an.
+                Wir können am linken Rand einen "Verdopplungssymbol" erzeugen. Dies
+                kann nur nach rechts durchwandern und bei verschwinden und verdoppelt dabei
+                jede , die es trifft:
+                \begin{align*}
+                L&amp;\step{2} LD \\
+                D1&amp;\step{3} 11D \\
+                DR&amp;\step{4} R
+                \end{align*}
+                Schlussendlich definieren wir End-Produktionen, die die Randmarkierungen
+                löschen:
+                \begin{align*}
+                L&amp;\step{5} \epsilon \\
+                R&amp;\step{6} \epsilon
+                \end{align*}
+                Hier sehen Sie nun ein Beispiel für eine Ableitung:
+                \begin{align*}
+                S \Step{1} L1R \Step{2} LD1R \Step{3} L11DR
+                \Step{2} LD11DR \Step{3} L11D1DR
+                \Step{4} L11D1R \Step{3} L1111R \Step{5} 1111R \Step{6} 1111
+                \end{align*}
+              </p>
+            </div>
             <p>
-              Dies geht sogar nohc einfacher als die obigen Sprachen. Wir
-              schaffen eine Startregel:
-              \begin{align*}
-              S&amp;\step{1} L1R
-              \end{align*}
-              Die Nichtterminale  und  zeigen den linken und rechten Rand an.
-              Wir können am linken Rand einen "Verdopplungssymbol"  erzeugen. Dies
-              kann nur nach rechts durchwandern und bei  verschwinden und verdoppelt dabei
-              jede , die es trifft:
-              \begin{align*}
-              L&amp;\step{2} LD \\
-              D1&amp;\step{3} 11D \\
-              DR&amp;\step{4} R
-              \end{align*}
-              Schlussendlich definieren wir End-Produktionen, die die Randmarkierungen
-              löschen:
-              \begin{align*}
-              L&amp;\step{5} \epsilon \\
-              R&amp;\step{6} \epsilon
-              \end{align*}
-              Hier sehen Sie nun ein Beispiel für eine Ableitung:
-              \begin{align*}
-              S \Step{1} L1R \Step{2} LD1R \Step{3} L11DR
-              \Step{2} LD11DR \Step{3} L11D1DR
-              \Step{4} L11D1R \Step{3} L1111R \Step{5} 1111R \Step{6} 1111
-              \end{align*}
+              Wagen wir ein letztes Beispiel: die Sprache aller Wörter,
+              deren Länge eine Quadratzahl ist. Spätestens dieses Beispiel sollte Sie
+              davon überzeugen, dass allgemeine formale Gramatiken, im Gegensatz zu
+              kontextfreien und regulären, nicht nur
+              <i>Formate</i>
+              syntaktisch
+              beschreiben, sondern komplizierte Rechnungen durchführen können.
+              Sie stellen somit ein völlig andersartiges Biest dar.
             </p>
-          </div>
-          <p>
-            Wagen wir ein letztes Beispiel: die Sprache aller Wörter,
-            deren Länge eine Quadratzahl ist. Spätestens dieses Beispiel sollte Sie
-            davon überzeugen, dass allgemeine formale Gramatiken, im Gegensatz zu
-            kontextfreien und regulären, nicht nur
-            <i>Formate</i>
-            syntaktisch
-            beschreiben, sondern komplizierte Rechnungen durchführen können.
-            Sie stellen somit ein völlig andersartiges Biest dar.
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Beispiel
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
-              </span>Sei  die Sprache aller Wörter über
-            , deren Länge eine Quadratzahl ist.
-            Wir werden als erstes eine
-            <i>Multiplikationsgrammatik</i>
-            erzeugen.
-            Dies soll eine Menge von Produktionen sein, die Ableitungen der Form
-            \begin{align*}
-            L A^m B^n R \Step{} L \tilde{A}^m B^n C^{mn} R
-            \end{align*}
-            ermöglicht. Wenn wir dies geschafft haben, sind wir fertig. Mittels
-            \begin{align*}
-            S&amp;\rightarrow L S' R \\
-            S'&amp;\rightarrow A S' B \ | \ \epsilon
-            \end{align*}
-            können wir alle  ableiten.
-            Die Multiplikationsgrammatik wandelt uns dies in
-             um. Schlussendlich führen
-            wir ein Killersymbol  ein, das bei  entsteht und sich
-            nach links durcharbeitet, dabei die  in \(1)\ umwandelt
-            und die  durch  ersetzt:
-            \begin{align*}
-            R&amp;\rightarrow K \\
-            CK&amp;\rightarrow K1 \\
-            BK&amp;\rightarrow K \\
-            \tilde{A}K&amp;\rightarrow K \\
-            LK&amp;\rightarrow \epsilon
-            \end{align*}
-            Es bleibt also, die Multiplikationsgrammatik zu entwerfen, die,
-            um es zu wiederholen,
-            \begin{align*}
-            L A^m B^n R \Step{} L \tilde{A}^m B^n C^{mn} R
-            \end{align*}
-            ermöglicht, aber nicht wirklich viel mehr. Wir erschaffen die Produktion
-            \begin{align*}
-            A&amp;\rightarrow \tilde{A} X
-            \end{align*}
-            Das neue Nichtterminal  bedeutet soviel wie "ein , das bereits
-            abgearbeitet worden ist." Das Nichtterminal  bedeutet:
-            erzeuge rechts vom -Block einen -Block gleicher Länge.
-            Wir wollen also
-            \begin{align*}
-            L \tilde{A}^i X A^j B^n R \Step{}
-            L \tilde{A}^i A^j B^n C^n R
-            \end{align*}
-            Die einfachste Möglichkeit ist vielleicht, das
-             nach rechts durchrutschen zu lassen und dabei
-            jedes  durch ein  ersetzen zu lassen:
-            \begin{align*}
-            XA&amp;\rightarrow AX \\
-            XB&amp;\rightarrow B \tilde{C}X\\
-            XR&amp;\rightarrow R\\
-            X\tilde{C}&amp;\rightarrow \tilde{C}X
-            \end{align*}
-            Das  erzeugt also von seinem Entstehen bis zu seinem Verschwinden bei 
-            genau  viele -Symbole. Wir erstellen nun Regeln,
-            die uns zwingen, jedes  nach rechts laufen zu lassen,
-            wo sie in ein  umgewandelt werden können:
-            \begin{align*}
-            \tilde{C} B&amp;\rightarrow B \tilde{C} \\
-            \tilde{C} C&amp;\rightarrow C \tilde{C} \\
-            \tilde{C} R&amp;\rightarrow R
-            \end{align*}
-            Überzeugen wir uns, dass dies den gewünschten Effekt hat.
-            <ul>
-              <li>
-                Wir können  nur loswerden, indem wir es in das
-                Killersymbol  umwandeln. Das Killersymbol kann
-                nur bei  verschwinden. Dazwischen kann es
-                nur die Zeichen  passieren.
-                Zum Zeitpunkt, wo wir  anwenden,
-                darf die Wortform also keine -Symbole mehr enthalten.
-              </li>
-              <li>
-                Wir können eine  nur verschwinden lassen
-                durch  und  nur
-                auf diese Weise entstehen lassen. Wir produzieren also,
-                wenn wir mit  beginnen, im Laufe der Ableitung genau
-                 mal ein .
-              </li>
-              <li>
-                Um ein  wieder verschwinden zu lassen, muss es den ganzen
-                -Block durchlaufen und produziert damit insgesamt  viele
-                (\tilde{C}\).
-              </li>
-              <li>
-                Da wir insgesamt  viele  produzieren und jedes
-                 insgesamt  viele  produziert, werden
-                insgesamt  viele  erzeugt.
-              </li>
-              <li>
-                Jedes  kann nur in ein  umgewandelt werden.
-                Es entstehen also insgesamt  viele .
-              </li>
-            </ul>
-            <p>
-              Wenn wir also aus
-               ein Wort ableiten, so
-              muss zum Zeitpunkt der Produktion 
-              die Wortform so aussehen:
-              \begin{align*}
-              \tilde{A}^m B^n C^{mn} R \Step{} \tilde{A}^m B^n C^{mn} K
-              \end{align*}
-              Wir können die Produktion  zwar schon früher
-              anwenden; wenn da allerdings noch - oder -Symbole
-              enthalten sind, ist es
-              <i>game over</i>: wir könnten die nie
-              mehr in Terminale umwandeln.
-            </p>
-            <p>
-              In einer leichten Variation können wir auch die Sprache
-              \begin{align*}
-              \{a^m b^n c^{mn} \ | \ m,n \geq 0 \}
-              \end{align*}
+            <div class="well container theorem">
+              <span class="numbered-title">Beispiel
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
+              </span>Sei die Sprache aller Wörter über
+              , deren Länge eine Quadratzahl ist.
+              Wir werden als erstes eine
+              <i>Multiplikationsgrammatik</i>
               erzeugen.
+              Dies soll eine Menge von Produktionen sein, die Ableitungen der Form
+              \begin{align*}
+              L A^m B^n R \Step{} L \tilde{A}^m B^n C^{mn} R
+              \end{align*}
+              ermöglicht. Wenn wir dies geschafft haben, sind wir fertig. Mittels
+              \begin{align*}
+              S&amp;\rightarrow L S' R \\
+              S'&amp;\rightarrow A S' B \ | \ \epsilon
+              \end{align*}
+              können wir alle ableiten.
+              Die Multiplikationsgrammatik wandelt uns dies in
+              um. Schlussendlich führen
+              wir ein Killersymbol ein, das bei entsteht und sich
+              nach links durcharbeitet, dabei die in \(1)\ umwandelt
+              und die durch ersetzt:
+              \begin{align*}
+              R&amp;\rightarrow K \\
+              CK&amp;\rightarrow K1 \\
+              BK&amp;\rightarrow K \\
+              \tilde{A}K&amp;\rightarrow K \\
+              LK&amp;\rightarrow \epsilon
+              \end{align*}
+              Es bleibt also, die Multiplikationsgrammatik zu entwerfen, die,
+              um es zu wiederholen,
+              \begin{align*}
+              L A^m B^n R \Step{} L \tilde{A}^m B^n C^{mn} R
+              \end{align*}
+              ermöglicht, aber nicht wirklich viel mehr. Wir erschaffen die Produktion
+              \begin{align*}
+              A&amp;\rightarrow \tilde{A} X
+              \end{align*}
+              Das neue Nichtterminal bedeutet soviel wie "ein , das bereits
+              abgearbeitet worden ist." Das Nichtterminal bedeutet:
+              erzeuge rechts vom -Block einen -Block gleicher Länge.
+              Wir wollen also
+              \begin{align*}
+              L \tilde{A}^i X A^j B^n R \Step{}
+              L \tilde{A}^i A^j B^n C^n R
+              \end{align*}
+              Die einfachste Möglichkeit ist vielleicht, das
+              nach rechts durchrutschen zu lassen und dabei
+              jedes durch ein ersetzen zu lassen:
+              \begin{align*}
+              XA&amp;\rightarrow AX \\
+              XB&amp;\rightarrow B \tilde{C}X\\
+              XR&amp;\rightarrow R\\
+              X\tilde{C}&amp;\rightarrow \tilde{C}X
+              \end{align*}
+              Das erzeugt also von seinem Entstehen bis zu seinem Verschwinden bei
+              genau viele -Symbole. Wir erstellen nun Regeln,
+              die uns zwingen, jedes nach rechts laufen zu lassen,
+              wo sie in ein umgewandelt werden können:
+              \begin{align*}
+              \tilde{C} B&amp;\rightarrow B \tilde{C} \\
+              \tilde{C} C&amp;\rightarrow C \tilde{C} \\
+              \tilde{C} R&amp;\rightarrow R
+              \end{align*}
+              Überzeugen wir uns, dass dies den gewünschten Effekt hat.
+              <ul>
+                <li>
+                  Wir können nur loswerden, indem wir es in das
+                  Killersymbol umwandeln. Das Killersymbol kann
+                  nur bei verschwinden. Dazwischen kann es
+                  nur die Zeichen passieren.
+                  Zum Zeitpunkt, wo wir anwenden,
+                  darf die Wortform also keine -Symbole mehr enthalten.
+                </li>
+                <li>
+                  Wir können eine nur verschwinden lassen
+                  durch und nur
+                  auf diese Weise entstehen lassen. Wir produzieren also,
+                  wenn wir mit beginnen, im Laufe der Ableitung genau
+                  mal ein .
+                </li>
+                <li>
+                  Um ein wieder verschwinden zu lassen, muss es den ganzen
+                  -Block durchlaufen und produziert damit insgesamt viele
+                  (\tilde{C}\).
+                </li>
+                <li>
+                  Da wir insgesamt viele produzieren und jedes
+                  insgesamt viele produziert, werden
+                  insgesamt viele erzeugt.
+                </li>
+                <li>
+                  Jedes kann nur in ein umgewandelt werden.
+                  Es entstehen also insgesamt viele .
+                </li>
+              </ul>
+              <p>
+                Wenn wir also aus
+                ein Wort ableiten, so
+                muss zum Zeitpunkt der Produktion
+                die Wortform so aussehen:
+                \begin{align*}
+                \tilde{A}^m B^n C^{mn} R \Step{} \tilde{A}^m B^n C^{mn} K
+                \end{align*}
+                Wir können die Produktion zwar schon früher
+                anwenden; wenn da allerdings noch - oder -Symbole
+                enthalten sind, ist es
+                <i>game over</i>: wir könnten die nie
+                mehr in Terminale umwandeln.
+              </p>
+              <p>
+                In einer leichten Variation können wir auch die Sprache
+                \begin{align*}
+                \{a^m b^n c^{mn} \ | \ m,n \geq 0 \}
+                \end{align*}
+                erzeugen.
+              </p>
+            </div>
+            <p>
+              Die Sprache \{a^m b^n c^{m+n}\} können wir eh: die ist sogar kontextfrei.
+              Wir können also Arithmetik mit formalen Grammatiken "programmieren".
             </p>
-          </div>
-          <p>
-            Die Sprache \{a^m b^n c^{m+n}\} können wir eh: die ist sogar kontextfrei.
-            Wir können also Arithmetik mit formalen Grammatiken "programmieren".
-          </p>
-          <div class="well well-lg numbered-exercise container">
-            <span class="numbered-title">Übungsaufgabe
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
+            <div class="well well-lg numbered-exercise container">
+              <span class="numbered-title">Übungsaufgabe
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
               </span>Geben Sie ein formale Grammatik für
-            \begin{align*}
-            L = \{w\texttt{:}w \ | \ w \in \{a,b\}^* \}
-            \end{align*}
-            an. Dies ist auch ein Paradebeispiel für eine Sprache, die nicht kontextfrei ist.
-          </div>
-          <p>
-            Überlegen Sie, wie man "lineare Suche" implementieren könnte:
-          </p>
-          <div class="well well-lg numbered-exercise container">
-            <span class="numbered-title">Übungsaufgabe
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-              </span>Sei  die Sprache über 
-            mit
-            \begin{align*}
-            L := w:w<i>1;w</i>2; \dots; w_n
-            \end{align*}
-            mit .
-            Sie implementiert also im Prinzip die Funktion
-<pre>
+              \begin{align*}
+              L = \{w\texttt{:}w \ | \ w \in \{a,b\}^* \}
+              \end{align*}
+              an. Dies ist auch ein Paradebeispiel für eine Sprache, die nicht kontextfrei ist.
+            </div>
+            <p>
+              Überlegen Sie, wie man "lineare Suche" implementieren könnte:
+            </p>
+            <div class="well well-lg numbered-exercise container">
+              <span class="numbered-title">Übungsaufgabe
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
+              </span>Sei die Sprache über
+              mit
+              \begin{align*}
+              L := w:w<i>1;w</i>2; \dots; w_n
+              \end{align*}
+              mit .
+              Sie implementiert also im Prinzip die Funktion
+              <pre>
 List.member x list
 </pre>
-            die überprüft, ob  in der angegebenen Liste enthalten ist:
-            \begin{align*}
-            abba\text{:}aaaaaaa\text{;}abbbb\text{;}abba\text{;}bbbb \in L \\
-            abba\text{:}aaaaaaa\text{;}abbbb\text{;}abbba\text{;}bbbb \not \in L \\
-            \end{align*}
-            <b>Tip:</b>
-            das ist einfach, wenn Sie bereits eine Grammatik
-            für das vorherige Problem haben. Erzeugen Sie
-             und lassen dann aus  und  den Rest der Liste entstehen.
+              die überprüft, ob in der angegebenen Liste enthalten ist:
+              \begin{align*}
+              abba\text{:}aaaaaaa\text{;}abbbb\text{;}abba\text{;}bbbb \in L \\
+              abba\text{:}aaaaaaa\text{;}abbbb\text{;}abbba\text{;}bbbb \not \in L \\
+              \end{align*}
+              <b>Tip:</b>
+              das ist einfach, wenn Sie bereits eine Grammatik
+              für das vorherige Problem haben. Erzeugen Sie
+              und lassen dann aus und den Rest der Liste entstehen.
+            </div>
+            <p>
+              Sie haben sicherlich gemerkt, dass wir die Grammatikproduktionen nun nicht
+              mehr nur zum
+              <i>Erzeugen</i>
+              verwenden wie bei kontextfreien Sprachen, sondern zum
+              Umformen, Rumschieben, Kopieren etc. Es ist nun an der Zeit, die
+              Welt der Grammatiken zu verlassen und zu formalisieren, was man
+              mit Umformen, Rumschieben, Kopieren erreichen kann. In anderen Worten:
+              eine Formalisierung des Begriffs des
+              <i>Berechnens</i>.
+            </p>
           </div>
-          <p>
-            Sie haben sicherlich gemerkt, dass wir die Grammatikproduktionen nun nicht
-            mehr nur zum
-            <i>Erzeugen</i>
-            verwenden wie bei kontextfreien Sprachen, sondern zum
-            Umformen, Rumschieben, Kopieren etc. Es ist nun an der Zeit, die
-            Welt der Grammatiken zu verlassen und zu formalisieren, was man
-            mit Umformen, Rumschieben, Kopieren erreichen kann. In anderen Worten:
-            eine Formalisierung des Begriffs des
-            <i>Berechnens</i>.
-          </p>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 </body>

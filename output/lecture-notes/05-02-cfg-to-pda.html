@@ -1,473 +1,467 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-      <link rel="icon" href="data:,">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
-    <link rel="stylesheet" type="text/css" href="../TI.css" />
-    <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="../numbered-title.js"></script>
-    <script type="text/javascript" src="../mathjax_setup.js"></script>
-    <script type="text/javascript" src="../carousel.js"></script>
-    <script type="text/javascript" src="../sendCmdTo3003.js"></script>
-    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <link rel="icon" href="data:," />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
+  <link rel="stylesheet" type="text/css" href="../TI.css" />
+  <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="../numbered-title.js"></script>
+  <script type="text/javascript" src="../mathjax_setup.js"></script>
+  <script type="text/javascript" src="../carousel.js"></script>
+  <script type="text/javascript" src="../sendCmdTo3003.js"></script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
+
 <body>
-<section
-  count="30"
-  _="BookLevelSectionCounter 30"
-  title_gr="Grammatiken und Kellerautomaten"
-  title_en="cfg to pda"
-  number="5.2"
-  counter="DefCtr"
-  counter="ExoCtr"
-  path="/lecture-notes30"
->
-  <div id="link-to-toc">
-    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="05-01-ableitungen.html">&lt;&lt; Kapitel 5.1</a>
-  </div>
-  <div
-    id="link-to-overview"
-    style="text-align: end"
-  >
-    <a href="/">zur Kursübersicht</a><a href="05-03-exercise-design-grammars.html">Kapitel 5.3 &gt;&gt;</a>
-  </div>
-  <div id="rightSideWrapper">
-    <div class="content">
-      <div class="chapter">
-        <div class="subChapter">
-          <h1 class="hidden-title">
-            <span class="subChapterTitle">::::ChapterCtr.2
-              Kontextfreie Grammatiken und Kellerautomaten</span>
-          </h1>
-          <div class="well container theorem">
-            <span class="numbered-title">Theorem
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-              </span>Zu jeder kontextfreien Grammatik  gibt es
-            einen Kellerautomaten , der
-            die gleiche Sprache akzeptiert, also .
-          </div>
-          <div class="well container">
-            <b>Beweis.</b>
-            Der Beweis ist vergleichsweise einfach, weil wir die Grammatik eins zu eins in
-            Automatentransitionen übersetzen können.
-            Die Idee ist, dass die Symbole auf dem Stack, von unten nach oben gelesen, zu jedem Zeitpunkt
-            eine Wortform bilden, aus der der noch nicht gelesene Teil des Restwortes ableitbar ist.
-            Wenn oben auf dem Stack also ein Terminalsymbol  liegt und  auch das nächste
-            Inputzeichen ist, dann poppen wir  vom Stack und lesen , d.h. schieben den
-            Lesekopf um ein Zeichen nach rechts; der Stack ist von  auf  geschruft
-            und das Restwort von  auf ; wenn also  galt, so gilt
-            nun immer noch .
-            Wenn ein Nichtterminal  oben auf dem Stack liegt, dieser also die Form
-             hat, und  das Restwort ist, dann gilt also .
-            Der Automat rät nun nichtdeterministisch die erste in der Ableitung angewandte Produktion
-            , löscht  vom Stack und pusht . Der Stack ist
-            nun , und . Entscheidend ist der
-            Nichtdeterminismus:
-            es
-            <i>gibt</i>
-            eine korrekte Produktion , die schlussendlich zu 
-            führt;
-            der Automat
-            <i>kann</i>
-            also diese Transition anwenden.Formaler: Die Zustände des Automaten
-            sind , das Stackalphabet ist
-             und die Transitionsregeln sind
-            \begin{align*}
-            (q<i>1, x)&amp;\step{x} (q</i>1, \epsilon) \quad \textnormal{für jedes $x \in \Sigma$}\\
-            (q<i>1, A)&amp;\step{\epsilon} (q</i>1, \beta) \quad \textnormal{für jede Produktion $A \rightarrow
-            \beta$}\\ \hline
-            (\qstart, \epsilon)&amp;\step{\epsilon} (q<i>1, S \$) \\
-              (q</i>1, \$)&amp;\step{\epsilon} (\qend, \epsilon)
-            \end{align*}
-            Auf einen formalen Beweis, dass  ist, verzichte ich an dieser Stelle.
-            Besser als Sipser in seinem Lehrbuch
-            <i>Introduction to the Theory of Computing</i>
-            könnte
-            ich das eh nicht.<span class="qed">
+  <section count="30" _="BookLevelSectionCounter 30" title_gr="Grammatiken und Kellerautomaten" title_en="cfg to pda"
+    number="5.2" counter="DefCtr" counter="ExoCtr" path="/lecture-notes30">
+    <div id="link-to-toc">
+      <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="05-01-ableitungen.html">&lt;&lt; Kapitel 5.1</a>
+    </div>
+    <div id="link-to-overview" style="text-align: end">
+      <a href="/">zur Kursübersicht</a><a href="05-03-exercise-design-grammars.html">Kapitel 5.3 &gt;&gt;</a>
+    </div>
+    <div id="rightSideWrapper">
+      <div class="content">
+        <div class="chapter">
+          <div class="subChapter">
+            <h1 class="hidden-title">
+              <span class="subChapterTitle">::::ChapterCtr.2
+                Kontextfreie Grammatiken und Kellerautomaten</span>
+            </h1>
+            <div class="well container theorem">
+              <span class="numbered-title">Theorem
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
+              </span>Zu jeder kontextfreien Grammatik gibt es
+              einen Kellerautomaten , der
+              die gleiche Sprache akzeptiert, also .
+            </div>
+            <div class="well container">
+              <b>Beweis.</b>
+              Der Beweis ist vergleichsweise einfach, weil wir die Grammatik eins zu eins in
+              Automatentransitionen übersetzen können.
+              Die Idee ist, dass die Symbole auf dem Stack, von unten nach oben gelesen, zu jedem Zeitpunkt
+              eine Wortform bilden, aus der der noch nicht gelesene Teil des Restwortes ableitbar ist.
+              Wenn oben auf dem Stack also ein Terminalsymbol liegt und auch das nächste
+              Inputzeichen ist, dann poppen wir vom Stack und lesen , d.h. schieben den
+              Lesekopf um ein Zeichen nach rechts; der Stack ist von auf geschruft
+              und das Restwort von auf ; wenn also galt, so gilt
+              nun immer noch .
+              Wenn ein Nichtterminal oben auf dem Stack liegt, dieser also die Form
+              hat, und das Restwort ist, dann gilt also .
+              Der Automat rät nun nichtdeterministisch die erste in der Ableitung angewandte Produktion
+              , löscht vom Stack und pusht . Der Stack ist
+              nun , und . Entscheidend ist der
+              Nichtdeterminismus:
+              es
+              <i>gibt</i>
+              eine korrekte Produktion , die schlussendlich zu
+              führt;
+              der Automat
+              <i>kann</i>
+              also diese Transition anwenden.Formaler: Die Zustände des Automaten
+              sind , das Stackalphabet ist
+              und die Transitionsregeln sind
+              \begin{align*}
+              (q<i>1, x)&amp;\step{x} (q</i>1, \epsilon) \quad \textnormal{für jedes $x \in \Sigma$}\\
+              (q<i>1, A)&amp;\step{\epsilon} (q</i>1, \beta) \quad \textnormal{für jede Produktion $A \rightarrow
+              \beta$}\\ \hline
+              (\qstart, \epsilon)&amp;\step{\epsilon} (q<i>1, S \$) \\
+                (q</i>1, \$)&amp;\step{\epsilon} (\qend, \epsilon)
+              \end{align*}
+              Auf einen formalen Beweis, dass ist, verzichte ich an dieser Stelle.
+              Besser als Sipser in seinem Lehrbuch
+              <i>Introduction to the Theory of Computing</i>
+              könnte
+              ich das eh nicht.<span class="qed">
               </span>
-          </div>
-          <div class="well subtheorem container theorem">
-            <span class="numbered-title">Beispiel
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
+            </div>
+            <div class="well subtheorem container theorem">
+              <span class="numbered-title">Beispiel
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
               </span>Betrachten wir die Grammatik
-            \begin{align*}
-            S&amp;\rightarrow A \ | \ B \ | \ C \ | \ \epsilon \\
-            A&amp;\rightarrow \texttt{\{} B \texttt{\}} S \\
-            B&amp;\rightarrow \texttt{[} C \texttt{]} S \\
-            C&amp;\rightarrow \texttt{(} A \texttt{)} S \ | \ \texttt{()}S \\
-            \end{align*}
-            Ein Wort in der erzeugten Sprache wäre zum Beispiel<tt>{[()()]()}()</tt>
-            <p>
-              Schreiben wir nun einen Kellerautomaten, der diese Sprache akzeptiert. Die
-              Idee ist, dass wir Terminalsymbole und Nichtterminalsymbole auf den Stack legen.
-              Ein
-              <tt>[</tt>
-              oben auf dem Stack bedeutet dann
-              <i>ich will jetzt sofort ein
-                <tt>[</tt>lesen</i>;
-              ein Nichtterminal wie  oben auf dem Stack bedeutet, dass
-              wir als nächstes ein von  ableitbares Wort, also ein  lesen wollen.
-              Um ein  mit  lesen zu können, müssen wir
-              <i>sofort</i>
-              ein<tt>{</tt>
-              lesen, dann ein Wort  mit , dann ein
-              <tt>}</tt>
-              und
-              so weiter.
-              Wir können das also im Automaten implementieren, indem wir
-               vom Stack löschen und durch  auf den Stack legen,
-              mit dem linkesten Symbol zuoberst. Wenn wir für ein Nichtterminal mehrere Regeln
-              haben, also z.B.  und ,
-              dann können ein  auf dem Stack sowohl durch  als auch durch 
-              ersetzen.
-              Hierfür benötigen wir den Nichtdeterminismus. Beachten Sie, dass wir ein Nichtterminal
-              grundsätzlich immer durch die entsprechende rechte Seite ersetzen können, egal, was das
-              nächste Zeichen ist; es wird im Automaten also ein -Übergang sein.
-            </p>
-            Konkret also bauen wir für obige Grammatik die folgenden Automatentransitionen:
-            \begin{align*}
-            (q<i>1, S)&amp;\step{\epsilon} (q</i>1, A) \\
-            (q<i>1, S)&amp;\step{\epsilon} (q</i>1, B) \\
-            (q<i>1, S)&amp;\step{\epsilon} (q</i>1, C) \\
-            (q<i>1, S)&amp;\step{\epsilon} (q</i>1, \epsilon) \\
-            \hline
-            (q<i>1,A)&amp;\step{\epsilon} (q</i>1, \texttt{\{} B \texttt{\}} S) \\
-            \hline
-            (q<i>1,B)&amp;\step{\epsilon} (q</i>1, \texttt{[} C \texttt{]} S) \\
-            \hline
-            (q<i>1,C)&amp;\step{\epsilon} (q</i>1, \texttt{(} A \texttt{)} S) \\
-            (q<i>1,C)&amp;\step{\epsilon} (q</i>1, \texttt{(} \texttt{)} S) \\
-            \hline
-            (q<i>1,\texttt{\{})&amp;\step{\texttt{\{}} (q</i>1, \epsilon) \\
-            (q<i>1,\texttt{\}})&amp;\step{\texttt{\}}} (q</i>1, \epsilon) \\
-            (q<i>1,\texttt{[})&amp;\step{\texttt{[}} (q</i>1, \epsilon) \\
-            (q<i>1,\texttt{]})&amp;\step{\texttt{]}} (q</i>1, \epsilon) \\
-            (q<i>1,\texttt{(})&amp;\step{\texttt{(}} (q</i>1, \epsilon) \\
-            (q<i>1,\texttt{)})&amp;\step{\texttt{)}} (q</i>1, \epsilon) \\
-            \end{align*}
-            Dies ist völlig mechanisch und benötigt kein Nachdenken. Wie fangen wir an?
-            Wir legen anfangs ein  auf den leeren Stack. Wenn dieses  abgearbeitet
-            ist und das Wort zu Ende ist, akzeptieren wir, und nur dann. Um festzustellen,
-            dass wir wirklich den Stack ganz leer gemacht haben, brauchen wir die
-            Markierung
-            <tt>$</tt>. Also:
-            \begin{align*}
-            (\qstart, \epsilon) \step{\epsilon} (q<i>1, S \$) \\
-              (q</i>1, \$) \step{\epsilon} (\qend, \epsilon)
-            \end{align*}
-            Unsere Maschine hat also nur drei Zustände: ,  und
-            , welches der akeptierende Endzustand ist. Beachten Sie,
-            dass es von  aus keine ausgehenden Transitionen gibt;
-            sollte es also nach Erreichen von  noch weitere Zeichen
-            im Eingabewort geben, so kann der Automat keine weiteren Schritte durchführen,
-            was einem
-            <i>reject</i>
-            entspricht. Erreichen des Zustandes  führt also
-            nur dann zu einem
-            <i>accept</i>, wenn dies am Ende des Wortes geschieht.
-          </div>
-          <p>
-            Die Gegenrichtung ist schwieriger.
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Theorem
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-              .</span>Zu jedem Kellerautomaten  gibt es eine kontextfreie Grammatik 
-            mit .
-          </div>
-          <p>
-            Ich folge hier im Wesentlichen dem Beweis aus Sipsers Kapitel 2.
-          </p>
-          <div class="well container">
-            <b>Beweis.</b>
-            Sei  der Kellerautomat.
-            Als erstes führen wir drei Schönheitsoperation durch:
-            <ol>
-              <li>
-                Der Automat hat einen einzigen akzeptierenden Zustand . Dies
-                können wir einfach durch -Übergänge erreichen.
-              </li>
-              <li>
-                Der Automat leert den Stack, bevor er akzeptiert. Dies können wir
-                z.B. dadurch erreichen, dass wir anfangs ein  auf den Stack legen
-                und am Ende den Stack poppen, bis wir  gepoppt haben.
-              </li>
-              <li>
-                Für jede Transition
-                \begin{align*}
-                (p, x) \step{a} (q, y)
-                \end{align*}
-                ist genau eines von  leer (und das andere ist genau ein Stacksymbol aus
-                ).
-                Eine
-                Transition
-                der Form  nennen wir eine
-                <i>Push-Operation</i>,
-                eine der Form
-                 nennen wir eine
-                <i>Pop-Operation</i>.
-                Der Automat kann in diese Form gebracht werden, indem wir Zwischenzustände einführen:
-                \begin{align*}
-                (p, x) \step{a} (q, y) \textnormal { wird ersetzt durch die zwei Transitionen }
-                (p, x) \step{a} (p', \epsilon) \textnormal { und }(p', \epsilon) \step{a} (q, y) \\
-                (p, \epsilon) \step{a} (q,\epsilon) \textnormal { wird ersetzt durch die zwei
-                Transitionen }
-                (p, \epsilon) \step{a} (p', \bigstar) \textnormal { und }(p', \bigstar) \step{a} (q,
-                \epsilon) \ .
-                \end{align*}
-                Im zweiten Falle pushen wir also pro Forma ein ansonsten irrelevantes Symbol
-                 auf
-                den
-                Stack, um es gleich darauf runterzupoppen.
-              </li>
-            </ol>
-            <p>
-              Wenn nun der Automat die eben beschriebene Form hat, so ist die
-              Idee, dass wir für
-              jedes Paar  von Zuständen ein Nichtterminalsymbol  einführen, dass
-              genau die Wörter  ableiten kann, für die
               \begin{align*}
-              (p, \epsilon) \Step{w}^* (q,\epsilon)
+              S&amp;\rightarrow A \ | \ B \ | \ C \ | \ \epsilon \\
+              A&amp;\rightarrow \texttt{\{} B \texttt{\}} S \\
+              B&amp;\rightarrow \texttt{[} C \texttt{]} S \\
+              C&amp;\rightarrow \texttt{(} A \texttt{)} S \ | \ \texttt{()}S \\
               \end{align*}
-              gilt, die also den Automaten von  nach  bringen können, wobei der Stack am Anfang
-              und am Ende leer
-              ist. Dies kann auf zwei Weisen geschehen:
-            </p>
-            <ol>
-              <li>
-                Fall 1: in der Konfigurationsfolge von 
-                wird der Stack zwischendurch auch mal leer, und zwar nachdem der Präfix  des Wortes
-                 gelesen ist, und der Automat ist zu diesem Zeitpunkt im Zustand . Also:
-                \begin{align*}
-                (p, \epsilon) \Step{u}^* (r,\epsilon) \Step{v}^* (q,\epsilon) \ .
-                \end{align*}
-                Es sollte also (wenn unsere Konstruktion erfolgreich ist) gelten, dass
-                 und . Wir führen daher die
-                Grammatikproduktion
-                \begin{align*}
-                A<i>{pq} \rightarrow A</i>{pr} A_{rq}
-                \end{align*}
-                ein.
-              </li>
-              <li>
-                Fall 2: in der Konfigurationsfolge von 
-                ist der Stack zwischendurch nie leer. Das heißt wiederum, dass das im ersten
-                Schritt gepushte Stacksymbol  am Ende gepoppt wird, also  mit
-                \begin{align*}
-                (p, \epsilon) \step{a} (r, x) \Step{v}^* (s,x) \step{b} (q,\epsilon)
-                \end{align*}
-                Hier ist wichtig zu wissen, dass die erste Operation eine Push-Operation sein muss:
-                Pop kann sie eh nicht sein, und die Möglichkeit 
-                haben
-                wir durch unsere Schönheitsoperationen ausgeschlossen. Des weiteren ist zu beachten,
-                dass in der Konfigurationsfolge von  der Stack nie
-                leer wird. Keine Transition "liest" also das unterste Zeichen  -- denn
-                dann müsste nacha Schönheitsoperation das  ja gepoppt werden und der Stack
-                würde vollständig geleert. In anderen Worten: die Konfigurationsfolge wäre auch dann
-                gültig, wenn Anfangs- und Endstack nicht  sondern , also der leere
-                Stack wäre:
-                \begin{align*}
-                (r, \epsilon) \Step{v}^* (s,\epsilon) \ .
-                \end{align*}
-                Wenn unsere Konstruktion Erfolg hat, hieße das also  und somit
-                ist
-                \begin{align*}
-                A<i>{pq} \rightarrow a A</i>{rs} b
-                \end{align*}
-                eine gültige Regel.
-              </li>
-            </ol>
+              Ein Wort in der erzeugten Sprache wäre zum Beispiel<tt>{[()()]()}()</tt>
+              <p>
+                Schreiben wir nun einen Kellerautomaten, der diese Sprache akzeptiert. Die
+                Idee ist, dass wir Terminalsymbole und Nichtterminalsymbole auf den Stack legen.
+                Ein
+                <tt>[</tt>
+                oben auf dem Stack bedeutet dann
+                <i>ich will jetzt sofort ein
+                  <tt>[</tt>lesen</i>;
+                ein Nichtterminal wie oben auf dem Stack bedeutet, dass
+                wir als nächstes ein von ableitbares Wort, also ein lesen wollen.
+                Um ein mit lesen zu können, müssen wir
+                <i>sofort</i>
+                ein<tt>{</tt>
+                lesen, dann ein Wort mit , dann ein
+                <tt>}</tt>
+                und
+                so weiter.
+                Wir können das also im Automaten implementieren, indem wir
+                vom Stack löschen und durch auf den Stack legen,
+                mit dem linkesten Symbol zuoberst. Wenn wir für ein Nichtterminal mehrere Regeln
+                haben, also z.B. und ,
+                dann können ein auf dem Stack sowohl durch als auch durch
+                ersetzen.
+                Hierfür benötigen wir den Nichtdeterminismus. Beachten Sie, dass wir ein Nichtterminal
+                grundsätzlich immer durch die entsprechende rechte Seite ersetzen können, egal, was das
+                nächste Zeichen ist; es wird im Automaten also ein -Übergang sein.
+              </p>
+              Konkret also bauen wir für obige Grammatik die folgenden Automatentransitionen:
+              \begin{align*}
+              (q<i>1, S)&amp;\step{\epsilon} (q</i>1, A) \\
+              (q<i>1, S)&amp;\step{\epsilon} (q</i>1, B) \\
+              (q<i>1, S)&amp;\step{\epsilon} (q</i>1, C) \\
+              (q<i>1, S)&amp;\step{\epsilon} (q</i>1, \epsilon) \\
+              \hline
+              (q<i>1,A)&amp;\step{\epsilon} (q</i>1, \texttt{\{} B \texttt{\}} S) \\
+              \hline
+              (q<i>1,B)&amp;\step{\epsilon} (q</i>1, \texttt{[} C \texttt{]} S) \\
+              \hline
+              (q<i>1,C)&amp;\step{\epsilon} (q</i>1, \texttt{(} A \texttt{)} S) \\
+              (q<i>1,C)&amp;\step{\epsilon} (q</i>1, \texttt{(} \texttt{)} S) \\
+              \hline
+              (q<i>1,\texttt{\{})&amp;\step{\texttt{\{}} (q</i>1, \epsilon) \\
+              (q<i>1,\texttt{\}})&amp;\step{\texttt{\}}} (q</i>1, \epsilon) \\
+              (q<i>1,\texttt{[})&amp;\step{\texttt{[}} (q</i>1, \epsilon) \\
+              (q<i>1,\texttt{]})&amp;\step{\texttt{]}} (q</i>1, \epsilon) \\
+              (q<i>1,\texttt{(})&amp;\step{\texttt{(}} (q</i>1, \epsilon) \\
+              (q<i>1,\texttt{)})&amp;\step{\texttt{)}} (q</i>1, \epsilon) \\
+              \end{align*}
+              Dies ist völlig mechanisch und benötigt kein Nachdenken. Wie fangen wir an?
+              Wir legen anfangs ein auf den leeren Stack. Wenn dieses abgearbeitet
+              ist und das Wort zu Ende ist, akzeptieren wir, und nur dann. Um festzustellen,
+              dass wir wirklich den Stack ganz leer gemacht haben, brauchen wir die
+              Markierung
+              <tt>$</tt>. Also:
+              \begin{align*}
+              (\qstart, \epsilon) \step{\epsilon} (q<i>1, S \$) \\
+                (q</i>1, \$) \step{\epsilon} (\qend, \epsilon)
+              \end{align*}
+              Unsere Maschine hat also nur drei Zustände: , und
+              , welches der akeptierende Endzustand ist. Beachten Sie,
+              dass es von aus keine ausgehenden Transitionen gibt;
+              sollte es also nach Erreichen von noch weitere Zeichen
+              im Eingabewort geben, so kann der Automat keine weiteren Schritte durchführen,
+              was einem
+              <i>reject</i>
+              entspricht. Erreichen des Zustandes führt also
+              nur dann zu einem
+              <i>accept</i>, wenn dies am Ende des Wortes geschieht.
+            </div>
             <p>
-              Schlussendlich führen wir noch die offensichtlich korrekten
-              Regeln  ein, da ja
-               offensichtlich gilt (da ja
-               auch die aus null Übergangen bestehende Konfigurationsfolge erlaubt).
+              Die Gegenrichtung ist schwieriger.
             </p>
-            Zusammenfassend gesagt besteht unsere Grammatik  aus drei unterschiedlichen Typen von
-            Regeln:
-            \begin{align*}
-            A<i>{pp}&amp;\rightarrow \epsilon \textnormal{ für jeden Zustand } \\
-              A</i>{pq}&amp;\rightarrow A<i>{pr}A</i>{rq} \textnormal{ für alle Zustände $p,q,r \in Q$} \\
-            A<i>{pq}&amp;\rightarrow a A</i>{rs} b \textnormal{ für alle Pushp-Pop-Paare
-            $(p,\epsilon) \step{a} (r,x)$, $(s,x) \step{b} (q,\epsilon)$ von Transitionen}
-            \end{align*}
+            <div class="well container theorem">
+              <span class="numbered-title">Theorem
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
+                .
+              </span>Zu jedem Kellerautomaten gibt es eine kontextfreie Grammatik
+              mit .
+            </div>
             <p>
-              Das Startsymbol der Grammatik ist natürlich .
+              Ich folge hier im Wesentlichen dem Beweis aus Sipsers Kapitel 2.
             </p>
-            Auch hier verzichte ich auf einen formalen Beweis, dass  gilt. Der Beweis
-            verwendet (wenig überraschend) Induktion über die Länge der Ableitung bzw. Induktion über die
-            Länge der Konfigurationsfolge und ist in Sipsers Lehrbuch im Detail erklärt.<span class="qed">
+            <div class="well container">
+              <b>Beweis.</b>
+              Sei der Kellerautomat.
+              Als erstes führen wir drei Schönheitsoperation durch:
+              <ol>
+                <li>
+                  Der Automat hat einen einzigen akzeptierenden Zustand . Dies
+                  können wir einfach durch -Übergänge erreichen.
+                </li>
+                <li>
+                  Der Automat leert den Stack, bevor er akzeptiert. Dies können wir
+                  z.B. dadurch erreichen, dass wir anfangs ein auf den Stack legen
+                  und am Ende den Stack poppen, bis wir gepoppt haben.
+                </li>
+                <li>
+                  Für jede Transition
+                  \begin{align*}
+                  (p, x) \step{a} (q, y)
+                  \end{align*}
+                  ist genau eines von leer (und das andere ist genau ein Stacksymbol aus
+                  ).
+                  Eine
+                  Transition
+                  der Form nennen wir eine
+                  <i>Push-Operation</i>,
+                  eine der Form
+                  nennen wir eine
+                  <i>Pop-Operation</i>.
+                  Der Automat kann in diese Form gebracht werden, indem wir Zwischenzustände einführen:
+                  \begin{align*}
+                  (p, x) \step{a} (q, y) \textnormal { wird ersetzt durch die zwei Transitionen }
+                  (p, x) \step{a} (p', \epsilon) \textnormal { und }(p', \epsilon) \step{a} (q, y) \\
+                  (p, \epsilon) \step{a} (q,\epsilon) \textnormal { wird ersetzt durch die zwei
+                  Transitionen }
+                  (p, \epsilon) \step{a} (p', \bigstar) \textnormal { und }(p', \bigstar) \step{a} (q,
+                  \epsilon) \ .
+                  \end{align*}
+                  Im zweiten Falle pushen wir also pro Forma ein ansonsten irrelevantes Symbol
+                  auf
+                  den
+                  Stack, um es gleich darauf runterzupoppen.
+                </li>
+              </ol>
+              <p>
+                Wenn nun der Automat die eben beschriebene Form hat, so ist die
+                Idee, dass wir für
+                jedes Paar von Zuständen ein Nichtterminalsymbol einführen, dass
+                genau die Wörter ableiten kann, für die
+                \begin{align*}
+                (p, \epsilon) \Step{w}^* (q,\epsilon)
+                \end{align*}
+                gilt, die also den Automaten von nach bringen können, wobei der Stack am Anfang
+                und am Ende leer
+                ist. Dies kann auf zwei Weisen geschehen:
+              </p>
+              <ol>
+                <li>
+                  Fall 1: in der Konfigurationsfolge von
+                  wird der Stack zwischendurch auch mal leer, und zwar nachdem der Präfix des Wortes
+                  gelesen ist, und der Automat ist zu diesem Zeitpunkt im Zustand . Also:
+                  \begin{align*}
+                  (p, \epsilon) \Step{u}^* (r,\epsilon) \Step{v}^* (q,\epsilon) \ .
+                  \end{align*}
+                  Es sollte also (wenn unsere Konstruktion erfolgreich ist) gelten, dass
+                  und . Wir führen daher die
+                  Grammatikproduktion
+                  \begin{align*}
+                  A<i>{pq} \rightarrow A</i>{pr} A_{rq}
+                  \end{align*}
+                  ein.
+                </li>
+                <li>
+                  Fall 2: in der Konfigurationsfolge von
+                  ist der Stack zwischendurch nie leer. Das heißt wiederum, dass das im ersten
+                  Schritt gepushte Stacksymbol am Ende gepoppt wird, also mit
+                  \begin{align*}
+                  (p, \epsilon) \step{a} (r, x) \Step{v}^* (s,x) \step{b} (q,\epsilon)
+                  \end{align*}
+                  Hier ist wichtig zu wissen, dass die erste Operation eine Push-Operation sein muss:
+                  Pop kann sie eh nicht sein, und die Möglichkeit
+                  haben
+                  wir durch unsere Schönheitsoperationen ausgeschlossen. Des weiteren ist zu beachten,
+                  dass in der Konfigurationsfolge von der Stack nie
+                  leer wird. Keine Transition "liest" also das unterste Zeichen -- denn
+                  dann müsste nacha Schönheitsoperation das ja gepoppt werden und der Stack
+                  würde vollständig geleert. In anderen Worten: die Konfigurationsfolge wäre auch dann
+                  gültig, wenn Anfangs- und Endstack nicht sondern , also der leere
+                  Stack wäre:
+                  \begin{align*}
+                  (r, \epsilon) \Step{v}^* (s,\epsilon) \ .
+                  \end{align*}
+                  Wenn unsere Konstruktion Erfolg hat, hieße das also und somit
+                  ist
+                  \begin{align*}
+                  A<i>{pq} \rightarrow a A</i>{rs} b
+                  \end{align*}
+                  eine gültige Regel.
+                </li>
+              </ol>
+              <p>
+                Schlussendlich führen wir noch die offensichtlich korrekten
+                Regeln ein, da ja
+                offensichtlich gilt (da ja
+                auch die aus null Übergangen bestehende Konfigurationsfolge erlaubt).
+              </p>
+              Zusammenfassend gesagt besteht unsere Grammatik aus drei unterschiedlichen Typen von
+              Regeln:
+              \begin{align*}
+              A<i>{pp}&amp;\rightarrow \epsilon \textnormal{ für jeden Zustand } \\
+                A</i>{pq}&amp;\rightarrow A<i>{pr}A</i>{rq} \textnormal{ für alle Zustände $p,q,r \in Q$} \\
+              A<i>{pq}&amp;\rightarrow a A</i>{rs} b \textnormal{ für alle Pushp-Pop-Paare
+              $(p,\epsilon) \step{a} (r,x)$, $(s,x) \step{b} (q,\epsilon)$ von Transitionen}
+              \end{align*}
+              <p>
+                Das Startsymbol der Grammatik ist natürlich .
+              </p>
+              Auch hier verzichte ich auf einen formalen Beweis, dass gilt. Der Beweis
+              verwendet (wenig überraschend) Induktion über die Länge der Ableitung bzw. Induktion über die
+              Länge der Konfigurationsfolge und ist in Sipsers Lehrbuch im Detail erklärt.<span class="qed">
               </span>
-          </div>
-          <div class="well container theorem">
-            <span class="numbered-title">Beispiel
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
+            </div>
+            <div class="well container theorem">
+              <span class="numbered-title">Beispiel
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
               </span>Wir betrachten die Sprache
-            \begin{align*}
-            a^m b (a|b)^* b a^m
-            \end{align*}
-            Diese ist
-            <i>nicht</i>
-            regulär, da der Präfix und der Suffix aus  die gleiche
-            Länge  haben müssen.
-            Wir bauen zuerst einen Kellerautomaten und übersetzen den dann entsprechend dem Schema
-            aus dem letzten Theorem in eine Grammatik. Dann vergleichen wir die entstandene
-            Grammatik mit der, die wir per Hand aus der obigen Sprachbeschreibung bauen würden.
-            <p>
-              Unser Automat hat einen Zustand , in welchem er führenden 's auf den Stack
-              legt und einen Zustand , in welchem er die 's am Ende liest und
-              vom Stack poppt. Zwischen den beiden 's in der Mitte ist er in einem
-              Zustand , in welchem er die Eingabesymbole mehr oder weniger ignoriert.
-              Der Automat muss nichtdeterministisch sein, da er "erraten" muss, welches
-               das letzte ist, weil er dann mit dem Stack-Poppen beginnen muss.
-            </p>
-            \begin{align*}
-            (\qstart, \epsilon)&amp;\step{\epsilon} (q<i>1, \$) \\ \hline
-              (q</i>1, \epsilon)&amp;\step{a} (q<i>1, a) \\
-              (q</i>1, \epsilon)&amp;\step{b} (q<i>2, b) \\
-              \textcolor{red}{(q</i>2, \epsilon)}&amp;\textcolor{red}{ \step{a} (q<i>2, \epsilon)} \\
-              \textcolor{red}{(q</i>2, \epsilon)}&amp;\textcolor{red}{ \step{b} (q<i>2, \epsilon)} \\
-              (q</i>2, b)&amp;\step{b} (q<i>3, \epsilon) \\
-              (q</i>3, a)&amp;\step{a} (q<i>3, \epsilon) \\ \hline
-              (q</i>3, \$)&amp;\step{\epsilon} (\qend, \epsilon)
-            \end{align*}
-            <p>
-              Die beiden rot gefärbten Transitionen benötigen eine Schönheitsoperation:
-            </p>
-            <span style="color:purple">\begin{align*}
-              (q<i>2, \epsilon)&amp;\step{a} (q'</i>2, x) \\
-              (q<i>2, \epsilon)&amp;\step{b} (q'</i>2, x) \\
-              (q'<i>2, x)&amp;\step{\epsilon} (q</i>2, \epsilon) \\
-              \end{align*}</span>
-            <p>
-              Unsere Zustandsmenge ist also .
-              Rein theoretisch müssten wir nun für alle Tripel  von Zuständen
-              eine Produktion  einführen, also
-              allein hierfür schon  Produktionen. Wir können das reduzieren,
-              indem wir die im Beweis beschriebene mechanische Prozedur mit
-              ein wenig selbständigem Denken kombinieren.
-            </p>
-            <p>
-              Die erste Beobachtung ist, dass wir gar nicht von jedem Zustand zu jedem
-              kommen können, sondern nur "vorwärts", also wie in diesem Diagramm:
-            </p>
-            <p>
-              Nichtterminale wie  führen wir also gar nicht erst ein. Auch schreiben
-              wir  statt  und verwenden die Indizes 0 für  und
-              4 für . Als zweite Beobachtung sehen wir, dass man mit leerem
-              Stapel beispielsweise gar nicht von  nach  kommt:
-              auf dem Weg dorthin wird ein  gepusht und nie gepoppt; gleiches
-              gilt für viele weitere Zustandspaare. Das erweiterte Diagramm hier gibt
-              eine Orientierung. Neben jeden Zustand haben wir schematisch den Stack gemalt:Die einzigen Nichtterminale sind also die "trivialen" der Form  und darüberhinaus
               \begin{align*}
-              A<i>{04}, A</i>{13}
+              a^m b (a|b)^* b a^m
               \end{align*}
-              Da man von  zu sich selber und von  zu sich selber
-              nur mit dem leeren Wort gelant, ersetzen wir  und  sofort durch
-              .
-              Als Produktionen der Form  erhalten wir also:
+              Diese ist
+              <i>nicht</i>
+              regulär, da der Präfix und der Suffix aus die gleiche
+              Länge haben müssen.
+              Wir bauen zuerst einen Kellerautomaten und übersetzen den dann entsprechend dem Schema
+              aus dem letzten Theorem in eine Grammatik. Dann vergleichen wir die entstandene
+              Grammatik mit der, die wir per Hand aus der obigen Sprachbeschreibung bauen würden.
+              <p>
+                Unser Automat hat einen Zustand , in welchem er führenden 's auf den Stack
+                legt und einen Zustand , in welchem er die 's am Ende liest und
+                vom Stack poppt. Zwischen den beiden 's in der Mitte ist er in einem
+                Zustand , in welchem er die Eingabesymbole mehr oder weniger ignoriert.
+                Der Automat muss nichtdeterministisch sein, da er "erraten" muss, welches
+                das letzte ist, weil er dann mit dem Stack-Poppen beginnen muss.
+              </p>
               \begin{align*}
-              A<i>{11}&amp;\rightarrow A</i>{11} A<i>{11} \\
-                A</i>{13}&amp;\rightarrow A<i>{11} A</i>{13} \\
-              A<i>{13}&amp;\rightarrow A</i>{13} A<i>{33} \\
-                A</i>{22}&amp;\rightarrow A<i>{22} A</i>{22} \\
-              A<i>{33}&amp;\rightarrow A</i>{33} A<i>{33}
-                \end{align*}
-                Schon deutlich besser als die 125 Produktionen, die wir bekämen, wenn wir stur an der
-                Methode im Beweis festhalten würden. Wir brauchen noch Produktionen der
-                Form . Dafür müssen wir nach
-                Push-Pop-Paaren ,  suchen.
-                Stack-Symbole sind . Suchen wir also zuerst nach Paaren von Transitionen,
-                die  pushen und poppen.
-                \begin{align*}
-                (q</i>1, \epsilon) \step{a} (q<i>1, a) \textnormal{ und }
-                (q</i>3, a) \step{a} (q<i>3, \epsilon) \textnormal{ ergibt die Produktion }
-                A</i>{13} \rightarrow a A<i>{13} a
-                \end{align*}
-                Das waren die einzigen Transitionen, in denen  gepusht und gepoppt wird.
-                Betrachten wir als nächstes das Stacksymbol :
-                \begin{align*}
-                (q</i>1, \epsilon) \step{b} (q<i>2, b) \textnormal{ und }
-                (q</i>2, b) \step{a} (q<i>3, \epsilon) \textnormal{ ergibt die Produktion }
-                A</i>{13} \rightarrow b A<i>{22} b
-                \end{align*}
-                Nun zu den Transitionen mit Stacksymbol . Da gibt es zwei
-                Push-Transitionen und eine Pop-Transition, also zwei Paare:
-                \begin{align*}
-                (q</i>2, \epsilon) \step{a} (q'<i>2, x) \textnormal { und }
-                (q'</i>2, x) \step{\epsilon} (q<i>2, \epsilon) \textnormal{ ergibt die Produktion }
-                A</i>{22} \rightarrow a A<i>{2'2'} \\
-                (q</i>2, \epsilon) \step{b} (q'<i>2, x) \textnormal { und }
-                (q'</i>2, x) \step{\epsilon} (q<i>2, \epsilon) \textnormal{ ergibt die Produktion }
-                A</i>{22} \rightarrow b A<i>{2'2'} \\
-                \end{align*}
-                Und schlussendlich die mit Stacksymbol $. Da gibt es eine Push- und eine
-                Pop-Transition:
-                \begin{align*}
-                (\qstart, \epsilon) \step{\epsilon} (q</i>1, \$) \textnormal {und }
-              (q<i>3, \$) \step{\epsilon} (\qend, \epsilon) \textnormal{ ergibt die Produktion }
-                A</i>{04} \rightarrow A<i>{13} \\
-                \end{align*}
-                Sammeln wir nun alle Produktionen:
-                \begin{align*}
-                \textcolor{red}{A</i>{11}}&amp;\textcolor{red}{\rightarrow A<i>{11} A</i>{11}} \\
-              A<i>{13}&amp;\rightarrow \textcolor{red}{A</i>{11}} A<i>{13} \\
-                A</i>{13}&amp;\rightarrow A<i>{13} \textcolor{red}{A</i>{33}} \\
-              A<i>{22}&amp;\rightarrow A</i>{22} A<i>{22} \\
-                \textcolor{red}{A</i>{33}}&amp;\textcolor{red}{\rightarrow A<i>{33} A</i>{33}} \\ \hline
-              A<i>{13}&amp;\rightarrow a A</i>{13} a \\
-              A<i>{13}&amp;\rightarrow b A</i>{22} b \\
-              A<i>{22}&amp;\rightarrow a \textcolor{red}{A</i>{2'2'}} \\
-              A<i>{22}&amp;\rightarrow b \textcolor{red}{A</i>{2'2'}} \\
-              A<i>{04}&amp;\rightarrow A</i>{13}\\ \hline
-              \textcolor{red}{A<i>{00}}&amp;\textcolor{red}{\rightarrow \epsilon} \\
-                \textcolor{red}{A</i>{11}}&amp;\textcolor{red}{\rightarrow \epsilon} \\
-              A<i>{22}&amp;\rightarrow \epsilon \\
-                \textcolor{red}{A</i>{2'2'}}&amp;\textcolor{red}{\rightarrow \epsilon} \\
-              \textcolor{red}{A<i>{33}}&amp;\textcolor{red}{\rightarrow \epsilon} \\
-                \textcolor{red}{A</i>{44}}&amp;\textcolor{red}{\rightarrow \epsilon} \\
+              (\qstart, \epsilon)&amp;\step{\epsilon} (q<i>1, \$) \\ \hline
+                (q</i>1, \epsilon)&amp;\step{a} (q<i>1, a) \\
+                (q</i>1, \epsilon)&amp;\step{b} (q<i>2, b) \\
+                \textcolor{red}{(q</i>2, \epsilon)}&amp;\textcolor{red}{ \step{a} (q<i>2, \epsilon)} \\
+                \textcolor{red}{(q</i>2, \epsilon)}&amp;\textcolor{red}{ \step{b} (q<i>2, \epsilon)} \\
+                (q</i>2, b)&amp;\step{b} (q<i>3, \epsilon) \\
+                (q</i>3, a)&amp;\step{a} (q<i>3, \epsilon) \\ \hline
+                (q</i>3, \$)&amp;\step{\epsilon} (\qend, \epsilon)
               \end{align*}
-              wobei  das Startsymbol ist.
-              Wir haben diejenigen Nichtterminale und Produktionen rot markiert, aus denen nur
-               hervorgehen kann. Wir können die Grammatik nun entsprechend vereinfachen.
-              Zusätzlich
-              löschen wir  und ernennen  zu unserem Startsymbol:
-              \begin{align*}
-              A<i>{22}&amp;\rightarrow A</i>{22} A<i>{22} \\
-                A</i>{13}&amp;\rightarrow a A<i>{13} a \\
-                A</i>{13}&amp;\rightarrow b A<i>{22} b \\
-                A</i>{22}&amp;\rightarrow a \\
-              A<i>{22}&amp;\rightarrow b \\ \hline
-                A</i>{22}&amp;\rightarrow \epsilon \\
-              \end{align*}
-            </p>
-            <p>
-              Überlegen wir nun, ausgehend von dieser Grammatik, was wir aus dem Startsymbol 
-              ableiten
-              können. Die einzigen zwei Produktionen mit  sind
-               und , also
-              gilt
-              \begin{align*}
-              A<i>{13} \Rightarrow^* a^m b A</i>{22} b a^m \ .
-              \end{align*}
-              Aus  können wir per Produktion 
-              erst einmal alle Wortformem der Form  ableiten; per
-               dann alle Wortform .
-              Also:
-              \begin{align*}
-              A_{13} \Step{}^* a^m b (a|b)^* b a^m \ .
-              \end{align*}
-              Die Grammatik erzeugt also die gewünschte Sprache.
-            </p>
+              <p>
+                Die beiden rot gefärbten Transitionen benötigen eine Schönheitsoperation:
+              </p>
+              <span style="color:purple">\begin{align*}
+                (q<i>2, \epsilon)&amp;\step{a} (q'</i>2, x) \\
+                (q<i>2, \epsilon)&amp;\step{b} (q'</i>2, x) \\
+                (q'<i>2, x)&amp;\step{\epsilon} (q</i>2, \epsilon) \\
+                \end{align*}</span>
+              <p>
+                Unsere Zustandsmenge ist also .
+                Rein theoretisch müssten wir nun für alle Tripel von Zuständen
+                eine Produktion einführen, also
+                allein hierfür schon Produktionen. Wir können das reduzieren,
+                indem wir die im Beweis beschriebene mechanische Prozedur mit
+                ein wenig selbständigem Denken kombinieren.
+              </p>
+              <p>
+                Die erste Beobachtung ist, dass wir gar nicht von jedem Zustand zu jedem
+                kommen können, sondern nur "vorwärts", also wie in diesem Diagramm:
+              </p>
+              <p>
+                Nichtterminale wie führen wir also gar nicht erst ein. Auch schreiben
+                wir statt und verwenden die Indizes 0 für und
+                4 für . Als zweite Beobachtung sehen wir, dass man mit leerem
+                Stapel beispielsweise gar nicht von nach kommt:
+                auf dem Weg dorthin wird ein gepusht und nie gepoppt; gleiches
+                gilt für viele weitere Zustandspaare. Das erweiterte Diagramm hier gibt
+                eine Orientierung. Neben jeden Zustand haben wir schematisch den Stack gemalt:Die einzigen
+                Nichtterminale sind also die "trivialen" der Form und darüberhinaus
+                \begin{align*}
+                A<i>{04}, A</i>{13}
+                \end{align*}
+                Da man von zu sich selber und von zu sich selber
+                nur mit dem leeren Wort gelant, ersetzen wir und sofort durch
+                .
+                Als Produktionen der Form erhalten wir also:
+                \begin{align*}
+                A<i>{11}&amp;\rightarrow A</i>{11} A<i>{11} \\
+                  A</i>{13}&amp;\rightarrow A<i>{11} A</i>{13} \\
+                A<i>{13}&amp;\rightarrow A</i>{13} A<i>{33} \\
+                  A</i>{22}&amp;\rightarrow A<i>{22} A</i>{22} \\
+                A<i>{33}&amp;\rightarrow A</i>{33} A<i>{33}
+                  \end{align*}
+                  Schon deutlich besser als die 125 Produktionen, die wir bekämen, wenn wir stur an der
+                  Methode im Beweis festhalten würden. Wir brauchen noch Produktionen der
+                  Form . Dafür müssen wir nach
+                  Push-Pop-Paaren , suchen.
+                  Stack-Symbole sind . Suchen wir also zuerst nach Paaren von Transitionen,
+                  die pushen und poppen.
+                  \begin{align*}
+                  (q</i>1, \epsilon) \step{a} (q<i>1, a) \textnormal{ und }
+                  (q</i>3, a) \step{a} (q<i>3, \epsilon) \textnormal{ ergibt die Produktion }
+                  A</i>{13} \rightarrow a A<i>{13} a
+                  \end{align*}
+                  Das waren die einzigen Transitionen, in denen gepusht und gepoppt wird.
+                  Betrachten wir als nächstes das Stacksymbol :
+                  \begin{align*}
+                  (q</i>1, \epsilon) \step{b} (q<i>2, b) \textnormal{ und }
+                  (q</i>2, b) \step{a} (q<i>3, \epsilon) \textnormal{ ergibt die Produktion }
+                  A</i>{13} \rightarrow b A<i>{22} b
+                  \end{align*}
+                  Nun zu den Transitionen mit Stacksymbol . Da gibt es zwei
+                  Push-Transitionen und eine Pop-Transition, also zwei Paare:
+                  \begin{align*}
+                  (q</i>2, \epsilon) \step{a} (q'<i>2, x) \textnormal { und }
+                  (q'</i>2, x) \step{\epsilon} (q<i>2, \epsilon) \textnormal{ ergibt die Produktion }
+                  A</i>{22} \rightarrow a A<i>{2'2'} \\
+                  (q</i>2, \epsilon) \step{b} (q'<i>2, x) \textnormal { und }
+                  (q'</i>2, x) \step{\epsilon} (q<i>2, \epsilon) \textnormal{ ergibt die Produktion }
+                  A</i>{22} \rightarrow b A<i>{2'2'} \\
+                  \end{align*}
+                  Und schlussendlich die mit Stacksymbol $. Da gibt es eine Push- und eine
+                  Pop-Transition:
+                  \begin{align*}
+                  (\qstart, \epsilon) \step{\epsilon} (q</i>1, \$) \textnormal {und }
+                (q<i>3, \$) \step{\epsilon} (\qend, \epsilon) \textnormal{ ergibt die Produktion }
+                  A</i>{04} \rightarrow A<i>{13} \\
+                  \end{align*}
+                  Sammeln wir nun alle Produktionen:
+                  \begin{align*}
+                  \textcolor{red}{A</i>{11}}&amp;\textcolor{red}{\rightarrow A<i>{11} A</i>{11}} \\
+                A<i>{13}&amp;\rightarrow \textcolor{red}{A</i>{11}} A<i>{13} \\
+                  A</i>{13}&amp;\rightarrow A<i>{13} \textcolor{red}{A</i>{33}} \\
+                A<i>{22}&amp;\rightarrow A</i>{22} A<i>{22} \\
+                  \textcolor{red}{A</i>{33}}&amp;\textcolor{red}{\rightarrow A<i>{33} A</i>{33}} \\ \hline
+                A<i>{13}&amp;\rightarrow a A</i>{13} a \\
+                A<i>{13}&amp;\rightarrow b A</i>{22} b \\
+                A<i>{22}&amp;\rightarrow a \textcolor{red}{A</i>{2'2'}} \\
+                A<i>{22}&amp;\rightarrow b \textcolor{red}{A</i>{2'2'}} \\
+                A<i>{04}&amp;\rightarrow A</i>{13}\\ \hline
+                \textcolor{red}{A<i>{00}}&amp;\textcolor{red}{\rightarrow \epsilon} \\
+                  \textcolor{red}{A</i>{11}}&amp;\textcolor{red}{\rightarrow \epsilon} \\
+                A<i>{22}&amp;\rightarrow \epsilon \\
+                  \textcolor{red}{A</i>{2'2'}}&amp;\textcolor{red}{\rightarrow \epsilon} \\
+                \textcolor{red}{A<i>{33}}&amp;\textcolor{red}{\rightarrow \epsilon} \\
+                  \textcolor{red}{A</i>{44}}&amp;\textcolor{red}{\rightarrow \epsilon} \\
+                \end{align*}
+                wobei das Startsymbol ist.
+                Wir haben diejenigen Nichtterminale und Produktionen rot markiert, aus denen nur
+                hervorgehen kann. Wir können die Grammatik nun entsprechend vereinfachen.
+                Zusätzlich
+                löschen wir und ernennen zu unserem Startsymbol:
+                \begin{align*}
+                A<i>{22}&amp;\rightarrow A</i>{22} A<i>{22} \\
+                  A</i>{13}&amp;\rightarrow a A<i>{13} a \\
+                  A</i>{13}&amp;\rightarrow b A<i>{22} b \\
+                  A</i>{22}&amp;\rightarrow a \\
+                A<i>{22}&amp;\rightarrow b \\ \hline
+                  A</i>{22}&amp;\rightarrow \epsilon \\
+                \end{align*}
+              </p>
+              <p>
+                Überlegen wir nun, ausgehend von dieser Grammatik, was wir aus dem Startsymbol
+                ableiten
+                können. Die einzigen zwei Produktionen mit sind
+                und , also
+                gilt
+                \begin{align*}
+                A<i>{13} \Rightarrow^* a^m b A</i>{22} b a^m \ .
+                \end{align*}
+                Aus können wir per Produktion
+                erst einmal alle Wortformem der Form ableiten; per
+                dann alle Wortform .
+                Also:
+                \begin{align*}
+                A_{13} \Step{}^* a^m b (a|b)^* b a^m \ .
+                \end{align*}
+                Die Grammatik erzeugt also die gewünschte Sprache.
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 </body>

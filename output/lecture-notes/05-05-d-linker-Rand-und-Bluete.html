@@ -1,464 +1,455 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-      <link rel="icon" href="data:,">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
-    <link rel="stylesheet" type="text/css" href="../TI.css" />
-    <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="../numbered-title.js"></script>
-    <script type="text/javascript" src="../mathjax_setup.js"></script>
-    <script type="text/javascript" src="../carousel.js"></script>
-    <script type="text/javascript" src="../sendCmdTo3003.js"></script>
-    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <link rel="icon" href="data:," />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
+  <link rel="stylesheet" type="text/css" href="../TI.css" />
+  <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="../numbered-title.js"></script>
+  <script type="text/javascript" src="../mathjax_setup.js"></script>
+  <script type="text/javascript" src="../carousel.js"></script>
+  <script type="text/javascript" src="../sendCmdTo3003.js"></script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
+
 <body>
-<section
-  count="36"
-  _="BookLevelSectionCounter 36"
-  title_gr="Rand, Blüten und die DK-Grammatik"
-  title_en="d linker Rand und Bluete"
-  number="5.5"
-  counter="DefCtr"
-  counter="ExoCtr"
-  path="/lecture-notes36"
->
-  <div id="link-to-toc">
-    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="05-05-c-LR-grammars.html">&lt;&lt; Kapitel 5.5</a>
-  </div>
-  <div
-    id="link-to-overview"
-    style="text-align: end"
-  >
-    <a href="/">zur Kursübersicht</a><a href="05-06-dk-automat.html">Kapitel 5.6 &gt;&gt;</a>
-  </div>
-  <div id="rightSideWrapper">
-    <div class="content">
-      <div class="chapter">
-        <div class="subChapter">
-          <h1 class="hidden-title">
-            <span class="subChapterTitle">::::ChapterCtr.8
-              Linker Rand, Blüten und die DK-Grammatik</span>
-          </h1>
-          <p>
-            In diesem Teilkapitel werden wir sehen,
-            wie wir für eine gültige Wortform $\gamma$
-            den korrekten Linksreduktionsschritt
-          </p>
-          \begin{align*}
-          \gamma = \alpha \beta w \rstep{} \alpha X w
-          \end{align*}
-          <p>
-            finden. Als erstes müssen wir uns überlegen,
-            wie die Front $\front(\gamma) = \alpha \beta$
-            überhaupt aussehen kann. Wenn wir
-            uns den Ableitungsbaum von $\gamma$ ansehen,
-            wird das einigermaßen offensichtlich sein.
-          </p>
-          <p>
-            Zur Erinnerung:
-            Zu jeder Ableitung  können wir
-            eindeutig einen
-            <i>Ableitungsbaum</i>
-            zeichnen. Wenn die Grammatik
-            eindeutig ist, so hängt auch der Baum nur vom Wort  ab und
-            nicht von der Ableitung .
-            Allerdings können wir für Zwischenformen
-             auch einen Ableitungsbaum zeichnen,
-            und der unterscheidet sich stark, abhängig davon, ob  eine
-            Rechtsableitung, Linksableitung oder sonst was ist.
-            Ich zeige Ihnen jetzt ein Beispiel für eine Grammatik und
-            eine Handvoll Ableitungen samt Ableitungsbaum.
-          </p>
-          \begin{align*}
-          G&amp;: \\
-          S&amp;\rightarrow AB \\
-          A&amp;\rightarrow xBS \ | \ Bz \\
-          B&amp;\rightarrow yAS \ | \ Az \ | \ x \ | \ y \ | \ z
-          \end{align*}
-          <p>
-            Es ist zu diesem Zeitpunkt irrelevant, ob  eindeutig
-            oder sogar  ist. Ich interessiere mich
-            gerade nur für Ableitungsbäume von Wortformen.
-          </p>
-          <p>
-            Fällt Ihnen etwas auf? Schauen Sie sich bitte noch ein weiteres
-            Beispiel an für den Ableitungsbaum einer in einer
-            gültigen Wortform, also von einer, die in einer
-            Rechtsableitung vorkommen kann:
-          </p>
-          <div class="well container subtheorem">
-            <b>Warten Sie!</b>
-            Scrollen Sie erst weiter, wenn Sie den Baum oben lang genug angeschaut haben!
-            Versuchen Sie selbst, die spezielle Form dieses Baumes möglichst
-            formal zu beschreiben!
-          </div>
-          <div class="well container subtheorem">
-            <b>Auflösung.</b>
-            Hier sehen Sie noch einmal
-            den gleichen Baum, nun aber gewisse Teile verschieden umrandet / eingefärbt.
-          </div>
-          <p>
-            Sie sehen: links vom Stamm gibt es nur Blätter.
-            Rechts vom Stamm ist jedes Blatt ein Terminalsymbol.
-            Wir erkennen auch, was der letzte Ableitungsschritt war, der zu diesem
-            Baum geführt hat: die Blüte ist hinzugekommen, in diesem Fall
-            also .
-            Wir definieren nun eingeführten Begriffe formal:
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Definition
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-              / Beobachtung</span>
-            <b>(Stamm, linker Rand, Blüte, Front, rechter Rest)</b>
-            Sei  eine Rechtsableitung,  also
-            eine gültige Wortform, und
-             der Ableitungsbaum von .
-            Der
-            <i>Stamm</i>
-            ist der Pfad von der Wurzel zu jenem inneren Knoten ,
-            der von allen inneren Knoten, deren Kinder allesamt Blätter sind,
-            am weistesten links steht.
-            Die Kinder von , per Definition alles Blätter, sind die
-            <i>Blüte</i>.
-            Die Menge der Knoten, die einen Stammknoten als rechtes Geschwister haben,
-            heißt der
-            <i>linke Rand</i>. Jeder Knoten  im linken Rand
-            muss ein Blatt sein, ansonsten stünde er ja weiter links als ;
-            die Menge der rechten Geschwisterkinder von Stammknoten sowie deren Nachkommen
-            heißt der
-            <i>rechte Rand</i>.
-            Im rechten Rest ist jedes Blatt ein
-            Terminalsymbol, ansonsten wäre es keine Rechtsableitung.
+  <section count="36" _="BookLevelSectionCounter 36" title_gr="Rand, Blüten und die DK-Grammatik"
+    title_en="d linker Rand und Bluete" number="5.5" counter="DefCtr" counter="ExoCtr" path="/lecture-notes36">
+    <div id="link-to-toc">
+      <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="05-05-c-LR-grammars.html">&lt;&lt; Kapitel
+        5.5</a>
+    </div>
+    <div id="link-to-overview" style="text-align: end">
+      <a href="/">zur Kursübersicht</a><a href="05-06-dk-automat.html">Kapitel 5.6 &gt;&gt;</a>
+    </div>
+    <div id="rightSideWrapper">
+      <div class="content">
+        <div class="chapter">
+          <div class="subChapter">
+            <h1 class="hidden-title">
+              <span class="subChapterTitle">::::ChapterCtr.8
+                Linker Rand, Blüten und die DK-Grammatik</span>
+            </h1>
             <p>
-              Die Beschriftung der Knoten im linken Rand ergibt eine Wortform ;
-              die Blüte ergibt .
-              Die Blätter im rechten Rand
-              sind ausschließlich mit Terminalen beschriftet und ergeben ein
-              Wort . Der ganze Baum stellt also eine Rechtsableitung
+              In diesem Teilkapitel werden wir sehen,
+              wie wir für eine gültige Wortform $\gamma$
+              den korrekten Linksreduktionsschritt
             </p>
             \begin{align*}
-            S \Step{R}^* \alpha \beta w
+            \gamma = \alpha \beta w \rstep{} \alpha X w
             \end{align*}
-            dar. Die Wortform $\alpha\beta$, also linker Rand plus Blüte, nennen wir
-            die
-            <i>Front</i>
-            von $\mathcal{T}$ und schreiben sie als $\front(\mathcal{T})$.
-            Wir sagen auch, dass
-            <i>eine Blüte von
-            </i>
-            und
-            $\alpha\beta$ die
-            <i>Front</i>
-            von $\gamma$ ist,
-            ohne über den Ableitungsbaum  selbst zu reden.
-            Hierbei ist zu beachten, dass in einer mehrdeutigen Grammatik
-            eine gültige Wortform mehrere Ableitungsbäume und somit
-            mehrere Blüten haben kann, die Unterteilung 
-            also nicht eindeutig ist. Für eindeutige Grammatiken ist
-            die Unterteilung aber eindeutig.
             <p>
-              Sei weiterhin  die Beschriftung des Elternknoten der Blüte
-              (notwenigerweise ein Nichtterminal; Terminale haben keine Kinder).
-              Dann ist  eine Produktion in der Grammatik und
-               eine gültige Wortform; wir erhalten den Ableitungsbaum
-              von , indem wir die Blüte von  entfernen.
-              Wir schließen, dass
-              \begin{align*}
-              \alpha \beta w \rstep{} \alpha A w
-              \end{align*}
-              ein korrekter Linksreduktionsschritt ist.
+              finden. Als erstes müssen wir uns überlegen,
+              wie die Front $\front(\gamma) = \alpha \beta$
+              überhaupt aussehen kann. Wenn wir
+              uns den Ableitungsbaum von $\gamma$ ansehen,
+              wird das einigermaßen offensichtlich sein.
             </p>
-          </div>
-          <p>
-            Wir können also, ausgehend von der Wortform ,
-            eine Linksreduktion  finden,
-            indem wir den Ableitungsbaum von  zeichnen und
-            immer wieder die Blüte abschneiden:
-          </p>
-          <p>
-            Um für eine Wortform  den korrekten Reduktionsschritt zu finden,
-            reicht es also aus, linken Rand und Blüte zu bestimmen, also
-             und , so dass 
-            und  korrekt ist ( steht hier
-            für das Nichtterminal, mit dem der Elternknoten der Blüte beschriftet ist).
-            Linken Rand und Blüte zu finden scheint keine leichte Aufgabe zu sein:
-            schließlich müssen wir dafür doch den Ableitungsbaum von  bilden,
-            was selbst wieder eine Parsing-Aufgabe ist???
-          </p>
-          <p>
-            An dieser Stelle zeigt sich die Genialität des DK-Ansatzes:
-            der Ableitungsbaum von  kann beliebig verschachtelt sein,
-            aber Stamm, linker Rand und Blüte haben zusammen eine einfache,
-            beinahe linear anmutende Struktur. Schematisch:
-          </p>
-          <p>
-            Die Aussage "Stamm, linker Rand und Blüte haben eine einfache Struktur"
-            können wir formalisieren.
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Definition
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-              </span>Für eine kontextfreie Grammatik  definieren wir
-            die Sprache :
-            \begin{align*}
-            \Front(G) := \{\front(\mathcal{T}) \ | \ \mathcal{T}
-            \textnormal{ ist der Ableitungsbaum einer Rechtsableitung }
-            S \Step{R}^* \gamma \}
-            \end{align*}
-            alternativ
-            \begin{align*}
-            \Front(G) := \{\alpha \beta \ | \ S \Steps{R} \alpha X w
-            \Step{R} \alpha \beta w \}
-            \end{align*}
-            also die Menge aller Wortformen, die Front einer gültigen Wortform
-            sind.
-          </div>
-          <div class="well container theorem">
             <p>
-              <span class="numbered-title">Lemma
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-                </span>Die Sprache $\Front(G)$ ist regulär.
-              Insbesondere gibt es eine erweitert reguläre Grammatik  für
-              $\Front(G)$, so dass die Blüte genau die im letzen Ableitungsschritt
-              erzeugten Terminalsymbole sind.
+              Zur Erinnerung:
+              Zu jeder Ableitung können wir
+              eindeutig einen
+              <i>Ableitungsbaum</i>
+              zeichnen. Wenn die Grammatik
+              eindeutig ist, so hängt auch der Baum nur vom Wort ab und
+              nicht von der Ableitung .
+              Allerdings können wir für Zwischenformen
+              auch einen Ableitungsbaum zeichnen,
+              und der unterscheidet sich stark, abhängig davon, ob eine
+              Rechtsableitung, Linksableitung oder sonst was ist.
+              Ich zeige Ihnen jetzt ein Beispiel für eine Grammatik und
+              eine Handvoll Ableitungen samt Ableitungsbaum.
             </p>
-          </div>
-          <p>
-            Hier ist etwas Mentalgymnastik vonnöten: aus Sicht der Sprache
-            $\Front(G)$ sind
-            <i>Terminalsymbole</i>. Sie können
-            ja schließlich in den Wörtern der Sprache auftauchen.
-            Die Grammatik  hat also die Terminalsymbole
-            . Darüberhinaus hat sie
-            die Nichtterminale ,
-            also für jedes Nichtterminal  von  ein
-            Meta-Nichtterminal . Das  entspricht
-            dem  in den obigen Bäumen, wo also  als Blatt vorkommt;
-            das  entspricht dem,
-            also wo  als innerer Knoten vorkommt. Bevor ich
-             formal definiere, zeige ich den obigen Ableitungsbaum
-            (ohne rechten Rand, weil der ja bei $\front(G)$ eh fehlt)
-            und annotiere jeden Knoten auf dem Stamm mit der entsprechenden
-            -Produktion.
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Definition
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-              </span>Sei  eine kontextfreie Grammatik. Die
-            Front-Grammatik oder DK-Grammatik von  ist
-            die
-            <i>erweitert reguläre</i>
-            Grammatik 
-            mit , wobei
-             für jede -Produktion
             \begin{align*}
-            A \rightarrow w<i>0 A</i>1 w<i>1 A</i>2 w<i>2 \dots w</i>{k-1} A<i>k w</i>k
+            G&amp;: \\
+            S&amp;\rightarrow AB \\
+            A&amp;\rightarrow xBS \ | \ Bz \\
+            B&amp;\rightarrow yAS \ | \ Az \ | \ x \ | \ y \ | \ z
             \end{align*}
-            mit  die Produktionen
-            \begin{align*}
-            \hat{A}&amp;\rightarrow w<i>0 \hat{A}</i>1 \\
-            \hat{A}&amp;\rightarrow w<i>0 A</i>1 w<i>1 \hat{A}</i>2 \\
-            &amp;\vdots \\
-            \hat{A}&amp;\rightarrow w<i>0 A</i>1 w<i>1 A</i>2 w<i>2 \dots A</i>{k-1} w<i>{k-1} \hat{A}</i>k \\
-            \hat{A}&amp;\rightarrow w<i>0 A</i>1 w<i>1 A</i>2 w<i>2 \dots w</i>{k-1} A<i>k w</i>k
-            \end{align*}
-            besitzt.
-          </div>
-          <div class="well container theorem">
-            <span class="numbered-title">Beobachtung
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
+            <p>
+              Es ist zu diesem Zeitpunkt irrelevant, ob eindeutig
+              oder sogar ist. Ich interessiere mich
+              gerade nur für Ableitungsbäume von Wortformen.
+            </p>
+            <p>
+              Fällt Ihnen etwas auf? Schauen Sie sich bitte noch ein weiteres
+              Beispiel an für den Ableitungsbaum einer in einer
+              gültigen Wortform, also von einer, die in einer
+              Rechtsableitung vorkommen kann:
+            </p>
+            <div class="well container subtheorem">
+              <b>Warten Sie!</b>
+              Scrollen Sie erst weiter, wenn Sie den Baum oben lang genug angeschaut haben!
+              Versuchen Sie selbst, die spezielle Form dieses Baumes möglichst
+              formal zu beschreiben!
+            </div>
+            <div class="well container subtheorem">
+              <b>Auflösung.</b>
+              Hier sehen Sie noch einmal
+              den gleichen Baum, nun aber gewisse Teile verschieden umrandet / eingefärbt.
+            </div>
+            <p>
+              Sie sehen: links vom Stamm gibt es nur Blätter.
+              Rechts vom Stamm ist jedes Blatt ein Terminalsymbol.
+              Wir erkennen auch, was der letzte Ableitungsschritt war, der zu diesem
+              Baum geführt hat: die Blüte ist hinzugekommen, in diesem Fall
+              also .
+              Wir definieren nun eingeführten Begriffe formal:
+            </p>
+            <div class="well container theorem">
+              <span class="numbered-title">Definition
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
+                / Beobachtung
               </span>
-            erzeugt die Sprache
-            .
-          </div>
-          <div class="well container theorem">
-            <span class="numbered-title">Beispiel
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
-              </span>Für unsere Grammatik  oben ergeben sich folgende Produktionen
-             in :
-            \begin{align*}
-            \begin{array}{l|l}
-            \textnormal{Produktion in $G$}
-            &amp;
-            \textnormal{Produktion in $\hat{G}$} \\
-            &amp;{\dk{S}} \rightarrow \dk{A}\\
-            S \rightarrow AB&amp;{\dk{S}} \rightarrow \dkt{A} \dk{B}\\
-            &amp;{\dk{S}} \rightarrow \dkt{AB} \\ \hline
-            %
-            &amp;{\dk{A}} \rightarrow \dkt{x} \dk{B}\\
-            A \rightarrow xBS&amp;{\dk{A}} \rightarrow \dkt{x B} \dk{S}\\
-            &amp;{\dk{A}} \rightarrow \dkt{x B S}\\ \hline
-            %
-            A \rightarrow Bz&amp;{\dk{A}} \rightarrow \dk{B}\\
-            &amp;{\dk{A}} \rightarrow \dkt{Bz} \\ \hline
-            %
-            &amp;\dk{B} \rightarrow \dkt{y} \dk{A}\\
-            B \rightarrow y A S&amp;\dk{B} \rightarrow \dkt{y A} \dk{S} \\
-            &amp;\dk{B} \rightarrow \dkt{y A S} \\ \hline
-            %
-            &amp;\dk{B} \rightarrow \dk{A} \\
-            B \rightarrow Az&amp;\dk{B} \rightarrow \dkt{Az} \\ \hline
-            %
-            B \rightarrow x&amp;\dk{B} \rightarrow \dkt{x} \\
-            B \rightarrow y&amp;\dk{B} \rightarrow \dkt{y} \\
-            B \rightarrow z&amp;\dk{B} \rightarrow \dkt{z} \\
-            \end{array}
-            \end{align*}
-          </div>
-          <p>
-            Nochmals: Produktionen wie
-             sind erweitert regulär
-            weil $\dkt{y}$ und $\dkt{A}$ aus Sicht von  beides
-            Terminalsymbole sind. Wir können nun unseren -Parser beschreiben:
-          </p>
-          <div
-            id="algorithm-LR-parser"
-            class="well container theorem"
-          >
-            <span class="numbered-title">Algorithmus</span>
-            <b>- Der -Parser.</b>
-            Starte mit einem leerem Stack. Sei
-             der Inhalt des Stacks zu einem Zeitpunkt.
-            <ol>
-              <li>
-                Wenn , dann
-                betrachte die letzte angewandte -Produktion
-                 und schreibe
-                . Wende die -Produktion
-                 rückwärts an, reduziere also
+              <b>(Stamm, linker Rand, Blüte, Front, rechter Rest)</b>
+              Sei eine Rechtsableitung, also
+              eine gültige Wortform, und
+              der Ableitungsbaum von .
+              Der
+              <i>Stamm</i>
+              ist der Pfad von der Wurzel zu jenem inneren Knoten ,
+              der von allen inneren Knoten, deren Kinder allesamt Blätter sind,
+              am weistesten links steht.
+              Die Kinder von , per Definition alles Blätter, sind die
+              <i>Blüte</i>.
+              Die Menge der Knoten, die einen Stammknoten als rechtes Geschwister haben,
+              heißt der
+              <i>linke Rand</i>. Jeder Knoten im linken Rand
+              muss ein Blatt sein, ansonsten stünde er ja weiter links als ;
+              die Menge der rechten Geschwisterkinder von Stammknoten sowie deren Nachkommen
+              heißt der
+              <i>rechte Rand</i>.
+              Im rechten Rest ist jedes Blatt ein
+              Terminalsymbol, ansonsten wäre es keine Rechtsableitung.
+              <p>
+                Die Beschriftung der Knoten im linken Rand ergibt eine Wortform ;
+                die Blüte ergibt .
+                Die Blätter im rechten Rand
+                sind ausschließlich mit Terminalen beschriftet und ergeben ein
+                Wort . Der ganze Baum stellt also eine Rechtsableitung
+              </p>
+              \begin{align*}
+              S \Step{R}^* \alpha \beta w
+              \end{align*}
+              dar. Die Wortform $\alpha\beta$, also linker Rand plus Blüte, nennen wir
+              die
+              <i>Front</i>
+              von $\mathcal{T}$ und schreiben sie als $\front(\mathcal{T})$.
+              Wir sagen auch, dass
+              <i>eine Blüte von
+              </i>
+              und
+              $\alpha\beta$ die
+              <i>Front</i>
+              von $\gamma$ ist,
+              ohne über den Ableitungsbaum selbst zu reden.
+              Hierbei ist zu beachten, dass in einer mehrdeutigen Grammatik
+              eine gültige Wortform mehrere Ableitungsbäume und somit
+              mehrere Blüten haben kann, die Unterteilung
+              also nicht eindeutig ist. Für eindeutige Grammatiken ist
+              die Unterteilung aber eindeutig.
+              <p>
+                Sei weiterhin die Beschriftung des Elternknoten der Blüte
+                (notwenigerweise ein Nichtterminal; Terminale haben keine Kinder).
+                Dann ist eine Produktion in der Grammatik und
+                eine gültige Wortform; wir erhalten den Ableitungsbaum
+                von , indem wir die Blüte von entfernen.
+                Wir schließen, dass
                 \begin{align*}
-                \alpha \beta \rstep{} \alpha X
-                \end{align*}
-                Konkret: lösche  vom Stack und ersetze es durch .
-              </li>
-              <li>
-                Falls ,
-                lies das nächste Eingabezeichen und lege es auf den Stack.
-              </li>
-            </ol>
-            Der Parser endet, wenn weder Schritt 1 noch Schritt 2 möglich sind;
-            wenn zu diesem Zeitpunkt nur noch  auf dem Stack liegt,
-            akzeptiert er, andernfalls lehnt er das Eingabewort ab.
-          </div>
-          <div class="well container theorem">
-            <span class="numbered-title">Theorem
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
-              </span>Wenn der -Parser akzeptiert, dann hat er eine Linksreduktion
-             und somit eine Rechtsableitung konstruiert; es gilt
-            also .
-            <p>
-              Wenn umgekehrt  gilt und
-               die -Bedingung erfüllt,
-              dann findet der
-              Parser die Rechtsableitung ,
-            </p>
-          </div>
-          <div class="well container">
-            <p>
-              <b>Beweis.</b>
-              Der erste Teil der Bedeutung ist einfach zu sehen.
-              Jeder Reduktionsschritt ist ein Linksreduktionsschritt, und
-              wenn man Ende $S$ steht, waren es auch alles
-              <i>korrekte</i>
-              Linksreduktionsschritte.
-            </p>
-            <p>
-              Der zweite Teil ist schwieriger. Wir nehmen also
-              an, dass $G$ eine LR(0)-Grammatik ist.
-              Da  eindeutig ist, hat jede gültige Wortform
-               eine eindeutige Rechtsableitung und einen
-              dazugehörigen Ableitungsbaum ; somit
-              ist $\front(\gamma) := \front(\mathcal{T})$ eindeutig bestimmt.
-              Beachten Sie, dass rechts
-              von $\front(\gamma)$ nur Terminalsymbole folgen.
-              Betrachten wir einen Zeitpunkt während des Parsing-Prozesses.
-              Sei  der Stackinhalt und  der ungelesene
-              Teil des Eingabewortes. Wir werden beweisen, dass zu jedem Zeitpunkt folgende
-              Invariante gilt:
-            </p>
-            <p>
-              <b>Behauptung.</b>
-              (i)  ist eine gültige Wortform. (ii)
-               ist ein Präfix von .
-            </p>
-            <p>
-              <b>Beweis.</b>
-              Die Behauptung gilt offensichtlich am Anfang, da
-              $\gamma = \epsilon$ und  ist und
-              somit $\gamma w = w$ eine gültige Wortform ist. Des weiteren
-              ist der Stack leer, also , und daher
-              sicherlich ein Präfix von .
-              Wir zeigen nun, dass, wenn die Invariante in Schritt  gilt,
-              sie auch im nächsten Schritt  gilt.
-              Es gibt nun zwei Möglichkeiten.
-            </p>
-            <ol>
-              <li>
-                Der Parser wendet Schritt 1 an, also .
-                Das heißt nach Definition von $\Front(G)$, dass es ein  gibt,
-                so dass  eine gültige Wortform ist
-                und $\gamma = \front(\gamma w')$. Also
-                \begin{align*}
-                S \Step{R}^* \alpha A w' \Step{R}^* \alpha \beta w'
-                \end{align*}
-                mit $\gamma = \alpha \beta$. Es sind $\alpha$ und $\beta$ also
-                linker Rand und Blüte von $\gamma w'$. Somit ist
-                \begin{align}
-                \alpha \beta w' \rstep{} \alpha' A w'
-                \label{left-reduction-w'}
-                \end{align}
-                ein korrekter Linksreduktionsschritt.
-                Die letzte $\dk{G}$-Produktion
-                in der Ableitung von $\dk{S} \Step{}^* \gamma$ war somit
-                $\dk{A} \rightarrow \beta$; somit ersetzt der Parser
-                das $\beta$ auf dem Stack durch $A$; führt also die Linksreduktion
-                \begin{align}
                 \alpha \beta w \rstep{} \alpha A w
-                \label{left-reduction-w}
-                \end{align}
-                an. Da (\ref{left-reduction-w'}) korrekt ist und
-                $\alpha \beta w$ nach Invariante eine gültige Wortform ist, ist
-                nach LR(0)-Bedingung auch (\ref{left-reduction-w}) ein korrekter
-                Schritt; $\alpha Aw$ ist also auch eine gültige Wortform; somit
-                gilt Teil (i) der Invariante.
-                Um zu sehen, dass (ii) gilt, beachten Sie, dass nun
-                auf dem Stack oben ein Nichtterminal liegt: ;
-                da rechts vom aktiven Teil nur Terminale stehen, muss
-                 ein Präfix von $\front(\alpha A w)$ sein.
-              </li>
-              <li>
-                Der Parser wendet Schritt 2 an, also , er liest
-                 und legt es auf den Stack. Im nächsten Schritt
-                ist der Stackinhalt  und das ungelesene Wort
-                ist .
-                Teil (i) der Behauptung gilt offensichtlich, da 
-                und somit immer noch eine gültige Wortform ist.
-                Um zu sehen, dass Teil (ii) gilt, beachten Sie erstens,
-                dass Teil (ii) vor dem Schritt galt, also $\gamma$ ein Präfix
-                von $\front(\gamma w)$ ist; zweitens, dass
-                 ist (sonst hätte der Parser Schritt 1 angewandt); somit
-                ist $\gamma$ ein
-                <i>echter</i>
-                Präfix von $\front(\gamma w)$ und somit
-                ist $\gamma c$ immer noch ein Präfix von $\front(\gamma w)$.
-              </li>
-            </ol>
+                \end{align*}
+                ein korrekter Linksreduktionsschritt ist.
+              </p>
+            </div>
             <p>
-              Wenn das Eingabewort gelesen ist, ist nun  und
-              Stackinhalt  ist selbst eine
-              gültige Wortform, die allerdings nicht weiter reduziert werden kann.
-              Also muss  gelten und der Parser akzeptiert.<span class="qed">
-                </span>
+              Wir können also, ausgehend von der Wortform ,
+              eine Linksreduktion finden,
+              indem wir den Ableitungsbaum von zeichnen und
+              immer wieder die Blüte abschneiden:
             </p>
+            <p>
+              Um für eine Wortform den korrekten Reduktionsschritt zu finden,
+              reicht es also aus, linken Rand und Blüte zu bestimmen, also
+              und , so dass
+              und korrekt ist ( steht hier
+              für das Nichtterminal, mit dem der Elternknoten der Blüte beschriftet ist).
+              Linken Rand und Blüte zu finden scheint keine leichte Aufgabe zu sein:
+              schließlich müssen wir dafür doch den Ableitungsbaum von bilden,
+              was selbst wieder eine Parsing-Aufgabe ist???
+            </p>
+            <p>
+              An dieser Stelle zeigt sich die Genialität des DK-Ansatzes:
+              der Ableitungsbaum von kann beliebig verschachtelt sein,
+              aber Stamm, linker Rand und Blüte haben zusammen eine einfache,
+              beinahe linear anmutende Struktur. Schematisch:
+            </p>
+            <p>
+              Die Aussage "Stamm, linker Rand und Blüte haben eine einfache Struktur"
+              können wir formalisieren.
+            </p>
+            <div class="well container theorem">
+              <span class="numbered-title">Definition
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
+              </span>Für eine kontextfreie Grammatik definieren wir
+              die Sprache :
+              \begin{align*}
+              \Front(G) := \{\front(\mathcal{T}) \ | \ \mathcal{T}
+              \textnormal{ ist der Ableitungsbaum einer Rechtsableitung }
+              S \Step{R}^* \gamma \}
+              \end{align*}
+              alternativ
+              \begin{align*}
+              \Front(G) := \{\alpha \beta \ | \ S \Steps{R} \alpha X w
+              \Step{R} \alpha \beta w \}
+              \end{align*}
+              also die Menge aller Wortformen, die Front einer gültigen Wortform
+              sind.
+            </div>
+            <div class="well container theorem">
+              <p>
+                <span class="numbered-title">Lemma
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
+                </span>Die Sprache $\Front(G)$ ist regulär.
+                Insbesondere gibt es eine erweitert reguläre Grammatik für
+                $\Front(G)$, so dass die Blüte genau die im letzen Ableitungsschritt
+                erzeugten Terminalsymbole sind.
+              </p>
+            </div>
+            <p>
+              Hier ist etwas Mentalgymnastik vonnöten: aus Sicht der Sprache
+              $\Front(G)$ sind
+              <i>Terminalsymbole</i>. Sie können
+              ja schließlich in den Wörtern der Sprache auftauchen.
+              Die Grammatik hat also die Terminalsymbole
+              . Darüberhinaus hat sie
+              die Nichtterminale ,
+              also für jedes Nichtterminal von ein
+              Meta-Nichtterminal . Das entspricht
+              dem in den obigen Bäumen, wo also als Blatt vorkommt;
+              das entspricht dem,
+              also wo als innerer Knoten vorkommt. Bevor ich
+              formal definiere, zeige ich den obigen Ableitungsbaum
+              (ohne rechten Rand, weil der ja bei $\front(G)$ eh fehlt)
+              und annotiere jeden Knoten auf dem Stamm mit der entsprechenden
+              -Produktion.
+            </p>
+            <div class="well container theorem">
+              <span class="numbered-title">Definition
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
+              </span>Sei eine kontextfreie Grammatik. Die
+              Front-Grammatik oder DK-Grammatik von ist
+              die
+              <i>erweitert reguläre</i>
+              Grammatik
+              mit , wobei
+              für jede -Produktion
+              \begin{align*}
+              A \rightarrow w<i>0 A</i>1 w<i>1 A</i>2 w<i>2 \dots w</i>{k-1} A<i>k w</i>k
+              \end{align*}
+              mit die Produktionen
+              \begin{align*}
+              \hat{A}&amp;\rightarrow w<i>0 \hat{A}</i>1 \\
+              \hat{A}&amp;\rightarrow w<i>0 A</i>1 w<i>1 \hat{A}</i>2 \\
+              &amp;\vdots \\
+              \hat{A}&amp;\rightarrow w<i>0 A</i>1 w<i>1 A</i>2 w<i>2 \dots A</i>{k-1} w<i>{k-1} \hat{A}</i>k \\
+              \hat{A}&amp;\rightarrow w<i>0 A</i>1 w<i>1 A</i>2 w<i>2 \dots w</i>{k-1} A<i>k w</i>k
+              \end{align*}
+              besitzt.
+            </div>
+            <div class="well container theorem">
+              <span class="numbered-title">Beobachtung
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
+              </span>
+              erzeugt die Sprache
+              .
+            </div>
+            <div class="well container theorem">
+              <span class="numbered-title">Beispiel
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
+              </span>Für unsere Grammatik oben ergeben sich folgende Produktionen
+              in :
+              \begin{align*}
+              \begin{array}{l|l}
+              \textnormal{Produktion in $G$}
+              &amp;
+              \textnormal{Produktion in $\hat{G}$} \\
+              &amp;{\dk{S}} \rightarrow \dk{A}\\
+              S \rightarrow AB&amp;{\dk{S}} \rightarrow \dkt{A} \dk{B}\\
+              &amp;{\dk{S}} \rightarrow \dkt{AB} \\ \hline
+              %
+              &amp;{\dk{A}} \rightarrow \dkt{x} \dk{B}\\
+              A \rightarrow xBS&amp;{\dk{A}} \rightarrow \dkt{x B} \dk{S}\\
+              &amp;{\dk{A}} \rightarrow \dkt{x B S}\\ \hline
+              %
+              A \rightarrow Bz&amp;{\dk{A}} \rightarrow \dk{B}\\
+              &amp;{\dk{A}} \rightarrow \dkt{Bz} \\ \hline
+              %
+              &amp;\dk{B} \rightarrow \dkt{y} \dk{A}\\
+              B \rightarrow y A S&amp;\dk{B} \rightarrow \dkt{y A} \dk{S} \\
+              &amp;\dk{B} \rightarrow \dkt{y A S} \\ \hline
+              %
+              &amp;\dk{B} \rightarrow \dk{A} \\
+              B \rightarrow Az&amp;\dk{B} \rightarrow \dkt{Az} \\ \hline
+              %
+              B \rightarrow x&amp;\dk{B} \rightarrow \dkt{x} \\
+              B \rightarrow y&amp;\dk{B} \rightarrow \dkt{y} \\
+              B \rightarrow z&amp;\dk{B} \rightarrow \dkt{z} \\
+              \end{array}
+              \end{align*}
+            </div>
+            <p>
+              Nochmals: Produktionen wie
+              sind erweitert regulär
+              weil $\dkt{y}$ und $\dkt{A}$ aus Sicht von beides
+              Terminalsymbole sind. Wir können nun unseren -Parser beschreiben:
+            </p>
+            <div id="algorithm-LR-parser" class="well container theorem">
+              <span class="numbered-title">Algorithmus</span>
+              <b>- Der -Parser.</b>
+              Starte mit einem leerem Stack. Sei
+              der Inhalt des Stacks zu einem Zeitpunkt.
+              <ol>
+                <li>
+                  Wenn , dann
+                  betrachte die letzte angewandte -Produktion
+                  und schreibe
+                  . Wende die -Produktion
+                  rückwärts an, reduziere also
+                  \begin{align*}
+                  \alpha \beta \rstep{} \alpha X
+                  \end{align*}
+                  Konkret: lösche vom Stack und ersetze es durch .
+                </li>
+                <li>
+                  Falls ,
+                  lies das nächste Eingabezeichen und lege es auf den Stack.
+                </li>
+              </ol>
+              Der Parser endet, wenn weder Schritt 1 noch Schritt 2 möglich sind;
+              wenn zu diesem Zeitpunkt nur noch auf dem Stack liegt,
+              akzeptiert er, andernfalls lehnt er das Eingabewort ab.
+            </div>
+            <div class="well container theorem">
+              <span class="numbered-title">Theorem
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
+              </span>Wenn der -Parser akzeptiert, dann hat er eine Linksreduktion
+              und somit eine Rechtsableitung konstruiert; es gilt
+              also .
+              <p>
+                Wenn umgekehrt gilt und
+                die -Bedingung erfüllt,
+                dann findet der
+                Parser die Rechtsableitung ,
+              </p>
+            </div>
+            <div class="well container">
+              <p>
+                <b>Beweis.</b>
+                Der erste Teil der Bedeutung ist einfach zu sehen.
+                Jeder Reduktionsschritt ist ein Linksreduktionsschritt, und
+                wenn man Ende $S$ steht, waren es auch alles
+                <i>korrekte</i>
+                Linksreduktionsschritte.
+              </p>
+              <p>
+                Der zweite Teil ist schwieriger. Wir nehmen also
+                an, dass $G$ eine LR(0)-Grammatik ist.
+                Da eindeutig ist, hat jede gültige Wortform
+                eine eindeutige Rechtsableitung und einen
+                dazugehörigen Ableitungsbaum ; somit
+                ist $\front(\gamma) := \front(\mathcal{T})$ eindeutig bestimmt.
+                Beachten Sie, dass rechts
+                von $\front(\gamma)$ nur Terminalsymbole folgen.
+                Betrachten wir einen Zeitpunkt während des Parsing-Prozesses.
+                Sei der Stackinhalt und der ungelesene
+                Teil des Eingabewortes. Wir werden beweisen, dass zu jedem Zeitpunkt folgende
+                Invariante gilt:
+              </p>
+              <p>
+                <b>Behauptung.</b>
+                (i) ist eine gültige Wortform. (ii)
+                ist ein Präfix von .
+              </p>
+              <p>
+                <b>Beweis.</b>
+                Die Behauptung gilt offensichtlich am Anfang, da
+                $\gamma = \epsilon$ und ist und
+                somit $\gamma w = w$ eine gültige Wortform ist. Des weiteren
+                ist der Stack leer, also , und daher
+                sicherlich ein Präfix von .
+                Wir zeigen nun, dass, wenn die Invariante in Schritt gilt,
+                sie auch im nächsten Schritt gilt.
+                Es gibt nun zwei Möglichkeiten.
+              </p>
+              <ol>
+                <li>
+                  Der Parser wendet Schritt 1 an, also .
+                  Das heißt nach Definition von $\Front(G)$, dass es ein gibt,
+                  so dass eine gültige Wortform ist
+                  und $\gamma = \front(\gamma w')$. Also
+                  \begin{align*}
+                  S \Step{R}^* \alpha A w' \Step{R}^* \alpha \beta w'
+                  \end{align*}
+                  mit $\gamma = \alpha \beta$. Es sind $\alpha$ und $\beta$ also
+                  linker Rand und Blüte von $\gamma w'$. Somit ist
+                  \begin{align}
+                  \alpha \beta w' \rstep{} \alpha' A w'
+                  \label{left-reduction-w'}
+                  \end{align}
+                  ein korrekter Linksreduktionsschritt.
+                  Die letzte $\dk{G}$-Produktion
+                  in der Ableitung von $\dk{S} \Step{}^* \gamma$ war somit
+                  $\dk{A} \rightarrow \beta$; somit ersetzt der Parser
+                  das $\beta$ auf dem Stack durch $A$; führt also die Linksreduktion
+                  \begin{align}
+                  \alpha \beta w \rstep{} \alpha A w
+                  \label{left-reduction-w}
+                  \end{align}
+                  an. Da (\ref{left-reduction-w'}) korrekt ist und
+                  $\alpha \beta w$ nach Invariante eine gültige Wortform ist, ist
+                  nach LR(0)-Bedingung auch (\ref{left-reduction-w}) ein korrekter
+                  Schritt; $\alpha Aw$ ist also auch eine gültige Wortform; somit
+                  gilt Teil (i) der Invariante.
+                  Um zu sehen, dass (ii) gilt, beachten Sie, dass nun
+                  auf dem Stack oben ein Nichtterminal liegt: ;
+                  da rechts vom aktiven Teil nur Terminale stehen, muss
+                  ein Präfix von $\front(\alpha A w)$ sein.
+                </li>
+                <li>
+                  Der Parser wendet Schritt 2 an, also , er liest
+                  und legt es auf den Stack. Im nächsten Schritt
+                  ist der Stackinhalt und das ungelesene Wort
+                  ist .
+                  Teil (i) der Behauptung gilt offensichtlich, da
+                  und somit immer noch eine gültige Wortform ist.
+                  Um zu sehen, dass Teil (ii) gilt, beachten Sie erstens,
+                  dass Teil (ii) vor dem Schritt galt, also $\gamma$ ein Präfix
+                  von $\front(\gamma w)$ ist; zweitens, dass
+                  ist (sonst hätte der Parser Schritt 1 angewandt); somit
+                  ist $\gamma$ ein
+                  <i>echter</i>
+                  Präfix von $\front(\gamma w)$ und somit
+                  ist $\gamma c$ immer noch ein Präfix von $\front(\gamma w)$.
+                </li>
+              </ol>
+              <p>
+                Wenn das Eingabewort gelesen ist, ist nun und
+                Stackinhalt ist selbst eine
+                gültige Wortform, die allerdings nicht weiter reduziert werden kann.
+                Also muss gelten und der Parser akzeptiert.<span class="qed">
+                </span>
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 </body>

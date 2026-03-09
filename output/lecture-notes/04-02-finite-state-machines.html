@@ -1,531 +1,519 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-      <link rel="icon" href="data:,">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
-    <link rel="stylesheet" type="text/css" href="../TI.css" />
-    <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="../numbered-title.js"></script>
-    <script type="text/javascript" src="../mathjax_setup.js"></script>
-    <script type="text/javascript" src="../carousel.js"></script>
-    <script type="text/javascript" src="../sendCmdTo3003.js"></script>
-    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <link rel="icon" href="data:," />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
+  <link rel="stylesheet" type="text/css" href="../TI.css" />
+  <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="../numbered-title.js"></script>
+  <script type="text/javascript" src="../mathjax_setup.js"></script>
+  <script type="text/javascript" src="../carousel.js"></script>
+  <script type="text/javascript" src="../sendCmdTo3003.js"></script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
+
 <body>
-<section
-  count="22"
-  _="BookLevelSectionCounter 22"
-  title_gr="Automaten"
-  title_en="finite state machines"
-  number="4.2"
-  counter="DefCtr"
-  counter="ExoCtr"
-  path="/lecture-notes22"
->
-  <div id="link-to-toc">
-    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="04-01-regular-grammars.html">&lt;&lt; Kapitel 4.1</a>
-  </div>
-  <div
-    id="link-to-overview"
-    style="text-align: end"
-  >
-    <a href="/">zur Kursübersicht</a><a href="04-03-nfsm.html">Kapitel 4.3 &gt;&gt;</a>
-  </div>
-  <div id="rightSideWrapper">
-    <div class="content">
-      <div class="chapter">
-        <div class="subChapter">
-          <h1 class="hidden-title">
-            <span class="subChapterTitle">::::ChapterCtr.2
-              Endliche Automaten</span>
-          </h1>
-          <p>
-            Grammatiken erlauben es uns, gewisse Formate zu beschreiben. Das reicht uns aber nicht:
-            wir wollen Daten
-            <i>parsen</i>, im engen Sinne also eine grammatische Ableitung rekonstruieren
-            und allgemein die Struktur eines gegebenen Wortes herausarbeiten. Ein bescheideneres Ziel
-            ist es, für ein gegebenes Wort zu
-            <i>entscheiden</i>, ob es sich überhaupt aus einer Grammatik
-            ableiten lässt. Für reguläre Grammatiken gibt es hierfür die
-            <i>endlichen Automaten</i>. Sie
-            können
-            endliche Automaten verstehen als ein eingeschränktes Modell eines Rechners;
-            oder als Blaupause für einen effizienten Algorithmus, um reguläre Grammatiken zu parsen.
-          </p>
-          <p>
-            Hier sehen Sie ein Beispiel für einen endlichen Automaten über dem Alphabet . Die Idee ist,
-            dass der Automat ein Wort  Zeichen für Zeichen einliest. Die Pfeile zwischen den
-            Kreisen (den
-            <i>Zuständen</i>
-            des Automaten) zeigen an, in welchen neuen Zustand beim Lesen eines Zeichen
-            gewechselt werden
-            muss. Der Pfeil "aus dem Nichts", hier der von links nach , zeigt den
-            <i>Startzustand</i>
-            an, in welchem
-            der Automat beginnt.
-          </p>
-          <p>
-            Um zu zeigen, wie der Automat ein Eingabewort verarbeitet, nehmen wir das Beispiel .
-          </p>
-          <p>
-            In diesem Beispiel endet der Automat im Zustand . Sie sehen, dass der Zustand 
-            mit einem doppelten Rand markiert ist: dies symbolisiert, dass  ein
-            <i>akzeptierender</i>
-            Endzustand ist. Wenn der Automat ein Wort  abgearbeitet hat,
-            <i>akzeptiert</i>
-            er
-            es,
-            wenn er in einem akzeptierenden Endzustand gelandet ist; ansonsten
-            <i>lehnt er es ab</i>. In
-            unserem
-            Beispiel sehen wir also, dass der Automat das Eingabewort  ablehnt.
-          </p>
-          <div class="well container theorem">
-            <span
-              data-label-title="Definition"
-              id="definition-finite-state-machine"
-              class="numbered-title"
-            >Definition
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
+  <section count="22" _="BookLevelSectionCounter 22" title_gr="Automaten" title_en="finite state machines" number="4.2"
+    counter="DefCtr" counter="ExoCtr" path="/lecture-notes22">
+    <div id="link-to-toc">
+      <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="04-01-regular-grammars.html">&lt;&lt; Kapitel
+        4.1</a>
+    </div>
+    <div id="link-to-overview" style="text-align: end">
+      <a href="/">zur Kursübersicht</a><a href="04-03-nfsm.html">Kapitel 4.3 &gt;&gt;</a>
+    </div>
+    <div id="rightSideWrapper">
+      <div class="content">
+        <div class="chapter">
+          <div class="subChapter">
+            <h1 class="hidden-title">
+              <span class="subChapterTitle">::::ChapterCtr.2
+                Endliche Automaten</span>
+            </h1>
+            <p>
+              Grammatiken erlauben es uns, gewisse Formate zu beschreiben. Das reicht uns aber nicht:
+              wir wollen Daten
+              <i>parsen</i>, im engen Sinne also eine grammatische Ableitung rekonstruieren
+              und allgemein die Struktur eines gegebenen Wortes herausarbeiten. Ein bescheideneres Ziel
+              ist es, für ein gegebenes Wort zu
+              <i>entscheiden</i>, ob es sich überhaupt aus einer Grammatik
+              ableiten lässt. Für reguläre Grammatiken gibt es hierfür die
+              <i>endlichen Automaten</i>. Sie
+              können
+              endliche Automaten verstehen als ein eingeschränktes Modell eines Rechners;
+              oder als Blaupause für einen effizienten Algorithmus, um reguläre Grammatiken zu parsen.
+            </p>
+            <p>
+              Hier sehen Sie ein Beispiel für einen endlichen Automaten über dem Alphabet . Die Idee ist,
+              dass der Automat ein Wort Zeichen für Zeichen einliest. Die Pfeile zwischen den
+              Kreisen (den
+              <i>Zuständen</i>
+              des Automaten) zeigen an, in welchen neuen Zustand beim Lesen eines Zeichen
+              gewechselt werden
+              muss. Der Pfeil "aus dem Nichts", hier der von links nach , zeigt den
+              <i>Startzustand</i>
+              an, in welchem
+              der Automat beginnt.
+            </p>
+            <p>
+              Um zu zeigen, wie der Automat ein Eingabewort verarbeitet, nehmen wir das Beispiel .
+            </p>
+            <p>
+              In diesem Beispiel endet der Automat im Zustand . Sie sehen, dass der Zustand
+              mit einem doppelten Rand markiert ist: dies symbolisiert, dass ein
+              <i>akzeptierender</i>
+              Endzustand ist. Wenn der Automat ein Wort abgearbeitet hat,
+              <i>akzeptiert</i>
+              er
+              es,
+              wenn er in einem akzeptierenden Endzustand gelandet ist; ansonsten
+              <i>lehnt er es ab</i>. In
+              unserem
+              Beispiel sehen wir also, dass der Automat das Eingabewort ablehnt.
+            </p>
+            <div class="well container theorem">
+              <span data-label-title="Definition" id="definition-finite-state-machine" class="numbered-title">Definition
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
               </span>
-            <b>(Endlicher Automat, Finite State Machine).</b>
-            Ein endlicher Automat besteht aus einem endlichen Eingabealphaet , einer endlichen
-            Menge  von Zuständen,
-            einem Startzustand , einer Menge  von akzeptierenden
-            Endzuständen
-            und einer
-            Zustandsübergangsfunktion
-            \begin{align*}
-            \delta : Q \times \Sigma \rightarrow Q \ .
-            \end{align*}
-            Formal gesehen ist also ein Automat ein Quintupel .
-          </div>
-          <p>
-            Die Idee ist, dass der Automat im Zustand  startet und nun in jedem Schritt ein
-            weiteres
-            Zeichen des Eingabewortes liest. Wenn er im Zustand  ist und das Zeichen  liest,
-            so wechselt er in den Zustand . Statt  verwenden wir die
-            leichter zu lesende Schreibweise
-            
-            Wenn das Wort zu Ende ist, dann
-            <i>akzeptiert</i>
-            der Automat, wenn er in einem akzeptierenden Zustand angekommen ist, also in .
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Beispiel
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-              </span>Betrachten wir den endlichen Automatenund stellen ihn gemäßals Quintupel  dar mit
-            \begin{align*}
-            \Sigma&amp;= \{x,y,z\} \\
-            Q&amp;= \{S, X, Y\} \\
-            \qstart&amp;= S \\
-            F&amp;= \{X\} \ .
-            \end{align*}
-            <p>
-              Um noch die Zustandsübergangsfunktion $\delta$ darzustellen, müssen wir uns überlegen,
-              wie wir Funktionen überhaupt darstellen. Da $\delta$ eine endliche Funktion ist,
-              können wir einfach alle Eingabewert-Ausgabewert-Paare hinschreiben, am Besten
-              in einer Tabelle, so wie wir es bereits bei Booleschen Funktionen mit
-              Wahrheitstabellen getan haben. $\delta$ ist also
-            </p>
-            \begin{align*}
-            \begin{array}{cc|c}
-            q&amp;\sigma&amp;\delta(q,x) \\ \hline
-            S&amp;x&amp;X \\
-            S&amp;y&amp;S \\
-            S&amp;z&amp;S \\
-            X&amp;x&amp;X \\
-            X&amp;y&amp;Y \\
-            X&amp;z&amp;S \\
-            Y&amp;x&amp;Y \\
-            Y&amp;y&amp;Y \\
-            Y&amp;z&amp;Y
-            \end{array}
-            \end{align*}
-            <p>
-              Da die Funktion $\delta$ bei jedem endlichen Automaten genau zwei
-              Eingabeparameter hat, können wir es eventuell übersichtlicher als
-              zweidimensionale Tabelle darstellen:
-            </p>
-            \begin{align*}
-            \begin{array}{c|c|c|c}
-            &amp;x&amp;y&amp;z \\ \hline
-            S&amp;X&amp;S&amp;S \\ \hline
-            X&amp;X&amp;Y&amp;S \\ \hline
-            Y&amp;Y&amp;Y&amp;Y
-            \end{array}
-            \end{align*}
-            <p>
-              Diese zwei Tabellen dienen in diesem Beispiel aber nur dazu, noch einmal
-              zu illustrieren, was ich damit meine, wenn ich sage, dass
-              $\delta$ eine Funktion von $Q \times \Sigma$ nach $Q$ ist. Wenn Sie
-              selbst an endlichen Automaten rumbasteln, empfehle ich Ihnen,
-              die Funktion $\delta$ graphisch mit Kreisen und Pfeilen darzustellen,
-              so wie wir es oben getan haben:
-            </p>
-            <p>
-              Das ist eine völlig legitime Notation für eine Funktion $\delta: Q \times \Sigma \rightarrow
-              Q$
-              und genau so formal wie die Tabellenschreibweise.
-            </p>
-          </div>
-          <div class="well container theorem">
-            <span class="numbered-title">Definition
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-              </span>
-            <b>(Erweiterte Zuständsübergangsfunktion)</b>.
-            Für einen endlichen Automaten  definieren wir
-            die
-            <i>erweiterte Zustandsübergangsfunktion</i>
-            rekursiv wie folgt:
-            \begin{align*}
-            \hat{\delta} (q, \epsilon)&amp;= q \\
-            \hat{\delta} (q, x\alpha)&amp;= \hat{\delta} (\delta(x), \alpha) \ .
-            \end{align*}
-             heißt also, dass der Automat, wenn er sich im Zustand 
-            befindet
-            und das Wort  abarbeitet, er danach im Zustand  landet. Wir schreiben auch
-            kompakt
-          </div>
-          <div class="well container theorem">
-            <span class="numbered-title">Definition
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-              </span>
-            <b>
-              (Akzeptierte Sprache).
-            </b>
-            Sei  ein endlicher Automat. Die von  akzeptierte
-            Sprache
-            ist
-            \begin{align*}
-            L(M) := \{ \alpha \in \Sigma \ | \ \hat{\delta}(\qstart, \alpha) \in F \} \ .
-            \end{align*}
-          </div>
-          <div class="well container theorem">
-            <span class="numbered-title">Beispiel
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-              </span>Der endliche Automat, den wir oben bereits eingeführt haben:akzeptiert die Sprache aller , die auf  enden und nicht die
-            Buchstabenfolge  enthalten.
-          </div>
-          <div class="well well-lg numbered-exercise container">
-            <span class="numbered-title">Übungsaufgabe
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-              </span>Ändern Sie den Automaten aus dem letzten Beispiel so ab, dass die Bedingung
-            <i>"die auf 
-              enden"</i>
-            entfällt, er also
-            alle Wörter akzeptiert, die die Folge  nicht enthalten.
-          </div>
-          <div class="well well-lg numbered-exercise container">
-            <span class="numbered-title">Übungsaufgabe
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-              </span>Zeichnen Sie einen Automaten für die Sprache aller Wörter über , die
-            die Folge  enthalten.
-          </div>
-          <div class="well well-lg numbered-exercise container">
-            <span class="numbered-title">Übungsaufgabe
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-              </span>Zeichnen Sie einen Automaten für die Sprache aller Wörter über , die
-            genau vier  enthalten.
-          </div>
-          <h2>
-            Endliche Automaten zu regulären Grammatiken
-          </h2>
-          Wenn wir einen endlichen Automaten gegeben haben, dann können wir leicht eine entsprechende reguläre
-          Grammatik
-          dazu bauen, indem wir alle Pfeile einfach in Produktionen übersetzen. Für den Automatenwürde dies beispielsweise die folgenden Produktionen ergeben:
-          \begin{align*}
-          S&amp;\rightarrow y S \ | \ zS \ | \ x X \\
-          X&amp;\rightarrow x X \ | \ z S \ | \ y Y \\
-          Y&amp;\rightarrow x Y \ | \ y Y \ | \ z Y \\
-          \end{align*}
-          und, weil  ein akzeptierender Zustand ist,
-          \begin{align*}
-          X&amp;\rightarrow \epsilon
-          \end{align*}
-          Dies geht ganz allgemein:
-          <div
-            id="theorem-fsm-regular"
-            class="well container theorem"
-          >
-            <span class="numbered-title">Theorem
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
-              </span>Sei  ein endlicher Automat. Dann gibt es eine reguläre
-            Grammatik
-             mit .
-          </div>
-          <p>
-            Wir nehmen dies als Anlass, um mal wieder einen Induktionsbeweis im Detail durchzuführen.
-          </p>
-          <div class="well container">
-            <b>Beweis.</b>
-            Wir setzen  und  und führen für jeden Zustandsübergang, der von
-             beschrieben wird, eine Ableitungsregel ein:
-            \begin{align*}
-            q<i>1 \stackrel{x}{\rightarrow} q</i>2&amp;\quad \textnormal{ wird zur Produktion } \quad
-            q<i>1 \rightarrow xq</i>2
-            \end{align*}
-            Hiermit erhalten wir eine "Zwischengrammatik" . Die endgültige Grammatik  erhalten
-            wir,
-            indem wir für jeden akzeptierenden Zustand  die Produktion
-            \begin{align*}
-            q \rightarrow \epsilon
-            \end{align*}
-            einführen. Wir zeigen nun per Induktion:
-            <div class="well subtheorem theorem">
-              <span class="numbered-title">Behauptung
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
-                </span>Sei  und . Dann gilt
-               genau dann,
-              wenn  in Grammatik  gilt.
+              <b>(Endlicher Automat, Finite State Machine).</b>
+              Ein endlicher Automat besteht aus einem endlichen Eingabealphaet , einer endlichen
+              Menge von Zuständen,
+              einem Startzustand , einer Menge von akzeptierenden
+              Endzuständen
+              und einer
+              Zustandsübergangsfunktion
+              \begin{align*}
+              \delta : Q \times \Sigma \rightarrow Q \ .
+              \end{align*}
+              Formal gesehen ist also ein Automat ein Quintupel .
             </div>
             <p>
-              Bevor wir diese Behauptung beweisen, achten Sie auf die Bedeutung der Symbole. Der
-              einfache Pfeil in  beschreibt die Arbeitsweise des
-              endlichen Automaten, dass nämlich
-              das Verarbeiten von  den Automaten vom Zustand  in den Zustand  führt.
-              Der doppelte Pfeil in  sagt aus, dass aus dem
-              Nichtterminalsymbol
-               in der Grammatik
-               in möglicherweise mehreren Schritten die Wortform  abgeleitet werden
-              kann.
-              Der Pfeil  "lebt" also im Automaten , der Pfeil  lebt
-              in
-              der Grammatik .
+              Die Idee ist, dass der Automat im Zustand startet und nun in jedem Schritt ein
+              weiteres
+              Zeichen des Eingabewortes liest. Wenn er im Zustand ist und das Zeichen liest,
+              so wechselt er in den Zustand . Statt verwenden wir die
+              leichter zu lesende Schreibweise
+
+              Wenn das Wort zu Ende ist, dann
+              <i>akzeptiert</i>
+              der Automat, wenn er in einem akzeptierenden Zustand angekommen ist, also in .
             </p>
-            <div class="well subtheorem">
-              <b>Beweis.</b>
-              Wir verwenden Induktion über die Länge des Wortes .
+            <div class="well container theorem">
+              <span class="numbered-title">Beispiel
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
+              </span>Betrachten wir den endlichen Automatenund stellen ihn gemäßals Quintupel dar mit
+              \begin{align*}
+              \Sigma&amp;= \{x,y,z\} \\
+              Q&amp;= \{S, X, Y\} \\
+              \qstart&amp;= S \\
+              F&amp;= \{X\} \ .
+              \end{align*}
               <p>
-                <b>Induktionsbasis.</b>
-                Wenn  gilt, also  die
-                Länge 0 hat, dann
-                gilt  genau dann, wenn  ist. Wie kann
-                nun
-                 in  gelten? Beachten Sie, dass jede Produktion in
-                 ein Terminalsymbol
-                erzeugt;  kann also nur gelten, wenn
-                <i>keine</i>
-                Produktion erfolgt ist und somit
-                 gilt. Wir sehen: beide Aussagen sind äquivalent zu  und somit auch
-                äquivalent zueinander.
+                Um noch die Zustandsübergangsfunktion $\delta$ darzustellen, müssen wir uns überlegen,
+                wie wir Funktionen überhaupt darstellen. Da $\delta$ eine endliche Funktion ist,
+                können wir einfach alle Eingabewert-Ausgabewert-Paare hinschreiben, am Besten
+                in einer Tabelle, so wie wir es bereits bei Booleschen Funktionen mit
+                Wahrheitstabellen getan haben. $\delta$ ist also
+              </p>
+              \begin{align*}
+              \begin{array}{cc|c}
+              q&amp;\sigma&amp;\delta(q,x) \\ \hline
+              S&amp;x&amp;X \\
+              S&amp;y&amp;S \\
+              S&amp;z&amp;S \\
+              X&amp;x&amp;X \\
+              X&amp;y&amp;Y \\
+              X&amp;z&amp;S \\
+              Y&amp;x&amp;Y \\
+              Y&amp;y&amp;Y \\
+              Y&amp;z&amp;Y
+              \end{array}
+              \end{align*}
+              <p>
+                Da die Funktion $\delta$ bei jedem endlichen Automaten genau zwei
+                Eingabeparameter hat, können wir es eventuell übersichtlicher als
+                zweidimensionale Tabelle darstellen:
+              </p>
+              \begin{align*}
+              \begin{array}{c|c|c|c}
+              &amp;x&amp;y&amp;z \\ \hline
+              S&amp;X&amp;S&amp;S \\ \hline
+              X&amp;X&amp;Y&amp;S \\ \hline
+              Y&amp;Y&amp;Y&amp;Y
+              \end{array}
+              \end{align*}
+              <p>
+                Diese zwei Tabellen dienen in diesem Beispiel aber nur dazu, noch einmal
+                zu illustrieren, was ich damit meine, wenn ich sage, dass
+                $\delta$ eine Funktion von $Q \times \Sigma$ nach $Q$ ist. Wenn Sie
+                selbst an endlichen Automaten rumbasteln, empfehle ich Ihnen,
+                die Funktion $\delta$ graphisch mit Kreisen und Pfeilen darzustellen,
+                so wie wir es oben getan haben:
               </p>
               <p>
-                <b>Induktionsschritt</b>. Wenn  die Länge  hat, so schreiben
-                wir 
-                für ein Wort  der Länge . Per Induktionshypothese können wir
-                nun davon ausgehen, dass für alle
-                 die Aussage  genau dann
-                gilt,
-                wenn  gilt.
-                Unser Ziel ist es, zu zeigen, dass die beiden folgenden Aussagen äquivalent sind:
+                Das ist eine völlig legitime Notation für eine Funktion $\delta: Q \times \Sigma \rightarrow
+                Q$
+                und genau so formal wie die Tabellenschreibweise.
+              </p>
+            </div>
+            <div class="well container theorem">
+              <span class="numbered-title">Definition
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
+              </span>
+              <b>(Erweiterte Zuständsübergangsfunktion)</b>.
+              Für einen endlichen Automaten definieren wir
+              die
+              <i>erweiterte Zustandsübergangsfunktion</i>
+              rekursiv wie folgt:
+              \begin{align*}
+              \hat{\delta} (q, \epsilon)&amp;= q \\
+              \hat{\delta} (q, x\alpha)&amp;= \hat{\delta} (\delta(x), \alpha) \ .
+              \end{align*}
+              heißt also, dass der Automat, wenn er sich im Zustand
+              befindet
+              und das Wort abarbeitet, er danach im Zustand landet. Wir schreiben auch
+              kompakt
+            </div>
+            <div class="well container theorem">
+              <span class="numbered-title">Definition
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
+              </span>
+              <b>
+                (Akzeptierte Sprache).
+              </b>
+              Sei ein endlicher Automat. Die von akzeptierte
+              Sprache
+              ist
+              \begin{align*}
+              L(M) := \{ \alpha \in \Sigma \ | \ \hat{\delta}(\qstart, \alpha) \in F \} \ .
+              \end{align*}
+            </div>
+            <div class="well container theorem">
+              <span class="numbered-title">Beispiel
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
+              </span>Der endliche Automat, den wir oben bereits eingeführt haben:akzeptiert die Sprache aller , die auf
+              enden und nicht die
+              Buchstabenfolge enthalten.
+            </div>
+            <div class="well well-lg numbered-exercise container">
+              <span class="numbered-title">Übungsaufgabe
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
+              </span>Ändern Sie den Automaten aus dem letzten Beispiel so ab, dass die Bedingung
+              <i>"die auf
+                enden"</i>
+              entfällt, er also
+              alle Wörter akzeptiert, die die Folge nicht enthalten.
+            </div>
+            <div class="well well-lg numbered-exercise container">
+              <span class="numbered-title">Übungsaufgabe
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
+              </span>Zeichnen Sie einen Automaten für die Sprache aller Wörter über , die
+              die Folge enthalten.
+            </div>
+            <div class="well well-lg numbered-exercise container">
+              <span class="numbered-title">Übungsaufgabe
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
+              </span>Zeichnen Sie einen Automaten für die Sprache aller Wörter über , die
+              genau vier enthalten.
+            </div>
+            <h2>
+              Endliche Automaten zu regulären Grammatiken
+            </h2>
+            Wenn wir einen endlichen Automaten gegeben haben, dann können wir leicht eine entsprechende reguläre
+            Grammatik
+            dazu bauen, indem wir alle Pfeile einfach in Produktionen übersetzen. Für den Automatenwürde dies
+            beispielsweise die folgenden Produktionen ergeben:
+            \begin{align*}
+            S&amp;\rightarrow y S \ | \ zS \ | \ x X \\
+            X&amp;\rightarrow x X \ | \ z S \ | \ y Y \\
+            Y&amp;\rightarrow x Y \ | \ y Y \ | \ z Y \\
+            \end{align*}
+            und, weil ein akzeptierender Zustand ist,
+            \begin{align*}
+            X&amp;\rightarrow \epsilon
+            \end{align*}
+            Dies geht ganz allgemein:
+            <div id="theorem-fsm-regular" class="well container theorem">
+              <span class="numbered-title">Theorem
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.6</NumberedTitle>
+              </span>Sei ein endlicher Automat. Dann gibt es eine reguläre
+              Grammatik
+              mit .
+            </div>
+            <p>
+              Wir nehmen dies als Anlass, um mal wieder einen Induktionsbeweis im Detail durchzuführen.
+            </p>
+            <div class="well container">
+              <b>Beweis.</b>
+              Wir setzen und und führen für jeden Zustandsübergang, der von
+              beschrieben wird, eine Ableitungsregel ein:
+              \begin{align*}
+              q<i>1 \stackrel{x}{\rightarrow} q</i>2&amp;\quad \textnormal{ wird zur Produktion } \quad
+              q<i>1 \rightarrow xq</i>2
+              \end{align*}
+              Hiermit erhalten wir eine "Zwischengrammatik" . Die endgültige Grammatik erhalten
+              wir,
+              indem wir für jeden akzeptierenden Zustand die Produktion
+              \begin{align*}
+              q \rightarrow \epsilon
+              \end{align*}
+              einführen. Wir zeigen nun per Induktion:
+              <div class="well subtheorem theorem">
+                <span class="numbered-title">Behauptung
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.7</NumberedTitle>
+                </span>Sei und . Dann gilt
+                genau dann,
+                wenn in Grammatik gilt.
+              </div>
+              <p>
+                Bevor wir diese Behauptung beweisen, achten Sie auf die Bedeutung der Symbole. Der
+                einfache Pfeil in beschreibt die Arbeitsweise des
+                endlichen Automaten, dass nämlich
+                das Verarbeiten von den Automaten vom Zustand in den Zustand führt.
+                Der doppelte Pfeil in sagt aus, dass aus dem
+                Nichtterminalsymbol
+                in der Grammatik
+                in möglicherweise mehreren Schritten die Wortform abgeleitet werden
+                kann.
+                Der Pfeil "lebt" also im Automaten , der Pfeil lebt
+                in
+                der Grammatik .
+              </p>
+              <div class="well subtheorem">
+                <b>Beweis.</b>
+                Wir verwenden Induktion über die Länge des Wortes .
+                <p>
+                  <b>Induktionsbasis.</b>
+                  Wenn gilt, also die
+                  Länge 0 hat, dann
+                  gilt genau dann, wenn ist. Wie kann
+                  nun
+                  in gelten? Beachten Sie, dass jede Produktion in
+                  ein Terminalsymbol
+                  erzeugt; kann also nur gelten, wenn
+                  <i>keine</i>
+                  Produktion erfolgt ist und somit
+                  gilt. Wir sehen: beide Aussagen sind äquivalent zu und somit auch
+                  äquivalent zueinander.
+                </p>
+                <p>
+                  <b>Induktionsschritt</b>. Wenn die Länge hat, so schreiben
+                  wir
+                  für ein Wort der Länge . Per Induktionshypothese können wir
+                  nun davon ausgehen, dass für alle
+                  die Aussage genau dann
+                  gilt,
+                  wenn gilt.
+                  Unser Ziel ist es, zu zeigen, dass die beiden folgenden Aussagen äquivalent sind:
+                </p>
+                <ol>
+                  <li>
+                    im endlichen Automaten ,
+                  </li>
+                  <li>
+                    in der Grammatik .
+                  </li>
+                </ol>
+                <p>
+                  Wir müssen beide Richtungen zeigen, also zeigen, dass aus Aussage (1) die Aussage (2) folgt
+                  und umgekehrt.
+                </p>
+                <p>
+                  <b>Aus (1) folgt (2).</b>
+                  Nehmen wir also an, dass
+                  gilt und bezeichnen
+                  . Es gilt also
+
+                  Der erste Teil, also , bedeutet, dass wir in
+                  die Produktion
+                  eingeführt haben.
+                  Auf den zweiten Teil, also , können
+                  wir die Induktionshypothese anwenden und schließen, dass
+                  gilt. Nun können wir mit dem Nichtterminal
+                  beginnen,
+                  die Produktion anwenden und dann mit fortfahrend die
+                  Wortform
+                  ableiten, also
+
+                  Dies zeigt die erste Richtung.
+                </p>
+                <p>
+                  <b>Aus (2) folgt (1).</b>
+                  Nun nehmen wir an, dass gilt. Untersuchen wir die erste
+                  Produktion, die in dieser
+                  Ableitung verwendet worden ist. Alle Produktionen in erzeugen ein Terminalsymbol,
+                  also muss es eine
+                  Produktion der Form
+
+                  gewesen sein. Die Ableitung hat also die Form
+                  \begin{align*}
+                  q \Rightarrow x q_1 \Rightarrow^* x \beta q' \ ,
+                  \end{align*}
+                  wir können also aus die Wortform ableiten: . Auf diese
+                  Erkenntnis wenden wir die Induktionshypothese an und schließen, dass
+
+                  gilt. Die Produktionsregel kann nur in eingeführt worden
+                  sein, weil
+                  , also . Somit sehen wir, dass
+
+                  gilt, also zusammengenommen . Dies zeigt die
+                  zweite Richtung.
+                </p>
+                Hiermit endet der Induktionsbeweis.<span class="qed">
+                </span>
+              </div>
+              <p>
+                Wir haben nun die Behauptung bewiesen. Als nächstens betrachten wir die Grammatik und
+                behaupten,
+                dass gilt. Sei , dann behaupten wir also, dass wir
+                folgenden
+                zwei Aussagen äquivalent sind:
               </p>
               <ol>
                 <li>
-                  im endlichen Automaten ,
+                  für einen Zustand ,
                 </li>
                 <li>
-                  in der Grammatik .
+                  in Grammatik .
                 </li>
               </ol>
               <p>
-                Wir müssen beide Richtungen zeigen, also zeigen, dass aus Aussage (1) die Aussage (2) folgt
-                und umgekehrt.
+                Wenn nun also gilt und , dann
+                wissen wir von der obigen Behauptung, dass es in die Ableitung
+                gibt. Da ist, enthält die
+                Produktion , und somit können wir in die Ableitung
+                machen.
               </p>
               <p>
-                <b>Aus (1) folgt (2).</b>
-                Nehmen wir also an, dass
-                 gilt und bezeichnen
-                . Es gilt also
-                
-                Der erste Teil, also , bedeutet, dass wir in 
-                die Produktion
-                 eingeführt haben.
-                Auf den zweiten Teil, also , können
-                wir die Induktionshypothese anwenden und schließen, dass
-                 gilt. Nun können wir mit dem Nichtterminal 
-                beginnen,
-                die Produktion  anwenden und dann mit  fortfahrend die
-                Wortform
-                 ableiten, also
-                
-                Dies zeigt die erste Richtung.
-              </p>
-              <p>
-                <b>Aus (2) folgt (1).</b>
-                Nun nehmen wir an, dass  gilt. Untersuchen wir die erste
-                Produktion, die in dieser
-                Ableitung verwendet worden ist. Alle Produktionen in  erzeugen ein Terminalsymbol,
-                also muss es eine
-                Produktion der Form
-                
-                gewesen sein. Die Ableitung hat also die Form
-                \begin{align*}
-                q \Rightarrow x q_1 \Rightarrow^* x \beta q' \ ,
-                \end{align*}
-                wir können also aus  die Wortform  ableiten: . Auf diese
-                Erkenntnis wenden wir die Induktionshypothese an und schließen, dass
-                
-                gilt. Die Produktionsregel  kann nur in  eingeführt worden
-                sein, weil
-                , also . Somit sehen wir, dass
-                
-                gilt, also zusammengenommen . Dies zeigt die
-                zweite Richtung.
-              </p>
-              Hiermit endet der Induktionsbeweis.<span class="qed">
+                In der anderen Richtung, wenn in Grammatik gilt, dann
+                betrachten wir den letzten Ableitungsschritt. Da keine Nichtterminalsymbole
+                enthält, muss im letzten Ableitungsschritt ein Nichtterminalsymbol
+                verschwunden sein. Die einzigen Produktionen in bei denen das Nichtterminal
+                verschwindet,
+                sind von der Form , wenn im Automaten ein
+                akzeptierender Endzustand ist.
+                Sei nun also die Produktion, die im letzten Ableitungsschritt
+                angewendet worden ist.
+                Es gilt also
+                . Beachten Sie nun weiter, dass
+                all jene Produktionen, die in aber nicht in sind, die Form haben,
+                also das Nichtterminalsymbol verschwinden lassen; es kann in einer Ableitung also nur eine
+                solche Produktion angewandt
+                worden sein, und das ganz zum Schluss. Das heißt: die Ableitung
+                verwendet ausschließlich -Produktionen. Somit
+                können
+                wir die oben gezeigte Behauptung anwenden
+                und folgern, dass
+
+                gilt. Dies ist genau Punkt 1, den wir zeigen wollten.<span class="qed">
                 </span>
+              </p>
             </div>
             <p>
-              Wir haben nun die Behauptung bewiesen. Als nächstens betrachten wir die Grammatik  und
-              behaupten,
-              dass  gilt. Sei , dann behaupten wir also, dass wir
-              folgenden
-              zwei Aussagen äquivalent sind:
+              Beachten Sie, dass dieser Beweis eigentlich gar nicht so schwierig ist, wie er hier aussieht.
+              Ich habe
+              ihn absichtlich sehr formal und ausführlich geschrieben, um Ihnen das Prinzip des
+              Induktionsbeweises ins
+              Gedächtnis zu rufen.
             </p>
-            <ol>
-              <li>
-                für einen Zustand ,
-              </li>
-              <li>
-                in Grammatik .
-              </li>
-            </ol>
+            <div class="well well-lg numbered-exercise container">
+              <span class="numbered-title">Übungsaufgabe
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
+              </span>Schreiben Sie zu folgendem Automaten über dem Alphabet eine
+              äquivalente reguläre Grammatik:und beschreiben Sie die Sprache in eigenen Worten.
+            </div>
+            <h2>
+              Reguläre Grammatiken zu endlichen Automaten?
+            </h2>
             <p>
-              Wenn nun also  gilt und , dann
-              wissen wir von der obigen Behauptung, dass es in  die Ableitung
-               gibt. Da  ist, enthält  die
-              Produktion , und somit können wir in  die Ableitung
-               machen.
+              Im letzten Abschnitt haben wir gesehen, wie wir zu einem gegebenen endlichen Automaten recht
+              einfach eine äquivalente
+              reguläre Grammatik schreibne können. Es drängt sich die Frage auf: geht das auch umgekehrt?
+              Versuchen wir es.
+              Zu jedem "Grammatik-Pfeil" bauen wir uns einen "Automaten-Pfeil" .
             </p>
-            <p>
-              In der anderen Richtung, wenn  in Grammatik  gilt, dann
-              betrachten wir den letzten Ableitungsschritt. Da  keine Nichtterminalsymbole
-              enthält, muss im letzten Ableitungsschritt ein Nichtterminalsymbol
-              verschwunden sein. Die einzigen Produktionen in  bei denen das Nichtterminal
-              verschwindet,
-              sind von der Form , wenn  im Automaten  ein
-              akzeptierender Endzustand ist.
-              Sei nun also  die Produktion, die im letzten Ableitungsschritt
-              angewendet worden ist.
-              Es gilt also
-              . Beachten Sie nun weiter, dass
-              all jene Produktionen, die in  aber nicht in  sind, die Form  haben,
-              also das Nichtterminalsymbol verschwinden lassen; es kann in einer Ableitung also nur eine
-              solche Produktion angewandt
-              worden sein, und das ganz zum Schluss. Das heißt: die Ableitung
-               verwendet ausschließlich -Produktionen. Somit
-              können
-              wir die oben gezeigte Behauptung anwenden
-              und folgern, dass
-              
-              gilt. Dies ist genau Punkt 1, den wir zeigen wollten.<span class="qed">
-                </span>
-            </p>
-          </div>
-          <p>
-            Beachten Sie, dass dieser Beweis eigentlich gar nicht so schwierig ist, wie er hier aussieht.
-            Ich habe
-            ihn absichtlich sehr formal und ausführlich geschrieben, um Ihnen das Prinzip des
-            Induktionsbeweises ins
-            Gedächtnis zu rufen.
-          </p>
-          <div class="well well-lg numbered-exercise container">
-            <span class="numbered-title">Übungsaufgabe
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-              </span>Schreiben Sie zu folgendem Automaten über dem Alphabet  eine
-            äquivalente reguläre Grammatik:und beschreiben Sie die Sprache in eigenen Worten.
-          </div>
-          <h2>
-            Reguläre Grammatiken zu endlichen Automaten?
-          </h2>
-          <p>
-            Im letzten Abschnitt haben wir gesehen, wie wir zu einem gegebenen endlichen Automaten recht
-            einfach eine äquivalente
-            reguläre Grammatik schreibne können. Es drängt sich die Frage auf: geht das auch umgekehrt?
-            Versuchen wir es.
-            Zu jedem "Grammatik-Pfeil"  bauen wir uns einen "Automaten-Pfeil" .
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Beispiel
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.8</NumberedTitle>
+            <div class="well container theorem">
+              <span class="numbered-title">Beispiel
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.8</NumberedTitle>
               </span>Betrachten wir die
-            <a href="./04-01-regular-grammars.html#example-aaabb">reguläre Grammatik aus
-              dem vorherigen Kapitel 4.1</a>:
-            \begin{align*}
-            S&amp;\rightarrow \epsilon \ |\ a S \ | \ b T \\
-            T&amp;\rightarrow \epsilon \ | \ b T \ .
-            \end{align*}
-            <p>
-              Versuchen wir, daraus einen endlichen Automaten zu bauen. Als Zustandsmenge nehmen wir die
-              Menge nichtterminaler Symbole , als
-              Startzustand das Startsymbol . Zustandsübergänge ergeben sich aus den
-              Produktionsregeln, wobei wir für Produktionen der Form
-               den Zustand  zu einem Endzustand machen. Also:
-            </p>
-            <p>
-              Wie Sie sehen, ist das nicht ganz korrekt. Als erstes fällt ins Auge, dass alle Zustände
-              akzeptierende Endzustände sind.
-              Als zweites fällt uns auf, dass es bei  für das Eingabesymbol  keinen ausgehenden
-              Pfeil gibt. Der
-              Funktionswert  ist also undefiniert. Der Grund hierfür ist, dass, wenn erst
-              mal ein  vorgekommen ist,
-              eben kein  mehr vorkommen darf. Die Definition eines endlichen Automaten
-              verlangt aber, dass  eine Funktion ist, also für alle Eingabewerte definiert ist.
-              Wir lösen das, indem wir einen sogenannten
-              <i>Fehlerzustand (Trap State)</i>
-              einführen,
-              der im Prinzip
-              den Zustand
-              <i>lehne das Wort ab, egal, was noch kommt</i>
-              versinnbildlicht:Dies ist nun unser endlicher Automat  mit .
-            </p>
-          </div>
-          <div class="well container theorem">
-            <span class="numbered-title">Beispiel
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.9</NumberedTitle>
+              <a href="./04-01-regular-grammars.html#example-aaabb">reguläre Grammatik aus
+                dem vorherigen Kapitel 4.1</a>:
+              \begin{align*}
+              S&amp;\rightarrow \epsilon \ |\ a S \ | \ b T \\
+              T&amp;\rightarrow \epsilon \ | \ b T \ .
+              \end{align*}
+              <p>
+                Versuchen wir, daraus einen endlichen Automaten zu bauen. Als Zustandsmenge nehmen wir die
+                Menge nichtterminaler Symbole , als
+                Startzustand das Startsymbol . Zustandsübergänge ergeben sich aus den
+                Produktionsregeln, wobei wir für Produktionen der Form
+                den Zustand zu einem Endzustand machen. Also:
+              </p>
+              <p>
+                Wie Sie sehen, ist das nicht ganz korrekt. Als erstes fällt ins Auge, dass alle Zustände
+                akzeptierende Endzustände sind.
+                Als zweites fällt uns auf, dass es bei für das Eingabesymbol keinen ausgehenden
+                Pfeil gibt. Der
+                Funktionswert ist also undefiniert. Der Grund hierfür ist, dass, wenn erst
+                mal ein vorgekommen ist,
+                eben kein mehr vorkommen darf. Die Definition eines endlichen Automaten
+                verlangt aber, dass eine Funktion ist, also für alle Eingabewerte definiert ist.
+                Wir lösen das, indem wir einen sogenannten
+                <i>Fehlerzustand (Trap State)</i>
+                einführen,
+                der im Prinzip
+                den Zustand
+                <i>lehne das Wort ab, egal, was noch kommt</i>
+                versinnbildlicht:Dies ist nun unser endlicher Automat mit .
+              </p>
+            </div>
+            <div class="well container theorem">
+              <span class="numbered-title">Beispiel
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.9</NumberedTitle>
               </span>Betrachten wir die
-            <a href="./04-01-regular-grammars.html#example-xxx1yyy">reguläre Grammatik
-              aus
-              dem vorherigen Kapitel 4.1</a>:
-            \begin{align*}
-            A&amp;\rightarrow 0 A \ | 1 A \ | 1 B \\
-            B&amp;\rightarrow 0 C \ | 1 C \\
-            C&amp;\rightarrow 0 D \ | 1 D \\
-            D&amp;\rightarrow 0 E \ | 1 E \\
-            E&amp;\rightarrow \epsilon \
-            \end{align*}
-            Wobei wir aus dem vorherigen Beispiel lernen und einen Fehlerzustand einführen:
+              <a href="./04-01-regular-grammars.html#example-xxx1yyy">reguläre Grammatik
+                aus
+                dem vorherigen Kapitel 4.1</a>:
+              \begin{align*}
+              A&amp;\rightarrow 0 A \ | 1 A \ | 1 B \\
+              B&amp;\rightarrow 0 C \ | 1 C \\
+              C&amp;\rightarrow 0 D \ | 1 D \\
+              D&amp;\rightarrow 0 E \ | 1 E \\
+              E&amp;\rightarrow \epsilon \
+              \end{align*}
+              Wobei wir aus dem vorherigen Beispiel lernen und einen Fehlerzustand einführen:
+              <p>
+                Leider ist diese Lösung auch nicht korrekt: jetzt gibt es zu viele Pfeile! Aus dem Zustand
+                gehen zwei
+                Pfeile mit beschriftet hinaus. Wenn wir uns vor Augen halten, was die von
+                erzeugte Sprache ist, so
+                wird das Problem klarer: erzeugt die Sprache aller Wörter über , deren
+                <i>viertletztes</i>
+                Zeichen
+                eine 1 ist. Die Herausforderung ist nun: wenn der Automat eine 1 liest, dann weiß er nicht,
+                ob das jetzt schon
+                das viertletzte Zeichen ist oder nicht; er weiß also nicht, ob er im Zustand bleiben
+                soll oder weiter
+                zum Zustand gehen soll.
+              </p>
+            </div>
             <p>
-              Leider ist diese Lösung auch nicht korrekt: jetzt gibt es zu viele Pfeile! Aus dem Zustand
-               gehen zwei
-              Pfeile mit  beschriftet hinaus. Wenn wir uns vor Augen halten, was die von 
-              erzeugte Sprache ist, so
-              wird das Problem klarer:  erzeugt die Sprache aller Wörter über , deren
-              <i>viertletztes</i>
-              Zeichen
-              eine 1 ist. Die Herausforderung ist nun: wenn der Automat eine 1 liest, dann weiß er nicht,
-              ob das jetzt schon
-              das viertletzte Zeichen ist oder nicht; er weiß also nicht, ob er im Zustand  bleiben
-              soll oder weiter
-              zum Zustand  gehen soll.
+              Um mit Fällen wie dem eben geschilderten umgehen zu können, erweitern wir die Definition des
+              endlichen Automaten
+              in nächsten Kapitel zu einem
+              <i>nichtdeterministischen</i>
+              endlichen Automaten.
             </p>
           </div>
-          <p>
-            Um mit Fällen wie dem eben geschilderten umgehen zu können, erweitern wir die Definition des
-            endlichen Automaten
-            in nächsten Kapitel zu einem
-            <i>nichtdeterministischen</i>
-            endlichen Automaten.
-          </p>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 </body>

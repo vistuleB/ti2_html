@@ -1,348 +1,339 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-      <link rel="icon" href="data:,">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
-    <link rel="stylesheet" type="text/css" href="../TI.css" />
-    <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="../numbered-title.js"></script>
-    <script type="text/javascript" src="../mathjax_setup.js"></script>
-    <script type="text/javascript" src="../carousel.js"></script>
-    <script type="text/javascript" src="../sendCmdTo3003.js"></script>
-    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <link rel="icon" href="data:," />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
+  <link rel="stylesheet" type="text/css" href="../TI.css" />
+  <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="../numbered-title.js"></script>
+  <script type="text/javascript" src="../mathjax_setup.js"></script>
+  <script type="text/javascript" src="../carousel.js"></script>
+  <script type="text/javascript" src="../sendCmdTo3003.js"></script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
+
 <body>
-<section
-  count="39"
-  _="BookLevelSectionCounter 39"
-  title_gr="Grenzen kontextfreier Sprachen"
-  title_en="not context free"
-  number="5.10"
-  counter="DefCtr"
-  counter="ExoCtr"
-  path="/lecture-notes39"
->
-  <div id="link-to-toc">
-    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="05-09-general-parsing.html">&lt;&lt; Kapitel 5.9</a>
-  </div>
-  <div
-    id="link-to-overview"
-    style="text-align: end"
-  >
-    <a href="/">zur Kursübersicht</a><a href="06-00-general-grammars.html">Kapitel 6.0 &gt;&gt;</a>
-  </div>
-  <div id="rightSideWrapper">
-    <div class="content">
-      <div class="chapter">
-        <div class="subChapter">
-          <h1 class="hidden-title">
-            <span class="subChapterTitle">::::ChapterCtr.11
-              Die Grenzen kontextfreier Sprachen</span>
-          </h1>
-          <p>
-            Im letzten Teilkapitel haben wir den CYK-Algorithmus kennengelernt. Dieser verwendet
-            das Prinzip des
-            <i>Dynamic Programming</i>, um für eine allgemeine kontextfreie
-            Grammatik  und ein Eingabewort  einen Ableitungsbaum zu finden (oder
-            festzustellen,
-            dass es
-            keinen gibt und somit ).
-          </p>
-          <p>
-            In diesem Teilkapitel werden wir sehen, dass viele Sprachen gar nicht kontextfrei sind, und
-            werden
-            hoffentlich ein Gefühl dafür entwickeln, welche Konstruktionen Kontextfreiheit verhindern,
-            ähnlich wie
-            "Verschachtelung" eine Sprache nicht-regulär macht.
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Beispiel
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
+  <section count="39" _="BookLevelSectionCounter 39" title_gr="Grenzen kontextfreier Sprachen"
+    title_en="not context free" number="5.10" counter="DefCtr" counter="ExoCtr" path="/lecture-notes39">
+    <div id="link-to-toc">
+      <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="05-09-general-parsing.html">&lt;&lt; Kapitel
+        5.9</a>
+    </div>
+    <div id="link-to-overview" style="text-align: end">
+      <a href="/">zur Kursübersicht</a><a href="06-00-general-grammars.html">Kapitel 6.0 &gt;&gt;</a>
+    </div>
+    <div id="rightSideWrapper">
+      <div class="content">
+        <div class="chapter">
+          <div class="subChapter">
+            <h1 class="hidden-title">
+              <span class="subChapterTitle">::::ChapterCtr.11
+                Die Grenzen kontextfreier Sprachen</span>
+            </h1>
+            <p>
+              Im letzten Teilkapitel haben wir den CYK-Algorithmus kennengelernt. Dieser verwendet
+              das Prinzip des
+              <i>Dynamic Programming</i>, um für eine allgemeine kontextfreie
+              Grammatik und ein Eingabewort einen Ableitungsbaum zu finden (oder
+              festzustellen,
+              dass es
+              keinen gibt und somit ).
+            </p>
+            <p>
+              In diesem Teilkapitel werden wir sehen, dass viele Sprachen gar nicht kontextfrei sind, und
+              werden
+              hoffentlich ein Gefühl dafür entwickeln, welche Konstruktionen Kontextfreiheit verhindern,
+              ähnlich wie
+              "Verschachtelung" eine Sprache nicht-regulär macht.
+            </p>
+            <div class="well container theorem">
+              <span class="numbered-title">Beispiel
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
               </span>Betrachten wir die Sprache
-            \begin{align*}
-            L := \{ a^n b^n c^n \ | \ \ n \geq 0\} \ .
-            \end{align*}
-            <p>
-              Ein Kellerautomat könnte nun alle  auf den Stack legen und dann, wenn die
-               beginnen, den Stapel abarbeiten. Allerdings hätte er dann, wenn die  kommen,
-              vergessen, wieviele  es denn waren. Irgendwie scheinen Kellerautomaten nicht für 
-              geeignet. Dies ist natürlich nur eine Intuition. Vielleicht kennen wir einfach nicht alle
-              Tricks,
-              die man mit Kellerautomaten (und somit mit kontextfreien Grammatiken) anstellen kann.
-            </p>
-            <p>
-              Wir werden nun beweisen, dass  nicht kontextfrei ist; dass es also für  keine
-              kontextfreie Grammatik gibt. Wir gehen wie folgt vor: wir nehmen eine kontextfreie
-              Grammatik , die jedes Wort  ableiten kann. Dann sehen wir uns den
-              Ableitungsbaum
-              für ein "sehr langes"  an und werden sehen, dass wir in  andere Wörter
-               ableiten
-              können, die nicht in  sind. Somit haben wir gezeigt, dass  keine korrekte
-              Grammatik
-              für  ist. Als erstes verlangen wir, dass  in Chomsky-Normalform vorliegt.
-              Dann schauen wir uns für ein  den Ableitungsbaum an:
-            </p>
-            Nun betrachten wir in diesem Ableitungsbaum den längsten Pfad von  zu einem
-            Nichtterminalknoten, der direkt über den Terminalen steht. Wenn dieser Länge  hat (also
-             Kanten lang ist), dann hat der Baum höchstens  Blätter, also .
-            Wenn nun  ist, dann gibt es einen Pfad der Länge 
-            von diesem  aufwärts richtung . Auf diesem liegen  Nichtterminalsymbole,
-            mehr als es in  gibt; also muss ein Terminalsymbol zweimal vorkommen:Der Pfad vom oberen zum unteren  hat höchstens Länge  (so haben wir diesen Pfad
-            gewählt),
-            und somit hat das Unterwort  höchstens  Zeichen.
-            Wenn wir nun das Wort  für ein sehr großes  betrachten, sagen wir
-            , dann kann das Wort  nicht alle drei Symbole  enthalten;
-            sonst würde es ja alle  Symbole  und noch weitere enthalten, wäre also länger als
-            ; allerdings haben wir ja gesehen, dass  gilt.
-            Nehmen wir nun also der Einfachheit halber an, dass  nicht das Symbol  enthält:
-             (der andere Fall ist symmetrisch und kann mit den gleichen Argumenten wie
-            unten
-            behandelt werden).
-            <p>
-              Nun holen wir zum entscheidenden Schlag aus: wir "pumpen" das Wort  auf, indem
-              wir die Teilbäume mit  an der Wurzel wiederholen. Konkret besagt ja oberer Baum,
-              dass  wie folgt hergeleitet wurde:
               \begin{align*}
-              S \Step{}^* u Z v \Step{}^* uvZxy \Step{}^* uvwxy
+              L := \{ a^n b^n c^n \ | \ \ n \geq 0\} \ .
               \end{align*}
-              Insbesondere heißt das, dass  gilt. Wir können diesen
-              Schritt also wiederholen:und somit das Wort  und ganz allgemein jedes Wort
-              \begin{align*}
-              uv^i w x^i y
-              \end{align*}
-              ableiten, für jedes . Selbst für  geht das:
-            </p>
-            Betrachten wir nun das Wort . Wir haben ja gesehen, dass in
-             alle -Symbole rechts von  liegen, also in .
-            Das Wort  hat also immer noch  viele -Symbole. Allerdings hat
-            es die Symbole in  und  verloren! Wir wissen nicht, wieviele davon  und 
-            waren,
-            aber eines ist ganz klar: in  kommen die Symbole  nicht mehr gleich
-            häufig vor, und somit .
-            <p>
-              Wir haben also gezeigt, dass die kontextfreie Grammatik
-              <i>nicht</i>
-              die Sprache
-               erzeugt: wenn wir alle  erzeugen kann, dann
-              kann sie auch Wörter wie  erzeugen. Da unsere Argumentation keine
-              Annahmen über  getroffen hat, außer, dass sie kontextfrei ist, haben wir gezeigt:
-               ist keine kontextfreie Sprache.
-            </p>
-            <p>
-              <b>Vorsicht!</b>
-              Wir haben angenommen, das  weniger Zeichen hat
-              als , weil ja  und  fehlen. Kann aber  eintreten?
-              Dies würde unsere Argumentation zerstören. Hier kommt wieder die
-              Chomsky-Normalform zur Hilfe: es gibt keine Produktionen ,
-              (außer vielleicht für das Startsymbol , welches dann aber nicht auf einer rechten Seite
-              auftreten dürfte). Ganz allgemein: wenn eine Grammatik  in Chomsky-Normalform ein
-              Wort  herleitet und , dann kommt in der Ableitung keine
-              -Produktion zur Anwendung.
-            </p>
-          </div>
-          <p>
-            Die obige Argumentationslinie ist als
-            <i>Pumping Lemma für kontextfreie Sprachen</i>
-            bekannt:
-          </p>
-          <div class="well container theorem">
-            <span class="numbered-title">Theorem
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-              </span>
-            <b>(Pumping Lemma für kontextfreie Sprachen)</b>
-            Für jede kontextfreie Grammatik  gibt es eine Zahl , so dass jedes
-            Wort  der Länge  zerlegt werden kann in
-            \begin{align*}
-            \gamma = uvwxy \ ,
-            \end{align*}
-            wobei  gilt und  nicht beide  sind, so dass
-            \begin{align*}
-            u v^i w x^i y \in L(G)
-            \end{align*}
-            gilt, für alle .
-            Die Zahl  kann zum Beispiel als  gewählt werden, wobei 
-            die
-            Anzahl der Nichtterminale in einer zu  äquivalenten Chomsky-Normalform ist.
-          </div>
-          <div class="well well-lg numbered-exercise container">
-            <span class="numbered-title">Übungsaufgabe
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-              </span>Sei  die Sprache aller Wörter
-            \begin{align*}
-            \{\alpha c \alpha \ | \ \alpha \in \{a,b\}^* \} \ .
-            \end{align*}
-            In Worten: rechts und links vom  in der Mitte muss das gleiche Teilwort stehen.
-            Zeigen Sie analog zu dem vorherigen Beweis, dass  nicht kontextfrei ist.
-          </div>
-          <div
-            id="exericse-power-2"
-            class="well well-lg numbered-exercise container"
-          >
-            <span class="numbered-title">Übungsaufgabe
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
-              </span>Sie  die Sprache aller Wörter, deren Länge
-            eine Zweierpotenz ist:
-            \begin{align*}
-            L := \{ 1^n \ | \ n = 2^d \textnormal{ für ein } \}
-            \end{align*}
-            Also . Zeigen Sie, dass  nicht
-            kontextfrei ist.
-          </div>
-          <h3>
-            Mengenoperationen auf kontextfreien Sprachen
-          </h3>
-          Im Kapitel über reguläre Sprachen hatten wir folgende Abschlusseigenschaften:
-          <div class="well container theorem">
-            <span class="numbered-title">Theorem
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-              </span>Wenn  reguläre Sprachen sind, dann sind die folgenden
-            Sprachen auch regulär:
-            <ol>
-              <li>
-                . Das war einfach: wir kombinieren die Grammatiken
-                und fügen die Startproduktionen  hinzu.
-              </li>
-              <li>
-                . Das war schon schwieriger, ging aber auch irgendwie.
-              </li>
-              <li>
-                . Das ging ähnlich zum vorherigen.
-              </li>
-              <li>
-                , die Komplementsprache. Das ist einfach,
-                sobald man einen endlichen Automaten für  gebaut hat: man tauscht akzeptierende
-                und nicht-akzeptierende Zustände aus.
-              </li>
-              <li>
-                , die Sprache, die entsteht, wenn man jedes Wort in  von rechts nach
-                links liest. Dies ist gar nicht so offensichtlich, wenn man reguläre Grammatiken oder
-                endliche Automaten ansieht. Wenn man aber für  einen
-                <i>regulären Ausdruck</i>
-                gebaut
-                hat, wird es zur Trivialität: einfach den Ausdruck umdrehen.
-              </li>
-              <li>
-                . Hierfür könnte man für  jeweils endliche Automaten
-                 bauen und die dann "parallel" laufen lassen; man muss nun sehen, dass man
-                dieses parallele Laufen
-                mit
-                <i>einem</i>
-                Automaten simulieren kann: dieser hat als Zustandsmenge ,
-                merkt sich also in
-                <i>einem</i>
-                Zustand, in welchen Zuständen  und 
-                sind.
-                Oder man macht es sich einfach:
-                <ul>
-                  <li>
-                    Nach Punkt 4 sind  und  regulär.
-                  </li>
-                  <li>
-                    Nach Punkt 1 daher auch  ist regulär.
-                  </li>
-                  <li>
-                    Nach Punkt 4 ist daher wiederum  regulär,
-                    was
-                    nach den De-Morganschen Gesetzen die gleiche Menge ist wie .
-                  </li>
-                </ul>
-              </li>
-            </ol>
-            Wie sieht es nun aus, wenn
-            <i>kontextfreie</i>
-            Sprachen sind? Welche der
-            obigen Kombinationen sind dann ebenfalls kontextfrei?
-            <div class="well well-lg numbered-exercise container">
-              <span class="numbered-title">Übungsaufgabe
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
-                </span>Seien  kontextfrei. Zeigen Sie, dass die folgenden Sprachen auch kontextfrei
-              sind:
-              <ol>
-                <li>
-                  
-                </li>
-                <li>
-                  
-                </li>
-                <li>
-                  
-                </li>
-                <li>
-                  Überspringen wir ; dieses ist nämlich im Allgemeinen nicht kontextfrei.
-                </li>
-                <li>
-                  
-                </li>
-                <li>
-                  Überspringen wir ; dieses ist nämlich im Allgemeinen nicht
-                  kontextfrei.
-                </li>
-              </ol>
               <p>
-                <b>Tip:</b>
-                dies ist viel einacher als für reguläre Grammatiken.
+                Ein Kellerautomat könnte nun alle auf den Stack legen und dann, wenn die
+                beginnen, den Stapel abarbeiten. Allerdings hätte er dann, wenn die kommen,
+                vergessen, wieviele es denn waren. Irgendwie scheinen Kellerautomaten nicht für
+                geeignet. Dies ist natürlich nur eine Intuition. Vielleicht kennen wir einfach nicht alle
+                Tricks,
+                die man mit Kellerautomaten (und somit mit kontextfreien Grammatiken) anstellen kann.
+              </p>
+              <p>
+                Wir werden nun beweisen, dass nicht kontextfrei ist; dass es also für keine
+                kontextfreie Grammatik gibt. Wir gehen wie folgt vor: wir nehmen eine kontextfreie
+                Grammatik , die jedes Wort ableiten kann. Dann sehen wir uns den
+                Ableitungsbaum
+                für ein "sehr langes" an und werden sehen, dass wir in andere Wörter
+                ableiten
+                können, die nicht in sind. Somit haben wir gezeigt, dass keine korrekte
+                Grammatik
+                für ist. Als erstes verlangen wir, dass in Chomsky-Normalform vorliegt.
+                Dann schauen wir uns für ein den Ableitungsbaum an:
+              </p>
+              Nun betrachten wir in diesem Ableitungsbaum den längsten Pfad von zu einem
+              Nichtterminalknoten, der direkt über den Terminalen steht. Wenn dieser Länge hat (also
+              Kanten lang ist), dann hat der Baum höchstens Blätter, also .
+              Wenn nun ist, dann gibt es einen Pfad der Länge
+              von diesem aufwärts richtung . Auf diesem liegen Nichtterminalsymbole,
+              mehr als es in gibt; also muss ein Terminalsymbol zweimal vorkommen:Der Pfad vom oberen zum unteren hat
+              höchstens Länge (so haben wir diesen Pfad
+              gewählt),
+              und somit hat das Unterwort höchstens Zeichen.
+              Wenn wir nun das Wort für ein sehr großes betrachten, sagen wir
+              , dann kann das Wort nicht alle drei Symbole enthalten;
+              sonst würde es ja alle Symbole und noch weitere enthalten, wäre also länger als
+              ; allerdings haben wir ja gesehen, dass gilt.
+              Nehmen wir nun also der Einfachheit halber an, dass nicht das Symbol enthält:
+              (der andere Fall ist symmetrisch und kann mit den gleichen Argumenten wie
+              unten
+              behandelt werden).
+              <p>
+                Nun holen wir zum entscheidenden Schlag aus: wir "pumpen" das Wort auf, indem
+                wir die Teilbäume mit an der Wurzel wiederholen. Konkret besagt ja oberer Baum,
+                dass wie folgt hergeleitet wurde:
+                \begin{align*}
+                S \Step{}^* u Z v \Step{}^* uvZxy \Step{}^* uvwxy
+                \end{align*}
+                Insbesondere heißt das, dass gilt. Wir können diesen
+                Schritt also wiederholen:und somit das Wort und ganz allgemein jedes Wort
+                \begin{align*}
+                uv^i w x^i y
+                \end{align*}
+                ableiten, für jedes . Selbst für geht das:
+              </p>
+              Betrachten wir nun das Wort . Wir haben ja gesehen, dass in
+              alle -Symbole rechts von liegen, also in .
+              Das Wort hat also immer noch viele -Symbole. Allerdings hat
+              es die Symbole in und verloren! Wir wissen nicht, wieviele davon und
+              waren,
+              aber eines ist ganz klar: in kommen die Symbole nicht mehr gleich
+              häufig vor, und somit .
+              <p>
+                Wir haben also gezeigt, dass die kontextfreie Grammatik
+                <i>nicht</i>
+                die Sprache
+                erzeugt: wenn wir alle erzeugen kann, dann
+                kann sie auch Wörter wie erzeugen. Da unsere Argumentation keine
+                Annahmen über getroffen hat, außer, dass sie kontextfrei ist, haben wir gezeigt:
+                ist keine kontextfreie Sprache.
+              </p>
+              <p>
+                <b>Vorsicht!</b>
+                Wir haben angenommen, das weniger Zeichen hat
+                als , weil ja und fehlen. Kann aber eintreten?
+                Dies würde unsere Argumentation zerstören. Hier kommt wieder die
+                Chomsky-Normalform zur Hilfe: es gibt keine Produktionen ,
+                (außer vielleicht für das Startsymbol , welches dann aber nicht auf einer rechten Seite
+                auftreten dürfte). Ganz allgemein: wenn eine Grammatik in Chomsky-Normalform ein
+                Wort herleitet und , dann kommt in der Ableitung keine
+                -Produktion zur Anwendung.
               </p>
             </div>
-          </div>
-          Wie schon angedeutet, geben uns Komplement und Schnittmenge im Allgemeinen keine kontextfreie
-          Sprache.
-          Das Gegenbeispiel haben wir schon fast gesehen:
-          <div class="well container theorem">
-            <span class="numbered-title">Beobachtung
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-              </span>Der Schnitt  zweier kontextfreier Sprachen
-            ist im Allgemeinen
-            <i>nicht</i>
-            kontextfrei.
-            Ein Beispiel ist
-            \begin{align*}
-            L<i>1&amp;:= \{a^n b^n c^* \ | \ n \geq 0 \}\\
-              L</i>2&amp;:= \{a^* b^n c^n \ | \ n \geq 0 \}
-            \end{align*}
-            Diese sind beide kontextfrei (schreiben Sie jeweils eine Grammatik, wenn Sie's nicht glauben).
-            Der
-            Schnitt allerdings ist
-            \begin{align*}
-            L<i>1 \cap L</i>2 = \{a^n b^n c^n \ | \ n \geq 0\} \ ,
-            \end{align*}
-            genau diejenige Sprache, für die wir oben gezeigt haben, dass sie nicht kontextfrei ist.
-          </div>
-          <div class="well container theorem">
-            <span class="numbered-title">Beobachtung
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
-              </span>Das Komplement  einer kontextfreien Sprache ist im Allgemeinen
-            <i>nicht</i>
-            kontextfrei.
-            \\
-            Warum? Wenn er es wäre, dann wäre mit Hilfe von Punkt 1 auch
-            \begin{align*}
-            L<i>1 \cap L</i>2 = \overline{ \bar{L}<i>1 \cup \bar{L</i>2}}
-            \end{align*}
-            kontextfrei, was es aber im Allgemeinen nicht ist. Befriedigender wäre es allerdings, wenn wir
-            ein konkretes Beispiel hätten.
-          </div>
-          <div class="well well-lg numbered-exercise container">
-            <span class="numbered-title">Übungsaufgabe
-              <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
-              </span>Sei . Wir wissen bereits, dass  nicht kontextfrei ist.
-            Zeigen Sie, dass  kontextfrei ist.
-            Die Sprache  ist somit ein Beispiel für eine kontextfreie Sprache,
-            deren Komplement, also , nicht kontextfrei ist.
             <p>
-              <b>Tip.</b>
-              Listen Sie alle Möglichkeiten auf, wie ein Wort  nicht
-              in  sein kann: (1) es hat nicht die Form ; (2) es hat die Form,
-              hat aber mehr  als es  hat; (2) es hat mehr  als es  hat...
+              Die obige Argumentationslinie ist als
+              <i>Pumping Lemma für kontextfreie Sprachen</i>
+              bekannt:
             </p>
+            <div class="well container theorem">
+              <span class="numbered-title">Theorem
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
+              </span>
+              <b>(Pumping Lemma für kontextfreie Sprachen)</b>
+              Für jede kontextfreie Grammatik gibt es eine Zahl , so dass jedes
+              Wort der Länge zerlegt werden kann in
+              \begin{align*}
+              \gamma = uvwxy \ ,
+              \end{align*}
+              wobei gilt und nicht beide sind, so dass
+              \begin{align*}
+              u v^i w x^i y \in L(G)
+              \end{align*}
+              gilt, für alle .
+              Die Zahl kann zum Beispiel als gewählt werden, wobei
+              die
+              Anzahl der Nichtterminale in einer zu äquivalenten Chomsky-Normalform ist.
+            </div>
+            <div class="well well-lg numbered-exercise container">
+              <span class="numbered-title">Übungsaufgabe
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
+              </span>Sei die Sprache aller Wörter
+              \begin{align*}
+              \{\alpha c \alpha \ | \ \alpha \in \{a,b\}^* \} \ .
+              \end{align*}
+              In Worten: rechts und links vom in der Mitte muss das gleiche Teilwort stehen.
+              Zeigen Sie analog zu dem vorherigen Beweis, dass nicht kontextfrei ist.
+            </div>
+            <div id="exericse-power-2" class="well well-lg numbered-exercise container">
+              <span class="numbered-title">Übungsaufgabe
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.2</NumberedTitle>
+              </span>Sie die Sprache aller Wörter, deren Länge
+              eine Zweierpotenz ist:
+              \begin{align*}
+              L := \{ 1^n \ | \ n = 2^d \textnormal{ für ein } \}
+              \end{align*}
+              Also . Zeigen Sie, dass nicht
+              kontextfrei ist.
+            </div>
+            <h3>
+              Mengenoperationen auf kontextfreien Sprachen
+            </h3>
+            Im Kapitel über reguläre Sprachen hatten wir folgende Abschlusseigenschaften:
+            <div class="well container theorem">
+              <span class="numbered-title">Theorem
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
+              </span>Wenn reguläre Sprachen sind, dann sind die folgenden
+              Sprachen auch regulär:
+              <ol>
+                <li>
+                  . Das war einfach: wir kombinieren die Grammatiken
+                  und fügen die Startproduktionen hinzu.
+                </li>
+                <li>
+                  . Das war schon schwieriger, ging aber auch irgendwie.
+                </li>
+                <li>
+                  . Das ging ähnlich zum vorherigen.
+                </li>
+                <li>
+                  , die Komplementsprache. Das ist einfach,
+                  sobald man einen endlichen Automaten für gebaut hat: man tauscht akzeptierende
+                  und nicht-akzeptierende Zustände aus.
+                </li>
+                <li>
+                  , die Sprache, die entsteht, wenn man jedes Wort in von rechts nach
+                  links liest. Dies ist gar nicht so offensichtlich, wenn man reguläre Grammatiken oder
+                  endliche Automaten ansieht. Wenn man aber für einen
+                  <i>regulären Ausdruck</i>
+                  gebaut
+                  hat, wird es zur Trivialität: einfach den Ausdruck umdrehen.
+                </li>
+                <li>
+                  . Hierfür könnte man für jeweils endliche Automaten
+                  bauen und die dann "parallel" laufen lassen; man muss nun sehen, dass man
+                  dieses parallele Laufen
+                  mit
+                  <i>einem</i>
+                  Automaten simulieren kann: dieser hat als Zustandsmenge ,
+                  merkt sich also in
+                  <i>einem</i>
+                  Zustand, in welchen Zuständen und
+                  sind.
+                  Oder man macht es sich einfach:
+                  <ul>
+                    <li>
+                      Nach Punkt 4 sind und regulär.
+                    </li>
+                    <li>
+                      Nach Punkt 1 daher auch ist regulär.
+                    </li>
+                    <li>
+                      Nach Punkt 4 ist daher wiederum regulär,
+                      was
+                      nach den De-Morganschen Gesetzen die gleiche Menge ist wie .
+                    </li>
+                  </ul>
+                </li>
+              </ol>
+              Wie sieht es nun aus, wenn
+              <i>kontextfreie</i>
+              Sprachen sind? Welche der
+              obigen Kombinationen sind dann ebenfalls kontextfrei?
+              <div class="well well-lg numbered-exercise container">
+                <span class="numbered-title">Übungsaufgabe
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.3</NumberedTitle>
+                </span>Seien kontextfrei. Zeigen Sie, dass die folgenden Sprachen auch kontextfrei
+                sind:
+                <ol>
+                  <li>
+
+                  </li>
+                  <li>
+
+                  </li>
+                  <li>
+
+                  </li>
+                  <li>
+                    Überspringen wir ; dieses ist nämlich im Allgemeinen nicht kontextfrei.
+                  </li>
+                  <li>
+
+                  </li>
+                  <li>
+                    Überspringen wir ; dieses ist nämlich im Allgemeinen nicht
+                    kontextfrei.
+                  </li>
+                </ol>
+                <p>
+                  <b>Tip:</b>
+                  dies ist viel einacher als für reguläre Grammatiken.
+                </p>
+              </div>
+            </div>
+            Wie schon angedeutet, geben uns Komplement und Schnittmenge im Allgemeinen keine kontextfreie
+            Sprache.
+            Das Gegenbeispiel haben wir schon fast gesehen:
+            <div class="well container theorem">
+              <span class="numbered-title">Beobachtung
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
+              </span>Der Schnitt zweier kontextfreier Sprachen
+              ist im Allgemeinen
+              <i>nicht</i>
+              kontextfrei.
+              Ein Beispiel ist
+              \begin{align*}
+              L<i>1&amp;:= \{a^n b^n c^* \ | \ n \geq 0 \}\\
+                L</i>2&amp;:= \{a^* b^n c^n \ | \ n \geq 0 \}
+              \end{align*}
+              Diese sind beide kontextfrei (schreiben Sie jeweils eine Grammatik, wenn Sie's nicht glauben).
+              Der
+              Schnitt allerdings ist
+              \begin{align*}
+              L<i>1 \cap L</i>2 = \{a^n b^n c^n \ | \ n \geq 0\} \ ,
+              \end{align*}
+              genau diejenige Sprache, für die wir oben gezeigt haben, dass sie nicht kontextfrei ist.
+            </div>
+            <div class="well container theorem">
+              <span class="numbered-title">Beobachtung
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.5</NumberedTitle>
+              </span>Das Komplement einer kontextfreien Sprache ist im Allgemeinen
+              <i>nicht</i>
+              kontextfrei.
+              \\
+              Warum? Wenn er es wäre, dann wäre mit Hilfe von Punkt 1 auch
+              \begin{align*}
+              L<i>1 \cap L</i>2 = \overline{ \bar{L}<i>1 \cup \bar{L</i>2}}
+              \end{align*}
+              kontextfrei, was es aber im Allgemeinen nicht ist. Befriedigender wäre es allerdings, wenn wir
+              ein konkretes Beispiel hätten.
+            </div>
+            <div class="well well-lg numbered-exercise container">
+              <span class="numbered-title">Übungsaufgabe
+                <NumberedTitle>::::ChapterCtr.::::SectionCtr.4</NumberedTitle>
+              </span>Sei . Wir wissen bereits, dass nicht kontextfrei ist.
+              Zeigen Sie, dass kontextfrei ist.
+              Die Sprache ist somit ein Beispiel für eine kontextfreie Sprache,
+              deren Komplement, also , nicht kontextfrei ist.
+              <p>
+                <b>Tip.</b>
+                Listen Sie alle Möglichkeiten auf, wie ein Wort nicht
+                in sein kann: (1) es hat nicht die Form ; (2) es hat die Form,
+                hat aber mehr als es hat; (2) es hat mehr als es hat...
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 </body>

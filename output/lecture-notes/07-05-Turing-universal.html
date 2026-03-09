@@ -1,222 +1,213 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-      <link rel="icon" href="data:,">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
-    <link rel="stylesheet" type="text/css" href="../TI.css" />
-    <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="../numbered-title.js"></script>
-    <script type="text/javascript" src="../mathjax_setup.js"></script>
-    <script type="text/javascript" src="../carousel.js"></script>
-    <script type="text/javascript" src="../sendCmdTo3003.js"></script>
-    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <link rel="icon" href="data:," />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../lecture-notes.css" />
+  <link rel="stylesheet" type="text/css" href="../TI.css" />
+  <link rel="stylesheet" type="text/css" href="../tooltip-3003.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="../numbered-title.js"></script>
+  <script type="text/javascript" src="../mathjax_setup.js"></script>
+  <script type="text/javascript" src="../carousel.js"></script>
+  <script type="text/javascript" src="../sendCmdTo3003.js"></script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
+
 <body>
-<section
-  count="46"
-  _="BookLevelSectionCounter 46"
-  title_gr="simulieren Turing-Maschinen: die universelle Turing-Maschine"
-  title_en="Turing universal"
-  number="7.5"
-  counter="DefCtr"
-  counter="ExoCtr"
-  path="/lecture-notes46"
->
-  <div id="link-to-toc">
-    <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="07-03-Turing-variants.html">&lt;&lt; Kapitel 7.3</a>
-  </div>
-  <div
-    id="link-to-overview"
-    style="text-align: end"
-  >
-    <a href="/">zur Kursübersicht</a><a href="07-06-undecidability.html">Kapitel 7.6 &gt;&gt;</a>
-  </div>
-  <div id="rightSideWrapper">
-    <div class="content">
-      <div class="chapter">
-        <div class="subChapter">
-          <h1 class="hidden-title">
-            <span class="subChapterTitle">::::ChapterCtr.5
-              Turing-Maschinen simulieren Turing-Maschinen: die universelle Turing-Maschine</span>
-          </h1>
-          <p>
-            Im letzten Teilkapitel haben wir gesehen, wie wir jede Turingmaschine $M
-            $mit
-            Eingabealphabet $\Sigma$ codieren können als
-          </p>
-          \begin{align*}
-          \enc(M) \in \Lambda^* \ ,
-          \end{align*}
-          <p>
-            also als String über dem Codierungsalphabet
-          </p>
-          \begin{align*}
-          \Lambda := \writelambda
-          \end{align*}
-          <p>
-            Diese Codierungsschema enthält implizit Codierungsfunktionen
-            $\enc<i>Q : Q \rightarrow \{0,1\}^+$ und $\enc</i>\Gamma: \Gamma \rightarrow
-            \Sigma \cup \{0,1\}^+$,
-            die wir verwenden, um die Zustände und Arbeitszeichen von $M$ in
-            $\Lambda$-Zeichen zu
-            übersetzen.
-            Für eine Konfiguration
-          </p>
-          \begin{align*}
-          C = u<i>1 \dots u</i>m q v<i>1 \dots v</i>n
-          \end{align*}
-          <p>
-            der Maschine $M$ definieren wir die Codierung von $C$ als
-          </p>
-          \begin{align*}
-          \enc(C) := \enc<i>\Gamma(u</i>1) \texttt{#} \enc<i>\Gamma(u</i>2) \dots \texttt{#}
-          \enc<i>\Gamma(u</i>m)\texttt{#}
-          \enc<i>Q(q) \texttt{#} \enc</i>\Gamma(v<i>1)\texttt{#} \dots \texttt{#}
-            \enc</i>\Gamma(v_n) \in \Lambda^* \ .
-          \end{align*}
-          <p>
-            Das ist alles nicht besonders tiefgründig und dient allein dazu,
-            sicherzustellen, dass wir
-            die Konfigurationen von $M$ darstellen können in dem Alphabet $\Lambda$,
-            das
-            <i>unabhängig</i>
-            von $M$ ist. Dass wir also
-            <i>jede</i>
-            Turingmaschine
-            $M$ mit Eingabealphabet $\Sigma$ und
-            <i>jede</i>
-            ihrer Konfigurationen
-            als Strings über
-            <i>einem</i>
-            festen Alphabet $\Lambda$ darstellen
-            können.
-          </p>
-          <p>
-            Eine Turingmaschine simulieren heißt nun, einen String
-            $\enc(M)\texttt{;}w$ mit $w \in \Sigma^<b>$ zu lesen und
-              daraus den String $\enc(\hat{\delta}^</b>
-            <i>M (w))$ zu berechnen, also
-              das Ergebnis $\hat{\delta}^*</i>M(w)$, passend codiert über dem Alphabet
-            $\Lambda$.
-            Das zentrale Ergebnis dieses Teilkapitels ist, dass wir diese Simulation
-            selbst mit einer Turingmaschine implementieren können.
-          </p>
-          <div class="well container theorem">
+  <section count="46" _="BookLevelSectionCounter 46"
+    title_gr="simulieren Turing-Maschinen: die universelle Turing-Maschine" title_en="Turing universal" number="7.5"
+    counter="DefCtr" counter="ExoCtr" path="/lecture-notes46">
+    <div id="link-to-toc">
+      <a href="../vorlesungsskript.html">Inhaltsverzeichnis</a><a href="07-03-Turing-variants.html">&lt;&lt; Kapitel
+        7.3</a>
+    </div>
+    <div id="link-to-overview" style="text-align: end">
+      <a href="/">zur Kursübersicht</a><a href="07-06-undecidability.html">Kapitel 7.6 &gt;&gt;</a>
+    </div>
+    <div id="rightSideWrapper">
+      <div class="content">
+        <div class="chapter">
+          <div class="subChapter">
+            <h1 class="hidden-title">
+              <span class="subChapterTitle">::::ChapterCtr.5
+                Turing-Maschinen simulieren Turing-Maschinen: die universelle Turing-Maschine</span>
+            </h1>
             <p>
-              <span class="numbered-title">Theorem
-                <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
-                </span>
-              <b>(Universelle
-                Turingmaschine).</b>
-              Zu
-              jedem
-              endlichen Eingabealphabet $\Sigma$ sei
-              $\Lambda := \writelambda$ das Codierungsalphabet. Es gibt es
-              eine
-              Turingmaschine $U = U_{\Sigma}$ mit Eingabealphabet
-              $\Lambda$,
-              so dass für alle $c \in \Lambda^<b>$ und $w \in \Sigma^</b>$
-              die Turingmaschine $U$ mit Eingabewort $x \in \Lambda^*$
-              folgendes tut:
-            </p>
-            <ul>
-              <li>
-                Falls $x$ nicht die Form
-                $\enc(M) \texttt{;} w$ mit $w \in \Sigma^*$ hat,
-                lehnt sie ab;
-              </li>
-              <li>
-                Ansonsten, falls also $c = \enc(M)$ für eine Turingmaschine
-                $M$ ist:
-                <ul>
-                  <li>
-                    Falls $M$ mit Eingabewort $w$ nicht
-                    terminiert, dann terminiert $U$ mit
-                    Eingabewort $c \texttt{;} w$ auch nicht.
-                  </li>
-                  <li>
-                    Falls $M$ mit Eingabewort $w$ eine
-                    Endkonfiguration $C = uqv$ erreicht,
-                    dann
-                    erreicht $U$ mit
-                    Eingabewort $c \texttt{;} w$ die
-                    Endkonfiguration
-                    $q\ \enc(C)$. Das heißt insbesondere,
-                    dass $U$ genau dann akzeptiert, wenn $M$
-                    akzeptiert, und genau dann ablehnt, wenn
-                    $M$ ablehnt.
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <p>
-              $U$ akzeptiert also die Sprache
+              Im letzten Teilkapitel haben wir gesehen, wie wir jede Turingmaschine $M
+              $mit
+              Eingabealphabet $\Sigma$ codieren können als
             </p>
             \begin{align*}
-            \{ c w \ | \ w \in \Sigma^* \textnormal{ und } c = \enc(M) \textnormal{
-            und $M$ akzeptiert $w$} \} \ .
+            \enc(M) \in \Lambda^* \ ,
             \end{align*}
-          </div>
-          <div
-            style="margin-bottom:1em"
-            class="alert-info container"
-          >
             <p>
-              <b>Ein technischer aber letztendlich irrelevanter Punkt:
-              </b>
-              die Mengen
-              $Q$ und $\Gamma$ der Turingmaschine $M$ können ja beliebige
-              (endliche) Mengen sein,
-              und weder $\Lambda$ noch die Turingmaschine $U$ haben "Kenntnis"
-              von ihnen.
-              Wir nehmen aber aus Gründen der Einfachheit an, dass $Q$ immer
-              die Zustände
-              $\qaccept$ und $\qreject$ enthält und auch $U$ diese Zustände
-              verwendet.
-              Daraus ergibt sich, dass für eine Endkonfiguration $uqv$ von $M$
-              zwar $q \in \{\qaccept, \qreject\}$ gilt, allerdings $\enc(q)
-              \in \{0,1\}^+$,
-              da wir diese $M$-Zustände binär codieren. Somit ist
-              $q\ \enc(uqv) \in \{\qaccept, \qreject\} \times \Lambda^*$ eine
-              Endkonfiguration von $U$.
+              also als String über dem Codierungsalphabet
+            </p>
+            \begin{align*}
+            \Lambda := \writelambda
+            \end{align*}
+            <p>
+              Diese Codierungsschema enthält implizit Codierungsfunktionen
+              $\enc<i>Q : Q \rightarrow \{0,1\}^+$ und $\enc</i>\Gamma: \Gamma \rightarrow
+              \Sigma \cup \{0,1\}^+$,
+              die wir verwenden, um die Zustände und Arbeitszeichen von $M$ in
+              $\Lambda$-Zeichen zu
+              übersetzen.
+              Für eine Konfiguration
+            </p>
+            \begin{align*}
+            C = u<i>1 \dots u</i>m q v<i>1 \dots v</i>n
+            \end{align*}
+            <p>
+              der Maschine $M$ definieren wir die Codierung von $C$ als
+            </p>
+            \begin{align*}
+            \enc(C) := \enc<i>\Gamma(u</i>1) \texttt{#} \enc<i>\Gamma(u</i>2) \dots \texttt{#}
+            \enc<i>\Gamma(u</i>m)\texttt{#}
+            \enc<i>Q(q) \texttt{#} \enc</i>\Gamma(v<i>1)\texttt{#} \dots \texttt{#}
+              \enc</i>\Gamma(v_n) \in \Lambda^* \ .
+            \end{align*}
+            <p>
+              Das ist alles nicht besonders tiefgründig und dient allein dazu,
+              sicherzustellen, dass wir
+              die Konfigurationen von $M$ darstellen können in dem Alphabet $\Lambda$,
+              das
+              <i>unabhängig</i>
+              von $M$ ist. Dass wir also
+              <i>jede</i>
+              Turingmaschine
+              $M$ mit Eingabealphabet $\Sigma$ und
+              <i>jede</i>
+              ihrer Konfigurationen
+              als Strings über
+              <i>einem</i>
+              festen Alphabet $\Lambda$ darstellen
+              können.
             </p>
             <p>
-              Des weiteren gehen wir davon aus, dass das Blank-Symbol $\Box$
-              für alle
-              Turingmaschinen $M$ mit Eingabealphabet $\Sigma$ das gleiche
-              ist. Auch
-              $U$ verwendet es. Wenn wir allerdings $M$ codieren, so wird auch
-              $\Box$ als $\enc(\Box) \in \{0,1\}^+$ codiert, wie jedes
-              Arbeitssymbol $z \in \Gamma
-              \setminus \Sigma$ von $M$
-              binär codiert wird. Das heißt insbesondere, dass
-              für eine $M$-Konfiguration $C$ die Codierung $\enc(C)$ kein
-              $\Box$ enthält (selbst
-              wenn $C$ als Konfiguration von $M$ dies tut), und in der Tat ist
-              ja
-              $\enc(C) \in \Lambda^*$, und $\Lambda$ ist das Eingabealphabet
-              von $U$ mit
-              $\Box \not \in \Lambda$.
+              Eine Turingmaschine simulieren heißt nun, einen String
+              $\enc(M)\texttt{;}w$ mit $w \in \Sigma^<b>$ zu lesen und
+                daraus den String $\enc(\hat{\delta}^</b>
+              <i>M (w))$ zu berechnen, also
+                das Ergebnis $\hat{\delta}^*</i>M(w)$, passend codiert über dem Alphabet
+              $\Lambda$.
+              Das zentrale Ergebnis dieses Teilkapitels ist, dass wir diese Simulation
+              selbst mit einer Turingmaschine implementieren können.
             </p>
-          </div>
-          <div class="well container">
-            <p>
-              <b>Beweis.</b>
-              Den Beweis in allen Details zu führen hieße, die Maschine $U$
-              konkret als Turingmaschine
-              zu implementieren. Wir tun dies nicht. Wir beschränken uns auf
-              eine High-Level-Beschreibung
-              ihrer Arbeitsweise.
-            </p>
+            <div class="well container theorem">
+              <p>
+                <span class="numbered-title">Theorem
+                  <NumberedTitle>::::ChapterCtr.::::SectionCtr.1</NumberedTitle>
+                </span>
+                <b>(Universelle
+                  Turingmaschine).</b>
+                Zu
+                jedem
+                endlichen Eingabealphabet $\Sigma$ sei
+                $\Lambda := \writelambda$ das Codierungsalphabet. Es gibt es
+                eine
+                Turingmaschine $U = U_{\Sigma}$ mit Eingabealphabet
+                $\Lambda$,
+                so dass für alle $c \in \Lambda^<b>$ und $w \in \Sigma^</b>$
+                die Turingmaschine $U$ mit Eingabewort $x \in \Lambda^*$
+                folgendes tut:
+              </p>
+              <ul>
+                <li>
+                  Falls $x$ nicht die Form
+                  $\enc(M) \texttt{;} w$ mit $w \in \Sigma^*$ hat,
+                  lehnt sie ab;
+                </li>
+                <li>
+                  Ansonsten, falls also $c = \enc(M)$ für eine Turingmaschine
+                  $M$ ist:
+                  <ul>
+                    <li>
+                      Falls $M$ mit Eingabewort $w$ nicht
+                      terminiert, dann terminiert $U$ mit
+                      Eingabewort $c \texttt{;} w$ auch nicht.
+                    </li>
+                    <li>
+                      Falls $M$ mit Eingabewort $w$ eine
+                      Endkonfiguration $C = uqv$ erreicht,
+                      dann
+                      erreicht $U$ mit
+                      Eingabewort $c \texttt{;} w$ die
+                      Endkonfiguration
+                      $q\ \enc(C)$. Das heißt insbesondere,
+                      dass $U$ genau dann akzeptiert, wenn $M$
+                      akzeptiert, und genau dann ablehnt, wenn
+                      $M$ ablehnt.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <p>
+                $U$ akzeptiert also die Sprache
+              </p>
+              \begin{align*}
+              \{ c w \ | \ w \in \Sigma^* \textnormal{ und } c = \enc(M) \textnormal{
+              und $M$ akzeptiert $w$} \} \ .
+              \end{align*}
+            </div>
+            <div style="margin-bottom:1em" class="alert-info container">
+              <p>
+                <b>Ein technischer aber letztendlich irrelevanter Punkt:
+                </b>
+                die Mengen
+                $Q$ und $\Gamma$ der Turingmaschine $M$ können ja beliebige
+                (endliche) Mengen sein,
+                und weder $\Lambda$ noch die Turingmaschine $U$ haben "Kenntnis"
+                von ihnen.
+                Wir nehmen aber aus Gründen der Einfachheit an, dass $Q$ immer
+                die Zustände
+                $\qaccept$ und $\qreject$ enthält und auch $U$ diese Zustände
+                verwendet.
+                Daraus ergibt sich, dass für eine Endkonfiguration $uqv$ von $M$
+                zwar $q \in \{\qaccept, \qreject\}$ gilt, allerdings $\enc(q)
+                \in \{0,1\}^+$,
+                da wir diese $M$-Zustände binär codieren. Somit ist
+                $q\ \enc(uqv) \in \{\qaccept, \qreject\} \times \Lambda^*$ eine
+                Endkonfiguration von $U$.
+              </p>
+              <p>
+                Des weiteren gehen wir davon aus, dass das Blank-Symbol $\Box$
+                für alle
+                Turingmaschinen $M$ mit Eingabealphabet $\Sigma$ das gleiche
+                ist. Auch
+                $U$ verwendet es. Wenn wir allerdings $M$ codieren, so wird auch
+                $\Box$ als $\enc(\Box) \in \{0,1\}^+$ codiert, wie jedes
+                Arbeitssymbol $z \in \Gamma
+                \setminus \Sigma$ von $M$
+                binär codiert wird. Das heißt insbesondere, dass
+                für eine $M$-Konfiguration $C$ die Codierung $\enc(C)$ kein
+                $\Box$ enthält (selbst
+                wenn $C$ als Konfiguration von $M$ dies tut), und in der Tat ist
+                ja
+                $\enc(C) \in \Lambda^*$, und $\Lambda$ ist das Eingabealphabet
+                von $U$ mit
+                $\Box \not \in \Lambda$.
+              </p>
+            </div>
+            <div class="well container">
+              <p>
+                <b>Beweis.</b>
+                Den Beweis in allen Details zu führen hieße, die Maschine $U$
+                konkret als Turingmaschine
+                zu implementieren. Wir tun dies nicht. Wir beschränken uns auf
+                eine High-Level-Beschreibung
+                ihrer Arbeitsweise.
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 </body>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="data:," />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../lecture-notes.css" />
+    <link rel="stylesheet" type="text/css" href="../Course.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script>
+        MathJax = {
+            tex: {
+                tags: 'ams',
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+
+    \(
+    \newcommand{\depth}{\textnormal{depth}}
+    \newcommand{\height}{\textnormal{height}}
+    \newcommand{\avgdepth}{\textnormal{avgdepth}}
+    \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+    \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+    \DeclareMathOperator*{\E}{\mathbb{E}}
+    \newcommand{\pfrac}[2]{\left(\frac{#1}{#2}\right)}
+    \newcommand{\R}{\mathbb{R}}
+    \newcommand{\Z}{\mathbb{Z}}
+    \newcommand{\X}{\mathcal{X}}
+    \newcommand{\F}{\mathbb{F}}
+    \newcommand{\N}{\mathbb{N}}
+    \newcommand{\var}{\textnormal{var}}
+    \newcommand{\width}{\textnormal{width}}
+    \newcommand{\tseitin}{\textnormal{Tseitin}}
+    \newcommand{\norm}[1]{\|#1\|}
+    \)
+</head>
+
+
+
+<body>
+
+
+    <div id="rightSideWrapper">
+
+
+        <div class="content">
+
+            <div class="chapter">
+                <div class="subChapter">
+                    <h2 class="hidden-title">
+                        <span class='subChapterTitle'></span>
+                    </h2>
+                    <p>
+                        Let $G=(V,E)$ be a graph and $s : V \rightarrow \{0,1\}$ the parity requirements.
+                        We can encode each constraint $c_u: \sum_{e \sim v} x_e$ as a CNF formula. This
+                        creates $2^{d(v)-1}$ clauses, each of size $d(v)$.
+                        Let us denote this CNF formula by $F_u(G,s)$ or simply $F_u$ if
+                        $G$ and $s$ are understood from the context.
+                        We finally define
+                    </p>
+                    \begin{align*}
+                    \tseitin(G,s) := \bigwedge_{u \in V} F_u(G,s) \ .
+                    \end{align*}
+                    <p>
+                        If $G$ has maximum degree $k$ then
+                        this gives us a $k$-CNF formula with $|E|$ variables and at most $2^{k-1} |V|$
+                        clauses. If $G$ is $k$-regular then $\tseitin(G,s)$ has exactly
+                        $2^{k-1} |V|$ clauses, each of width exactly $k$.
+                    </p>
+                    <p>
+                        If an odd number of vertices have a parity requirement of $1$, then
+                        $\tseitin(G,s)$ is unsatisfiable and we can reason about
+                        resolution refutations of it.
+                    </p>
+
+                    <h3>Resolution</h3>
+
+                    <p>
+                        When two clauses $C, D$ contain opposing literals, i.e., when
+                        $C = C' \vee x$ and $D = D' \vee \bar{x}$
+                        then $C \vee D$ is called a <em>resolvent of $C$ and $D$</em>. The
+                        variable $x$ is called the <em>resolved variable</em>.
+                        We write <em>a</em> resolvent rather than <em>the</em> resolvent
+                        since there might be multiple resolvents:
+                        for example when $C = (x \vee y \vee z)$ and $D = (\bar{x} \vee \bar{y} \vee w)$
+                        then both $(y \vee z \vee \bar{y} \vee w)$ and $(x \vee z \vee \bar{x} \vee w)$
+                        are resolvents; in this case of course both resolvents are trivial:
+                        they always evaluate to $1$. We observe: if two clauses have a non-trivial
+                        resolvent then this is their unique resolvent; and if two clauses
+                        have a unique resolvent then it is also non-trivial.
+                    </p>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='definition-resolution-proof'
+                                data-label-title='Definition'>Definition</span>
+                            <strong>(Resolution Proof).</strong> Let $F$ be a CNF formula.
+                            A <em>resolution proof from $F$</em> is a sequence
+                        </p>
+                        \begin{align*}
+                        C_1, C_2, \dots, C_l
+                        \end{align*}
+                        <p>
+                            of clauses such that for each $1 \leq i \leq l$
+                        </p>
+                        <ol>
+                            <li>$C_i$ is a clause of $F$ or </li>
+                            <li>There are earlier clauses $C_{j_1}, C_{j_2}$ with $j_1, j_2 \lt i$
+                                such that $C_i$ is a <em>resolvent</em> of $C_{j_1}, C_{j_2}$.
+                            </li>
+                        </ol>
+                        <p>
+                            If $C_l = \Box$ then the proof is called a <em>resolution refutation</em>
+                            of $F$. The <em>size</em> of the proof is $l$. The <em>width</em> of
+                            the proof is $\max \{|C_i| \ | \ 1 \leq i \leq l \}$.
+                        </p>
+                    </div class='well container theorem'>
+
+
+                    <p>
+                        Suppose $C$ is a clause appearing in a resolution proof from $F$.
+                        Then $F$ <em>logically implies</em> $C$, denoted by $F \Rightarrow C$,
+                        meaning that for every assignment $\alpha \in \{0,1\}^V$ with
+                        $F(\alpha) = 1$ also $C(\alpha)=1$. Maybe $C$ is already implied
+                        by a subset of clauses of $F$. The following question turns out to be important:
+                    </p>
+                    <div class='container well' style='text-align:center'>
+                        <em>What is a minimal set $G$ of clauses of $F$ that still implies
+                            $C$?
+                        </em>
+                    </div>
+                    <p>
+                        In the case of a Tseitin formulas $F = \tseitin(G,s)$, the clauses of
+                        $F$ come in bundles $F_u(G,s)$, our encoding of the constraint
+                        $c_u: \sum_{e \sim v} x_e \equiv s(v)$. In this case, the following
+                        slightly different question turns out to be better:
+                    </p>
+                    <div class='container well' style='text-align:center'>
+                        <em>What is a minimal set $S \subseteq V$ of vertices such that
+                            \begin{align*}
+                            F_S := \bigwedge_{v \in S} F_v(G,s)
+                            \end{align*}
+                            implies $C$?
+                        </em>
+                    </div>
+                    <p>
+                        The second question is different insofar as we still ask for a subset of
+                        clauses of $F$ implying $C$, but we enforce an all-or-nothing policy
+                        for our bundles $F_u$: either take all clauses of $F_u$ or none.
+                        The second question is important because it ties the boundary
+                        $\delta(S)$ of a set to the width of a clause:
+                    </p>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='lemma-minimal-set-implying-C'
+                                data-label-title='Lemma'>Lemma</span> Let $C$ be a clause implied
+                            by $F$ and let $S \subseteq V$ be a minimal subset such that $F_S$ implies $C$.
+                            Then $\delta(S) \subseteq \var(C)$: all edges leaving $S$ appear
+                            in $C$ as variables (negated or not).
+                        </p>
+                    </div class='well container theorem'>
+                    <div class='well container'>
+                        <p><strong>Proof.</strong>
+                            Let $e \in \delta(S)$. This means that $e = \{u,w\}$ with
+                            $u \in S$ and $w \not \in S$. We have to show that $x_e$ or $\bar{x}_e$ appears
+                            in $C$.
+                        </p>
+                        <p>
+                            Since $S$ is a <em>minimal</em> set of constraints implying $C$,
+                            the set $S \setminus \{u\}$ does not imply $C$. What does it mean
+                            <em>not</em> to imply somthing? It means that there is an assignment
+                            $\alpha$ to the variables such that
+                        </p>
+                        \begin{align*}
+                        F_{S \setminus \{u\}} (\alpha) = 1 \textnormal{ but }
+                        C(\alpha) = 0 \ .
+                        \end{align*}
+                        <p>
+                            So $\alpha$ satisfies all constraints $c_v$ for $v \in S \setminus \{u\}$.
+                            But it violates $c_u$. Why? Suppose $\alpha$ did satisfy $c_u$ as well;
+                            then it would satisfy all of $F_S$. By choice of $S$ we know that
+                            $F_S$ implies $C$ so $C(\alpha)=1$, a contradiction. We conclude:
+                        </p>
+                        \begin{align*}
+                        \textnormal{for every $v \in S$: } \quad F_v(\alpha) =
+                        \begin{cases}
+                        0 & \textnormal{ if $v=u$, } \\
+                        1 & \textnormal{ if $v \in S \setminus \{u\}$.}
+                        \end{cases}
+                        \end{align*}
+                        <p>
+                            We don't know about $F_v(\alpha)$ for $v \in V \setminus S$ but
+                            we don't care, either. Suppose we take $\alpha$ and flip the value
+                            it assigns to edge $f$. We get a new assignment $\beta$ defined by
+                        </p>
+                        \begin{align*}
+                        \beta(x_e) := \begin{cases}
+                        \neg \alpha(x_e) & \textnormal{ if $e = f$, } \\
+                        \alpha(x_e) & \textnormal{ if $e \ne f$.}
+                        \end{cases}
+                        \end{align*}
+                        Now consider some $v \in S \setminus \{v\}$. The edge $f = \{u,w\}$
+                        is not incident to $v$ and thus $x_f$ does not appear in $c_v$ and
+                        neither in $F_v$, its equivalent CNF formula.
+                        This means that $F_v(\beta)=F_v(\alpha)=1$.
+                        What about $c_u$? The assignment $\alpha$ violates $c_u$, as seen above:
+                        $\sum_{e \sim u} \alpha(x_e) \ne s(u)$. This sum also includes the edge $f$;
+                        thus, when we consider
+                        $\sum_{e \sim u} \beta(x_e)$, the two sums differ in exactly one term,
+                        namely that of $x_f$, and thus the latter has a different parity, and thus
+                        $\sum_{e \sim u} \beta(x_e) \ne \sum_{e \sim u} \alpha(x_e) \ne s(u)$.
+                        This means that $\beta$ satisfies $c_u$. So $F_S(\beta)=1$; since $F_S$ implies
+                        $C$ we also know that $C(\beta)=1$. To summarize:
+                        \begin{align*}
+                        C(\alpha) & = 0 \\
+                        C(\beta) & = 1 \ .
+                        \end{align*}
+                        <p>
+                            How can that be? How can $C$, violated by $\alpha$, suddenly be satisfied
+                            by $\beta$? The two assignments differ only in $x_f$, so this can only
+                            happens if $x_f \in \var(C)$.
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+                    </div class='proof'>
+
+                    <p>
+                        Now if $F = \tseitin(G,s)$ is unsatisfiable and we could somehow
+                        show that every resolution refutation of $F$ contains a clause $C$
+                        for which this minimal implying set $S$ has a large boundary $\delta(S)$,
+                        then we could show that $C$ must be large, too. In other words:
+                        we could show that every resolution refutation of $F$ has large width.
+                    </p>
+
+                    <h3>
+                        Resolution width lower bounds from expansion
+                    </h3>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='definition-expansion'
+                                data-label-title='Definition'>Definition</span> Let $h \in \R$ and
+                            $t \in \N$. A graph $G=(V,E)$ is a
+                            $(t,h)$-expander if
+                        </p>
+                        \begin{align}
+                        \label{eqn-expansion}
+                        |\delta(S)| \geq h \cdot |S|
+                        \end{align}
+                        <p>
+                            for every set $S \subseteq V$ of size $|S| \leq t$.
+                        </p>
+                    </div class='well container theorem'>
+
+                    <p>
+                        Typically, we say that $G$ is a good expander if it is $k$-regular for
+                        constant $k$ and $t \in \Omega(n)$ and $h \in \Omega(k)$. I don't want to make this formal right
+                        now.
+                    </p>
+
+
+                    <div class='well container example'>
+                        <p><strong>Example.</strong> If $G = (V,E)$ is $d$-regular and
+                            has girth at least $g$, i.e., if every cycle of $G$ has length at least $g$, then
+                            $G$ is a $(g-1,d-2)$-expander.</p>
+                        <p>
+                            Why? Well, take a set $S \subseteq V$ with $|S| \leq g-1$. The induced graph $H = G[S] =
+                            (S,E_S)$ must be
+                            acyclic, i.e., a forest. A forest has fewer edges than vertices, so $|E_S| \leq |E|-1$.
+                            Let's sum up the
+                            degrees of the
+                            $u \in S$. Since $G$ is $d$-regular, this is $d|S|$. Expanding the sum differently, we get
+                            the following (the notation $u \sim v$ means that $\{u,v\} \in E$, and the expression $[u
+                            \sim v]$
+                            is $1$ if $u \sim v$ and $0$ if $u \not \sim v$):
+                        </p>
+                        \begin{align*}
+                        d |S| & = \sum_{u \in S} \deg_G(u) \\
+                        & = \sum_{u \in S} \left( \sum_{v \in S} [u \sim v] + \sum_{v \in V \setminus S} [u \sim v]
+                        \right) \\
+                        & = \sum_{u \in S} \sum_{v \in S} [u \sim v] + \sum_{u \in S}\sum_{v \in V \setminus S} [u \sim
+                        v]\\
+                        & = 2 |E_S| + |\delta(S)| \\
+                        & \leq 2 (|S|-1) + \delta(S) \leq 2 |S| + \delta(S) \ .
+                        \end{align*}
+                        <p>
+                            In words: the edges included in $S$ or leaving $S$ generate $d|S|$ "endpoints". At most
+                            $2 |E_S|$ of them can be inside $G[S]$. The others must be on an edge leaving $S$.
+                            We conclude that $\delta(S) \geq (d-2) |S|$.
+                        </p>
+                    </div class='example'>
+
+
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='theorem-expansion-resolution'
+                                data-label-title='Theorem'>Theorem</span> <strong>(Good expanders give
+                                hard Tseitin formulas).</strong> Let $F = \tseitin(G,s)$ be an unsatisfiable
+                            Tseitin formula. If $G=(V,E)$ is connected and a $(t,h)$-expander then every resolution
+                            refutation of $F$
+                            has width at least $th/2$.</p>
+                    </div class='well container theorem'>
+                    <div class='well container'>
+                        <p><strong>Proof.</strong>
+                            Recall that for a clause $C$ implied by $F$ we considered a minimal set $S \subseteq V$ such
+                            that
+                            $F_S(G,s)$ implies $C$. Let's formally define a <em>complexity measure</em> for $C$:
+                        </p>
+                        \begin{align*}
+                        \mu(C) := \min \{|S| \ | S \subseteq V \textnormal{ and } F_S \textnormal{ implies } C \} \ .
+                        \end{align*}
+                        <p>
+                            First we claim that $\mu(\Box) = |V|$. Indeed, $F_V = F = \tseitin(G,s)$ implies $\Box$
+                            (since
+                            it is unsatisfiable) so $V$ can take the role of $S$ in the definition of $\mu$. But are we
+                            sure
+                            there is no smaller such $S$? Suppose $S \subsetneq V$. So there is a vertex $u \not \in S$.
+                            Let's change the parity requirement of $u$ to obtain new requirements $s'$:
+                        </p>
+                        \begin{align*}
+                        s'(v) & = \begin{cases}
+                        \neg s(v) & \textnormal{ if $v = u$} \\
+                        s(v) & \textnormal{ if $v \ne u$.}
+                        \end{cases}
+                        \end{align*}
+                        <p>
+                            Since $G$ is connected and the number of vertices with parity requirement $1$ is even in
+                            $s'$,
+                            the formula $\tseitin(G,s')$ is satisfiable. Since all other parity requirements are
+                            the same, the formula $F_S$ is also a subformula of $\tseitin(G,s')$ and thus $F_S$ is
+                            satisfiable.
+                            Therefore $F_S$ cannot imply $\Box$. We conclude that $\mu(\Box) = |V|$.
+                        </p>
+                        <p>
+                            Now consider a resolution refutation of $F$ and a clause $C$ in it. If $C$ is the resolvent
+                            of two earlier clauses $D_1$ and $D_2$, how are $\mu(C), \mu(D_1), \mu(D_2)$ related?
+                            If $S_1 \subseteq V$ is a smallest set such that $F_{S_1}$ implies $D_1$,
+                            and $S_2 \subseteq V$ is a smallest set such that
+                            that $F_{S_2}$ implies $D_2$, then clearly $F_{S_1} \wedge F_{S_2}$ implies $D_1 \wedge
+                            D_2$.
+                            Therefore it implies $C$. We conclude: for $S := S_1 \cup S_2$ it holds that $F_S$ implies
+                            $C$.
+                            Therefore $\mu(C) \leq |S| \leq |S_1| + |S_2| = \mu(C_1) + \mu(C_2)$.
+                            This implies in particular that $\max ( \mu(C_1), \mu(C_2)) \geq \mu(C) / 2$.
+                            Let's call $C_1, C_2$ the <em>predecessors</em> of $C$. It holds that every $C$ in the
+                            refutation
+                            is either
+                        </p>
+                        <ol>
+                            <li>a clause of $F$ itself; in this case we have $\mu(C) = 1$, or</li>
+                            <li>has a predecessor $D$ with $\mu(D) \geq \mu(C)/2$.</li>
+                        </ol>
+                        <p>
+                            Thus, if we start at $\Box$ and trace back its predecessors, we can make sure that
+                            $\mu(C)$ never drops by more than a factor $1/2$. It starts at $|V|$ and ends at $1$,
+                            so surely at some point it falls in the interval $[t/2, t]$. At this point we have a clause
+                            $C$ in the refutation with $t/2 \leq \mu(C) \leq t$. This is often called a
+                            <em>clause of intermediate complexity.</em>
+                        </p>
+                        <p>
+                            Let $S \subseteq V$ be a smallest set such that $F_S$ implies $C$, i.e., $|S| = \mu(C)$.
+                            Since $|S| \leq t$ we can apply that $G$ is a $(t,h)$-expander and conclude that
+                        </p>
+                        \begin{align*}
+                        |\delta(S)| \geq h\cdot |S| \geq ht/2 \ .
+                        \end{align*}
+                        <p>
+                            Together with <span class='reference' data-ref='lemma-minimal-set-implying-C'></span>
+                            this implies that $|C| \geq ht/2$.
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+
+                    </div class='proof'>
+                </div class='subChapter'>
+
+
+
+
+            </div class='chapter'>
+
+
+
+
+        </div class="content">
+    </div class="rightSideWrapper">
+
+
+    <div id="navigation-links">
+    </div>
+
+</body>
+<script type="text/javascript" src="../javascript/table-of-contents.js"></script>
+<script type="text/javascript" src="../javascript/number-my-theorems.js"></script>
+
+</html>

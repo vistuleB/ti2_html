@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="data:," />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../lecture-notes.css" />
+    <link rel="stylesheet" type="text/css" href="../Course.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script>
+        MathJax = {
+            tex: {
+                tags: 'ams',
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+
+    \(
+    \newcommand{\depth}{\textnormal{depth}}
+    \newcommand{\height}{\textnormal{height}}
+    \newcommand{\avgdepth}{\textnormal{avgdepth}}
+    \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+    \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+    \DeclareMathOperator*{\E}{\mathbb{E}}
+    \newcommand{\pfrac}[2]{\left(\frac{#1}{#2}\right)}
+    \newcommand{\R}{\mathbb{R}}
+    \newcommand{\Z}{\mathbb{Z}}
+    \newcommand{\X}{\mathcal{X}}
+    \newcommand{\F}{\mathbb{F}}
+    \newcommand{\N}{\mathbb{N}}
+    \newcommand{\var}{\textnormal{var}}
+    \newcommand{\width}{\textnormal{width}}
+    \newcommand{\tseitin}{\textnormal{Tseitin}}
+    \newcommand{\adg}{\textnormal{ADG}}
+    \newcommand{\norm}[1]{\|#1\|}
+    \)
+</head>
+
+
+
+<body>
+
+
+    <div id="rightSideWrapper">
+
+
+        <div class="content">
+
+            <div class="chapter">
+                <div class="subChapter">
+                    <h2 class="hidden-title">
+                        <span class='subChapterTitle'></span>
+                    </h2>
+                    <p>
+                        There is a different way of proving resolution width lower bounds, not
+                        reasoning about implication and non-implication (as we did in the
+                        previous chapter) but by modeling resolution as a game between
+                        a prover and a delayer. Loosely speaking, the pover wants to
+                        demonstrate that $F$ is unsatisfiable; the delayer wants to delay or
+                        completely avoid this. The prover proceeds by building up a partial assignment
+                        $\rho$ on the variables: in each round she picks a variable $x$ and
+                        asks the delayer <em>What is the value of $x$?</em> to which the
+                        delayer answers with a Boolean value $b \in \{0,1\}$, and the
+                        prover adds $[x \mapsto b]$ to $\rho$. The prover wins once $\rho$
+                        violates a clause $C \in F$. If $F$ is unsatisfiable, she can surely
+                        win the game because once $\rho$ becomes a total assignment it must
+                        violate some clause. The point is that she has <em>limited memory</em>:
+                        she must make sure that $\rho$ is defined on at most $w$ variables
+                        at any point. More formally:
+                    </p>
+
+                    <div class="alg well container">
+                        <p>Atserias-Dalmau game $\adg(F,w)$:</p>
+                        <ol>
+                            <li>$\rho := []$, the empty assignment</li>
+                            <li><tt>while</tt> no clause of $F$ is violated by $\rho$:
+                                <ol>
+                                    <li>Prover picks a variable $x$ of $V$.</li>
+                                    <li>Delayer responds with a truth value $b \in \{0,1\}$.</li>
+                                    <li>Prover sets $\rho := [x \mapsto b]$</li>
+                                    <li>If $\rho$ contains more than $w+1$ variabels, prover
+                                        must "forget" an assignment in $\rho$.</li>
+                                </ol>
+                            </li>
+                            <li>
+                                Prover can now exhibit a clause $C \in F$ with $C(\rho) = 0$,
+                                winning the game.
+                            </li>
+                        </ol>
+                    </div>
+                    <p>
+                        Delayer wins if he can make sure that the <tt>while</tt>-loop never
+                        terminates. If every clause of $F$ has size exactly $k$ and $w \lt k$ then
+                        of course Delayer wins the game. His challenge is to win it even for "large"
+                        $w$, e.g. for $w = n/3$.
+                    </p>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='theorem-atserias-dalmau-win-when-narrow'
+                                data-label-title='Theorem'>Theorem</span> If $F$ has a resolution
+                            refutation of width at most $w$ then prover can win $\adg(F,w)$.</p>
+                    </div class='well container theorem'>
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Let $C_1, C_2, \dots, C_l = \Box$ be a resolution refutation of $F$. The prover
+                            makes her way from $C_l$ at the end of the proof backwards to a clause
+                            of $F$, maintaining the invariant that her $\rho$ violates her current
+                            clause. Here is her strategy:
+                        </p>
+                        <div class="alg well container-fluid">
+                            <p>Strategy for Prover:</p>
+                            <ol>
+                                <li>$\rho = []$ in the beginning.</li>
+                                <li>Set $C = C_l = \Box$.</li>
+                                <li><tt>while</tt> $C \not \in F$:
+                                    <span class='comment'># $\rho$ violates $C$ by invariant</span>
+                                    <ol>
+                                        <li>
+                                            $C$ is a resolvent of two earlier clauses
+                                            $D_1, D_2$ in the resolution refutation.
+                                        </li>
+                                        <li>Let $x$ be the resolved variable.</li>
+                                        <li>Prover asks about $x$</li>
+                                        <li>Delayer answers with $b \in \{0,1\}$.</li>
+                                        <li>The new assignment $\rho \cup [x \mapsto b]$ violates
+                                            exactly one clause of $D_1, D_2$, say without loss of
+                                            generality $D_1$.
+                                        </li>
+                                        <li>
+                                            Prover forgets all variables not in $D_1$, so
+                                            $|\rho| = |D_1| \leq w$.
+                                        </li>
+                                        <li>
+                                            Prover sets $C := D_1$.
+                                        </li>
+                                    </ol>
+                                </li>
+                                <li>
+                                    The <tt>while</tt>-loop ends because the position of clause $C$
+                                    in the resolution refutation $C_1, \dots, C_l$ moves to
+                                    the left in each iteration.
+                                </li>
+                            </ol>
+                        </div>
+                        <p>
+                            Once $C \in F$, the invariant tells us that $C(\rho) = 0$, and thus Prover
+                            wins the game.
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+
+                    </div class='proof'>
+
+
+                    <p>
+                        This theorem is hugely useful: if
+                        we can define a strategy for Delayer to win the game on $(F,w)$, then every
+                        resolution refutation needs width more than $w$!
+                        The theorem has a converse, which is not only less useful but also slightly
+                        more difficult to prove:
+                    </p>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='theorem-atserias-dalmau-narrow-when-win'
+                                data-label-title='Theorem'>Theorem</span> Suppose Prover can
+                            win the game $\adg(F,w)$, then there is a resolution refutation of
+                            $F$ of width at most $w$.</p>
+                    </div class='well container theorem'>
+                    <div class='well container'>
+                        <p><strong>Proof.</strong>
+                            First of all we add another derivation rule to our resolution
+                            calculus: if we have derived a clause $D$, we can derive
+                            a superclause $C \supseteq D$; this is called the <em>weakening rule</em>;
+                            it is clearly correct, and we can always get rid of weakening
+                            steps without increasing length of width of the proof.
+                            We will need a slightly more general
+                            statement. First we allow $\adg(F,w)$ to start with
+                            a partial assignment $\rho$ that is not empty (but surely
+                            $|\rho| \leq w$). We call this $\adg(F,w,\rho)$. The
+                            stronger statement now is:
+                        </p>
+                        <div class='well container-fluid subtheorem'>
+                            <p><span class='numbered-title'>Claim.</span> If Prover
+                                can win $\adg(F,w,\rho)$ then there is a resolution proof
+                                $C_1, C_2, \dots, C_l$ from $F$ of width at most $w$ such that
+                                $\rho$ violates the final clause $C_l$.
+                            </p>
+                        </div class='well container-fluid subtheorem'>
+                        <p>
+                            If we can prove the claim, then the theorem follows by playing
+                            $\adg(F,w,[])$: the assignment $[]$ will violate the final clause
+                            $C_l$, which can only mean $C_l = \Box$. So let's prove the claim.
+                        </p>
+                        <p>We prove the claim by induction on the length of the game, i.e.,
+                            the number of times the players iterate through the <tt>while</tt>-loop.
+                            If Prover wins with 0 iterations of the loop, then the original
+                            $\rho$ violates some clause $C$ of $F$. So $C$ is by itself
+                            a resolution proof from $F$, of width $|C| \leq |\rho| \leq w$, ending
+                            in $C$, and $\rho$ violating its final clause.
+                        </p>
+                        <p>
+                            So suppose Prover can win within $t$ steps, no matter the moves
+                            Delayer makes. Prover queries a variable $x$. Let $b \in \{0,1\}$
+                            be the value Delayer answers.
+                            Prover builds $\rho \cup [x \mapsto b]$ and possibly forgets some other
+                            variable; call the resulting partial assignment $\rho_b$.
+                            Since Prover can win within $t$ steps no matter what Delayer
+                            answers, he can win within $t-1$ steps when starting
+                            with $\rho_0$ and when starting with $\rho_1$. In other words:
+                            she can win $\adg(F,w,\rho_0)$ within $t-1$ steps and $\adg(F,w,\rho_1)$
+                            within $t-1$ steps.
+                        </p>
+                        <p>
+                            By the induction hypothesis, there is a resultion proof $\pi_0$ from $F$
+                            of width $w$ ending in $C_0$ such that $\rho_0$ violates $C_0$;
+                            similarly a proof $\pi_1$ ending in $C_1$ such that $C_1(\rho_1) = 0$.
+                            Suppose $x \not \in \var(C_1) \cap \var(C_0)$, say without loss of
+                            generality $x \not \in \var(C_0)$. Then already $\rho$ violates
+                            $C_0$ and the claim is proved, just taking proof $\pi_0$.
+                            Otherwise, $x$ appears in both clauses. Since $C_0(\rho_0)=0$ we
+                            conclude that $\rho_0(x)=0$ (it must be defined and surely it isn't 1),
+                            so $x \in C_0$. Similarly $\bar{x} \in C_1$. They have a resolvent
+                            which we call $C$. Every variable of $C$ is defined by $\rho$ and
+                            indeed $\rho(C) = 0$. Since $|\rho| \leq w$ this also implies $|C| \leq w$,
+                            finishing the proof.
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+
+                    </div class='proof'>
+
+
+                </div class='subChapter'>
+
+
+
+
+            </div class='chapter'>
+
+
+
+
+        </div class="content">
+    </div class="rightSideWrapper">
+
+
+    <div id="navigation-links">
+    </div>
+
+</body>
+<script type="text/javascript" src="../javascript/table-of-contents.js"></script>
+<script type="text/javascript" src="../javascript/number-my-theorems.js"></script>
+
+</html>
