@@ -1,0 +1,99 @@
+|> html
+    |> head
+        |> link
+            rel=icon
+            href=data:,
+        |> meta
+            http-equiv=Content-Type
+            content=text/html; charset=utf-8
+        |> title
+        |> meta
+            name=viewport
+            content=width=device-width, initial-scale=1
+        |> link
+            rel=stylesheet
+            href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css
+        |> link
+            rel=stylesheet
+            type=text/css
+            href=../../lecture-notes.css
+        |> link
+            rel=stylesheet
+            type=text/css
+            href=../Course.css
+        |> script
+            src=https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
+        |> script
+            src=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js
+        |> script
+
+            MathJax = {
+            tex: {
+            tags: 'ams',
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+            fontCache: 'global'
+            }
+            };
+        |> script
+            type=text/javascript
+            id=MathJax-script
+            async=
+            src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js
+        \(
+        \newcommand{\depth}{\textnormal{depth}}
+        \newcommand{\height}{\textnormal{height}}
+        \newcommand{\avgdepth}{\textnormal{avgdepth}}
+        \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+        \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+        \DeclareMathOperator*{\E}{\mathbb{E}}
+        \newcommand{\pfrac}[2]{\left(\frac{#1}{#2}\right)}
+        \newcommand{\R}{\mathbb{R}}
+        \newcommand{\Z}{\mathbb{Z}}
+        \newcommand{\X}{\mathcal{X}}
+        \newcommand{\F}{\mathbb{F}}
+        \newcommand{\width}{\textnormal{width}}
+        \newcommand{\norm}[1]{\|#1\|}
+        \)
+    |> body
+        |> div
+            id=rightSideWrapper
+            |> div
+                class=content
+                |> div
+                    class=chapter
+                    |> div
+                        class=subChapter
+                        |> h2
+                            class=hidden-title
+                            |> span
+                                class=subChapterTitle
+                        Suppose we sample $A \in \F_2^{n \times n}$ by setting every entry
+                        to $1$ with probability $k/n$. Let's see whether the
+                        blueprint outlined in the previous chapter works. We run into
+                        a couple of problems.
+                        |> ol
+                            |> li
+                                Some constraints will contain
+                                much more than $k$ entries, thus we won't be able to write $Ax = b$
+                                as a $k$-CNF formula. We can try to remedy this by (1) removing
+                                all rows with more than $2k$ entries and constructing
+                                a $2k$-CNF formula; (2) alternatively, we can take variables
+                                occurring in "too heavy" constraints and fixing them to $0$.
+                                Both approaches might cause problems further downstream. 
+                            |> li
+                                Some small subsystem $A' x = b'$ of only few rows might already be
+                                unsatisfiable. Indeed, if row $i$ of $A$ is completely zero and
+                                if $b_i=1$, then $Ax = b$ is unsatisfiable and indeed
+                                the $i$-th constraint already is. We can remedy this
+                                by replacing $A$ with $A+I$ (see below under "fortification").
+                            |> li
+        |> div
+            id=navigation-links
+    |> script
+        type=text/javascript
+        src=../javascript/table-of-contents.js
+    |> script
+        type=text/javascript
+        src=../javascript/number-my-theorems.js

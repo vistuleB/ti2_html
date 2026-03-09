@@ -1,0 +1,245 @@
+|> html
+    |> head
+        |> link
+            rel=icon
+            href=data:,
+        |> meta
+            http-equiv=Content-Type
+            content=text/html; charset=utf-8
+        |> title
+        |> meta
+            name=viewport
+            content=width=device-width, initial-scale=1
+        |> link
+            rel=stylesheet
+            href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css
+        |> link
+            rel=stylesheet
+            type=text/css
+            href=../../lecture-notes.css
+        |> link
+            rel=stylesheet
+            type=text/css
+            href=../Course.css
+        |> script
+            src=https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
+        |> script
+            src=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js
+        |> script
+
+            MathJax = {
+            tex: {
+            tags: 'ams',
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+            fontCache: 'global'
+            }
+            };
+        |> script
+            type=text/javascript
+            id=MathJax-script
+            async=
+            src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js
+        \(
+        \newcommand{\depth}{\textnormal{depth}}
+        \newcommand{\height}{\textnormal{height}}
+        \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+        \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+        \DeclareMathOperator*{\E}{\mathbb{E}}
+        \newcommand{\pfrac}[2]{\left(\frac{#1}{#2}\right)}
+        \newcommand{\R}{\mathbb{R}}
+        \newcommand{\Z}{\mathbb{Z}}
+        \newcommand{\F}{\mathbb{F}}
+        \newcommand{\norm}[1]{\|#1\|}
+        \)
+    |> body
+        |> div
+            id=rightSideWrapper
+            |> div
+                class=content
+                |> div
+                    class=chapter
+                    |> h2
+                        class=hidden-title
+                        |> span
+                            class=chapterTitle
+                    For a row vector $a^T \in \{0,1\}^n$ and a column vector $x$ of variables $x_1, \dots, x_n$
+                    and a value $b \in \{0,1\}$ we can write
+                    \begin{align*}
+                    a_1 x_1 + a_2 x_2 + \cdots + a_n x_n = b
+                    \end{align*}
+                    as a vector-times-vector product
+                    \begin{align*}
+                    \begin{bmatrix}a_1 a_2 \dots a_n\end{bmatrix} \cdot
+                    \begin{bmatrix}x_1 \\ x_2 \\ \vdots \\ x_n\end{bmatrix} = b
+                    \end{align*}
+                    or even more compact as
+                    \begin{align*}
+                    a^T \cdot x = b \ .
+                    \end{align*}
+                    For example, with $n=8$ and $a^T = [1, 0, 0, 1, 0, 0, 0, 1]$ the
+                    equation $a^T x = 1$ just means
+                    \begin{align*}
+                    x_1 + x_4 + x_8 = 1 \ .
+                    \end{align*}
+                    By the way, we interpret $+$ and $=$ modulo 2, that is, we work in the finite
+                    field $\F_2$. The number of variables appearing in the equation is simply
+                    $\norm{a}_1$, the number of $1$s in the row vector $a$. When $k := \norm{a}_1$ then
+                    we can write $a^T x = b$ as a $k$-CNF formula with $2^{k-1}$ clauses, each with $k$ literals. The
+                    above
+                    $x_1 + x_4 + x_8 = 1$ would become
+                    \begin{align*}
+                    (x_1 \vee x_4 \vee x_8) \wedge
+                    (x_1 \vee \bar{x}_4 \vee \bar{x}_8) \wedge
+                    (\bar{x}_1 \vee x_4 \vee \bar{x}_8) \wedge
+                    (\bar{x}_1 \vee \bar{x}_4 \vee x_8)
+                    \end{align*}
+                    There is a partial converse. Consider a $k$-clause
+                    \begin{align}
+                    C := z_1 \vee z_2 \vee \dots \vee z_k
+                    \label{the-clause}
+                    \end{align}
+                    This is of course not _equalivalent_ to a linear constraint; however, there is a
+                    unique maximal linear equation that logically implies (\ref{the-clause}). Namely,
+                    \begin{align}
+                    e_C := z_1 + \cdots + z_k = 1 \label{the-constraint}
+                    \end{align}
+                    With the following cosmetic modification: a negative literal $z_i = \bar{x}_j$ would
+                    have to be replaced by $x_j + 1$ and then the constants accumulating on the left-hand
+                    side of (\ref{the-constraint}) should be brought to the right-hand side. Meaning
+                    that for example $(x_1 \vee \bar{x}_3 \vee x_7)$ is implied by
+                    \begin{align*}
+                    x_1 + x_3 + x_7&amp;= 0
+                    \end{align*}
+                    but not by any other equation on three variables nor on any equation
+                    on more than three variables. To see this, take any equation
+                    containing a variable $y$ _not_ in the clause.
+                    Set $z_1 = \dots = z_k = 0$ as to violate the clause. Then set
+                    the remaining variables of the equation (there is at least
+                    one remaining variable in the equation, namely $y$) such that
+                    the equation is satisfied. Now the equation is true but
+                    the clause isn't, meaning that the equation does not imply
+                    the clause.
+                    |> h3
+                        Example
+                    We consider a linear system with eight variables and eight equations:
+                    \begin{align*}
+                    x_{1}&= 1 \\
+                    x_{1} + x_{2}&= 1 \\
+                    x_{3} + x_{6} + x_{8}&= 0 \\
+                    x_{4} + x_{5} + x_{6}&= 0 \\
+                    x_{2} + x_{5}&= 0\\
+                    x_{5} + x_{6} + x_{7}&= 1 \\
+                    x_{3} + x_{5} +x_{7}&= 0 \\
+                    x_{1} + x_{5} + x_{8}&amp;= 1
+                    \end{align*}
+                    This system has no solution: to see this, look at the subset of equations
+                    that we colored red:
+                    \begin{align*}
+                    x_{1}&= 1 \\
+                    \textcolor{red}{x_{1} + x_{2}}&amp;= \textcolor{red}{ 1 }\\
+                    \textcolor{red}{x_{3} + x_{6} + x_{8}}&amp;= \textcolor{red}{0} \\
+                    x_{4} + x_{5} + x_{6}&= 0 \\
+                    \textcolor{red}{x_{2} + x_{5}}&amp;= \textcolor{red}{0}\\
+                    \textcolor{red}{x_{5} + x_{6} + x_{7}}&= \textcolor{red}{1} \\
+                    \textcolor{red}{x_{3} + x_{5} +x_{7}}&= \textcolor{red}{0} \\
+                    \textcolor{red}{x_{1} + x_{5} + x_{8}}&amp;= \textcolor{red}{1}
+                    \end{align*}
+                    Every variable occurs an even number of times in the red equations
+                    and thus their left-hand side sums up 0. The red number on the
+                    right sum up to $1$, so the red equations sum up to $0=1$, a contradiction.
+                    Let's redo everything in matrix-vector lingo.
+                    We write the system compactly as $Ax = b$:
+                    \begin{align*}
+                    \begin{bmatrix}
+                    1&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0 \\
+                    1&amp;1&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0 \\
+                    0&amp;0&amp;1&amp;0&amp;0&amp;1&amp;0&amp;1 \\
+                    0&amp;0&amp;0&amp;1&amp;1&amp;1&amp;0&amp;0 \\
+                    0&amp;1&amp;0&amp;0&amp;1&amp;0&amp;0&amp;0 \\
+                    0&amp;0&amp;0&amp;0&amp;1&amp;1&amp;1&amp;0 \\
+                    0&amp;0&amp;1&amp;0&amp;1&amp;0&amp;1&amp;0 \\
+                    1&amp;0&amp;0&amp;0&amp;1&amp;0&amp;0&amp;1
+                    \end{bmatrix}
+                    \cdot
+                    \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\ x_4 \\ x_5 \\ x_6 \\ x_7 \\ x_8 \end{bmatrix}
+                    &amp;= \begin{bmatrix}
+                    1 \\ 1 \\ 0 \\ 0 \\ 0 \\ 1 \\ 0 \\ 1
+                    \end{bmatrix}
+                    \end{align*}
+                    with $A \in \F_2^{8 \times 8}$ and $b \in \F_2^{8}$. The system $A\cdot x = b$ has
+                    no solution. Marking the equations red corresponds to coloring the corresponding
+                    rows of $A$ and $b$:
+                    \begin{align*}
+                    \begin{bmatrix}
+                    1&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0 \\ \hline
+                    \textcolor{red}{1}&amp;\textcolor{red}{1}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0}&amp;
+                    \textcolor{red}{0}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0} \\
+                    \textcolor{red}{0}&amp;\textcolor{red}{0}&amp;\textcolor{red}{1}&amp;\textcolor{red}{0}&amp;
+                    \textcolor{red}{0}&amp;\textcolor{red}{1}&amp;\textcolor{red}{0}&amp;\textcolor{red}{1} \\
+                    \hline
+                    0&amp;0&amp;0&amp;1&amp;1&amp;1&amp;0&amp;0 \\
+                    \hline
+                    \textcolor{red}{0}&amp;\textcolor{red}{1}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0}&amp;
+                    \textcolor{red}{1}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0} \\
+                    \textcolor{red}{0}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0}&amp;
+                    \textcolor{red}{1}&amp;\textcolor{red}{1}&amp;\textcolor{red}{1}&amp;\textcolor{red}{0} \\
+                    \textcolor{red}{0}&amp;\textcolor{red}{0}&amp;\textcolor{red}{1}&amp;\textcolor{red}{0}&amp;
+                    \textcolor{red}{1}&amp;\textcolor{red}{0}&amp;\textcolor{red}{1}&amp;\textcolor{red}{0} \\
+                    \textcolor{red}{1}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0}&amp;
+                    \textcolor{red}{1}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0}&amp;\textcolor{red}{1} \\
+                    \end{bmatrix}
+                    \cdot
+                    \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\ x_4 \\ x_5 \\ x_6 \\ x_7 \\ x_8 \end{bmatrix}
+                    &amp;= \begin{bmatrix}
+                    1 \\ \hline
+                    \textcolor{red}{1} \\
+                    \textcolor{red}{0} \\ \hline
+                    0 \\ \hline
+                    \textcolor{red}{0} \\
+                    \textcolor{red}{1} \\
+                    \textcolor{red}{0} \\
+                    \textcolor{red}{1}
+                    \end{bmatrix}
+                    \end{align*}
+                    Summing up a set of rows of a matrix is just multiplying it with a 0/1 row vector from
+                    the left: $r^T \cdot A$, and similarly for $b$. In the above case, $r^T$ is
+                    \begin{align*}
+                    r^T := \begin{bmatrix}
+                    0&amp;1&1&0&1&1&1&1
+                    \end{bmatrix}
+                    \end{align*}
+                    where $1$ stands for red (take this constraint) and $0$ for black (don't take it). Therefore
+                    $r^T A = 0 \in \F_2^n$ and $r^T b = 1 \in \F_2$. This means that $Ax = b$ has no
+                    solution: if $z \in \F_2^n$ were a solution, i.e., if $Az = b$ held, then
+                    $r^T Az = r^Tb$ would also hold, but then $1=0$ would hold, a contradiction.
+                    |> h3
+                        Resolution of such formulas
+                    We look again at the above system of equations:
+                    \begin{align*}
+                    x_{1}&= 1 \\
+                    x_{1} + x_{2}&= 1 \\
+                    x_{3} + x_{6} + x_{8}&= 0 \\
+                    x_{4} + x_{5} + x_{6}&= 0 \\
+                    x_{2} + x_{5}&= 0\\
+                    x_{5} + x_{6} + x_{7}&= 1 \\
+                    x_{3} + x_{5} +x_{7}&= 0 \\
+                    x_{1} + x_{5} + x_{8}&amp;= 1
+                    \end{align*}
+                    A resolution is a rule to derive a new clause from two existing clauses
+                    according to the following pattern:
+                    |> figure
+                        |> img
+                            src=../img/resolution-steps/resolution-step.svg
+                            style=height:4em
+                    It is easy to see that the conjunction of the two old clauses implies
+                    the resolvent $C \vee D$.
+        |> div
+            id=navigation-links
+    |> script
+        type=text/javascript
+        src=../javascript/table-of-contents.js
+    |> script
+        type=text/javascript
+        src=../javascript/number-my-theorems.js

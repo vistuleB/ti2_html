@@ -1,0 +1,190 @@
+|> html
+    |> head
+        |> link
+            rel=icon
+            href=data:,
+        |> meta
+            http-equiv=Content-Type
+            content=text/html; charset=utf-8
+        |> title
+        |> meta
+            name=viewport
+            content=width=device-width, initial-scale=1
+        |> link
+            rel=stylesheet
+            href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css
+        |> link
+            rel=stylesheet
+            type=text/css
+            href=../../lecture-notes.css
+        |> link
+            rel=stylesheet
+            type=text/css
+            href=../Course.css
+        |> script
+            src=https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
+        |> script
+            src=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js
+        |> script
+
+            MathJax = {
+            tex: {
+            tags: 'ams',
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+            fontCache: 'global'
+            }
+            };
+        |> script
+            type=text/javascript
+            id=MathJax-script
+            async=
+            src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js
+        \(
+        \newcommand{\depth}{\textnormal{depth}}
+        \newcommand{\height}{\textnormal{height}}
+        \newcommand{\avgdepth}{\textnormal{avgdepth}}
+        \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+        \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+        \DeclareMathOperator*{\E}{\mathbb{E}}
+        \newcommand{\pfrac}[2]{\left(\frac{#1}{#2}\right)}
+        \newcommand{\R}{\mathbb{R}}
+        \newcommand{\Z}{\mathbb{Z}}
+        \newcommand{\X}{\mathcal{X}}
+        \newcommand{\F}{\mathbb{F}}
+        \newcommand{\N}{\mathbb{N}}
+        \newcommand{\var}{\textnormal{var}}
+        \newcommand{\width}{\textnormal{width}}
+        \newcommand{\tseitin}{\textnormal{Tseitin}}
+        \newcommand{\adg}{\textnormal{ADG}}
+        \newcommand{\norm}[1]{\|#1\|}
+        \)
+    |> body
+        |> div
+            id=rightSideWrapper
+            |> div
+                class=content
+                |> div
+                    class=chapter
+                    |> div
+                        class=subChapter
+                        |> h2
+                            class=hidden-title
+                            |> span
+                                class=subChapterTitle
+                        Atserias-Dalmau games offer an alternative
+                        route to proving that Tseitin formulas
+                        $\tseitin(G,s)$ on an expander graph $G$ have
+                        large resolution width.
+                        |> Theorem
+                            \ Let $G=(V,E)$ be
+                            a connected $(t,h)$-expander and let $s: V \rightarrow \{0,1\}$ be a
+                            parity requirement function with $\sum_{v \in V} s(v) \equiv 1 \mod 2$. Then
+                            $F := \tseitin(G,s)$ is unsatisfiable and Prover can win the
+                            game $\adg(F,w)$ for $w := ht/2-1$
+                        Together with
+                        |> span
+                            class=reference
+                            data-ref=theorem-atserias-dalmau-win-when-narrow
+                        from the previous chapter, this implies that any resolution refutation
+                        of $F$ will need width at least $ht/2$. This constitutes another, alternative proof
+                        of 
+                        |> span
+                            class=reference
+                            data-ref=theorem-expansion-resolution
+                        .
+                        |> div
+                            class=well container
+                            *Proof.*
+                            Delayer maintains at all times a total assignment $\alpha$
+                            with the following invariants:
+                            |> ol
+                                |> li
+                                    $\alpha$ is a superassignment of $\rho$. That is,
+                                    $\rho(x_e) \in \{\alpha(x_e), \texttt{undefined}\}$ for all
+                                    edges $e \in E$.
+                                |> li
+                                    $\alpha$ satisfies all constraints $c_v$ except for one
+                                    vertex $c_u$, which it violates. We call $u$ the current
+                                    Achilles heel of $\alpha$.
+                            Under these invariants, it is clear that Prover wins exactly when
+                            all edges incident to $u$ are in $\rho$ because then $\rho$ violates
+                            $c_u$ and thus violates exactly one of the $2^{\deg(u)-1}$ clauses
+                            of $F_u$.
+
+                            For a partial assignment $\rho$, i.e., a state of the Atserias-Dalmau
+                            game, let $E_\rho$ denote the set of edges $e$ for which $x_e$ is
+                            defined by $\rho$, and let $G_{-\rho} := (V, E \setminus E_{\rho})$.
+                            That is, $G_{-\rho}$ is the graph obtained by removing edges
+                            defined under $\rho$.
+                            |> div
+                                class=well container-fluid subtheorem
+                                |> span
+                                    class=numbered-title
+                                    Observation.
+                                \ When we remove
+                                up to $w+1$ edges from $G$, no connected component will have
+                                at size in $[t/2,t]$, i.e., each will have either fewer than $t/2$
+                                vertices or more than $t$.
+                            |> div
+                                class=well container-fluid subtheorem
+                                *Proof.*
+                                Let $S \subseteq V$ be a connected component of $G_{-\rho}$.
+                                None of the
+                                edges in $\delta_G(S)$ is in $G_{-\rho}$ because $S$ is a connected
+                                component thereof; thus they are all defined under $\rho$,
+                                and $|\delta_G(S)| \leq w$.
+                                If $t/2 \leq |S| \leq t$ then by expansion we have
+                                $|\delta_G(S)| \geq h |S| \geq ht/2$. Thus $w \geq ht/2$,
+                                a contradiction to our assumption.
+                                |> span
+                                    class=qed
+                                    \(\square\)
+                            Delayer now maintains a third invariant:
+                            |> ol
+                                start=3
+                                |> li
+                                    The connected component of $G_{-\rho}$ containing
+                                    the Achilles heel of $\alpha$ has more than $t$ vertices.
+                            How can Delayer maintain the invariant? Let $S$ be the
+                            connected component of $G_{-\rho}$ containing the Achilles heel $u$
+                            of $\alpha$. Suppose Prover
+                            queries $x_e$. There are two cases:
+
+                            *Case 1:* 
+                            \ The set $S$ is connected in
+                            $(V, E \setminus E_\rho \setminus \{e\})$, too. Then there is nothing
+                            to do. Delayer answers the query with $\alpha(x_e)$ and does not
+                            change $\alpha$. The size of the connected component containing $u$
+                            does not shrink.
+
+                            *Case 2:* Removing $e$ makes $S$ break into two
+                            parts $S_1$ and $S_2$. Since $t \lt |S| = |S|_1 + |S|_2$, at least
+                            one of the parts is greater than $t/2$, say $S_1$. Since $S_1$ is a
+                            component of the graph obtained from $G$ by removing $|\rho|+1 \leq w+1$
+                            edges, we know from the claim that $|S_1| \gt t$.
+                            If the Achilles heel $u$ is in $S_1$ we simply answer $\rho(x_e) = \alpha(x_e$);
+                            the connected component containing $u$ shrinks, but is still greater than $t$.
+                            If $u \in S_2$ we have a problem since $S_2$ might become
+                            very small and eventually contain all edges around $x_e$.
+                            Delayer has to "escape": the chooses an arbitrary $v \in S_1$
+                            and a path $p$ from $u$ to $v$ in $G_{-\rho}$. She constructs
+                            $\alpha' := \alpha \oplus p$, meaning taking $\alpha$ but flipping all
+                            $x_f$ for edges $f \in p$. She only changes variables undefined by $\rho$,
+                            so $\alpha'$ is still a superassignment of $\rho$. It satisfies
+                            all constraints except $v$. So Delayer changed $\alpha$ to $\alpha'$,
+                            which moved the Achilles heel into the large enough connected
+                            component $S_1$. Thus she maintains all invariants and can
+                            play indefinitely.
+                            |> span
+                                class=qed
+                                \(\square\)
+        |> div
+            id=navigation-links
+    |> script
+        type=text/javascript
+        src=../javascript/table-of-contents.js
+    |> script
+        type=text/javascript
+        src=../javascript/number-my-theorems.js

@@ -4,7 +4,7 @@ import desugarer_library as dl
 pub fn html_pipeline() -> infra.Pipeline {
   [
     dl.identity(),
-    dl.ii2_remove_chapter_number_from_title(),
+    // dl.ii2_remove_chapter_number_from_title(),
     dl.trim_spaces_around_newlines__outside(["pre"]),
     dl.replace_multiple_spaces_by_one(),
     dl.extract_starting_and_ending_spaces(["i", "b", "strong", "em", "code"]),

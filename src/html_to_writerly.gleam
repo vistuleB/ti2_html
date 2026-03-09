@@ -1,4 +1,3 @@
-import blame as bl
 import io_lines as io_l
 import gleam/int
 import gleam/io
@@ -16,10 +15,6 @@ import writerly as wp
 import on
 
 const ins = string.inspect
-
-fn blame_us(message: String) -> bl.Blame {
-  bl.Ext([], message)
-}
 
 fn each_prev_next(
   l: List(a),
@@ -44,144 +39,6 @@ fn remove_0_at_start(s: String) -> String {
     True -> string.drop_start(s, 1)
     False -> s
   }
-}
-
-fn construct_left_nav(prev_file: Option(String)) {
-  let toc_link =
-    vp.V(
-      blame_us("toc link"),
-      "a",
-      [
-        vp.Attr(
-          blame_us("toc link attribute"),
-          "href",
-          "../vorlesungsskript.html",
-        ),
-      ],
-      [
-        vp.T(blame_us("toc link text node"), [
-          vp.Line(blame_us("toc link content"), "Inhaltsverzeichnis"),
-        ]),
-      ],
-    )
-
-  let prev_section_link = case prev_file {
-    option.Some(prev_file) -> {
-      let assert [prev_number_first, prev_number_second, ..] =
-        string.split(prev_file, "-")
-      let prev_number =
-        string.join(
-          [
-            remove_0_at_start(prev_number_first),
-            remove_0_at_start(prev_number_second),
-          ],
-          ".",
-        )
-
-      [
-        vp.V(
-          blame_us("Prev section link"),
-          "a",
-          [
-            vp.Attr(
-              blame_us("Prev section attribute"),
-              "href",
-              prev_file,
-            ),
-          ],
-          [
-            vp.T(blame_us("Prev section text node"), [
-              vp.Line(
-                blame_us("Prev section content"),
-                "&lt;&lt; Kapitel " <> prev_number,
-              ),
-            ]),
-          ],
-        ),
-      ]
-    }
-    option.None -> []
-  }
-
-  vp.V(
-    blame_us("left nav div"),
-    "div",
-    [vp.Attr(blame_us("left nav attribute"), "id", "link-to-toc")],
-    list.flatten([[toc_link], prev_section_link]),
-  )
-}
-
-fn construct_right_nav(next_file: Option(String)) {
-  let overview_link =
-    vp.V(
-      blame_us("overview link"),
-      "a",
-      [vp.Attr(blame_us("overview link attribute"), "href", "/")],
-      [
-        vp.T(blame_us("overview link text node"), [
-          vp.Line(
-            blame_us("overview link content"),
-            "zur Kursübersicht",
-          ),
-        ]),
-      ],
-    )
-
-  let next_section_link = case next_file {
-    option.Some(next_file) -> {
-      let assert [next_number_first, next_number_second, ..] =
-        string.split(next_file, "-")
-      let next_number =
-        string.join(
-          [
-            remove_0_at_start(next_number_first),
-            remove_0_at_start(next_number_second),
-          ],
-          ".",
-        )
-
-      [
-        vp.V(
-          blame_us("next section link"),
-          "a",
-          [
-            vp.Attr(
-              blame_us("next section attribute"),
-              "href",
-              next_file,
-            ),
-          ],
-          [
-            vp.T(blame_us("next section text node"), [
-              vp.Line(
-                blame_us("next section content"),
-                "Kapitel " <> next_number <> " &gt;&gt;",
-              ),
-            ]),
-          ],
-        ),
-      ]
-    }
-    option.None -> []
-  }
-
-  vp.V(
-    blame_us("right nav div"),
-    "div",
-    [
-      vp.Attr(
-        blame_us("right nav attribute"),
-        "id",
-        "link-to-overview",
-      ),
-      vp.Attr(
-        blame_us("right nav attribute"),
-        "style",
-        "text-align: end",
-      ),
-    ],
-    list.flatten([[overview_link], next_section_link]),
-  )
 }
 
 fn splitter(vxml: VXML, file: String) -> Result(List(vr.OutputFragment(Nil, VXML)), a) {
@@ -370,7 +227,10 @@ pub fn html_to_writerly(
     fn(e) { io.print("failed to load files from " <> path <> ": " <> ins(e)) },
   )
 
-  let files = list.sort(files, string.compare)
+  let files =
+    files
+    |> list.filter(string.ends_with(_, ".html"))
+    |> list.sort(string.compare)
 
   each_prev_next(files, option.None, fn(file, prev, next) {
     let path = dir <> "/" <> file

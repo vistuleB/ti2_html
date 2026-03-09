@@ -1,0 +1,119 @@
+|> html
+    |> head
+        |> link
+            rel=icon
+            href=data:,
+        |> meta
+            http-equiv=Content-Type
+            content=text/html; charset=utf-8
+        |> title
+        |> meta
+            name=viewport
+            content=width=device-width, initial-scale=1
+        |> link
+            rel=stylesheet
+            href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css
+        |> link
+            rel=stylesheet
+            type=text/css
+            href=../../lecture-notes.css
+        |> link
+            rel=stylesheet
+            type=text/css
+            href=../Course.css
+        |> script
+            src=https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
+        |> script
+            src=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js
+        |> script
+
+            MathJax = {
+            tex: {
+            tags: 'ams',
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+            fontCache: 'global'
+            }
+            };
+        |> script
+            type=text/javascript
+            id=MathJax-script
+            async=
+            src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js
+        \(
+        \newcommand{\depth}{\textnormal{depth}}
+        \newcommand{\height}{\textnormal{height}}
+        \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+        \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+        \DeclareMathOperator*{\E}{\mathbb{E}}
+        \newcommand{\pfrac}[2]{\left(\frac{#1}{#2}\right)}
+        \newcommand{\R}{\mathbb{R}}
+        \newcommand{\Z}{\mathbb{Z}}
+        \newcommand{\F}{\mathbb{F}}
+        \newcommand{\width}{\textnormal{width}}
+        \newcommand{\norm}[1]{\|#1\|}
+        \)
+    |> body
+        |> div
+            id=rightSideWrapper
+            |> div
+                class=content
+                |> div
+                    class=chapter
+                    |> h2
+                        class=hidden-title
+                        |> span
+                            class=chapterTitle
+                    We consider a linear system of the form $Ax = b$.
+                    If every row of $A$ has at most $k$ $1$s, then it can be
+                    written as a $k$-CNF formula $F$. If $Ax = b$ has no solution
+                    then $F$ is unsatisfiable. Our goal is to prove that
+                    $F$ has only wide (and thus large) resolution refutations.
+                    The blueprint for a proof is as follows:
+                    |> ol
+                        |> li
+                            Take a treelike resolution derivation $F \vdash \Box$ and
+                            contruct from it the "equation tree" $T$ as in the previous chapter.
+                            Each node $u$ of $T$ is labeled with a row vector $c_u^T \in \F_2^n$
+                            and a right-hand side $w_u \in \F_2$, representing the
+                            constraint $c_u^T \cdot x = w_u$. At a leaf we have
+                            $c^T_u = a_i^T$ (a row of $A$) and $w_u = b_i$, so the leaf
+                            represents the "original" constraint $a_i^T x = b_i$. At the
+                            root we have $c_{\rm root}^T = 0^T$ and $w_{\rm root} = 1$, representing
+                            the derived contradiction $0=1$.
+                            If $\width(F \vdash \Box) \leq w$ then each equation that appesars
+                            at a node of the equation tree has at most $w$ variables:
+                            $\norm{c_u^T}_1 \leq w$.
+
+                            Note that every constraint $c^T_u \cdot x = w_u$ is the
+                            sum of some original constraints. That is, there is a
+                            row vector $r^T_u \in \F_2^n$ with
+                            $c^T_u = r^T_u \cdot A$ and $w_u = r^T b$.
+                            If $u$ is a leaf then $\norm{r^T_u}_1 = 1$ since this is a
+                            single original constraint.
+                        |> li
+                            Show that a linear number of rows of $A$
+                            are necessary to derive a contradiction. In other words:
+                            $\norm{r^T_{\rm root}} = \alpha n$ for some $\alpha \gt 0$ independent of $n$.
+                            Conclude from this that there is a node $u$ in the tree
+                            for which
+                            \begin{align*}
+                            \alpha n \leq \norm{r^T_u}_1 \leq 2 \alpha n
+                            \end{align*}
+                        |> li
+                            Argue by the expansion properties of $A$ that
+                            $\norm{s^T A}_1$ is "large" (say linear) whenever $\norm{s^T_1}$ is "large but not
+                            too large". Thus, $\norm{r_u^T A}_1$ is large. Since
+                            $r_u^T A = c_u^T$, the constraint at node $u$ contains a linear
+                            number of variables, and so does the clause appearing at node $u$ in the
+                            resolution tree.
+                    Depending on how we construct $A$, those points will pose some challenges.
+        |> div
+            id=navigation-links
+    |> script
+        type=text/javascript
+        src=../javascript/table-of-contents.js
+    |> script
+        type=text/javascript
+        src=../javascript/number-my-theorems.js

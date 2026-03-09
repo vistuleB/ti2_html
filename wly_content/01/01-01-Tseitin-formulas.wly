@@ -1,0 +1,285 @@
+|> html
+    |> head
+        |> link
+            rel=icon
+            href=data:,
+        |> meta
+            http-equiv=Content-Type
+            content=text/html; charset=utf-8
+        |> title
+        |> meta
+            name=viewport
+            content=width=device-width, initial-scale=1
+        |> link
+            rel=stylesheet
+            href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css
+        |> link
+            rel=stylesheet
+            type=text/css
+            href=../../lecture-notes.css
+        |> link
+            rel=stylesheet
+            type=text/css
+            href=../Course.css
+        |> script
+            src=https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
+        |> script
+            src=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js
+        |> script
+
+            MathJax = {
+            tex: {
+            tags: 'ams',
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+            fontCache: 'global'
+            }
+            };
+        |> script
+            type=text/javascript
+            id=MathJax-script
+            async=
+            src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js
+        \(
+        \newcommand{\depth}{\textnormal{depth}}
+        \newcommand{\height}{\textnormal{height}}
+        \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+        \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+        \DeclareMathOperator*{\E}{\mathbb{E}}
+        \newcommand{\pfrac}[2]{\left(\frac{#1}{#2}\right)}
+        \newcommand{\R}{\mathbb{R}}
+        \newcommand{\Z}{\mathbb{Z}}
+        \newcommand{\F}{\mathbb{F}}
+        \newcommand{\norm}[1]{\|#1\|}
+        \newcommand{\x}{\mathbf{x}}
+        \newcommand{\s}{\mathbf{s}}
+        \newcommand{\r}{\mathbf{r}}
+        \)
+    |> body
+        |> div
+            id=rightSideWrapper
+            |> div
+                class=content
+                |> div
+                    class=chapter
+                    |> div
+                        class=subChapter
+                        |> h2
+                            class=hidden-title
+                            |> span
+                                class=subChapterTitle
+                        |> Definition
+                            \ *(Tseitin formulas).*
+                            Let $G = (V,E)$ be an undirected graph and let $s : V \rightarrow \{0,1\}$,
+                            called the _parity requirements_.
+                            The _Tseitin system for $G$ and $s$_ is a system of linear equations
+                            over $GF(2)$ with one variable $x_e$ for each $e \in E$ and a constraint
+                            $c_u$ for each $u \in V$:
+                            \begin{align*}
+                            \sum_{e: u \in e} x_e \equiv s(u) \mod 2 \tag{$c_u$}\ .
+                            \end{align*}
+                        |> div
+                            class=well container example
+                            *Example.* Let us consider
+                            the following system of four equations on five variables defined
+                            by the following graph and parity requirement:
+                            |> figure
+                                |> img
+                                    src=../img/tseitin/tseitin-01-02.svg
+                                    style=height:10em
+                            Vertices without a 1 next to them are considered to have
+                            a parity requirement of $0$. Let's write the system
+                            of equations:
+                            \begin{align*}
+                            h + i&amp;= 1 \tag{$c_t$}\\
+                            e + f&amp;= 1 \tag{$c_u$} \\
+                            f + g + i&amp;= 0 \tag{$c_v$}\\
+                            e + g + h&amp;= 0 \tag{$c_w$}
+                            \end{align*}
+                            We write $e + f$ instead of $x_e + x_f$ to increase
+                            readability. This system of equations has a solution,
+                            for example
+                            \begin{align*}
+                            (e,f,g,h,i) = (1,0,1,0,1) \ .
+                            \end{align*}
+                            Let's look at the same graph but with different
+                            parity requirements:
+                            |> figure
+                                |> img
+                                    src=../img/tseitin/tseitin-01-01.svg
+                                    style=height:10em
+                            The system of equations is as the above,
+                            just the right-hand side of $c'_u$ is now $0$:
+                            \begin{align*}
+                            h + i&amp;= 1 \tag{$c'_t$}\\
+                            e + f&amp;= 0 \tag{$c'_u$} \\
+                            f + g + i&amp;= 0 \tag{$c'_v$}\\
+                            e + g + h&amp;= 0 \tag{$c'_w$}
+                            \end{align*}
+                            This system of equations is unsatisfiable. Adding
+                            up all constraints gives us
+                            \begin{align}
+                            h + i + e + f + f + g + i + e + g + h = 1
+                            \label{eqn-sum-all-constraints}
+                            \end{align}
+                            Every variable occurs twice on the left-hand side;
+                            this is clear since for each edge $e = \{u,v\}$,
+                            the variable $x_e$ appears in $c_u$ and $c_v$ and nowhere else.
+                            Modulo 2 the above (\ref{eqn-sum-all-constraints}) reduces
+                            to
+                            \begin{align*}
+                            0 = 1 \ ,
+                            \end{align*}
+                            which is clearly unsatisfiable.
+                        A vector $\x \in \{0,1\}^E$ can be interpreted as a spanning subgraph
+                        $G_x = (V,E_x)$ of $G$ with
+                        $E_x := \{e \in E \ | \ x_e = 1\}$. This $\x$ is a solution
+                        to the Tseitin system if and only if the degree of each
+                        $v \in V$ in $G_x$ is odd if $s(v)=1$ and even if $s(v)=0$.
+                        |> div
+                            class=well container example
+                            *Example.*
+                            Here is a graph with parity requirements:
+                            |> figure
+                                |> img
+                                    src=../img/tseitin/tseitin-02-01.svg
+                                    style=width:100%
+                            Here is a vector $\x \in \{0,1\}^E$ that is _not_
+                            a solution: constraints $c_u$ and $c_v$ are violated:
+                            |> figure
+                                |> img
+                                    src=../img/tseitin/tseitin-02-02.svg
+                                    style=width:100%
+                            The subgraph below is a solution
+                            |> figure
+                                |> img
+                                    src=../img/tseitin/tseitin-02-03.svg
+                                    style=width:100%
+                            because all parity requirements are satisfied. We can
+                            "add subgraphs modulo 2":
+                            |> figure
+                                |> img
+                                    src=../img/tseitin/tseitin-03-01.svg
+                                    style=width:100%
+                            Let's look again at the graph, and let's call the middle
+                            edge $f$:
+                            |> figure
+                                |> img
+                                    src=../img/tseitin/tseitin-04-01.svg
+                                    style=width:100%
+                            Every solution must have $x_f = 1$; every subgraph
+                            corresponding to a solution must contain $f$. Why?
+                            Let's look at the four vertices $a,b,c,d$ on the left
+                            and their constraints:
+                            \begin{align*}
+                            x_{\{a,b\}} + x_{\{a,d\}}&amp;= 1 \tag{$c_a$} \\
+                            x_{\{a,b\}} + x_{\{b,c\}} + x_{\{b,d\}}&amp;= 0 \tag{$c_b$} \\
+                            x_{\{b,c\}} + x_{\{c,d\}}&amp;= 0 \tag{$c_c$} \\
+                            x_{\{a,d\}} + x_{\{b,d\}} + x_{\{c,d\}} + x_f&amp;= 0 \tag{$c_d$}
+                            \end{align*}
+                            Adding them up (and reducing modulo 2) gives us
+                            \begin{align*}
+                            x_f = 1
+                            \end{align*}
+                            because every edge inside $S = \{a,b,c,d\}$ appears twice
+                            and gets canceled. Edges like $\{u,v\}$ outside $S$
+                            don't appear at all; edges between $S$ and $V \setminus S$
+                            appear exactly once. In this example, this is just $f$.
+                        |> Definition
+                            \ *(Boundary).*
+                            Let $G = (V,E)$ be an undirected graph and $S \subseteq V$ be a set
+                            of vertices. The _edge boundary of $S$_ is
+                            \begin{align*}
+                            \delta(S) := \{e \in E \ | \ |e \cap S| = 1 \} \ .
+                            \end{align*}
+                            Note that $\delta(S) = \emptyset$ if and only if $S$ is the union of
+                            connected components (possible the empty union of zero connected components).
+                        |> Observation
+                            Let $ S \subseteq V$. When we add up the
+                            constraints $c_u$ for all $u \in S$, i.e., when
+                            building $\sum_{u \in S} c_u$, we obtain
+                            the equation
+                            \begin{align*}
+                            \sum_{e \in \delta(S)} x_e \equiv \sum_{u \in S} s(u)
+                            \mod 2
+                            \end{align*}
+                        |> div
+                            class=well container
+                            *Proof.*
+                            As argued in the above example: when an
+                            edge $f = \{u,v\}$ is completely inside $S$, i.e.,
+                            when $u, v \in S$, then $x_f$ appears twice
+                            in the sum over the constraints; if $f$ lies
+                            completely outside $S$, i.e., $u, v \not \in S$, then
+                            $x_f$ doesn't appear at all; if $f \in \delta(S)$ then
+                            $x_f$ appears once.
+                            |> span
+                                class=qed
+                                \(\square\)
+                        From linear algebra we know (or should know) that a system
+                        of equations $A \x = \s$ is unsolvable if and only if
+                        there exists a row vector $\r^T$ with
+                        $\r^T \cdot A = \mathbf{0}$ and $\r^T \cdot \s = 1$.
+                        In our case, where everything is modulo 2, the
+                        product $\r \cdot A$ just means selecting a subset $S$ of
+                        constraints and adding them up, by setting $S := \{v \in S \ | \ r_v = 1\}$.
+                        By 
+                        |> span
+                            class=reference
+                            data-ref=observation-boundary
+                        this means that
+                        \begin{align*}
+                        \mathbf{0} = \r^T \cdot A&amp;= \sum_{e \in \delta(S)} x_e \\
+                        1 = \r^T \cdot \s&amp;= \sum_{u \in S} s(u)
+                        \end{align*}
+                        The first equation implies that $S$ is a union of
+                        connected components; the second one says that the
+                        number of vertices in $S$ that have parity requirement 1
+                        is odd. From this it follows that there is at least
+                        one connected component $S'$ with an odd number
+                        of parity-requirement-1 vertices:
+                        |> Lemma
+                            \ The Tseitin
+                            system is satisfiable if and only if
+                            every connected component has an even number of vertices
+                            with parity requirement $1$.
+                        |> div
+                            class=well container
+                            *Proof.*
+                            The _only if_ direction is clear: if a connected
+                            component $S$ has an odd number of parity-1-vertices, then
+                            adding up the constraints $c_u$ for all $u \in S$
+                            gives us $0=1$, so the system is clearly unsatisfiable.
+
+                            For the _if_ part we can use the linear algebra
+                            reasoning from above; or we can prove it directly:
+                            First, if $G$ has multiple connected components, we can
+                            construct a solution for each component separately.
+                            So let's assume that $G$ is connected.
+                            Let us look at the vertices of parity requirement 1 and
+                            call them
+                            \begin{align*}
+                            v_1, v_2, \dots, v_l \ .
+                            \end{align*}
+                            By assumption, $l$ is even. We put them in pairs:
+                            \begin{align*}
+                            (v_1, v_2), (v_3, v_4), \dots, (v_{l-1}, v_l) \ .
+                            \end{align*}
+                            For each such pair $(v_{2i-1}, v_{2i})$ we
+                            find a path $p$ between them; this exists because $G$
+                            is connected by assumption. We consider $p$ as a subgraph
+                            of $G$. We take $l/2$ such paths, connecting
+                            each pair. Then we "add up the paths" as described above
+                            and obtain a subgraph that satisfies all constraints.
+                            |> span
+                                class=qed
+                                \(\square\)
+        |> div
+            id=navigation-links
+    |> script
+        type=text/javascript
+        src=../javascript/table-of-contents.js
+    |> script
+        type=text/javascript
+        src=../javascript/number-my-theorems.js
