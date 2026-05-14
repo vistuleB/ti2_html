@@ -36,5 +36,4 @@ pub fn our_pipeline() -> infra.Pipeline {
     ]
   ]
   |> list.flatten
-  |> infra.desugarers_2_pipeline
 }

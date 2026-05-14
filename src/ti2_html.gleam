@@ -235,8 +235,8 @@ pub fn main() {
 
       let renderer =
         vr.Renderer(
-          assembler: vr.default_writerly_assembler(amendments.only_paths),
-          parser: vr.default_writerly_parser(amendments.only_key_values),
+          assembler: vr.default_writerly_assembler(_, amendments.only_paths),
+          parser: vr.default_writerly_parser,
           pipeline: pipeline.our_pipeline(),
           splitter: our_splitter,
           emitter: ti2_emitter,

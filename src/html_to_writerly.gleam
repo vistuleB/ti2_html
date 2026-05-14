@@ -252,7 +252,7 @@ pub fn html_to_writerly(
     let renderer =
       vr.Renderer(
         assembler: html_purifying_assembler,
-        parser: vr.default_html_parser(_, amendments.only_key_values),
+        parser: vr.default_html_parser,
         pipeline: html_pipeline.html_pipeline(),
         splitter: fn(vxml) { splitter(vxml, file) },
         emitter: fn(fragment) { emitter(fragment, prev, next) },
