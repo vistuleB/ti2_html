@@ -28,7 +28,7 @@ pub fn our_pipeline() -> infra.Pipeline {
       dl.identity(),
       // dl.handles_substitute(),
       dl.concatenate_text_nodes(),
-      dl.unwrap_if_no_child_meets_condition(#("p", infra.is_text_or_is_one_of(_, ["b", "i", "a", "span"]))),
+      dl.unwrap_if_no_child_meets_condition(#("p", infra.is_t_or_is_one_of(_, ["b", "i", "a", "span"]))),
       dl.unwrap_if_child_of__batch([#("p", ["span", "code", "tt", "figcaption", "em"])]),
       dl.free_children__batch([#("pre", "p"), #("ul", "p"), #("ol", "p"), #("p", "p"), #("figure", "p")]),
       dl.ii2_generate_table_of_contents_html(#("TOCAuthorSuppliedContent", "li")),
