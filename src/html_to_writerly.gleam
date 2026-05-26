@@ -249,9 +249,14 @@ pub fn html_to_writerly(
       vr.RendererParameters(input_dir: path, output_dir: ".", prettifier_behavior: vr.PrettifierOff)
       |> vr.amend_renderer_paramaters_by_command_line_amendments(amendments)
 
+    let options =
+      vr.vanilla_options()
+      |> vr.amend_renderer_options_by_command_line_amendments(amendments)
+
     let renderer =
       vr.Renderer(
         assembler: html_purifying_assembler,
+        filterer: vr.default_filterer(_, options, []),
         parser: vr.default_html_parser,
         pipeline: html_pipeline.html_pipeline(),
         splitter: fn(vxml) { splitter(vxml, file) },
@@ -261,11 +266,7 @@ pub fn html_to_writerly(
       )
       |> vr.amend_renderer_by_command_line_amendments(amendments)
 
-    let renderer_options =
-      vr.vanilla_options()
-      |> vr.amend_renderer_options_by_command_line_amendments(amendments)
-
-    case vr.run_renderer(renderer, parameters, renderer_options) {
+    case vr.run_renderer(renderer, parameters, options) {
       Ok(_) -> Nil
       Error(error) -> {
         io.println("\nrenderer error on path " <> path <> ":")

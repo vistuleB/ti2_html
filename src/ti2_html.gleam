@@ -233,9 +233,22 @@ pub fn main() {
         },
       )
 
+      let parameters =
+        vr.RendererParameters(
+          input_dir: "./wly_content",
+          output_dir: "./output",
+          prettifier_behavior: vr.PrettifierOff,
+        )
+        |> vr.amend_renderer_paramaters_by_command_line_amendments(amendments)
+
+      let options =
+        vr.vanilla_options()
+        |> vr.amend_renderer_options_by_command_line_amendments(amendments)
+
       let renderer =
         vr.Renderer(
-          assembler: vr.default_writerly_assembler(_, amendments.only_paths),
+          assembler: vr.default_writerly_assembler(_, options),
+          filterer: vr.default_filterer(_, options, []),
           parser: vr.default_writerly_parser,
           pipeline: pipeline.our_pipeline(),
           splitter: our_splitter,
@@ -245,19 +258,7 @@ pub fn main() {
         )
         |> vr.amend_renderer_by_command_line_amendments(amendments)
 
-      let parameters =
-        vr.RendererParameters(
-          input_dir: "./wly_content",
-          output_dir: "./output",
-          prettifier_behavior: vr.PrettifierOff,
-        )
-        |> vr.amend_renderer_paramaters_by_command_line_amendments(amendments)
-
-      let debug_options =
-        vr.vanilla_options()
-        |> vr.amend_renderer_options_by_command_line_amendments(amendments)
-
-      case vr.run_renderer(renderer, parameters, debug_options) {
+      case vr.run_renderer(renderer, parameters, options) {
         Error(error) -> io.println("\nrenderer error: " <> ins(error) <> "\n")
         _ -> Nil
       }
