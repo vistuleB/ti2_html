@@ -110,7 +110,7 @@
                     side of (\ref{the-constraint}) should be brought to the right-hand side. Meaning
                     that for example $(x_1 \vee \bar{x}_3 \vee x_7)$ is implied by
                     \begin{align*}
-                    x_1 + x_3 + x_7&amp;= 0
+                    x_1 + x_3 + x_7 & = 0
                     \end{align*}
                     but not by any other equation on three variables nor on any equation
                     on more than three variables. To see this, take any equation
@@ -125,26 +125,26 @@
                         Example
                     We consider a linear system with eight variables and eight equations:
                     \begin{align*}
-                    x_{1}&= 1 \\
-                    x_{1} + x_{2}&= 1 \\
-                    x_{3} + x_{6} + x_{8}&= 0 \\
-                    x_{4} + x_{5} + x_{6}&= 0 \\
-                    x_{2} + x_{5}&= 0\\
-                    x_{5} + x_{6} + x_{7}&= 1 \\
-                    x_{3} + x_{5} +x_{7}&= 0 \\
-                    x_{1} + x_{5} + x_{8}&amp;= 1
+                    x_{1} &= 1 \\
+                    x_{1} + x_{2}& = 1 \\
+                    x_{3} + x_{6} + x_{8}& = 0 \\
+                    x_{4} + x_{5} + x_{6}& = 0 \\
+                    x_{2} + x_{5}& = 0\\
+                    x_{5} + x_{6} + x_{7}& = 1 \\
+                    x_{3} + x_{5} +x_{7}& = 0 \\
+                    x_{1} + x_{5} + x_{8} & = 1
                     \end{align*}
                     This system has no solution: to see this, look at the subset of equations
                     that we colored red:
                     \begin{align*}
-                    x_{1}&= 1 \\
-                    \textcolor{red}{x_{1} + x_{2}}&amp;= \textcolor{red}{ 1 }\\
-                    \textcolor{red}{x_{3} + x_{6} + x_{8}}&amp;= \textcolor{red}{0} \\
-                    x_{4} + x_{5} + x_{6}&= 0 \\
-                    \textcolor{red}{x_{2} + x_{5}}&amp;= \textcolor{red}{0}\\
-                    \textcolor{red}{x_{5} + x_{6} + x_{7}}&= \textcolor{red}{1} \\
-                    \textcolor{red}{x_{3} + x_{5} +x_{7}}&= \textcolor{red}{0} \\
-                    \textcolor{red}{x_{1} + x_{5} + x_{8}}&amp;= \textcolor{red}{1}
+                    x_{1} &= 1 \\
+                    \textcolor{red}{x_{1} + x_{2}} & = \textcolor{red}{ 1 }\\
+                    \textcolor{red}{x_{3} + x_{6} + x_{8}} & = \textcolor{red}{0} \\
+                    x_{4} + x_{5} + x_{6}& = 0 \\
+                    \textcolor{red}{x_{2} + x_{5}} & = \textcolor{red}{0}\\
+                    \textcolor{red}{x_{5} + x_{6} + x_{7}}& = \textcolor{red}{1} \\
+                    \textcolor{red}{x_{3} + x_{5} +x_{7}}& = \textcolor{red}{0} \\
+                    \textcolor{red}{x_{1} + x_{5} + x_{8}} & = \textcolor{red}{1}
                     \end{align*}
                     Every variable occurs an even number of times in the red equations
                     and thus their left-hand side sums up 0. The red number on the
@@ -153,18 +153,18 @@
                     We write the system compactly as $Ax = b$:
                     \begin{align*}
                     \begin{bmatrix}
-                    1&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0 \\
-                    1&amp;1&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0 \\
-                    0&amp;0&amp;1&amp;0&amp;0&amp;1&amp;0&amp;1 \\
-                    0&amp;0&amp;0&amp;1&amp;1&amp;1&amp;0&amp;0 \\
-                    0&amp;1&amp;0&amp;0&amp;1&amp;0&amp;0&amp;0 \\
-                    0&amp;0&amp;0&amp;0&amp;1&amp;1&amp;1&amp;0 \\
-                    0&amp;0&amp;1&amp;0&amp;1&amp;0&amp;1&amp;0 \\
-                    1&amp;0&amp;0&amp;0&amp;1&amp;0&amp;0&amp;1
+                    1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                    1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                    0 & 0 & 1 & 0 & 0 & 1 & 0 & 1 \\
+                    0 & 0 & 0 & 1 & 1 & 1 & 0 & 0 \\
+                    0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 \\
+                    0 & 0 & 0 & 0 & 1 & 1 & 1 & 0 \\
+                    0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
+                    1 & 0 & 0 & 0 & 1 & 0 & 0 & 1
                     \end{bmatrix}
                     \cdot
                     \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\ x_4 \\ x_5 \\ x_6 \\ x_7 \\ x_8 \end{bmatrix}
-                    &amp;= \begin{bmatrix}
+                    & = \begin{bmatrix}
                     1 \\ 1 \\ 0 \\ 0 \\ 0 \\ 1 \\ 0 \\ 1
                     \end{bmatrix}
                     \end{align*}
@@ -173,26 +173,26 @@
                     rows of $A$ and $b$:
                     \begin{align*}
                     \begin{bmatrix}
-                    1&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0 \\ \hline
-                    \textcolor{red}{1}&amp;\textcolor{red}{1}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0}&amp;
-                    \textcolor{red}{0}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0} \\
-                    \textcolor{red}{0}&amp;\textcolor{red}{0}&amp;\textcolor{red}{1}&amp;\textcolor{red}{0}&amp;
-                    \textcolor{red}{0}&amp;\textcolor{red}{1}&amp;\textcolor{red}{0}&amp;\textcolor{red}{1} \\
+                    1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+                    \textcolor{red}{1} & \textcolor{red}{1} & \textcolor{red}{0} & \textcolor{red}{0} &
+                    \textcolor{red}{0} & \textcolor{red}{0} & \textcolor{red}{0} & \textcolor{red}{0} \\
+                    \textcolor{red}{0} & \textcolor{red}{0} & \textcolor{red}{1} & \textcolor{red}{0} &
+                    \textcolor{red}{0} & \textcolor{red}{1} & \textcolor{red}{0} & \textcolor{red}{1} \\
                     \hline
-                    0&amp;0&amp;0&amp;1&amp;1&amp;1&amp;0&amp;0 \\
+                    0 & 0 & 0 & 1 & 1 & 1 & 0 & 0 \\
                     \hline
-                    \textcolor{red}{0}&amp;\textcolor{red}{1}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0}&amp;
-                    \textcolor{red}{1}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0} \\
-                    \textcolor{red}{0}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0}&amp;
-                    \textcolor{red}{1}&amp;\textcolor{red}{1}&amp;\textcolor{red}{1}&amp;\textcolor{red}{0} \\
-                    \textcolor{red}{0}&amp;\textcolor{red}{0}&amp;\textcolor{red}{1}&amp;\textcolor{red}{0}&amp;
-                    \textcolor{red}{1}&amp;\textcolor{red}{0}&amp;\textcolor{red}{1}&amp;\textcolor{red}{0} \\
-                    \textcolor{red}{1}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0}&amp;
-                    \textcolor{red}{1}&amp;\textcolor{red}{0}&amp;\textcolor{red}{0}&amp;\textcolor{red}{1} \\
+                    \textcolor{red}{0} & \textcolor{red}{1} & \textcolor{red}{0} & \textcolor{red}{0} &
+                    \textcolor{red}{1} & \textcolor{red}{0} & \textcolor{red}{0} & \textcolor{red}{0} \\
+                    \textcolor{red}{0} & \textcolor{red}{0} & \textcolor{red}{0} & \textcolor{red}{0} &
+                    \textcolor{red}{1} & \textcolor{red}{1} & \textcolor{red}{1} & \textcolor{red}{0} \\
+                    \textcolor{red}{0} & \textcolor{red}{0} & \textcolor{red}{1} & \textcolor{red}{0} &
+                    \textcolor{red}{1} & \textcolor{red}{0} & \textcolor{red}{1} & \textcolor{red}{0} \\
+                    \textcolor{red}{1} & \textcolor{red}{0} & \textcolor{red}{0} & \textcolor{red}{0} &
+                    \textcolor{red}{1} & \textcolor{red}{0} & \textcolor{red}{0} & \textcolor{red}{1} \\
                     \end{bmatrix}
                     \cdot
                     \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\ x_4 \\ x_5 \\ x_6 \\ x_7 \\ x_8 \end{bmatrix}
-                    &amp;= \begin{bmatrix}
+                    & = \begin{bmatrix}
                     1 \\ \hline
                     \textcolor{red}{1} \\
                     \textcolor{red}{0} \\ \hline
@@ -207,7 +207,7 @@
                     the left: $r^T \cdot A$, and similarly for $b$. In the above case, $r^T$ is
                     \begin{align*}
                     r^T := \begin{bmatrix}
-                    0&amp;1&1&0&1&1&1&1
+                    0 & 1& 1& 0& 1& 1& 1& 1
                     \end{bmatrix}
                     \end{align*}
                     where $1$ stands for red (take this constraint) and $0$ for black (don't take it). Therefore
@@ -218,14 +218,14 @@
                         Resolution of such formulas
                     We look again at the above system of equations:
                     \begin{align*}
-                    x_{1}&= 1 \\
-                    x_{1} + x_{2}&= 1 \\
-                    x_{3} + x_{6} + x_{8}&= 0 \\
-                    x_{4} + x_{5} + x_{6}&= 0 \\
-                    x_{2} + x_{5}&= 0\\
-                    x_{5} + x_{6} + x_{7}&= 1 \\
-                    x_{3} + x_{5} +x_{7}&= 0 \\
-                    x_{1} + x_{5} + x_{8}&amp;= 1
+                    x_{1} &= 1 \\
+                    x_{1} + x_{2}& = 1 \\
+                    x_{3} + x_{6} + x_{8}& = 0 \\
+                    x_{4} + x_{5} + x_{6}& = 0 \\
+                    x_{2} + x_{5}& = 0\\
+                    x_{5} + x_{6} + x_{7}& = 1 \\
+                    x_{3} + x_{5} +x_{7}& = 0 \\
+                    x_{1} + x_{5} + x_{8} & = 1
                     \end{align*}
                     A resolution is a rule to derive a new clause from two existing clauses
                     according to the following pattern:

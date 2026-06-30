@@ -96,7 +96,7 @@
                         then $C \vee D$ is called a _resolvent of $C$ and $D$_. The
                         variable $x$ is called the _resolved variable_.
                         We write _a_ resolvent rather than _the_ resolvent
-                        since there might be multiple resolvents:
+                        since there might be multiple="" resolvents:
                         for example when $C = (x \vee y \vee z)$ and $D = (\bar{x} \vee \bar{y} \vee w)$
                         then both $(y \vee z \vee \bar{y} \vee w)$ and $(x \vee z \vee \bar{x} \vee w)$
                         are resolvents; in this case of course both resolvents are trivial:
@@ -175,8 +175,8 @@
                             \begin{align*}
                             \textnormal{for every $v \in S$: } \quad F_v(\alpha) =
                             \begin{cases}
-                            0&amp;\textnormal{ if $v=u$, } \\
-                            1&amp;\textnormal{ if $v \in S \setminus \{u\}$.}
+                            0 & \textnormal{ if $v=u$, } \\
+                            1 & \textnormal{ if $v \in S \setminus \{u\}$.}
                             \end{cases}
                             \end{align*}
                             We don't know about $F_v(\alpha)$ for $v \in V \setminus S$ but
@@ -184,8 +184,8 @@
                             it assigns to edge $f$. We get a new assignment $\beta$ defined by
                             \begin{align*}
                             \beta(x_e) := \begin{cases}
-                            \neg \alpha(x_e)&amp;\textnormal{ if $e = f$, } \\
-                            \alpha(x_e)&amp;\textnormal{ if $e \ne f$.}
+                            \neg \alpha(x_e) & \textnormal{ if $e = f$, } \\
+                            \alpha(x_e) & \textnormal{ if $e \ne f$.}
                             \end{cases}
                             \end{align*}
                             Now consider some $v \in S \setminus \{v\}$. The edge $f = \{u,w\}$
@@ -201,8 +201,8 @@
                             This means that $\beta$ satisfies $c_u$. So $F_S(\beta)=1$; since $F_S$ implies
                             $C$ we also know that $C(\beta)=1$. To summarize:
                             \begin{align*}
-                            C(\alpha)&amp;= 0 \\
-                            C(\beta)&amp;= 1 \ .
+                            C(\alpha) & = 0 \\
+                            C(\beta) & = 1 \ .
                             \end{align*}
                             How can that be? How can $C$, violated by $\alpha$, suddenly be satisfied
                             by $\beta$? The two assignments differ only in $x_f$, so this can only
@@ -245,13 +245,13 @@
                             \sim v]$
                             is $1$ if $u \sim v$ and $0$ if $u \not \sim v$):
                             \begin{align*}
-                            d |S|&amp;= \sum_{u \in S} \deg_G(u) \\
-                            &amp;= \sum_{u \in S} \left( \sum_{v \in S} [u \sim v] + \sum_{v \in V \setminus S} [u \sim v]
+                            d |S| & = \sum_{u \in S} \deg_G(u) \\
+                            & = \sum_{u \in S} \left( \sum_{v \in S} [u \sim v] + \sum_{v \in V \setminus S} [u \sim v]
                             \right) \\
-                            &amp;= \sum_{u \in S} \sum_{v \in S} [u \sim v] + \sum_{u \in S}\sum_{v \in V \setminus S} [u \sim
+                            & = \sum_{u \in S} \sum_{v \in S} [u \sim v] + \sum_{u \in S}\sum_{v \in V \setminus S} [u \sim
                             v]\\
-                            &amp;= 2 |E_S| + |\delta(S)| \\
-                            &amp;\leq 2 (|S|-1) + \delta(S) \leq 2 |S| + \delta(S) \ .
+                            & = 2 |E_S| + |\delta(S)| \\
+                            & \leq 2 (|S|-1) + \delta(S) \leq 2 |S| + \delta(S) \ .
                             \end{align*}
                             In words: the edges included in $S$ or leaving $S$ generate $d|S|$ "endpoints". At most
                             $2 |E_S|$ of them can be inside $G[S]$. The others must be on an edge leaving $S$.
@@ -278,9 +278,9 @@
                             there is no smaller such $S$? Suppose $S \subsetneq V$. So there is a vertex $u \not \in S$.
                             Let's change the parity requirement of $u$ to obtain new requirements $s'$:
                             \begin{align*}
-                            s'(v)&amp;= \begin{cases}
-                            \neg s(v)&amp;\textnormal{ if $v = u$} \\
-                            s(v)&amp;\textnormal{ if $v \ne u$.}
+                            s'(v) & = \begin{cases}
+                            \neg s(v) & \textnormal{ if $v = u$} \\
+                            s(v) & \textnormal{ if $v \ne u$.}
                             \end{cases}
                             \end{align*}
                             Since $G$ is connected and the number of vertices with parity requirement $1$ is even in

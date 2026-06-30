@@ -92,10 +92,10 @@
                             a parity requirement of $0$. Let's write the system
                             of equations:
                             \begin{align*}
-                            h + i&amp;= 1 \tag{$c_t$}\\
-                            e + f&amp;= 1 \tag{$c_u$} \\
-                            f + g + i&amp;= 0 \tag{$c_v$}\\
-                            e + g + h&amp;= 0 \tag{$c_w$}
+                            h + i & = 1 \tag{$c_t$}\\
+                            e + f & = 1 \tag{$c_u$} \\
+                            f + g + i & = 0 \tag{$c_v$}\\
+                            e + g + h & = 0 \tag{$c_w$}
                             \end{align*}
                             We write $e + f$ instead of $x_e + x_f$ to increase
                             readability. This system of equations has a solution,
@@ -112,10 +112,10 @@
                             The system of equations is as the above,
                             just the right-hand side of $c'_u$ is now $0$:
                             \begin{align*}
-                            h + i&amp;= 1 \tag{$c'_t$}\\
-                            e + f&amp;= 0 \tag{$c'_u$} \\
-                            f + g + i&amp;= 0 \tag{$c'_v$}\\
-                            e + g + h&amp;= 0 \tag{$c'_w$}
+                            h + i & = 1 \tag{$c'_t$}\\
+                            e + f & = 0 \tag{$c'_u$} \\
+                            f + g + i & = 0 \tag{$c'_v$}\\
+                            e + g + h & = 0 \tag{$c'_w$}
                             \end{align*}
                             This system of equations is unsatisfiable. Adding
                             up all constraints gives us
@@ -173,10 +173,10 @@
                             Let's look at the four vertices $a,b,c,d$ on the left
                             and their constraints:
                             \begin{align*}
-                            x_{\{a,b\}} + x_{\{a,d\}}&amp;= 1 \tag{$c_a$} \\
-                            x_{\{a,b\}} + x_{\{b,c\}} + x_{\{b,d\}}&amp;= 0 \tag{$c_b$} \\
-                            x_{\{b,c\}} + x_{\{c,d\}}&amp;= 0 \tag{$c_c$} \\
-                            x_{\{a,d\}} + x_{\{b,d\}} + x_{\{c,d\}} + x_f&amp;= 0 \tag{$c_d$}
+                            x_{\{a,b\}} + x_{\{a,d\}} & = 1 \tag{$c_a$} \\
+                            x_{\{a,b\}} + x_{\{b,c\}} + x_{\{b,d\}} & = 0 \tag{$c_b$} \\
+                            x_{\{b,c\}} + x_{\{c,d\}} & = 0 \tag{$c_c$} \\
+                            x_{\{a,d\}} + x_{\{b,d\}} + x_{\{c,d\}} + x_f & = 0 \tag{$c_d$}
                             \end{align*}
                             Adding them up (and reducing modulo 2) gives us
                             \begin{align*}
@@ -230,8 +230,8 @@
                             data-ref=observation-boundary
                         this means that
                         \begin{align*}
-                        \mathbf{0} = \r^T \cdot A&amp;= \sum_{e \in \delta(S)} x_e \\
-                        1 = \r^T \cdot \s&amp;= \sum_{u \in S} s(u)
+                        \mathbf{0} = \r^T \cdot A & = \sum_{e \in \delta(S)} x_e \\
+                        1 = \r^T \cdot \s & = \sum_{u \in S} s(u)
                         \end{align*}
                         The first equation implies that $S$ is a union of
                         connected components; the second one says that the
@@ -254,7 +254,7 @@
 
                             For the _if_ part we can use the linear algebra
                             reasoning from above; or we can prove it directly:
-                            First, if $G$ has multiple connected components, we can
+                            First, if $G$ has multiple="" connected components, we can
                             construct a solution for each component separately.
                             So let's assume that $G$ is connected.
                             Let us look at the vertices of parity requirement 1 and

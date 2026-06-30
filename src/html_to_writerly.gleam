@@ -207,13 +207,33 @@ fn directory_files_else_file(
   }
 }
 
+fn ti2_html_bad_html_replacements(
+  content: String,
+) -> String {
+  content
+  |> string.replace("\\,<", "\\,&lt;")
+  |> string.replace(" < ", " &lt; ")
+  |> string.replace("\\rt{0.1}<", "\\rt{0.1}&lt;")
+}
+
+fn ti2_html_pre_processor(
+  content: String,
+) -> String {
+  content
+  |> vp.expand_html_boolean_attrs
+  |> vp.escape_non_entity_ampersands
+  |> ti2_html_bad_html_replacements
+  |> vp.close_html_void_tags
+  |> vp.remove_attrs_from_closing_tags
+}
+
 fn html_purifying_assembler(
   path: String,
 ) -> Result(#(List(io_l.InputLine), option.Option(a)), simplifile.FileError) {
   use content <- on.ok(simplifile.read(path))
   let lines = 
     content
-    |> vp.bad_html_pre_processor
+    |> ti2_html_pre_processor
     |> io_l.string_to_input_lines(path, 0)
   Ok(#(lines, option.None))
 }
