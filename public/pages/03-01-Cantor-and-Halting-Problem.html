@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="data:,">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Berechenbarkeit und Kreativität</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lecture-notes.css" />
+    <link rel="stylesheet" type="text/css" href="../Course.css" />
+    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>-->
+    <!-- <script type=”text/javascript”
+        src=”http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML”></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+
+
+    <script>
+        MathJax = {
+            tex: {
+                tags: 'ams',
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+
+
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+
+
+
+
+    <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    -->
+    <!-- <script type="text/javascript" src="script.js"></script> -->
+
+</head>
+
+
+
+<body>
+
+    <div id='mathjax-definitions' style="display:none">
+        \(
+        \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+        \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+        \newcommand{\R}{\mathbb{R}}
+        \newcommand{\Z}{\mathbb{Z}}
+        \newcommand{\N}{\mathbb{N}}
+        \newcommand{\Q}{\mathbb{Q}}
+        \newcommand{\cin}{c_{\rm in}}
+        \newcommand{\cout}{c_{\rm out}}
+        \newcommand{\maj}{\textnormal{Maj}}
+        \newcommand{\xor}{\oplus}
+        \newcommand{\depth}{\textnormal{depth}}
+        \newcommand{\padding}{\textnormal{padding}}
+        \newcommand{\poly}{\textnormal{poly}}
+        \newcommand{\NTIME}{\textsf{NTIME}}
+        \newcommand{\TIME}{\mathsf{TIME}}
+        \newcommand{\EXP}{\mathsf{EXP}}
+        \newcommand{\NEXP}{\mathsf{NEXP}}
+        \newcommand{\P}{\mathsf{P}}
+        \newcommand{\SAT}{\mathsf{SAT}}
+        \newcommand{\bin}{\mathsf{bin}}
+        \newcommand{\enc}{\mathsf{enc}}
+        \newcommand{\NP}{\mathsf{NP}}
+        \newcommand{\NPC}{\mathsf{NPC}}
+        \newcommand{\negdiag}{\textnormal{NegDiag}}
+        \newcommand{\halt}{{\rm H{\small ALT}}}
+
+        \newcommand{\qaccept}{q_{\rm yes}}
+        \newcommand{\pfrac}[2]{\left(\frac{#1}{#2}\right)}
+        \)
+    </div id='mathjax-definitions'>
+
+
+
+    <div id="rightSideWrapper">
+
+
+        <div class="content">
+            <div class='chapter'>
+
+
+                <div class='subChapter'>
+                    <h1 class='hidden-title'>
+                        <span class='subChapterTitle'></span>
+                    </h1>
+                    <p>
+                        Fast alle Unmöglichkeitsresultate in der Komplexitätstheorie fußen zur Zeit letzten Endes
+                        auf der <em>Diagonalisierung</em>. Mit dieser Beweismethode konnte Georg Cantor zeigen,
+                        dass die Mengen $\N$ und $\R$ nicht <em>gleichmächtig</em> sind.
+                    </p>
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Definition'>Definition</span> Zwei
+                            Mengen $A$ und $B$ heißen <em>gleichmächtig</em>, wenn es eine bijektive Funktion $f: A
+                            \rightarrow B$ gibt. In diesem Falle schreiben wir $A \cong B$.</p>
+                    </div class='well container theorem'>
+                    <p>
+                        In <a href="../../TI-2/lecture-notes/02-00-infinite-sets.html">Kapitel 2 aus Theoretische
+                            Informatik II</a>
+                        haben wir zum Beispiel gesehen, dass $\N \cong \Q$ gilt, was aufs erste einigermaßen
+                        überraschend wirkt,
+                        da $\Q$ so viel dichter und größer wirkt als $\N$. Auch ist $\N$ gleichmächtig mit
+                        $\{0,1\}^{*}$, der Menge der endlichen Wörter über dem Alphabet $\{0,1\}$, und ganz generell
+                    </p>
+                    \begin{align*}
+                    \N \cong \Sigma^*
+                    \end{align*}
+                    <p>
+                        für jedes endliche Alphabet. Auch $\N \cong \N^*$. Cantors konnte beweisen, dass $\N \not \cong
+                        \R$.
+                        Es nicht nicht schwer, zu sehen, dass $\R \cong \{0,1\}^{\N}$ ist, wobei letzteres die
+                        Menge aller unendlichen Wörter über $\{0,1\}$ ist oder, mehr oder weniger äquivalent, die Menge
+                        aller Funktionen $\N \rightarrow \{0,1\}$ ist.
+
+                    </p>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='theorem-cantor-N-R'
+                                data-label-title='Theorem'>Theorem</span> $\N \not \cong \{0,1\}^{\N}$.</p>
+                    </div class='well container theorem'>
+
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Der Beweis führt erstmals die Methode der <em>Diagonalisierung</em> ein. Sei $f: \N
+                            \rightarrow \{0,1\}^{\N}$
+                            eine Funktion. Der Wert $f(i)$ ist ein unendliches Wort über $\{0,1\}$; wir können $f(i)$
+                            auch als
+                            Funktion $\N \rightarrow \{0,1\}$ auffassen. Somit ergibt der Ausdruck $(f(i))(j)$ Sinn: die
+                            Funktion $f(i)$,
+                            ausgewertet an der Zahl $j$; anders ausgedrückt: der $j$-te Buchstabe im unendlichen Wort
+                            $i$.
+                            Sei nun also
+                        </p>
+                        \begin{align*}
+                        T_{ij} := \textnormal{der $j$-te Buchstabe im unendlichen Wort $f(i)$} \ .
+                        \end{align*}
+                        <p>
+                            Wir stellen uns $T$ als zweidimensionale Tabelle vor. Die $i$-te Zeile ist das unendliche
+                            Wort $f(i)$.
+                        </p>
+                        <figure>
+                            <img src='../img/03-diagonalization/N-and-R-01-01.svg' style='height:13em'>
+                        </figure>
+                        <p>
+                            Wir bilden nun das unendliche Wort
+                        </p>
+                        \begin{align*}
+                        v :=T_{00} T_{11}, T_{22} \dots
+                        \end{align*}
+                        <p>
+                            und $w := \bar{v} = \bar{v}_0 \bar{v}_1 \bar{v}_2$ wobei $\bar{x}$ die Negation bedeutet
+                            (also $0$ und $1$ vertauscht). Das Wort $w$ ist also die negierte Diagonale der Tabelle:
+                        </p>
+                        <figure>
+                            <img src='../img/03-diagonalization/N-and-R-01-02.svg' style='height:13em'>
+                        </figure>
+
+                        <p>
+                            Das Wort $w$ ist in $\{0,1\}^{\N}$. Wir behaupten nun, dass $w$ nicht im Bild der Funktion
+                            $f$ liegt.
+                            Sei $n \in \N$ eine Zahl und $z = f(n) \in \{0,1\}^{\N}$. Könnte $z = w$ sein? Nein, denn
+                        </p>
+                        \begin{align*}
+                        z_n = (f(n))(n) = T_{nn} = v_n = \bar{w}_n \ ,
+                        \end{align*}
+                        <p>
+                            und wir sehen: $f(n)$ und $w$ unterscheiden sich an der $n$-ten Stelle (und womöglich auch
+                            woanders).
+                            Dieses Argument funktioniert für jedes $n \in \N$ und somit gilt
+                            $\forall n \in \N: f(n) \ne w$. In anderen Worten: $w \not \in {\rm Im}(f)$ und $f$ ist
+                            nicht surjektiv und somit auch nicht bijektiv.
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+                    </div class='proof'>
+
+                    <p>
+                        Der Beweis lässt sich einfach verallgemeinern: für jede Menge $A$ gilt $A \not \cong 2^A$.
+                    </p>
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Zeigen Sie, dass $A \cong 2^A$ für jede Menge $A$ gilt.
+                        </p>
+                    </div class='numbered-exercise'>
+
+                    <h3>
+                        Turingmaschinen und Unentscheidbarkeit
+                    </h3>
+
+                    <p>
+                        Betrachten wir Turingmaschinen mit Eingabealphabet $\Sigma$. Jede solche
+                        Turingmaschine $M$ lässt sich <em>codieren</em> als Wort $\enc(M) \in \Sigma^*$ so dass
+                        wir $\enc(M)$ als "Programmcode" einer sogenannten <em>universellen Turingmaschine</em>
+                        übergeben können.
+                    </p>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='theorem-universal-Turing-machine'
+                                data-label-title='Theorem'>Theorem</span>
+                            <strong>(Universelle Turingmaschine). </strong> Für jedes endliche Alphabet $\Sigma$
+                            und jede Anzahl von Bändern $k$
+                            gibt eine universelle Turingmaschine $U$ mit folgender Eigenschaft: für jede
+                            $k$-Band-Turingmaschine
+                            $M$ und jedes Eingabewort $x \in \Sigma^*$ gilt
+                        </p>
+                        \begin{align*}
+                        \ U(\enc(M),x) = M(x) \ .
+                        \end{align*}
+                        <p>
+                            In anderen Worten: $U$ simuliert die Berechnung von $M$ auf Eingabe $x$. Des weiteren
+                            gilt: wenn $M$ auf $x$ innerhalb von $t$ Schritten terminiert, dann terminiert $U$ auf
+                            Eingabe $(\enc(M),x)$ in
+                        </p>
+                        \begin{align*}
+                        C \cdot |\enc(M)| \cdot (t+|x|)
+                        \end{align*}
+                        <p>
+                            Schritten. Hierbei ist $C$ eine Konstante, die von $\Sigma$, $k$ und der konkreten
+                            Codierungsfunktion $\enc$
+                            abhängt, aber weder von $M$ noch von $x$. Die universelle Turingmaschine $U$ hat
+                            $k+2$ Bänder.
+                        </p>
+                    </div class='well container theorem'>
+
+                    <div class='well container'>
+                        <p><strong>Beweis / Konstruktion.</strong>
+                            Ich gebe hier keinen formalen Beweis, sondern demonstriere es an einer kleinen Animation
+                            für $k=1$.
+                        </p>
+                        <figure class='centered-figure well container-fluid'>
+                            <a class='left carousel-control-prev-icon' href='#universal-TM' data-slide='prev'>
+                                <div class='carousel-nav-icon'>
+                                    <img src='../img/carousel-prev-icon.svg'>
+                                </div>
+                            </a>
+                            <a class='right carousel-control-next-icon' href='#universal-TM' data-slide='next'>
+                                <div class='carousel-nav-icon'>
+                                    <img src='../img/carousel-next-icon.svg'>
+                                </div>
+                            </a>
+                            <div id='universal-TM' class='carousel' data-interval='false' style='display:inline-block'>
+                                <ol class='carousel-indicators'>
+                                    <li data-target='#universal-TM' data-slide-to='1' class='active'></li>
+                                    <li data-target='#universal-TM' data-slide-to='2'></li>
+                                    <li data-target='#universal-TM' data-slide-to='3'></li>
+                                    <li data-target='#universal-TM' data-slide-to='4'></li>
+                                    <li data-target='#universal-TM' data-slide-to='5'></li>
+                                    <li data-target='#universal-TM' data-slide-to='6'></li>
+                                    <li data-target='#universal-TM' data-slide-to='7'></li>
+                                    <li data-target='#universal-TM' data-slide-to='8'></li>
+                                    <li data-target='#universal-TM' data-slide-to='9'></li>
+                                    <li data-target='#universal-TM' data-slide-to='10'></li>
+                                    <li data-target='#universal-TM' data-slide-to='11'></li>
+                                    <li data-target='#universal-TM' data-slide-to='12'></li>
+                                    <li data-target='#universal-TM' data-slide-to='13'></li>
+                                    <li data-target='#universal-TM' data-slide-to='14'></li>
+                                    <li data-target='#universal-TM' data-slide-to='15'></li>
+                                    <li data-target='#universal-TM' data-slide-to='16'></li>
+                                    <li data-target='#universal-TM' data-slide-to='17'></li>
+                                    <li data-target='#universal-TM' data-slide-to='18'></li>
+                                    <li data-target='#universal-TM' data-slide-to='19'></li>
+                                    <li data-target='#universal-TM' data-slide-to='20'></li>
+                                    <li data-target='#universal-TM' data-slide-to='21'></li>
+                                    <li data-target='#universal-TM' data-slide-to='22'></li>
+                                    <li data-target='#universal-TM' data-slide-to='23'></li>
+                                    <li data-target='#universal-TM' data-slide-to='24'></li>
+                                    <li data-target='#universal-TM' data-slide-to='25'></li>
+                                    <li data-target='#universal-TM' data-slide-to='26'></li>
+                                    <li data-target='#universal-TM' data-slide-to='27'></li>
+                                    <li data-target='#universal-TM' data-slide-to='28'></li>
+                                    <li data-target='#universal-TM' data-slide-to='29'></li>
+                                    <li data-target='#universal-TM' data-slide-to='30'></li>
+                                    <li data-target='#universal-TM' data-slide-to='31'></li>
+                                    <li data-target='#universal-TM' data-slide-to='32'></li>
+                                    <li data-target='#universal-TM' data-slide-to='33'></li>
+                                    <li data-target='#universal-TM' data-slide-to='34'></li>
+                                    <li data-target='#universal-TM' data-slide-to='35'></li>
+                                    <li data-target='#universal-TM' data-slide-to='36'></li>
+                                    <li data-target='#universal-TM' data-slide-to='37'></li>
+                                    <li data-target='#universal-TM' data-slide-to='38'></li>
+                                    <li data-target='#universal-TM' data-slide-to='39'></li>
+                                    <li data-target='#universal-TM' data-slide-to='40'></li>
+                                    <li data-target='#universal-TM' data-slide-to='41'></li>
+                                    <li data-target='#universal-TM' data-slide-to='42'></li>
+                                    <li data-target='#universal-TM' data-slide-to='43'></li>
+                                    <li data-target='#universal-TM' data-slide-to='44'></li>
+                                    <li data-target='#universal-TM' data-slide-to='45'></li>
+                                    <li data-target='#universal-TM' data-slide-to='46'></li>
+                                    <li data-target='#universal-TM' data-slide-to='47'></li>
+                                    <li data-target='#universal-TM' data-slide-to='48'></li>
+                                    <li data-target='#universal-TM' data-slide-to='49'></li>
+                                    <li data-target='#universal-TM' data-slide-to='50'></li>
+                                    <li data-target='#universal-TM' data-slide-to='51'></li>
+                                    <li data-target='#universal-TM' data-slide-to='52'></li>
+                                    <li data-target='#universal-TM' data-slide-to='53'></li>
+                                    <li data-target='#universal-TM' data-slide-to='54'></li>
+                                    <li data-target='#universal-TM' data-slide-to='55'></li>
+                                    <li data-target='#universal-TM' data-slide-to='56'></li>
+                                    <li data-target='#universal-TM' data-slide-to='57'></li>
+                                    <li data-target='#universal-TM' data-slide-to='58'></li>
+                                    <li data-target='#universal-TM' data-slide-to='59'></li>
+                                </ol>
+                                <div class='carousel-inner' style='display:inline-block'>
+                                    <div class='item active'><img
+                                            src='../img/03-diagonalization/universal/universal-01-01.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-01-02.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-01-03.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-01-04.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-02-01.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-01.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-02.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-03.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-04.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-05.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-06.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-07.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-08.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-09.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-10.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-11.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-12.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-13.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-14.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-15.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-16.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-17.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-18.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-19.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-20.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-21.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-22.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-23.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-24.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-25.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-26.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-27.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-28.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-29.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-30.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-31.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-32.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-33.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-34.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-35.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-36.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-37.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-38.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-39.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-40.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-41.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-42.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-43.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-44.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-45.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-46.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-47.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-48.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-49.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-50.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-51.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-52.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-53.svg'
+                                            style='height:22em'></div>
+                                    <div class='item'><img src='../img/03-diagonalization/universal/universal-03-54.svg'
+                                            style='height:22em'></div>
+                                </div class='carousel-inner'>
+                            </div class='carousel'>
+                        </figure>
+
+                        <p>Die hier gezeichnete universelle Turingmaschine braucht vier Extrabänder. Man sieht
+                            leicht, dass man sich das dritte Band, das nur $\qaccept$ speichert, sparen kann.
+                            Die Verdopplung des Arbeitsbandes würde im Allgemeinen zu $1 + 2k$ Extrabändern führen.
+                            Wir können dies umgehen, indem wir als erstes schauen, wieviel Platz das länge
+                            Arbeitszeichen in $M$
+                            benötigt, also $d = \max \left\{ |\enc(c)| \ \big| \ c \in \Gamma_M \right\}$, und dann
+                            für jedes Arbeitszeichen $d$ Zellen reservieren. Das kopieren des Eingabewortes $x$ vom
+                            Eingabeband
+                            auf das Arbeitsband wird also etwas aufwändiger, da wir jedes Zeichen durch einen Block aus
+                            $d$ Zeichen
+                            ersetzen müssen. Dies kostet einmalig $O(|x| |\enc(M)|)$ Zeit.
+
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+                    </div class='proof'>
+
+                    <p>
+                        Die von $U$ akzeptierte Sprache nenne ich <span style="font-variant: small-caps;">Halt</span> :
+                    </p>
+                    \begin{align*}
+                    \halt := \{ (\enc(M), x) \ | \ U(\enc(M),x) = 1 \}
+                    \end{align*}
+                    <p>
+                        Das entsprechende Entscheidungsproblem ist als <em>Halteproblem</em> bekannt. Der Name
+                        kommt daher, dass die Sprache oft leicht anders definiert wird, nämlich die Menge
+                        aller $(\enc(M),x)$, so dass $M$ auf Eingabe $x$ <em>hält</em>, während ich
+                        <em>hält und akzeptiert</em> verlange. Ich finde obige Definition natürlicher, aber im Endeffekt
+                        spielt es keine Rolle. Da <span style="font-variant: small-caps;">Halt</span> die von $U$
+                        akzeptierte Sprache ist, sehen wir: es ist semi-entscheidbar.
+                    </p>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='theorem-undecidability-halting'
+                                data-label-title='Theorem'>Theorem</span>
+                            <strong>(Unentscheidbarkeit des Halteproblems).</strong> <span
+                                style="font-variant: small-caps;">Halt</span> ist unentscheidbar.
+                        </p>
+                    </div class='well container theorem'>
+
+                    <p>
+                        Geoffrey K. Pullum hat es fertiggebracht, einen
+                        <A href="http://www.lel.ed.ac.uk/~gpullum/loopsnoop.html">rigorosen Beweis
+                            des Halteproblems in Gedichtform zu verfassen</A>. Bitte unbedingt lesen!
+                    </p>
+
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Wir gehen ganz ähnlich vor wie in <span class='reference'
+                                data-ref='theorem-cantor-N-R'></span>, nämlich mit Diagonalisierung.
+                            Wir stellen uns wieder eine große Tabelle vor. Für jede Turingmaschine, bzw. pro
+                            Codierung $c$ haben wir eine Zeile; für jeden Eingabewert $x$ eine Spalte.
+                            Sei $H_{c,x} = [(c,x) \in \halt]$, also $1$ falls $(c,x) \in \halt$ und $0$ falls nicht.
+                        </p>
+                        <figure>
+                            <img src='../img/03-diagonalization/undecidability-01-01.svg' style='height:15em'>
+                        </figure>
+                        <p>
+                            Jetzt schauen wir uns die "Diagonale" an. Genau so wie wir uns für eine
+                            Funktion $f: \N \rightarrow \R$ fragen können, was denn das unendliche Wort $f(n)$ an
+                            der $n$-ten Stelle sei, so können wir uns Fragen: akzeptiert $U$ das Eingabewort $(c,c)$,
+                            also akzeptiert die Turingmaschine $M$ (mit $\enc(M)=c$) ihre eigene Codierung als Eingabe?
+                            Dies wären zum Beispiel die Werte $H_{c,c}$ und $H_{c', c'}$ in der Tabelle:
+                        </p>
+                        <figure>
+                            <img src='../img/03-diagonalization/undecidability-01-02.svg' style='height:15em'>
+                        </figure>
+                        <p>
+                            Schlussendlich müssen wir noch die Diagonale negieren:
+                        </p>
+                        <figure>
+                            <img src='../img/03-diagonalization/undecidability-01-03.svg' style='height:15em'>
+                        </figure>
+                        <p>
+                            Jetzt sehen wir, dass es sich bei der negierten Diagonale um eine Sprache handelt:
+                        </p>
+                        \begin{align*}
+                        \negdiag := \{ c \ | \ (c,c) \not \in \halt\} \ .
+                        \end{align*}
+                        <p>
+                            Was hat dies nun mit Unentscheidbarkeit zu tun? Nun ja, wenn <span
+                                style="font-variant: small-caps;">Halt</span>
+                            entscheidbar wäre, dann wäre auch
+                            $\negdiag$ entscheidbar. Dann gäbe es eine Maschine $M$, die $\negdiag$ entscheidet, also
+                            $c \in \negdiag \Longleftrightarrow M(c) = 1$.
+                            Sei $c = \enc(M)$. Ist $c \in \negdiag$?
+                        </p>
+                        \begin{align*}
+                        c \in \negdiag & \Longleftrightarrow (c,c) \not \in \halt \\
+                        & \Longleftrightarrow U(\enc(M), c) \ne 1 \\
+                        & \Longleftrightarrow M(c) \ne 1
+                        \end{align*}
+                        <p>
+                            Dies ist ein Widerspruch zur Annahme, dass $M$ die Sprache $\negdiag$ entscheidet.
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+                    </div class='proof'>
+
+
+
+
+                    <p>
+                        Dieses Spiel mit Codierung, Tabelle, Diagonale und negierter Diagonale können Sie für
+                        jedes Maschinenmodell treiben, solange Sie Ihre Rechenmaschinen codieren können.
+                        Im folgenden sei $\Sigma$ ein festes endliches Alphabet, z.B. $\Sigma = \{0,1\}$.
+                    </p>
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='exercise-eval-fsm-not-regular'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Sei $\enc$ eine Codierungsfunktion, die endliche Automaten $A$ mit Eingabealphabet $\Sigma$
+                            als
+                            Wörter $c = \enc(A) \in \Sigma^*$ codiert. Zeigen Sie:
+                        </p>
+                        <ol>
+                            <li>Die Sprache $\{ (\enc(A),x) \ | \ A(x)=1\}$ ist entscheidbar.</li>
+                            <li>Sie ist primitiv-rekursiv.</li>
+                            <li>Sie ist nicht regulär.</li>
+                        </ol>
+                    </div class='numbered-exercise'>
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='exercise-eval-primrec-not-primrec'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Sei $\enc$ eine Codierungsfunktion, die primitiv-rekursive Funktionen $f$
+                            als natürliche Zahl $\enc(f) \in \N$ codiert. Wir definieren nun
+                        </p>
+                        \begin{align*}
+                        {\rm evaluate}(c,x) & =
+                        \begin{cases}
+                        f(x) & \textnormal{ falls $c = \enc(f)$ } \\
+                        0 & \textnormal{ falls $c$ keine gültige Codierung ist}
+                        \end{cases}
+                        \end{align*}
+                        Zeigen Sie:
+                        <ol>
+                            <li>Die Funktion ${\rm evaluate}$ ist berechenbar.</li>
+                            <li>Sie ist nicht primitiv-rekursiv.
+                        </ol>
+                    </div class='numbered-exercise'>
+
+
+                </div class='subChapter'>
+
+
+            </div class='chapter'>
+
+
+        </div class="content">
+    </div class="rightSideWrapper">
+
+
+    <div id="navigation-links">
+    </div>
+
+
+
+</body>
+<script>
+    var chaptersStartAt = 3;
+    var subChaptersStartAt = 200;
+</script>
+<script type="text/javascript" src="../javascript/table-of-contents.js"></script>
+<script type="text/javascript" src="../javascript/number-my-theorems.js"></script>
+
+</html>

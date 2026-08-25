@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="data:,">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Berechenbarkeit und Kreativität</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lecture-notes.css" />
+    <link rel="stylesheet" type="text/css" href="../Course.css" />
+    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>-->
+    <!-- <script type=”text/javascript”
+        src=”http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML”></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+
+
+    <script>
+        MathJax = {
+            tex: {
+                tags: 'ams',
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+
+
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+
+
+
+
+    <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    -->
+    <!-- <script type="text/javascript" src="script.js"></script> -->
+
+</head>
+
+
+
+<body>
+
+    <div id='mathjax-definitions' style="display:none">
+        \(
+        \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+        \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+        \newcommand{\R}{\mathbb{R}}
+        \newcommand{\Z}{\mathbb{Z}}
+        \newcommand{\N}{\mathbb{N}}
+        \newcommand{\Q}{\mathbb{Q}}
+        \newcommand{\cin}{c_{\rm in}}
+        \newcommand{\cout}{c_{\rm out}}
+        \newcommand{\maj}{\textnormal{Maj}}
+        \newcommand{\xor}{\oplus}
+        \newcommand{\depth}{\textnormal{depth}}
+        \newcommand{\padding}{\textnormal{padding}}
+        \newcommand{\poly}{\textnormal{poly}}
+        \newcommand{\NTIME}{\textsf{NTIME}}
+        \newcommand{\TIME}{\mathsf{TIME}}
+        \newcommand{\EXP}{\mathsf{EXP}}
+        \newcommand{\NEXP}{\mathsf{NEXP}}
+        \newcommand{\P}{\mathsf{P}}
+        \newcommand{\nbhalt}{{\rm NT{\small IMED}H{\small ALT}}}
+        \newcommand{\nbnegdiag}{\textnormal{NTimedNegDiag}}
+        \newcommand{\bnegdiag}{\textnormal{TimedNegDiag}}
+        \newcommand{\bdiag}{\textnormal{NTimedDiag}}
+        \newcommand{\SAT}{\mathsf{SAT}}
+        \newcommand{\bin}{\mathsf{bin}}
+        \newcommand{\NP}{\mathsf{NP}}
+        \newcommand{\enc}{\textnormal{enc}}
+        \newcommand{\NPC}{\mathsf{NPC}}
+        \newcommand{\pfrac}[2]{\left(\frac{#1}{#2}\right)}
+        \newcommand{\halt}{{\rm H{\small ALT}}}
+        \newcommand{\bhalt}{{\rm T{\small IMED}H{\small ALT}}}
+        \)
+    </div id='mathjax-definitions'>
+
+
+
+    <div id="rightSideWrapper">
+
+
+        <div class="content">
+            <div class='chapter'>
+
+
+                <div class='subChapter'>
+                    <h1 class='hidden-title'>
+                        <span class='subChapterTitle'></span>
+                    </h1>
+                    <p>
+                        Wenn wir über nichtdeterministische Zeitkomplexität sprechen, dann können wir dies
+                        mittels Zertifikaten tun. Für eine Turingmaschine $M$ mit einem Eingabeband und einem
+                        Zertifikatband
+                        und $x,z \in \Sigma^*$ sei
+                        sei $M(x,z) \in \{0,1,\texttt{does not terminate}\}$ das Ergebnis der Berechnung von $M$
+                        auf Eingabe $x$ und Zertifikat $z$. Die von $M$ akzeptierte Sprache ist
+                    </p>
+                    \begin{align*}
+                    L(M) := \{x \in \Sigma^* \ | \ \exists z \in \Sigma^*: M(x,z) = 1\} \ .
+                    \end{align*}
+                    <p>
+                        Wir sagen, dass die Turingmaschine $M$ Laufzeit $t: \N \rightarrow \N$ hat, wenn
+                        für alle $x$ und alle $z$ die Berechnung von $M(x,z)$ innerhalb von $t(|x|)$ Schritten
+                        terminiert. Beachten Sie: die erlaubte Laufzeit hängt nur von $|x|$ ab, nicht von $|z|$.
+                        Insbesondere heißt das, dass es für jedes $x \in L(M)$ ein gültiges Zertifikat $z$ mit
+                        $|z| \leq t(|x|)$ gibt; denn mehr von $z$ könnte die Turingmaschine ja gar nicht lesen.
+                        Wir definieren nun
+                    </p>
+                    \begin{align*}
+                    \NTIME(t) := \{ L(M) \ | \ \textnormal{ $M$ ist eine NTM mit Laufzeit $t$}\} \ .
+                    \end{align*}
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Vergewissern Sie sich, dass es auch eine universelle nichtdeterministische Turingmaschine
+                            $U$ gibt.
+                            Sie hat ein Codeband, ein Eingabeband und ein Zertifikatband (und weitere Bänder), und es
+                            gilt:
+                        </p>
+                        \begin{align*}
+                        U(\enc(M),x,z) = M(x,z) \ .
+                        \end{align*}
+                    </div class='numbered-exercise'>
+
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='theorem-nondeterministic-hierarchy'
+                                data-label-title='Theorem'>Theorem</span>
+                            Sei $t$ zeitkonstruierbar und $s: \N \rightarrow \N$ so dass $\lim_{n \rightarrow \infty}
+                            \frac{s(n+1)}{t(n)} = 0$. Dann gilt</p>
+                        \begin{align*}
+                        \NTIME_{k}(s) \subsetneq \NTIME_{k+3}(t) \ .
+                        \end{align*}
+                    </div class='well container theorem'>
+
+                    <div class='well container' style="background-color: rgba(255,240,220);">
+                        <p><strong>Falscher Beweis.</strong> Wir kopieren so weit es geht den Beweis
+                            aus dem letzten Kapitel. Ich kümmere mich erst einmal nicht um die Anzahl der Bänder und
+                            nehme den zusätzlichen $n$-Faktor aus <span class='reference'
+                                data-ref='lemma-not-in-time-s'></span> in Kauf,
+                            um den Beweis einfach zu halten. Wir beginnen mit
+                            der nichtdeterministischen Version des Stoppuhr-Halteproblems:
+                        </p>
+                        \begin{align*}
+                        \nbhalt_t := \{ (c,x) \ | \ \exists z: U(c,x,z)=1 \textnormal{ und $U$ läuft maximal $t(|x|)$
+                        Schritte} \} \ .
+                        \end{align*}
+                        <p>
+                            Diese Sprache ist in $\NTIME(t)$, da wir $t(|x|)$ berechnen, auf ein Stoppuhrband schreiben
+                            und dann $U(c,x,z)$ für $t(|x|)$ Schritte simulieren können. Die
+                            negierte Diagonale ist nun
+                        </p>
+                        \begin{align*}
+                        \nbnegdiag := \{ c \ | \ (c,c) \not \in \bhalt_t\} \ .
+                        \end{align*}
+                        <p>
+                            Wir werden sehen, dass $\nbnegdiag \not \in \TIME_k(s)$ ist.
+                            Denn sollte eine nichtdeterministische Turingmaschine $M$ behaupten, $\nbnegdiag$ in
+                            Zeit $s$
+                            zu entscheiden, dann argumentieren wir wie gehabt: wir setzen $c := \enc(M)$ und fragen, ob
+                            $c \in \nbnegdiag$ ist oder nicht:
+                        </p>
+                        \begin{align*}
+                        c \in \nbnegdiag & \Longleftrightarrow (c,c) \not \in \bhalt_t \\
+                        & \Longleftrightarrow
+                        \neg \exists z: U(c,x,z)=1 \textnormal{ oder $U(c,c,z)$ läuft länger als $t(|c|)$} \ .
+                        \end{align*}
+                        <p>
+                            Mit der gleichen Argumentation wie im letzten Kapitel sehen wir,
+                            dass $U(c,c,z)$ nicht länger als $t(|c|)$ Schritte läuft, also
+                        </p>
+                        \begin{align*}
+                        c \in \nbnegdiag & \Longleftrightarrow
+                        \neg \exists z: U(c,c,z)=1 \textnormal{ oder }
+                        \underbrace{\textnormal{$U(c,c,z)$ läuft länger als $t(|c|)$}}_{\textnormal{ist nicht der Fall}}
+                        \\
+                        & \Longleftrightarrow \neg \exists z: U(c,c,z)=1 \
+                        \\
+                        & \Longleftrightarrow \neg \exists z: M(c,z) = 1 \\
+                        & \Longleftrightarrow c \not \in L(M) \ ,
+                        \end{align*}
+                        <p>
+                            ein Widerspruch zur Annahme, dass $M$ die Sprache entscheidet.
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+                    </div class='proof'>
+
+                    <div class='well container' style="background-color: rgba(255,240,220);">
+                        <strong>Und was ist jetzt falsch daran?</strong> Der Beweis, dass
+                        $\nbnegdiag \not \in \TIME_k(s)$ ist, ist schon richtig. Aber
+                        ist $\nbnegdiag$ denn überhaupt in $\TIME_{k+3}(t)$?
+                        Die universelle Turingmaschine akzeptiert $\bhalt^k_t$ und läuft in Zeit $t$. Also:
+                        $\bhalt^k_t \in \NTIME_{k+3}(t)$. Ebenso gilt dies für die Diagonalsprache
+                        \begin{align*}
+                        \bdiag := \{ c \ | \ (c,c) \in \bhalt_t\} \ ,
+                        \end{align*}
+                        <p>
+                            also $\bdiag \in \NTIME_{k+3}(t)$. Aber gilt es auch für deren Komplement
+                            $\nbnegdiag$? Das wissen wir nicht, denn wir wissen nicht, ob $\NTIME(t)$ unter
+                            Komplementierung abgeschlossen ist. Das beste, was wir wissen, ist
+                        </p>
+                        \begin{align*}
+                        L \in \NTIME(t) \Longrightarrow \bar{L} \in \TIME\left(2^{O(t)}\right)
+                        \subseteq \NTIME\left(2^{O(t)}\right) \ .
+                        \end{align*}
+                        <p>
+                        </p>
+                    </div>
+                    <p>
+                        Der Beweis des Zeithierarchietheorems benutzt eine recht verdrehte Version der Diagonalisierung.
+                        Daher
+                        werden wir uns hier sehr viel Zeit lassen und ihn angemessen vorbereiten.
+                    </p>
+                    <div class='well container'>
+                        <p><strong>Beweis (jetzt richtig).</strong> Schauen wir uns nochmal schematisch an, wie
+                            wir die Unentscheidbarkeit des Halteproblems und das deterministische Zeithierarchietheorem
+                            bewiesen haben. Wir haben eine große Tabelle $T_{c,x}$ angelegt, deren Zeilen und Spalten
+                            mit Wörtern aus $\Sigma^*$ indiziert sind, wobei wir $T(c,x) := [(c,x) \in \halt]$ gesetzt
+                            haben
+                            (Halteproblem) bzw. $T(c,x) := [(c,x) \in \bhalt_t]$ (Zeithierarchietheorem).
+
+                            Als nächstes haben wir eine Teilmenge von Zellen aus der Tabelle ausgewählt, nämlich die
+                            Diagonale. Umständlich gesagt, wir haben eine Funktion
+                        </p>
+                        \begin{align*}
+                        d : \N & \rightarrow \N \times \N \\
+                        c & \mapsto (c,c)
+                        \end{align*}
+                        <p>
+                            definiert und uns die Tabelle an den Zellen im Bild von $d$ angesehen. Jetzt habe ich aus
+                            versehen $\N$ geschrieben und nicht mehr $\Sigma^*$. Das war nur halb unabsichtlich, weil
+                            im Folgenden es tatsächlich besser ist, sich die Tabelle als mit natürlichen Zahlen
+                            indiziert
+                            vorzustellen. Wegen $\N \cong \Sigma^*$ ist das eine äquivalente Sichtweise. Es ergab sich
+                            dadurch folgendes Bild:
+                        </p>
+                        <figure>
+                            <img src='../img/03-diagonalization/nondet time hierarchy-01-01.svg' style='height:20em'>
+                        </figure>
+                        <p>
+                            Nun haben wir unsere Diagonalsprache bzw. Diagonalfunktion $D: \N \rightarrow \{0,1\}$
+                            definiert als
+                        </p>
+                        \begin{align*}
+                        D(i) = \neg T(d(i)) \ ,
+                        \end{align*}
+                        <p>
+                            wobei Sie $T(d(i))$ sicherlich erkennen als umständliche Weise, $T(i,i)$ zu schreiben.
+                            Diese Negierung jeder Zelle auf der Diagonale stellen wir so dar:
+                        </p>
+                        <figure>
+                            <img src='../img/03-diagonalization/nondet time hierarchy-01-02.svg' style='height:20em'>
+                        </figure>
+                        <div class='well well-lg numbered-exercise container-fluid'>
+                            <p><span class='numbered-title' id='put-unique-name-here'
+                                    data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                                Wiederholen Sie den Beweis der Unentscheidbarkeit des Halteproblems mit Hilfe
+                                obiger Tabelle, aber mit anderer "Diagonale" $d: \N \rightarrow \N \times \N$,
+                                zum Beispiel mit so einer:
+                            </p>
+                            <figure>
+                                <img src='../img/03-diagonalization/nondet time hierarchy-02-01.svg'
+                                    style='height:20em'>
+                            </figure>
+                            <p>
+                                Welche Eigenschaften muss die "Diagonale" erfüllen, damit der Beweis funktioniert?
+                            </p>
+                        </div class='numbered-exercise'>
+                        <p>
+                            Im folgenden betrachten wir Diagonalfunktionen $d$ von der Form
+                        </p>
+                        \begin{align*}
+                        d : \N & \rightarrow \N \times \N\\
+                        x & \mapsto (\gamma(x), x)
+                        \end{align*}
+                        <p>
+                            wobei $\gamma: \N \rightarrow \N$ monoton und surjektiv ist. Bildlich gesprochen
+                            ist die Diagonale in aufeinander folgende <em>Abschnitte</em> aufgeteilt, wobei
+                            der $i$-te Abschnitt in Zeile $i$ liegt. Also so:
+                        </p>
+                        <figure>
+                            <img src='../img/03-diagonalization/nondet time hierarchy-03-01.svg' style='width:100%'>
+                        </figure>
+                        <p>
+                            Das Diagonalisierungsargument für das Halteproblem funktioniert immer noch: wir definieren
+                            $D(x) = \neg T(\gamma(x), x)$, negieren also jede Zelle der Diagonale.
+                            Nun angenommen, eine Turingmaschine $M$ entscheidet $D$. Sei $c = \enc(M)$.
+                            Da $\gamma$ surjektiv ist, gibt es ein $x$ mit $\gamma(x) = c$.
+                            Akzeptiert $M$ das Wort $x$?
+                        </p>
+                        \begin{align*}
+                        M(x) = 1 & \Longleftrightarrow D(x) = 1 \tag{weil $M$ die Sprache $D$ entscheidet} \\
+                        & \Longleftrightarrow T(\gamma(x), x) = 0 \tag{Definition von $D$} \\
+                        & \Longleftrightarrow T(c,x) = 0 \tag{Weil wir $x$ gewählt haben, dass $\gamma(x) = c$ }\\
+                        & \Longleftrightarrow (c,x) \not \in \halt \tag{Definition von $T$} \\
+                        & \Longleftrightarrow M(x) = 0 \tag{weil $\enc(M) = c$} \ ,
+                        \end{align*}
+                        <p>
+                            ein Widerspruch.
+                        </p>
+                        <div class='well well-lg numbered-exercise'>
+                            <p><span class='numbered-title' id='put-unique-name-here'
+                                    data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                                Wiederholen Sie obige Argumentation für das Zeithierarchietheorem.
+                                Zeigen Sie, dass Sie die Funktion $\gamma$ so wählen können, dass der
+                                lästige Faktor $n$ in
+                                <span class='reference' data-ref='lemma-not-in-time-s'></span>
+                                verschwindet. Vielleicht hilft es, die Funktion $\gamma$ zwar surjektiv, aber
+                                eben nicht monoton zu wählen (geht aber auch mit monotonem $\gamma$).
+                            </p>
+                        </div class='numbered-exercise'>
+                        <p>
+                            Jetzt verallgemeinern wir die Methode noch weiter. Bisher haben wir jede
+                            Zelle negiert, also $D(x) = \neg T(\gamma(x), x)$. Für einen
+                            konkreten Abschnitt sah das so aus: </p>
+                        <figure>
+                            <img src='../img/03-diagonalization/nondet time hierarchy-04-01.svg' style='height:10em'>
+                        </figure>
+                        <p>
+                            Jetzt, im Hinblick auf
+                            Nichtdeterminismus und seine Probleme mit dem Negieren, sind wir sparsamer
+                            mit Negierung. Wir müssen nicht jede Zelle negieren. Wichtig ist,
+                            dass jede Zeile einen "Zyklus" mit einer Negation enthält, zum Beispiel
+                        </p>
+                        <figure>
+                            <img src='../img/03-diagonalization/nondet time hierarchy-04-02.svg' style='height:10em'>
+                        </figure>
+                        <p>
+                            Was meinen wir damit? Wir meinen, dass wir $D$ auf diesem Abschnitt definieren als
+                        </p>
+                        \begin{align*}
+                        D(x) & = \begin{cases}
+                        T(c, x+1) & \textnormal{ falls $x \ne x_{\max}$} \\
+                        \neg T(c,x_{\min}) & \textnormal{ falls $x = x_\max$} \ .
+                        \end{cases}
+                        \end{align*}
+                        <p>
+                            Dies tun wir für jeden Abschnitt. Formal ist der Abschnitt von $x$
+                            die Menge $[x] := \{x' \ | \ \gamma(x') = \gamma(x)\}$ und
+                            $\floor{x} = \min [x]$ und $\ceil{x} = \max [x]$.
+                            Da wir Wörter $x \in \Sigma^*$ als natürliche Zahlen in einer bestimmten
+                            Codierung betrachten, können wir Begriffe wie größer, $+1$, Maximum, Minimum
+                            auch auf Wörter anwenden. Die diagonalisierte Sprache $D$ ist nun definiert als
+                        </p>
+                        \begin{align}
+                        D(x) & = \begin{cases}
+                        T(\gamma(x), x+1) & \textnormal{ falls $x \ne \ceil{x}$} \\
+                        \neg T(\gamma(x),\floor{x}) & \textnormal{ falls $x = \ceil{x}$} \ .
+                        \end{cases}
+                        \label{eqn-lazy-diag}
+                        \end{align}
+
+                        <p>
+                            Dieses neue Schema, mit genau einer "Negationskante" pro Abschnitt, lässt uns auch das
+                            Diagonalisierungsargument durchführen. Hier für die Unentscheidbarkeit, ganz ohne
+                            Zeitbeschränkungen.
+                            Sei $M$ eine Turingmaschine, die $D$ entscheidet. Sei $c = \enc(M)$. Wir betrachten den
+                            Abschnitt aller $x$ mit $\gamma(x) = c$.
+                            Sei $x$ in diesem Abschnitt. Falls $x \ne x_\max$ ist, dann gilt
+                        </p>
+                        \begin{align*}
+                        M(x)= 1 & \Longleftrightarrow D(x)=1 \\
+                        D(x)=1 & \Longleftrightarrow T(c,x+1)=1 \\
+                        & \Longleftrightarrow (c,x+1) \in \halt \\
+                        & \Longleftrightarrow M(x+1) = 1
+                        \end{align*}
+                        <p>
+                            Es gilt also $D(x) = D(x+1)$ für alle $x_\min \leq x \lt x_\max$ und somit insbesondere
+                            $D(x_\min) = D(x_\max)$. Für $x = x_\max$ jedoch gilt
+                        </p>
+                        \begin{align*}
+                        M(x_\max) =1 & \Longleftrightarrow D(x_\max) \\
+                        D(x_\max) = 1 & \Longleftrightarrow T(c, x_\min) = 0 \\
+                        & \Longleftrightarrow (c, x_\min) \not \in \halt \\
+                        & \Longleftrightarrow M(x_\min) = 0 \ .
+                        \end{align*}
+                        <p>
+                            Hier ist der Widerspruch: die blauen Pfeile verlangen $M(x_\min) = M(x_\max)$. Der
+                            rote Pfeil verlang $M(x_\min) \ne M(x_\max)$.
+                            Jetzt können wir mit dem eigentlichen Beweis des nichtdeterministischen
+                            Zeithierarchietheorems beginnen. Die Argumentation ist genau wie gerade eben,
+                            nur dass wir die (nichtdeterministische) Laufzeit beachten müssen. Und zwar</p>
+
+                        <ol>
+                            <li>
+                                Die Abschnitte sind so gigantisch groß, dass wir es uns leisten können, die Negation im
+                                "roten" Pfeil
+                                per Brute Force berechnen können, also Brute Force mit Eingabe $x_\min$ geht innerhalb
+                                von $t(|x_\max|)$ Schritten. Dies ist der Grund, warum wir überhaupt von der
+                                traditionellen Diagonale
+                                abgewichen sind.
+                            </li>
+                            <li>
+                                Wir wählen $s$ deutlich kleiner als $t$, so dass wir sicher sein können, dass die
+                                $O(s)$-Maschine
+                                von $U$ in $\leq t$ Schritten simuliert werden kann. Diese Argumentation war schon beim
+                                deterministischen Zeithierarchietheorem nötig.
+                            </li>
+                        </ol>
+                        Sei $t: \N \rightarrow \N$ die zeitkonstruierbare Funktion aus dem Theorem. Wir betrachten </p>
+                        \begin{align*}
+                        \nbhalt_t := \{ (c,x) \ | \ \exists z: U(c,x,z)=1 \textnormal{ und $U$ läuft maximal
+                        $t(|x|)$ Schritte}\}
+                        \end{align*}
+                        <p>
+                            Und definieren $T(c,x) = [(c,x) \in \nbhalt]$. Wir wählen eine Funktion $\gamma: \N
+                            \rightarrow \N$, die
+                            so langsam wächst, dass die Abschnitte rasant größer werden, konkrete: dass
+                        </p>
+                        \begin{align*}
+                        |\ceil{x}| = |\Sigma|^{t(|\floor{x}|)} \cdot t(|\floor{x}|)
+                        \end{align*}
+                        <p>
+                            gilt. Wichtig ist, dass man $\gamma(x)$ in linearer Zeit $O(|x|)$ oder zumindest $O(t(|x|))$
+                            berechnen kann (hier überspringen wir Details).
+                            Wir definieren die Diagonalisierungssprache $D$ wie in (\ref{eqn-lazy-diag}):
+                        </p>
+                        \begin{align*}
+                        D(x) & = \begin{cases}
+                        T(\gamma(x), x+1) & \textnormal{ falls $x \ne \ceil{x}$} \\
+                        \neg T(\gamma(x),\floor{x}) & \textnormal{ falls $x = \ceil{x}$} \ .
+                        \tag{\ref{eqn-lazy-diag}}
+                        \end{cases}
+                        \end{align*}
+
+                        <div class='well container-fluid subtheorem'>
+                            <p><span class='numbered-title' id='put-unique-name-here'
+                                    data-label-title='Behauptung'>Behauptung.</span>
+                                $D \in \NTIME(t(n+1))$.</p>
+                        </div class='well container theorem'>
+                        <div class='well container-fluid subtheorem'>
+                            <p><strong>Beweis.</strong>
+                                Unsere nichtdeterministische Turingmaschine $M$ nimmt als Input $x$
+                                und als Zertifikat ein $z$. Als erstes berechnet sie $c = \gamma(x)$
+                                und prüft,
+                                ob $x$ das letzte Element in seinem Abschnitt ist, ob also $x =
+                                \ceil{x}$ gilt. Überzeugen Sie sich davon, dass dies in $O(t(|x|))$ Schritten geht.
+                                Falls $x \ne \ceil{x}$ ist, dann gibt die Maschine $U(c,x+1,z)$ aus.
+                                Es gilt also
+                            </p>
+                            \begin{align*}
+                            D(x) = 1 & \Longleftrightarrow T(\gamma(x),x+1) = 1 \\
+                            & \Longleftrightarrow (\gamma(x), x+1) \in \nbhalt \\
+                            & \Longleftrightarrow \exists z: U(\gamma(x), x+1,z)=1 \textnormal{ und terminiert in
+                            $t(|x+1|)$ Schritten} \\
+                            & \Longleftrightarrow \exists z: M(x) = 1 \ .
+                            \end{align*}
+                            <p>
+                                $M$ entscheidet also $D$ auf allen Wörtern $x$, die nicht die letzten in ihrem Abschnitt
+                                sind. Falls aber nun $x = \ceil{x}$ sein sollte, falls also $x$ das letzte Wort in
+                                seinem
+                                Abschnitt ist, so tut $M$ folgendes:
+                            </p>
+                            <ol>
+                                <li>
+                                    Es berechnet $\floor{x}$.
+                                </li>
+                                <li>
+                                    Es durchläuft alle $z' \in \Sigma^{t(|\floor{x}|)}$ und testet, ob
+                                    $U(c,\floor{x}, z')$ in $t(|\floor{x}|)$ Schritten hält und $1$ ausgibt
+                                    und kann somit $T(c,\floor{x})$ berechnen.
+                                </li>
+                                <li>
+                                    Es gibt $\neg T(c,\floor{x})$ aus.
+                                </li>
+                            </ol>
+                            <p>
+                                Auch in diesem Falle berechnet $M$ also korrekt $D(x)$. Wie lange braucht sie dafür?
+                                Insgesamt
+                            </p>
+                            \begin{align*}
+                            O(|\Sigma|^{t(|\floor{x}|)} \cdot t(|\floor{x}|)) = O(|\ceil{x}|) = O(|x|)
+                            \end{align*}
+                            <p>
+                                Schritte. Daher lassen wir die Abschnitte so gigantisch groß werden: damit $M$ es sich
+                                leisten kann, den "roten Pfeil" mit Brute Force zu berechnen. Sie kann es sich
+                                leisten, weil $\floor{x}$ so viel viel kleiner ist als $\ceil{x}$.
+                                <span class='qed'>\(\square\)</span>
+                            </p>
+                        </div class='proof'>
+
+                        <div class='well container-fluid subtheorem'>
+                            <p><span class='numbered-title' id='put-unique-name-here'
+                                    data-label-title='Behauptung'>Behauptung.</span>
+                                Sei $s : \N \rightarrow \N$ so, dass
+                                $\lim \frac{n s(n)}{t(n)} = 0$ gilt. Dann ist $D \not \in \NTIME(s)$.</p>
+                        </div class='well container theorem'>
+                        <div class='well container-fluid subtheorem'>
+                            <p><strong>Beweis.</strong>
+                                Nehmen wir zwecks Widerspruch an, dass $M$ eine nichtdeterministische Turingmaschine
+                                ist, die $D$ in
+                                Zeit $s$ entscheidet. Sei $c := \enc(M)$. Da $\gamma$ surjektiv ist, gibt es in der
+                                Zeile von $c$
+                                einen Abschnitt, also $x_{\min},\dots, x_{\max}$ mit $\gamma(x_\min) = \gamma(x_\max) =
+                                c$. Für ein $x$ in diesem Abschnitt mit $x \ne x_\max$ gilt
+                            </p>
+                            \begin{align*}
+                            D(x) = 1 & \Longleftrightarrow T(\gamma(x), x+1) = 1 \tag{Definition von $D$} \\
+                            & \Longleftrightarrow (c, x+1) \in \nbhalt \tag{Definition von $T$} \\
+                            & \Longleftrightarrow \exists z: U(c,x+1,z)=1 \textnormal{ und sie hält in $t(|x+1|)$
+                            Schritten }
+                            \end{align*}
+                            <p>
+                                Wenn es überhaupt ein $z$ gibt mit $U(c, x+1,z)=1$, egal, in wie vielen Schritten, dann
+                                gilt ja wegen $c = \enc(M)$, dass $U(c,x+1,z) = M(x+1,z)$. Letztere Maschine terminiert
+                                in maximal $s(|x+1|)$ Schritten, und somit terminiert $U(c,x+1,z)$ in maximal
+                                $O(|c| s(|x+1|)) \leq C \cdot |x| s(|x+1|)$ Schritten (da $|\gamma(x)| \leq |x|$).
+                                Da wir, falls nötig, eine unsinnig große Version von $M$ wählen können,
+                                können wir annehmen, dass $c$ hinreichend groß ist, dass
+                                $C \cdot |x| s(|x+1|) \leq t(|x+1|)$ gilt und somit $U(c,x+1,z)$ innerhalb von
+                                $t(|x+1|)$ Schritten terminiert. Daher:
+                            </p>
+                            \begin{align*}
+                            D(x) = 1 & \Longleftrightarrow \exists z: U(c,x+1,z)=1
+                            \underbrace{\textnormal{ und sie hält in $t(|x+1|)$ Schritten}}_
+                            {\textnormal{Dies ist der Fall}} \\
+                            & \Longleftrightarrow \exists z: U(c,x+1,z)=1 \\
+                            & \Longleftrightarrow \exists z: M(x+1,z) = 1 \\
+                            & \Longleftrightarrow D(x+1) = 1
+                            \end{align*}
+                            <p>
+                                Wobei die letzte Zeile gilt, weil ja $M$ die Sprache $D$ entscheidet. Es gilt
+                                also $D(x) = D(x+1)$ für alle $x_\min \leq x \lt x_\max$ und somit
+                                mit Induktion $D(x_\min) = D(x_\max)$.
+                                Auf der anderen Seite jedoch gilt
+                            </p>
+                            \begin{align*}
+                            D(x_\max) = 1 & \Longleftrightarrow T(c, x_\min)=0 \\
+                            & \Longleftrightarrow \forall z: U(c, x_\min, z)=0
+                            \textnormal{ oder $U$ wird nicht in $t(|x_\min|)$ Schritten fertig}
+                            \end{align*}
+                            <p>
+                                Mit dem gleichen Argument, nämlich dass ja $M$ höchstens $s(n)$ und somit $U$ höchstens
+                                $ns(n)$ Schritte benötigt, sehen wir, dass $U$ tatsächlich in $t(|x_\min|)$ Schritten
+                                fertig wird. Somit gilt
+                            </p>
+                            \begin{align*}
+                            D(x_\max) = 1 & \Longleftrightarrow \forall z: U(c, x_\min, z)=0 \\
+                            & \Longleftrightarrow \forall z: M(x_\min,z) = 0 \\
+                            & \Longleftrightarrow D(x_\min) = 0
+                            \end{align*}
+                            <p>
+                                Und somit $D(x_\max) \ne D(x_\min)$, während wir ja oben $D(x_\max) = D(x_\min)$ gezeigt
+                                haben.
+                                Ein Widerspruch.
+                                <span class='qed'>\(\square\)</span>
+                            </p>
+                        </div class='proof'>
+
+
+                        <span class='qed'>\(\square\)</span>
+                    </div class='proof'>
+
+
+                </div class='subChapter'>
+
+            </div class='chapter'>
+
+
+        </div class="content">
+    </div class="rightSideWrapper">
+
+
+    <div id="navigation-links">
+    </div>
+
+
+
+</body>
+<script>
+    var chaptersStartAt = 3;
+    var subChaptersStartAt = 200;
+</script>
+<script type="text/javascript" src="../javascript/table-of-contents.js"></script>
+<script type="text/javascript" src="../javascript/number-my-theorems.js"></script>
+
+</html>

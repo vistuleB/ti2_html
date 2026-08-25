@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="data:,">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Berechenbarkeit und Kreativität</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lecture-notes.css" />
+    <link rel="stylesheet" type="text/css" href="../Course.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
+    <script>
+        MathJax = {
+            tex: {
+                tags: 'ams',
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+
+    </script>
+
+
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+
+
+
+
+    <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    -->
+    <!-- <script type="text/javascript" src="script.js"></script> -->
+
+</head>
+
+
+
+<body>
+
+    <div id='mathjax-definitions' style="display:none">
+        \(
+        \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+        \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+        \newcommand{\R}{\mathbb{R}}
+        \newcommand{\Z}{\mathbb{Z}}
+        \newcommand{\N}{\mathbb{N}}
+        \newcommand{\Q}{\mathbb{Q}}
+        \newcommand{\cin}{c_{\rm in}}
+        \newcommand{\cout}{c_{\rm out}}
+        \newcommand{\maj}{\textnormal{Maj}}
+        \newcommand{\xor}{\oplus}
+        \newcommand{\depth}{\textnormal{depth}}
+        \newcommand{\poly}{\textnormal{poly}}
+        \newcommand{\zero}{\textnormal{zero}}
+        \newcommand{\succ}{\textnormal{succ}}
+        \newcommand{\comp}{\textnormal{Comp}}
+        \newcommand{\primrec}{\textnormal{PrimRec}}
+        \newcommand{\pair}{\textnormal{Pair}}
+        \newcommand{\first}{\textnormal{First}}
+        \newcommand{\second}{\textnormal{Second}}
+        \newcommand{\enc}{\textnormal{enc}}
+        \newcommand{\halt}{{\rm H{\small ALT}}}
+        \newcommand{\bhalt}{{\rm T{\small IMED}H{\small ALT}}}
+        \newcommand{\bnegdiag}{\textnormal{TimedNegDiag}}
+        \newcommand{\tm}{\textnormal{TM}}
+        \newcommand{\diag}{\textnormal{Diag}}
+        \newcommand{\qaccept}{q_{\rm yes}}
+        \newcommand{\qreject}{q_{\rm no}}
+        \newcommand{\qstart}{q_{\rm start}}
+        \newcommand{\negdiag}{\textnormal{NegDiag}}
+        \newcommand{\bnegdiag}{\textnormal{TimedNegDiag}}
+        \newcommand{\writelambda}{\Sigma \cup \{0, 1, \texttt{#}, \texttt{,}, \texttt{L}, \texttt{S},
+        \texttt{R},\texttt{;}\}}
+        \newcommand{\TIME}{\textnormal{TIME}}
+        \newcommand{\EXP}{\mathsf{EXP}}
+        \newcommand{\NP}{\mathsf{NP}}
+        \newcommand{\SPACE}{\textnormal{SPACE}}
+        \newcommand{\PSPACE}{\mathsf{PSPACE}}
+        \)
+    </div id='mathjax-definitions'>
+
+
+
+    <div id="rightSideWrapper">
+
+
+        <div class="content">
+
+
+
+            <div class='chapter'>
+                <div class='subChapter'>
+                    <h1 class='hidden-title'>
+                        <span class='subChapterTitle'></span>
+                    </h1>
+
+
+                    <p>
+                        In diesem Kapitel verwenden wir Diagonalisierung, um folgendes zu zeigen: es gibt
+                        eine Sprache $L$, die wir in $t(n)$, aber nicht deutlich schneller entscheiden können.
+                        Somit ergibt sich eine <em>Zeithierarchie</em> von Sprachen mit immer höherer
+                        Zeitkomplexität. Als technische Anforderung an die Zeitschranke $t: \N \rightarrow \N$ stellen
+                        wir,
+                        dass sie selbst sehr effizient berechenbar sein muss, nämlich:
+                    </p>
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title'>Definition</span> Eine Funktion $t: \N \rightarrow \N$ heißt
+                            <em>zeitkonstruierbar</em>, wenn es eine Turingmaschine gibt, die aus dem Eingabewort $1^n$
+                            das Ausgabewort $1^{t(n)}$ berechnet und selbst maximal $O(t(n))$ Schritte läuft.
+                        </p>
+                    </div class='well container theorem'>
+                    <p>
+                        Wir definieren nun eine Stoppuhr-Version des Halteproblems für $k$-Band-Turingmaschinen. Sei
+                        $U^k$ die universelle Turingmaschine für Maschinen mit $k$ Bändern ($U^k$ hat also selbst $k+2$
+                        Bänder, wie wir gesehen haben). Für
+                        eine zeitkonstruierbare Funktion $t: \N \rightarrow \N$ sei
+                    </p>
+                    \begin{align*}
+                    \bhalt_t^k := \{ (c, x) \ | \ U^k(c,x) \textnormal{ macht $\leq t(|x|)$ Schritte und gibt $1$ aus }
+                    \} \
+                    .
+                    \end{align*}
+                    <figure>
+                        <img src='../img/03-diagonalization/det time hierarchy-01-01.svg' style='height:25em'>
+                    </figure>
+                    <p>
+                        Die Sprache $\bhalt_t^k$ können wir wieder als Tabelle darstellen
+                        und sie mit Nullen und Einsen füllen. Bei den Nullen unterscheiden
+                        wir hier zumindest optisch zwischen "roten Nullen": $U(c,x)$ ist
+                        nicht innerhalb von $t(|x|)$ Schritten fertiggeworden, und
+                        "schwarzen Nullen": $U(c,x)$ ist fertiggeworden und hat akzeptiert.
+                    </p>
+
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='prop-in-time-t'
+                                data-label-title='Beobachtung'>Beobachtung</span> Die Sprache
+                            $\bhalt_t^k$ ist in $\TIME_{k+3}(t)$.</p>
+                    </div class='well container theorem'>
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Eine Turingmaschine kann in $O(t(|x|))$ Schritten die Zahl $t(|x|)$
+                            berechnen. Genauer gesagt, sie kann das Wort $1^{t(|x|)}$ auf ein separates Stoppuhrband
+                            schreiben.
+                            Danach simuliert sie $U^k$ auf der Eingabe $(c,x)$, schiebt aber in jedem Schritt den
+                            Kopf auf dem Stoppuhrband nach rechts. Wenn das Ende dieses Bandes erreicht ist und die
+                            Simulation
+                            bislang noch nicht akzeptiert hat, lehnt sie ab (gibt $0$ aus); ansonsten gibt sie das
+                            Ergebnis der Simulation aus. Hierfür braucht sie die $k+2$ Bänder von $U^{k+2}$ und ein
+                            das Stoppuhrband, also insgesamt $k+3$ Bänder.
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+                    </div class='proof'>
+
+
+                    <p>
+                        Nun diagonalisieren wir die Sprache:
+                    </p>
+                    \begin{align*}
+                    \bnegdiag^k_t := \{ c \ | \ (c,c) \not \in \bhalt^k_t\}
+                    \end{align*}
+                    <p>
+                        Auf Eingabe $c$ können wir einfach $(c,c)$ auf das Band schreiben und dann
+                        wie oben $\bhalt_t^k$ entscheiden und das Ergebnis negieren. Daher:
+                    </p>
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='prop-in-time-t'
+                                data-label-title='Beobachtung'>Beobachtung</span> Die Sprache
+                            $\bnegdiag_t^k$ ist in $\TIME_{k+3}(t)$.</p>
+                    </div class='well container theorem'>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='lemma-not-in-time-s' data-label-title='Lemma'>Lemma</span>
+                            Sei
+                            $s: \N \rightarrow \N$ eine Funktion mit</p>
+                        \begin{align*}
+                        \lim_{n \rightarrow \infty} \frac{ns(n)}{t(n)} = 0 \ .
+                        \end{align*}
+                        <p>
+                            Dann gilt $\bnegdiag_t^k \not \in \TIME_{k} (s)$.
+                        </p>
+                    </div class='well container theorem'>
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Nehmen wir zwecks Widerspruch an, dass die $k$-Band Turingmaschine $M$ die Sprache
+                            $\bnegdiag_k^t$ in $O(s(n))$ Schritten entscheidet. Wir setzen $c := \enc(M)$ und fragen
+                            uns,
+                            ob $c$ selbst in $\bnegdiag_k^t$ ist:
+                        </p>
+                        \begin{align*}
+                        c \in \bnegdiag_k^t & \Longleftrightarrow (c,c) \not \in \bhalt_t^k \\
+                        & \Longleftrightarrow
+                        \underbrace{U(c,c) = 0}_{\textnormal{schwarze Null}} \textnormal{ oder }
+                        \underbrace{U(c,c) \textnormal{läuft länger als$t(|c|)$ Schritte }}_{\textnormal{rote Null}}
+                        \end{align*}
+                        <p>
+                            Wieviele Schritte braucht $U(c,c)$ denn? Da $M(c)$ maximal $O(s(|c|))$ Schritte ausführt,
+                            braucht $U(\enc(M),c)$ maximal $O(|\enc(M)|\cdot s(|c|)) = O(|c| s(|c|)) = a |c| s(|c|) + b$
+                            für
+                            Konstanten $a$ und $b$.
+                            Da wir den Programmcode von $M$ falls nötig "aufblähen" können, ohne die Funktionalität zu
+                            ändern, können wir annehmen, dass $\enc(M) = c$ so groß ist, dass
+                        </p>
+                        \begin{align*}
+                        \frac{a|c| s(|c|)+b} {t(|c|)} \leq 1 \ .
+                        \end{align*}
+                        <p>
+                            In anderen Worten: $U(c,c)$ terminiert in maximal $t(|c|)$ Schritten. Somit ist
+                        </p>
+                        \begin{align*}
+                        c \in \bnegdiag_k^t & \Longleftrightarrow U(c,c) = 0 \textnormal{ oder }
+                        \underbrace{U(c,c) \textnormal{ läuft länger als $t(|c|)$ Schritte }}_
+                        {\textnormal{ist nicht der Fall}} \\
+                        & \Longleftrightarrow U(c,c) = 0 \\
+                        & \Longleftrightarrow M(c) = 0 \ .
+                        \end{align*}
+                        <p>
+                            Dies ist ein Widerspruch zur Annahme, dass $M$ die Sprache $\bnegdiag_k^t$ entscheidet.
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+                    </div class='proof'>
+                    <p>
+                        Ich finde an diesem Beweis etwas unschön, dass man $M$ künstlich aufblähen muss, um
+                        sicherzustellen, dass $a |c| s(|c|) + b \leq t(|c|)$ gilt, dass also das "Budget" ausreicht.
+                    </p>
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Zeigen Sie eine stärkere Version von <span class='reference'
+                                data-ref='lemma-not-in-time-s'></span>, dass es nämlich gilt, solange
+                            \begin{align*}
+                            \lim \frac{s(n)}{t(n)} = 0
+                            \end{align*}
+                            ist.
+                        </p>
+                        <p><strong>Tip: </strong> Für jede Turingmaschine $M$ jede Zahl $n_0$ gibt
+                            es eine "aufgeblähte" Version $M'$ von $M$ mit $|\enc(M')| \geq n_0$, die
+                            zu $M$ äquivalent ist. Zeigen Sie: Sie können die universelle Turingmaschine
+                            $U$ so implementieren, dass sie für jeden simulierten $M'$-Schritt nicht $O(\enc(M'))$ viele
+                            Schritte ausführt, sondern nur $O(\enc(M))$.
+                        </p>
+                    </div class='numbered-exercise'>
+
+                    <p>
+                        Zusammenfassend erhalten wir die "Rohversion" des Zeithierarchiesatzes:
+                    </p>
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title'>Theorem</span><strong> (Zeithierarchiesatz,
+                                Rohversion).</strong>
+                            Seien $s, t: \N \rightarrow \N$
+                            zeitkonstruierbare Funktionen mit $s(n) \geq n$ und
+                            $s \in o(t)$ (also $\lim_{n \rightarrow \infty} s(n)/t(n)
+                            = 0$). Dann gilt </p>
+                        \begin{align*}
+                        \TIME_k(s) \subsetneq \TIME_{k+3}(t)
+                        \end{align*}
+                        <p>für alle $k \geq 1$.</p>
+                    </div class='well container theorem'>
+                    <p>
+                        Zusammen mit der Simulation von $k$-Band-TMs durch $2$-Band-TMs,
+                        also <span class='reference' data-ref='k-tape-to-2-tape'></span> folgt nun
+                    </p>
+                    \begin{align*}
+                    \TIME(s) \subsetneq \TIME_2(s \log s) \subsetneq \TIME_5(t \log t)
+                    \end{align*}
+                    <p>
+                        oder, alternativ ausgedrückt:
+                    </p>
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title'>Theorem</span> <strong>(Zeithierarchiesatz).</strong>
+                            Seien $s, t: \N \rightarrow \N$ mit $s(n) \geq n$ und $s \log s \in o(t)$. Dann gilt
+                            $\TIME(s) \subsetneq \TIME(t)$.</p>
+                    </div class='well container theorem'>
+                    <p>
+                        Bitte beachten Sie, dass wir diese Version nicht vollständig bewiesen habe, da ich
+                        die effizientere Simulation einer $k$-Band-Turingmaschine durch eine $2$-Band-Turingmaschine,
+                        also $\TIME_k(t) \subseteq \TIME_2(t \log t)$ nicht erklärt habe. Mit der ineffizienten, also
+                        $\TIME_k(t) \subseteq \TIME_1(t^2)$, erhalten wir
+                        einen Zeithierarchiesatz solange $s^2 \in o(t)$ ist.
+                    </p>
+
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='theorem-space-hierarchy'
+                                data-label-title='Theorem'>Theorem</span>
+                            <strong>(Platzhierarchietheorem</strong>
+                            Sei $t: \N \rightarrow \N$ zeitkonstruierbar und $s: \N \rightarrow \N$ mit
+                            $\lim_{n \rightarrow \infty} \frac{s(n)}{t(n)} = 0$. Dann gilt
+                        </p>
+                        \begin{align*}
+                        \SPACE(s(n)) \subsetneq \SPACE(t(n)) \ .
+                        \end{align*}
+                    </div class='well container theorem'>
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title'>Übungsaufgabe</span>
+                            Beweisen Sie das Platzhierarchietheorem. Geht genauso wie das Zeithierarchietheorem.
+                            Überlegen Sie sich, was der Platzoverhead ist, wenn Sie eine $k$-Bandmaschine durch eine
+                            1-Band oder 2-Bandmaschine simulieren.
+                        </p>
+                        <p>
+                            Bekommen Sie hier als Bedingung $\frac{ns^2(n)}{t(n)} \rightarrow 0$ oder können
+                            Sie schärfere Schranken aufstellen? Reicht zum Beispiel $\frac{s(n)}{t(n)} \rightarrow 0$?
+                        </p>
+                    </div class='numbered-exercise'>
+
+                    <p>
+                        Folgende Aufgabe habe ich auf
+                    </p>
+
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Wir haben die folgenden Komplexitätsklassen bereits kennengelernt
+                            \begin{align*}
+                            \EXP := \bigcup_{k \geq 0} \TIME\left(2^{n^k}\right) \\
+                            \mathsf{E} := \bigcup_{c \geq 0} \TIME\left(2^{cn}\right) \\
+                            \PSPACE := \bigcup_{k \geq 0} \SPACE\left(n^k \right)
+                            \end{align*}
+                        </p>
+                        <ol>
+                            <li>Zeigen Sie, dass $\mathsf{E} \ne \EXP$ gilt (das ist einfach).</li>
+                            <li>Von <a href="https://scottaaronson.blog/?p=392">Scott Aaronsons
+                                    Blog</a>:
+                                Zeigen Sie, dass $\PSPACE \ne \mathsf{E}$ gilt (das braucht einen Trick).
+                                <strong>Tip:</strong> verwenden Sie Padding, um $2^{|x|^2}$ zu $2^{|y|}$ zu machen.
+                            </li>
+                            <li>
+                                (Exercise 3.5.1 aus Arora und Barak): Zeigen Sie, dass $\SPACE(n) \ne \NP$ gilt.
+                            </li>
+                        </ol>
+                        <p>
+                            Beachten Sie, dass wir weder $\PSPACE \subseteq \mathsf{E}$ noch $\mathsf{E} \subseteq
+                            \PSPACE$ beweisen noch widerlegen können. Vielleicht sind beide Inklusionen falsch.
+                            Gleiches gilt für $\SPACE(n)$ vs. $\NP$.
+                        </p>
+
+
+
+                    </div class='numbered-exercise'>
+
+                </div class='subChapter'>
+
+
+            </div class='chapter'>
+
+
+
+
+        </div class="content">
+    </div class="rightSideWrapper">
+
+    <div id="navigation-links">
+    </div>
+
+
+
+</body>
+<script>
+    var chaptersStartAt = 4;
+    var subChaptersStartAt = 6;
+</script>
+<script type="text/javascript" src="../javascript/table-of-contents.js"></script>
+<script type="text/javascript" src="../javascript/number-my-theorems.js"></script>
+
+</html>

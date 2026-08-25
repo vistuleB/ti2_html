@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="data:,">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Berechenbarkeit und Kreativität</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lecture-notes.css" />
+    <link rel="stylesheet" type="text/css" href="../Course.css" />
+    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>-->
+    <!-- <script type=”text/javascript”
+        src=”http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML”></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+
+
+    <script>
+        MathJax = {
+            tex: {
+                tags: 'ams',
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+
+
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+
+
+
+
+    <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    -->
+    <!-- <script type="text/javascript" src="script.js"></script> -->
+
+</head>
+
+
+
+<body>
+
+    <div id='mathjax-definitions' style="display:none">
+        \(
+        \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+        \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+        \newcommand{\R}{\mathbb{R}}
+        \newcommand{\Z}{\mathbb{Z}}
+        \newcommand{\N}{\mathbb{N}}
+        \newcommand{\Q}{\mathbb{Q}}
+        \newcommand{\cin}{c_{\rm in}}
+        \newcommand{\cout}{c_{\rm out}}
+        \newcommand{\maj}{\textnormal{Maj}}
+        \newcommand{\xor}{\oplus}
+        \newcommand{\depth}{\textnormal{depth}}
+        \newcommand{\padding}{\textnormal{padding}}
+        \newcommand{\poly}{\textnormal{poly}}
+        \newcommand{\NTIME}{\textsf{NTIME}}
+        \newcommand{\TIME}{\mathsf{TIME}}
+        \newcommand{\EXP}{\mathsf{EXP}}
+        \newcommand{\NEXP}{\mathsf{NEXP}}
+        \newcommand{\NP}{\mathsf{NP}}
+        \newcommand{\P}{\mathsf{P}}
+        \)
+    </div id='mathjax-definitions'>
+
+
+
+    <div id="rightSideWrapper">
+
+
+        <div class="content">
+            <div class='chapter'>
+
+
+                <div class='subChapter'>
+                    <h1 class='hidden-title'>
+                        <span class='subChapterTitle'></span>
+                    </h1>
+
+                    <p>
+                        Hier ist ein Algorithmus für <span style="font-variant: small-caps;">Primes</span>:
+                    </p>
+
+                    <pre class='listing'>
+<code>def isPrime(n):</code>
+<code>    i = 2</code>
+<code>    while (i*i &lt= n):</code>
+<code>        if n % i == 0:</code>
+<code>            return False </code>
+<code>        i = i+1</code>
+<code>    return True</code></pre>
+                    <p>
+                        Ist dieser Algorithmus effizient? Die <tt>while</tt>-Schleife wird höchstens
+                        $\sqrt{n}$ mal durchlaufen, und jeder Durchlauf selbst ist effizient. Also js?
+                        Laufzeit ist schließlich $\poly(n)$. Das Problem hierbei ist, dass wir bei
+                        natürlichen Zahlen die Inputlänge nicht in der Zahl selber messen, sondern
+                        in der Anzahl der Stellen, also Bits, die wir brauchen, um sie niederzuschreiben. Als
+                        Entscheidungsproblem sollten wir <span style="font-variant: small-caps;">Primes</span>
+                        also eher so schreiben:
+                    </p>
+                    \begin{align*}
+                    \{x \in \{0,1\}^* \ | \ (x)_2 \textnormal{ ist eine Primzahl}\}
+                    \end{align*}
+                    <p>
+                        wobei $(x)_2$ die natürliche Zahl ist, die von $x$ binär codiert ist. Jetzt ist klar:
+                        der Input $n$ für <tt>isPrime</tt> ist eine natürliche Zahl
+                        im Interval $\{0, \dots, 2^{|x|-1}\}$ und somit ist die Laufzeit von <tt>isPrime</tt>
+                        nicht polynomiell in der Inputgröße $|x|$. In der Tat, ein
+                        polynomieller Algorithmus für <span style="font-variant: small-caps;">Primes</span>
+                        wurde ja erst relativ kürzlich gefunden (Agrawal, Kayal und Saxena 2004).
+                        Dem entgegen ist die Sprache der <em>unär notierten Primzahlen</em>, also
+                    </p>
+                    \begin{align*}
+                    \{1^{n} \ | \ n \textnormal{ ist eine Primzahl } \}
+                    \end{align*}
+                    <p>
+                        offensichtlich in P, da <tt>isPrime</tt> ein effizienter Algorithmus darstellt.
+                        Die Frage, ob der Eingabe unär (also über dem Alphabet $\{\Sigma\}$) oder
+                        binär (über $\{0,1\}$) ist, spielt also eine große Rolle.
+                        Das absichtliche Aufblasen eines Inputs (gerne mit unärer Notierung) ist durchaus eine
+                        wichtige Technik in der Komplexitätstheorie; sie wird <em>Padding</em> (Englisch für
+                        Ausstopfen) genannt. In diesem Kapitel führen wir die Technik
+                        des Paddings ein und untersuchen die Rolle unärer Sprachen.
+                    </p>
+
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='def-unary-L' data-label-title='Definition'>Definition</span>
+                            Sei
+                            $L \subseteq \{0,1\}^*$ eine Sprache. Wir definieren</p>
+                        \begin{align*}
+                        L_{\rm unary} := \{1^{(x)_2} \ | \ x \in L \} \ .
+                        \end{align*}
+                    </div class='well container theorem'>
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Zeigen Sie: eine Sprache $L$ ist genau dann entscheidbar, wenn
+                            $L_{\rm unary}$ entscheidbar ist. Genauer: Zeigen Sie, in der Terminologie aus
+                            <a href="../../TI-2/lecture-notes/07-07-PCP-applications.html">Kapitel 8.8
+                                von Theoretische Informatik II</a>, dass wir $L$ auf $L_{\rm unary}$ und
+                            $L_{\rm unary}$ auf $L$ reduzieren können.
+                        </p>
+                        <p>
+                            Zeigen Sie, dass es unentscheidbare unäre Sprachen gibt.
+                        </p>
+
+
+
+                    </div class='numbered-exercise'>
+
+
+                    <h3>Padding: Gleichheit zwischen Komplexitätsklassen setzt sich nach oben fort</h3>
+
+                    <p>
+                        Es ist ja nicht ausgeschlossen, dass 3-SAT $\in$ P gilt. Dann könnten wir
+                        nach <span class='reference' data-ref='theorem-3-sat-np-complete'></span>
+                        <em>alle</em> NP-Probleme effizient lösen. Was wäre aber beispielsweise mit Problemen
+                        $L \in \NTIME(n^{\log n})$, also quasipolynomieller nichtdeterministischer Zeit?
+                        Könnten wir dann automatisch auch auf $L \in \TIME(n^{\log n})$ schließen?
+                    </p>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='def-padding' data-label-title='Definition'>Definition</span>
+                            <strong>(Padding). </strong> Sei $t: \N \rightarrow \N$ eine
+                            zeitkonstruierbare Funktion, und sei $t(n) \geq n+1$ für alle $n \in \N$.
+                            Für $x \in \Sigma^*$ sei
+                        </p>
+                        \begin{align*}
+                        \padding_t(x) := \{x \texttt{#} 1^{t(|x|)-|x|-1}\} \ ,
+                        \end{align*}
+                        <p>
+                            so dass $\padding_t(x)$ genau $t(|x|)$ viele Zeichen hat. Weiterhin sei
+                            für eine Sprache $L \subseteq \Sigma^*$
+                        </p>
+                        \begin{align*}
+                        \padding_t(L) := \{\padding_t(x) \ | \ x \in L\} \ .
+                        \end{align*}
+                    </div class='well container theorem'>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='prop-padding'
+                                data-label-title='Beobachtung'>Beobachtung</span>
+                            Sei $t: \N \rightarrow \N$ zeitkonstruierbar und $t(n) \geq n+1$.
+                            Dann gilt:
+                        </p>
+                        <ol>
+                            <li>
+                                Wenn $L \in \TIME(t(n))$, dann ist $\padding_t(L) \in \TIME(n)$.
+                            </li>
+                            <li>
+                                Wenn $L \in \NTIME(t(n))$, dann ist $\padding_t(L) \in \NTIME(n)$.
+                            </li>
+
+                        </ol>
+                    </div class='well container theorem'>
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Sei $M$ eine Turingmaschine mit Laufzeit $O(t(n))$ für $L$ (deterministisch
+                            für Punkt 1, nichtdeterministisch für Punkt 2). Wir beschreiben nun
+                            eine Turingmaschine $M'$ für $\padding_t(L)$: $M'$ sucht das Trennzeichen
+                            <tt>#</tt> und kopiert dabei alles davor auf Band 2; falls es kein <tt>#</tt> findet,
+                            lehnt sie ab. Bezeichne $x$ den Teil des Eingabewortes vor dem <tt>#</tt>.
+                            $M'$ berechnet nun $m := t(|x|)$, was wegen Zeitkonstruierbarkeit in $O(t(|x|))$ Schritten
+                            geht. Nun liest sie nach dem <tt>#</tt> weiter und schaut, ob danach nur noch 1en
+                            kommen und ob die Eingabe tatsächlich Länge $t(|x|)$ (wenn nicht, lehnt sie ab).
+                            Wenn ja, dann löscht sie das Eingabeband und simuliert nun $M$ mit $x$ als Eingabe.
+                            Die Gesamtlaufzeit ist $O(t(|x|))$. Die Eingabelänge ist $t(|x|)$ und
+                            somit ist die Gesamtlaufzeit linear in der Eingabegröße.
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+                    </div class='proof'>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='theorem-p-np-scales-up'
+                                data-label-title='Theorem'>Theorem</span> Falls P=NP gilt,
+                            dann auch $\NTIME(t) \subseteq \TIME(\poly(t))$ für jede
+                            zeitkonstruierbare Funktion $t: \N \rightarrow \N$ mit $t(n) \geq n+1$.</p>
+                    </div class='well container theorem'>
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Sei $L \in \NTIME(t)$. Sei $L' := \padding_t(L)$. Nach
+                            <span class='reference' data-ref='prop-padding'></span> gilt $L' \in \NTIME(n) \subseteq
+                            \NP$. Nach Annahme ist P=NP, und somit ist
+                            $L' \in \P$. Es gibt also ein $k \in \N$ und einen
+                            Algorithmus $A'$ für $L'$ mit Laufzeit $O(n^k)$. Hier ist eine
+                            Turingmaschine $A$ für $L$:
+                            auf Eingabe $x$ berechnet $A$ die Zahl $t(|x|)$; dann schreibt
+                            sie $\texttt{#}1^{t(|x|)-|x|-1}$ hinter die Eingabe $x$; nun
+                            simuliert sie $A'$.
+                        </p>
+                        <p>
+                            Was ist die Laufzeit von $A$? Phase 1 braucht $t(|x|)$ Schritten.
+                            In Phase 2 wird $A'$ simuliert, auf einer Eingabe der Länge $t(|x|)$. Dies
+                            braucht nach Annahme $O(t(|x|)^k)$ Schritte und somit ist
+                            $L \in \TIME(\poly(t))$.
+                        </p>
+                        <span class='qed'>\(\square\)</span>
+                    </div class='proof'>
+
+
+                    <p>
+                        Üblicherweise wird <span class='reference' data-ref='theorem-p-np-scales-up'></span> in
+                        Zusammenhang mit EXP und NEXP eingeführt:
+                    </p>
+
+                    \begin{align*}
+                    \EXP & := \bigcup_{k \geq 0} \TIME(2^{n^k}) \\
+                    \NEXP & := \bigcup_{k \geq 0} \NTIME(2^{n^k}) \\
+                    \end{align*}
+                    <p>
+                        EXP und NEXP werden wir später noch etwas näher kennenlernen, insbesondere
+                        relativ natürlich klingende Probleme, die für EXP bzw. NEXP vollständig sind.
+                    </p>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='theorem-p-np-exp-nexp'
+                                data-label-title='Theorem'>Theorem</span> Wenn P=NP dann EXP=NEXP.</p>
+                    </div class='well container theorem'>
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Sei $L \in \NEXP$. Es gibt also ein $c \in \N$ mit
+                            $L \in \NTIME\left(2^{n^c}\right)$. Wir setzen
+                            $t(n) := 2^{n^c}$, wenden <span class='reference' data-ref='theorem-p-np-scales-up'></span>
+                            an und erhalten
+                            $L \in \TIME(\poly(n))$. Es gibt also ein $d \in \N$
+                            mit $L \in \TIME\left(t(n)^d\right) = \TIME\left(2^{dn^c}\right) \subseteq \EXP$.
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+
+                    </div class='proof'>
+                    <p>
+                        Folgende Übungsaufgabe zeigt, dass man die Annahme P=NP durch eine
+                        weitaus schwächere ersetzen kann.
+                    </p>
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='exercise-p-unary-np-exp-nexp'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            (Exercise 2.7.23 aus <a href="#arora-barak">Arora und Barak</a>).
+                            Falls jede <em>unäre</em> Sprache $L$ aus NP (also $L \in NP$ und $L \subseteq \{1\}^*$)
+                            auch in P ist, dann gilt EXP=NEXP.
+                        </p>
+                        <details>
+                            <summary>
+                                <a class='btn btn-primary'>Tip</a>
+                            </summary>
+                            Zeigen Sie unter der Annahme zuerst, dass E = NE gilt. Hierbei sind
+                            \begin{align*}
+                            \mathsf{E} & := \bigcup_{c \geq 1} \TIME(c^n) \\
+                            \mathsf{NE} & := \bigcup_{c \geq 1} \NTIME(c^n) \\
+                            \end{align*}
+                            <p>
+                                Der Unterschied zwischen E und EXP ist, dass EXP Laufzeiten wie
+                                $2^{n^2}$ erlaubt, während E das nicht tut, da
+                                $2^{n^2} \not \in O(c^n)$, für kein $c$.
+                            </p>
+                            <p>
+                                Zeigen Sie nun (unter der Annahme der Aufgabe) zuerst, dass E=NE gilt.
+                                Benutzen Sie dann Padding, um daraus auf EXP=NEXP zu schließen.
+                            </p>
+                        </details>
+                    </div class='numbered-exercise'>
+
+                    <p>
+                        Da wir derzeit von $\EXP \ne \NEXP$ ausgehen, bedeutet dies, dass NP
+                        wohl unäre Sprachen enthält, die nicht effizient lösbar sind.
+                    </p>
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Rechercheaufgabe'>Rechercheaufgabe</span>
+                            Recherchieren Sie, ob es ein "natürliches" unäres Entscheidungsproblem
+                            gibt, dass in NP ist, von dem aber nicht bekannt ist, ob es in P ist.
+                        </p>
+                    </div class='numbered-exercise'>
+
+
+
+
+                    <p>
+                        Andererseits ist es sehr unwahrscheinlich, dass es eine unäre Sprache gibt, die
+                        vergleichbar schwer wie 3-SAT ist:
+                    </p>
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            (Bermans Theorem, 1978; exercise 2.7.13 aus <a href="#arora-barak">Arora und Barak</a>).
+                            Wenn es eine unäre Sprache $L \subseteq \{1\}^*$ gibt, die NP-schwierig
+                            ist, dann ist P=NP.
+                        </p>
+                        <p><strong>Bemerkung:</strong> Wir brauchen nicht einmal $L \in \NP$. Die Sprache
+                            $L$ könnte sogar unentscheidbar sein.</p>
+
+                        <details>
+                            <summary>
+                                <a class='btn btn-primary'>Tip</a>
+                            </summary>
+                            Ich gebe Ihnen hier das Gerüst für einen
+                            Algorithmus. Sie müssen nun mithilfe einer Reduktion 3-SAT $\leq_p L$ etwas
+                            Memoisation hinzufügen, um die Rekursion effizient zu machen. </p>
+                            <pre class='listing'>
+<code>def satisfiable(F):</code>
+<code>    if empty_clause in F:</code>
+<code>        return False</code>
+<code>    if F is empty:</code>
+<code>        return True </code>
+<code>    </code>
+<code>    # add memoization here </code>
+<code></code>
+<code>    x = some variable in F </code>
+<code>    result = satisfiable(F[x -&gt; 0]) or satisfiable(F[x -&gt; 1])</code>
+<code></code>
+<code>    # add memoization here</code>
+<code></code>
+<code>    return result</code></pre>
+                        </details>
+
+                    </div class='numbered-exercise'>
+
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='exercise-intermediate-problems'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Kombinieren Sie die obigen Übungsaufgaben, um das folgende bemerkenswerte Resultat zu
+                            zeigen: unter der
+                            (wohl realistischen Annahme), dass EXP $\ne$ NEXP gilt, gibt es eine Sprache $L \in \NP$,
+                            die weder
+                            in P noch NP-vollständig ist; so ein $L$ nennt man ein NP-Zwischenproblem.
+                        </p>
+                    </div class='numbered-exercise'>
+                    <p><strong>Anmerkung zu <span class='reference' data-ref='exercise-intermediate-problems'></span>:
+                        </strong> welche "natürlichen" Probleme stellen Kandidaten für so ein NP-Zwischenproblem?
+                        Eventuell
+                        <span style="font-variant: small-caps;">Factoring</span> bzw. das damit assoziierte
+                        Entscheidungsproblem
+                        <span style="font-variant: small-caps;">Small Factor</span>. Sollte es NP-vollständig sein,
+                        dann würde NP=coNP gelten (was wir nicht glauben; dazu später mehr); sollte es in P sein,
+                        dann könnte man verbreitete public-key-Verschlüsselungsverfahren wie RSA effizient brechen.
+                        Wir hoffen also, dass <span style="font-variant: small-caps;">Factoring</span> ein
+                        NP-Zwischenproblem ist. In
+                        <a href="./03-04-Ladner.html">Kapitel 3.4</a> werden wir Ladners Theorem kennenlernen: dies
+                        besagt,
+                        dass es NP-Zwischenprobleme geben muss, falls überhaupt P$\ne$ NP gilt. Insofern
+                        ist <span class='reference' data-ref='exercise-intermediate-problems'></span> eine
+                        Aufwärmübung für den nicht ganz einfachen Beweis von Ladners Theorem.
+                    </p>
+
+                    <h3>Mahaneys Theorem</h3>
+
+                    <p>
+                        Die $n$-te <em>Schreibe</em> einer Sprache $L \subseteq \Sigma^*$ ist
+                        $L_n := L \cap \Sigma^n$. Eine Sprache heißt dünn wenn es also ein $k$ gibt
+                        mit $| L \cap \Sigma^n| \in O(n^k)$.
+                        Eine unäre Sprache ist offensichtlich dünn (mit $k=0$ da $|L_n|=1$ gilt).
+                    </p>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='theorem-mahaney' data-label-title='Theorem'>Theorem</span>
+                            (Mahaneys Theorem). Wenn es eine dünne Sprache $L$ gibt, die NP-schwierig ist, dandn gilt
+                            P=NP.</p>
+                    </div class='well container theorem'>
+                    <p>
+                        Ich zeige die Idee hinter dem Beweis von <a href="#ogihara-watanabe">Ogihara and Watanabe
+                            (1991)</a>
+                    </p>
+                    <div class='well container'>
+                        <p><strong>Beweisidee.</strong>
+                            Sei $L$ eine dünne Sprache, die NP-schwierig ist. Ich werde zeigen,
+                            wie man effizient Zahlen faktorisieren kann (es ist dann eine
+                            Übungsaufgabe, zu zeigen, wie man erfüllende Belegungen finden kann).
+                            Sei $x \in \{0,1\}^n$ die (binäre Codierung der) Eingabezahl.
+                            Das Problem <span style="font-variant: small-caps;">Small Factor</span> (SF),
+                            ob $x$ einen Faktor kleiner gleich $k$ hat, also die Sprache</p>
+                        \begin{align*}
+                        {\rm SF} := \{ (x,k) \in \{0,1\}^* \times \{0,1\}^*
+                        \ | \ \exists 2 \leq z \leq k \textnormal{ mit } z | x\}
+                        \end{align*}
+                        <p>
+                            ist in NP. Die Symbole $\leq$ und $|$ in der Definition beziehen sich auf die natürlichen
+                            Zahlen, die durch $x, k, y$ dargestellt sind.
+                            $f: {\rm SF} \leq_p L$ die
+                            Reduktion auf $L$. Für unsere Eingabe $x \in \{0,1\}^n$ gibt es
+                            $2^n$ viele Paare $(x,k)$ mit $0 \leq k \leq x$.
+                            Da $f$ polynomielle Laufzeit hat, haben alle Ausgaben $f(x,k)$ höchstens
+                            $\poly(n)$ viele Bits. Da $L$ dünn ist, können höchstens $N \in \poly(n)$
+                            viele der Werte
+                        </p>
+                        \begin{align*}
+                        f(x,2), f(x,3), \dots, f(x,x)
+                        \end{align*}
+                        <p>
+                            in $L$ sein. Unser Algorithmus unterhält nun eine Menge $I_1, \dots, I_t \subseteq \{2,
+                            \dots, x-1\}$
+                            von disjunkten Intervallen, von klein nach groß geordnet, also $\max I_i \lt \min I_{i+1}$,
+                            mit folgender Invariante:
+                        <p style="text-align: center;">
+                            Der kleinste nichttriviale Teiler von $x$ ist in einem der Intervalle
+                            $I_1, \dots, I_t$.
+                        </p>
+                        Wir beginnen mit einem Interval $I = \{2, \dots, x\}$. Dies
+                        erfüllt offensichtlich die Bedingung. Nun unterteilen wir $I$ zwei gleich große Hälften
+                        und diese wieder, so dass wir nach $i$ Teilungen $2^i$ Intervalle bekommen. Wenn
+                        $2^i \gt N$ ist, führen wir einen <em>Ausdünnungsschritt</em> aus, ansonsten teilen
+                        wir weiter.
+                        </p>
+                        <div class="alg well container-fluid">
+                            <p> <strong>FindeKleinstenFaktor</strong>$(x)$</p>
+                            <ol>
+                                <li>
+                                    $t = 1, I_1 = [2, x]$
+                                </li>
+                                <li><tt>while</tt> manche Intervalle mehr als ein Element haben:
+                                    <ol>
+                                        <li>
+                                            Sei $I_1 = [a_1,b_1], \dots, [a_t, b_t]$ die
+                                            derzeitige Menge der Intervalle, die die Invariante erfüllen.
+                                        </li>
+                                        <li><tt>while $t &gt; N$:</tt>
+                                            <ol>
+                                                <li>Wenn es $i \lt j$ gibt mit $f(x,b_i) = f(x,b_j)$
+                                                    dann entferne $I_j$ aus der Liste.
+                                                    Dies erhält die Invariante: Sei $k$ der kleinste nichttriviale
+                                                    Teiler
+                                                    von $x$. Falls $f(x,b_i) = f(x,b_j) \not \in L$ dann gilt $k \gt
+                                                    b_j$
+                                                    und somit $k \not \in [a_j, b_j]$.
+                                                    Falls $f(x, b_i) = f(x,b_j) \in L$, dann gilt $k \leq b_i$ und somit
+                                                    auch $k \not \in [a_j, b_j]$ (da $b_i \lt a_j$). In beiden Fällen
+                                                    gilt $k \not \in I_j$ und wir können $I_j$ streichen.
+                                                </li>
+                                                <li>
+                                                    Ansonsten, wenn $t \gt N$, schreibe $t = d + N$. Die
+                                                    Werte $f(x,b_1), \dots, f(x,b_t)$ sind alle verschieden, und
+                                                    von ihnen sind höchstens $N$ viele in $L$ und mindestens $d$
+                                                    viele nicht in $L$.
+                                                    Da $b_1 \lt b_2 \lt \dots \lt b_t$ ist, gilt:
+                                                    wenn $(x, b_i) \in {\rm SF}$ dann auch
+                                                    $(x, b_{i+1}), \dots, (x, b_{t})$. Da es unter
+                                                    den $(x,b_1), \dots, (x, b_t)$ mindestens $d$ viele
+                                                    nicht in SF sind, muss dies insbesondere für
+                                                    $(x,b_1), \dots, (x,b_d)$ gelten. Die Zahl $x$ hat
+                                                    also keinen nichttrivialen Teiler $k \leq b_d$, und wir
+                                                    können $I_1, \dots, I_d$ streichen.
+                                                    Die Invariante gilt weiterhin.
+                                                </li>
+                                            </ol>
+                                        </li>
+                                        <li>Nun haben wir $t \leq N$ Intervalle $[a_1,b_1], \dots, [a_t, b_t]$
+                                            und der kleinste nichttriviale Faktor von $x$ ist in einem davon.
+                                            Wir unterteilen jedes Intervall in zwei fast gleich große Teile
+                                            und erhalten $2t$ Intervalle $I'_1, \dots, I'_{2t}$.
+                                        </li>
+                                    </ol>
+                                </li>
+                                <li>
+                                    Nun gilt $|I_i| = 1$ für jedes Interval, also $a_i = b_i$,
+                                    und der kleinste nichttriviale
+                                    Teiler ist in einem davon. Wir können nun einfach jede Zahl $a_i$
+                                    überprüfen: teilt sie $x$? Da wir maximal $N$ Intervalle haben,
+                                    geht dies in polynomieller Zeit.
+                                </li>
+                            </ol>
+                        </div>
+                        <p>
+                            Der Algorithmus <strong>FindeKleinstenFaktor</strong> läuft in polynomieller
+                            Zeit und findet den kleinsten nichttrivialen Faktor von $x$.
+
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+                    </div class='proof'>
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Erweitern Sie den Beweis! Entwerfen Sie mit Hilfe
+                            der Reduktion auf $L$ einen Algorithmus,
+                            der die "kleinste" erfüllende Belegung einer CNF findet!
+                        </p>
+                    </div class='numbered-exercise'>
+
+                    <h3>
+                        Literatur
+                    </h3>
+
+                    <ul>
+                        <li id="ogihara-watanabe">
+                            Mitsunori Ogiwara and Osamu Watanabe (1990, April). On polynomial time bounded truth-table
+                            reducibility of NP sets to sparse sets. In
+                            <em>Proceedings of the twenty-second annual ACM
+                                symposium on Theory of computing</em> (pp. 457-467).
+                        </li>
+                    </ul>
+
+
+                </div class='chapter'>
+
+
+            </div class="content">
+        </div class="rightSideWrapper">
+
+
+        <div id="navigation-links">
+        </div>
+
+
+
+</body>
+<script>
+    var chaptersStartAt = 3;
+    var subChaptersStartAt = 200;
+</script>
+<script type="text/javascript" src="../javascript/table-of-contents.js"></script>
+<script type="text/javascript" src="../javascript/number-my-theorems.js"></script>
+
+</html>

@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="data:,">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Berechenbarkeit und Kreativität</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lecture-notes.css" />
+    <link rel="stylesheet" type="text/css" href="../Course.css" />
+    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>-->
+    <!-- <script type=”text/javascript”
+        src=”http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML”></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+
+
+    <script>
+        MathJax = {
+            tex: {
+                tags: 'ams',
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+
+
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+
+
+
+
+    <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    -->
+    <!-- <script type="text/javascript" src="script.js"></script> -->
+
+</head>
+
+
+
+<body>
+
+    <div id='mathjax-definitions' style="display:none">
+        \(
+        \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+        \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+        \newcommand{\R}{\mathbb{R}}
+        \newcommand{\Z}{\mathbb{Z}}
+        \newcommand{\N}{\mathbb{N}}
+        \newcommand{\Q}{\mathbb{Q}}
+        \newcommand{\cin}{c_{\rm in}}
+        \newcommand{\cout}{c_{\rm out}}
+        \newcommand{\maj}{\textnormal{Maj}}
+        \newcommand{\xor}{\oplus}
+        \newcommand{\depth}{\textnormal{depth}}
+        \newcommand{\padding}{\textnormal{padding}}
+        \newcommand{\poly}{\textnormal{poly}}
+        \newcommand{\NTIME}{\textsf{NTIME}}
+        \newcommand{\TIME}{\mathsf{TIME}}
+        \newcommand{\EXP}{\mathsf{EXP}}
+        \newcommand{\NEXP}{\mathsf{NEXP}}
+        \newcommand{\P}{\mathsf{P}}
+        \newcommand{\SAT}{\mathsf{SAT}}
+        \newcommand{\bin}{\mathsf{bin}}
+        \newcommand{\NP}{\mathsf{NP}}
+        \newcommand{\NPC}{\mathsf{NPC}}
+        \newcommand{\pfrac}[2]{\left(\frac{#1}{#2}\right)}
+        \)
+    </div id='mathjax-definitions'>
+
+
+
+    <div id="rightSideWrapper">
+
+
+        <div class="content">
+            <div class='chapter'>
+
+
+                <div class='subChapter'>
+                    <h1 class='hidden-title'>
+                        <span class='subChapterTitle'></span>
+                    </h1>
+
+                    <p>
+                        Die meisten Entscheidungsprobleme aus der Klasse NP sind effizient lösbar
+                        (<span style="font-variant: small-caps;">Perfect Matching, Primes, 2-SAT</span>) oder
+                        NP-vollständig, was bedeutet, dass man jedes NP-Problem darauf reduzieren kann, also
+                        mit Hilfe dieses Problems modellieren kann.
+                        Zwei erwähnte Probleme entziehen sich aber bis dato dieser Klassifizierung:
+                        <span style="font-variant: small-caps;">Graph Isomorphism</span>
+                        und <span style="font-variant: small-caps;">Factoring</span>. Wissen wir einfach
+                        noch nicht genug über diese Probleme oder sind sie wirklich "Zwischenprobleme"?
+
+                        Falls P=NP gelten sollte,
+                        dann sind eh alle Sprachen $L \in \NP$ auch in P. Falls jedoch P $\ne$ NP gilt,
+                        dann stellt sich die Frage, ob es "Zwischenprobleme" gibt, also Sprachen $L$, die weder
+                        in P noch NP-vollständig (<em>NP-complete</em>, kurz NPC) sind. Dies ist die Essenz von Ladners
+                        Theorem.
+                    </p>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='theorem-ladner' data-label-title='Theorem'>Theorem</span>
+                            <strong>(Ladners Theorem).</strong> Falls P $\ne $ NP, dann gibt es eine Sprache
+                            $L \in $ NP, die weder in P ist noch NP-vollständig ist.
+                        </p>
+                    </div class='well container theorem'>
+
+                    <p>
+
+                    </p>
+
+                    <div class='well container demo'>
+                        <p><span class='numbered-title'>Ein schwächeres Ergebnis.</span>
+                            Der Beweis von Ladners Theorem ist nicht ganz einfach, daher tasten wir uns langsam heran.
+                            Beachten Sie, dass wir bereits ein schwächeres Ergebnis zeigen können:</p>
+
+                        <div class='well container-fluid subtheorem'>
+                            <p><span class='numbered-title'>Beobachtung.</span> Falls $\EXP \ne \NEXP$ gilt,
+                                dann gibt es ein Zwischenproblen $L \in \NP \setminus (\P \cup \NPC)$.</p>
+                        </div class='well container-fluid subtheorem'>
+                        <div class='well container-fluid subtheorem'>
+                            <p><strong>Beweis.</strong> Unter der Annahme $\EXP \ne \NEXP$ wissen wir mit <span
+                                    class='reference' data-ref='exercise-p-unary-np-exp-nexp'></span>, dass es
+                                eine unäre Sprache $L \in \NP$ gibt, die nicht in P ist.
+                                Wenn nun $L$ NP-vollständig ist, dann gilt nach
+                                <span class='reference' data-ref='theorem-mahaney'></span> (Mahaneys Theorem), dass P=NP
+                                ist,
+                                was wiederum mit <span class='reference' data-ref='theorem-p-np-exp-nexp'></span>
+                                bedeutet, dass $\EXP = \NEXP$ ist, was unserer Annahme widerspricht.
+                                Daher: es gibt eine (unäre) Sprache in NP, die weder in P noch NP-vollständig ist.
+                                <span class='qed'>\(\square\)</span>
+                            </p>
+                        </div class='proof'>
+                    </div class='well container demo'>
+
+                    <p>
+                        Ladners Theorem konstruiert eine (nicht unäre) Zwischensprache $L$ unter der schwächeren Annahme
+                        P $\ne$ NP. Ich gebe hier mehr oder weniger den Beweis aus
+                        <em>Complexity Theory - a Modern Approach</em> von Arora und Barak wieder. Die grundsätzliche
+                        Idee ist, dass wir ein beliebiges Problem $L$ nehmen und es mit Padding einfacher machen
+                        können.
+                        Zur Erinnerung: für $t: \N \rightarrow \N$ mit $t(n) \geq n+1$ definieren wir
+                    </p>
+                    \begin{align*}
+                    \padding_t(L) := \{x \texttt{#} 1^{t(|x|)} \ | \ x \in L\} \ .
+                    \end{align*}
+                    <p>
+                        Wir stopfen also $x$ so mit $t(|x|)$ zusätzlichen Einsen aus. Das
+                        <tt>#</tt> dazwischen fungiert nur als Trennzeichen. Genausogut
+                        können wir es durch 0 ersetzen, da diese als letzte Null eindeutig erkennbar ist.
+                        Stopfen wir nun SAT und definieren die Sprache
+                        \begin{align*}
+                        \padding_{2^n} (\SAT) := \{ F\texttt{#}1^{2^{|F|}} \ | \ F \textnormal{ ist eine erfüllbare CNF}
+                        \} \ .
+                        \end{align*}
+                        Gegeben eine Instanz $F\text{#}1^t$, so können wir in linearer Zeit überprüfen, ob $|t| =
+                        2^{|F|}$ ist.
+                        Falls ja, dann können wir in $O(2^{|F|}) = O(t)$ Schritten entscheiden, ob $F$ erfüllbar ist.
+                        Die Laufzeit ist also
+                        linear in der Eingabegröße, also ist
+                        $\padding_{2^n}(\SAT) \in \TIME(n)$ ist und somit in P.
+                        Stopfen wir nun nicht exponentiell, aber superpolynomiell:
+                    </p>
+                    \begin{align*}
+                    \padding_{n^{\log n}}(\SAT) =\left\{ F \texttt{#} 1^{n^{\log(n)}} \ \big| \ n:= |F|, \
+                    F \textnormal{ ist eine erfüllbare CNF} \right\}
+                    \end{align*}
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Zeigen Sie, dass $L$ in stark subexponentieller Zeit lösbar ist. Das heißt,
+                            \begin{align*}
+                            \padding_{n^{\log n}}(\SAT) \in \bigcap_{\epsilon \gt 0} \TIME\left(2^{n^\epsilon}\right) \
+                            ,
+                            \end{align*}
+                        </p>
+                    </div class='numbered-exercise'>
+                    <p>
+                        Ist $L$ in polynomieller Zeit lösbar? Wahrscheinlich nicht:
+                    </p>
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Zeigen Sie: wenn $ \padding_{n^{\log n}}(\SAT) \in \P$ wäre, dann wäre $\SAT \in
+                            \TIME\left(n^{O(\log n)}\right)$,
+                            insbesondere
+                            also in quasipolynomieller Zeit lösbar.
+                        </p>
+                    </div class='numbered-exercise'>
+
+                    <p>
+                        Je größer das Padding, desto leichter wird die Sprache. Ladners Theorem
+                        folgt nun grob aus zwei Dingen:
+                    <ol>
+                        <li>
+                            Ein superpolynomielles Padding $t(n)$ macht $\padding_t(\SAT)$ so leicht, dass
+                            es nicht mehr NP-vollständig sein kann (außer P=NP).
+                        </li>
+                        <li>
+                            Wenn $t(n)$ deutlich kleiner ist als die Zeitkomplexität von SAT,
+                            dann ist das Padding zu wenig, und $\padding_t(\SAT)$ ist nicht in P.
+                        </li>
+                    </ol>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='lemma-ladner-diverging-exponent'
+                                data-label-title='Lemma'>Lemma</span>
+                            (Exercise 3.6(b) aus Arora und Barak, <em>Complexity Theory)</em>
+                            Sei $s: \N \rightarrow \N$ mit
+                            $\lim_{n \rightarrow \infty} s(n) = \infty$ eine Funktion, die in polynomieller Zeit
+                            berechenbar ist. Sei $t(n) = n^{s(n)}$. Wenn $\padding_{t}(\SAT)$ NP-vollständig ist, dann
+                            gilt P=NP.
+
+                        </p>
+                    </div class='well container theorem'>
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Nach Annahme gibt es eine polynomielle Reduktion $f$ von SAT auf $\padding_t(\SAT)$. Sei
+                            $F$ eine CNF der Größe $n$ und sei $w = f(F)$. Wir schauen nun, ob $w$ die Form
+                            $G\texttt{#}1^l$ hat für eine CNF $G$. Wenn nicht, dann ist $w \not \in \padding_{t}(\SAT)$
+                            und
+                            wir schließen, dass $F \not \in \SAT$ ist. Weil wir $t$ effizient berechnen können,
+                            können wir überprüfen, ob $l = t(m)$ für $m = |G|$. Wenn nicht, dann schließen wir $F
+                            \not
+                            \in
+                            \SAT$.
+                            Wir gehen also davon aus, dass $f$ die Formel $F$ auf das Wort $w := G\texttt{#}1^{t(m)}$
+                            reduziert. Es gilt nun $F \in \SAT$ genau dann, wenn $w \in \padding_t(\SAT)$, und da
+                            das Padding von der Größe her stimmt, gilt $w \in \padding_t(\SAT)$ genau dann, wenn $G \in
+                            \SAT$ ist. Also: $F \in \SAT \Longleftrightarrow G \in \SAT$. Wie groß ist $m$, die Größe
+                            von $G$, im Verhältnis zu $n$, der Größe von $F$?
+                        </p>
+                        <p>
+                            Die Laufzeit von $f$ ist polynomiell, also höchstens $c n^k$ für Konstanten $c, k \in \N$.
+                            Somit gilt auch
+                        </p>
+                        \begin{align*}
+                        m^{s(m)} = t(m) \leq |w| \leq c n^k
+                        \end{align*}
+                        <p>
+                            Wir behaupten: $m \leq n/2$ für alle hinreichend großen Werte von $n$. Angenommen, es gelte
+                            $m \geq n/2$,
+                            dann wäre
+                        </p>
+                        \begin{align*}
+                        c n^k \geq \pfrac{n}{2}^{s(n/2)}
+                        \end{align*}
+                        <p>
+                            Da $s(n)$ gegen unendlich geht, gibt es nur endlich viele Werte $n$ mit $s(n/2) \leq k$.
+                            Sobald $s(n/2) \geq k+1$, ist die linke Seite $O(n^k)$ und die rechte Seite
+                            $\Omega(n^{k+1})$. Es
+                            gibt also nur endlich viele weitere Werte, für die die Ungleichung gelten kann.
+                        </p>
+                        <P>
+                            Wir fassen zusammen: für alle $n \geq n_0$ gibt uns $f$ eine neue Formel $G$ mit
+                            $|G| \leq |F|/2$ und $G \equiv_{\SAT} F$ (oder aber gibt uns ein Wort $w$, für das wir
+                            selbst $w \not \in \padding_t(\SAT)$ erkannt haben). Wir können nun also mit $G$ rekursiv
+                            fortfahren, also $f(G)$ berechnen, was uns ein Wort $H\texttt{#}1^{l'}$ gibt mit $|H| \leq
+                            |G| / 2$ und so
+                            weiter, bis wir bei einer Formel der Größe $\leq n_0$ landen. Diese können wir dann mit
+                            einem
+                            beliebigen SAT-Algorithmus lösen. Der gesamte Algorithmus hat also polynomielle Laufzeit.
+                        </P>
+                        <div class="alg well container">
+                            <p>Algorithm <tt>sat_using_reduction_to_padded_version</tt>$(F)$</p>
+                            <ol>
+                                <li>Wenn $|F| \leq n_0$ <tt>return brute_force_SAT($G$)</tt></li>
+                                <li>Wende die Reduktion an: $w := f(F)$</li>
+                                <li>
+                                    Schau, ob $w$ die Form $G\texttt{#}1^l$ mit $l = t(|G|)$ hat. Wenn
+                                    nicht, <tt>return False</tt>
+                                </li>
+                                <li><tt>return sat_using_reduction_to_padded_version($G$)</tt></li>
+                            </ol>
+                        </div>
+                        <p>Informell zusammengefasst: das superpolynomielle Padding lässt der Reduktion $f$ nur
+                            sehr wenig Platz für die Formel $G$ im Ergebniswort, so dass $f$
+                            "echte" Arbeit verrichten muss, woraus wir dann einen effizienten polynomiellen Algorithmus
+                            bauen können. <span class='qed'>\(\square\)</span></p>
+                    </div class='proof'>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='lemma-padding-too-short'
+                                data-label-title='Lemma'>Lemma</span>
+                            Wenn $s, s': \N \rightarrow \N$ effizient berechenbar sind, $s$ gegen unendlich konvergiert
+                            und $s' \in o(s)$ ist und $\SAT \not \in \TIME\left(n^{s(n)}\right)$ ist,
+                            dann ist $\padding_{n^{s'(n)}}(\SAT)$ nicht in P.
+                        </p>
+                    </div class='well container theorem'>
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Zwecks Widerspruch nehmen wir an, dass es einen
+                            Algorithmus <tt>decide_padded_SAT</tt> gibt, der $\padding_{n^{s'(n)}} (\SAT)$
+                            in Zeit $cn^k$ entscheidet. Hier ist ein einfacher Algorithmus für SAT:
+                        </p>
+                        <div class="alg well container-fluid">
+                            <p>Algorithm <tt>sat_by_padding</tt>$(F)$</p>
+                            <ol>
+                                <li>Sei $n := |F|$ und $w = F\texttt{#}1^{t(n)}$.</li>
+                                <li><tt>return decide_padded_SAT($w$)</tt> </li>
+                            </ol>
+                        </div>
+                        <p>
+                            Für eine Eingabeformel $F$ der Größe $n$ ergibt sich eine Laufzeit von maximal
+                            \begin{align*}
+                            c|w|^k = c (n + 1 + t(n))^k \leq c \left(2 n^{s'(n)}\right)^k
+                            \leq c' n^{ks'(n)}
+                            \leq c' n^{s(n)}
+                            \end{align*}
+                            für alle hinreichend großens $n$. Dies widerspricht
+                            der Annahme, dass $\SAT \not \in \TIME\left(n^{s(n)}\right)$ ist.
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+
+                    </div class='proof'>
+
+
+                    <p>
+                        Wir sehen nun Ladners Theorem am Horizont: wenn $\SAT \not \in \P$ ist,
+                        dann gibt es (klingt zum plausibel) eine Funktion $s(n)$ die gegen unendlich
+                        konvergiert mit $\SAT \not \in \TIME\left(n^{s(n)}\right)$. Wenn wir
+                        irgendwie sicherstellen könnten, dass $s(n)$ effizient berechenbar ist,
+                        dann wäre $\padding_{n^{\sqrt{s(n)}}}(\SAT)$ nach
+                        <span class='reference' data-ref='lemma-ladner-diverging-exponent'></span>
+                        nicht NP-vollständig und nach
+                        <span class='reference' data-ref='lemma-padding-too-short'></span> auch nicht in P.
+                        Könnten wir nicht einfach sagen, sei $t_{\rm opt}(n)$ die optimale Laufzeit
+                        von SAT; schreibe $t_{\rm opt}(n) = n^{s_{\rm opt}(n)}$ und setze
+                        $s(n) = \sqrt{s_{\rm opt}}(n)$. Das Problem dabei ist (ganz zu schweigen
+                        von der Frage, ob $s(n)$ effizient berechenbar ist), dass nicht klar ist, was wir
+                        mit <em>die optimale Laufzeit</em> von SAT meinen; vielleicht müssen wir
+                        ja für alle $n \leq 2^{1000}$ den einen Algorithmus, für alle $2^{1000} \lt n \leq 2^{2^{1000}}$
+                        einen zweiten Algorithmus, für alle $2^{2^{1000}} \lt n \leq 2^{2^{2^{1000}}}$ einen
+                        dritten verwenden, und so weiter. Es ist also gar nicht klar, ob das Optimum von
+                        <em>einem</em> Algorithmus erreicht werden kann. Wir verwenden, dass wir
+                        die Menge der Turingmaschinen durchnumerieren können: $M_1, M_2, \dots$, wobei
+                        $M_i$ die Turingmaschine ist, die durch das Wort $\bin(i) \in \{0,1\}^*$, also
+                        die Binärdarstellung der Zahl $i$ codiert ist.
+                    </p>
+
+
+                    \begin{align}
+                    H(n) :=
+                    \begin{cases}
+                    \min \left\{ l \leq \frac{\log n}{\log \log n} \ \big| \
+                    \exists i \leq l:
+                    \textnormal{ $M_i$ entscheidet $\SAT$ in $\leq l |F|^l$ Schritten für alle $|F| \leq
+                    \log n$}
+                    \right\} \textnormal{ oder }\\
+                    \frac{\log n}{\log \log n} \textnormal{, falls es kein solches $l$ gibt.}
+                    \end{cases}
+                    \label{definition-H}
+                    \end{align}
+                    <p>
+                        Der Wert $\log n / \log \log n$ fungiert als Notbremse: falls es kein passendes $l$
+                        gibt, dann soll die Funktion den Wert $\log n / \log \log n$ annehmen.
+                        $H$ ist offensichtlich monoton.
+                        Wir können $H(n)$ effizient berechnen: wir durchlaufen alle $1 \leq l \leq \frac{\log n}{\log
+                        \log n}$
+                        und alle $1 \leq i \leq l$; dann durchlaufen wir alle Formeln $F$ mit $|F| \leq \log n$;
+                        für jedes solche Tripel $(l,i,F)$ lassen wir $M_i$ auf Eingabe $F$ für
+                        $l |F|^l$ Schritte laufen. Dann prüfen als Gegencheck mit brute force
+                        in $2^{|F|} \leq n$ Schritten, ob $F \in \SAT$ ist und somit ob $M_i$ tatsächlich das korrekte
+                        Ergebnis
+                        geliefert hat. Die Gesamtlaufzeit ist
+                    </p>
+                    \begin{align*}
+                    \underbrace{\frac{\log n}{\log \log n}}_{\textnormal{ alle $l$}} \cdot
+                    \underbrace{\frac{\log n}{\log \log n}}_{\textnormal{ alle $i$}} \cdot
+                    \cdot
+                    \underbrace{2^{\log n}}_{\textnormal{alle $F$}} \cdot
+                    \underbrace{\left(\frac{\log n}{\log \log n} (\log n)^{\frac{\log n}{\log \log n}}
+                    \right)}_{\textnormal{$M_i$ auf $F$ laufen lassen}} \cdot
+                    \underbrace{2^{\log n}}_{\textnormal{gegenchecken}} \in O(n^3 \log^3 n) \ .
+                    \end{align*}
+                    <p>
+                        Ladners Theorem folgt nun aus zwei Beobachtungen:
+                    </p>
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='prop-H-diverges'
+                                data-label-title='Beobachtung'>Beobachtung</span> Falls P $\ne$ NP gilt,
+                            dann konvergiert $H(n)$ gegen unendlich.</p>
+                    </div class='well container theorem'>
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Da $H(n)$ monoton ist, gibt es nur zwei Möglichkeiten:
+                            (1) es konvergiert gegen unendlich; (2) es ist durch eine Konstante beschränkt: $H(n) \leq
+                            k$ für alle $n$. Wenn (1) gilt, dann sind wir fertig. Wenn (2) gilt, dann
+                            gilt auch $H(2^n) \leq k$ und somit gibt es eine Maschine unter
+                            $M_1, \dots, M_k$, die
+                            SAT korrekt in $k |F|^k$ Schritten entscheidet, für alle $F$ mit $|F|\leq n$.
+                            Es gibt also eine Maschine $i$, die für unendlich viele Größen
+                            funktioniert: für alle $|F| \leq n_1$, für alle $|F| \leq n_2$ und so weiter,
+                            und alles in höchstens $k |F|^k$ Schritten. $M_i$ funktioniert also
+                            für alle CNFs $F$ und somit gilt: $M_i$ entscheidet SAT in Zeit
+                            $O(n^k)$.
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+
+                    </div class='proof'>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='prop-H-lower-bounds-SAT'
+                                data-label-title='Beobachtung'>Beobachtung</span> Wenn
+                            $\SAT \in \TIME(n^{s(n)})$ und $s(n)$ gegen unendlich geht,
+                            dann gilt $H(n) \leq s(n)$ für alle
+                            hinreichend großen $n$. </p>
+                    </div class='well container theorem'>
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Nach Annahme gibt es eine Turingmaschine $M_i$, die SAT
+                            in maximal $c \cdot n^{s(n)}$ Schritten entscheidet.
+                            Für alle hinreichend großen $n$ ist $s(n) \geq i$ und $s(n) \geq c$ und somit gilt
+                        </p>
+                        <p style="text-align: center;">
+                            $i \leq s(n)$ und $M_i$ entscheidet SAT in $\leq s(n) n^{s(n)}$ Schritten
+                        </p>
+                        <p>und somit insbesondere auch für alle $F$ mit $|F| \leq \log n$; somit qualifiziert
+                            sich $s(n)$, die Rolle des $l$ in (\ref{definition-H}) zu spielen, und es gilt
+                            $H(n) \leq s(n)$.<span class='qed'>\(\square\)</span>
+                        </p>
+
+                    </div class='proof'>
+
+                    <p>
+                        Nun fassen wir zusammen: falls P $\ne$ NP gilt, dann konvergiert nach
+                        <span class='reference' data-ref='prop-H-diverges'></span> $H(n)$ gegen unendlich;
+                        aus dem Kontrapositiven von <span class='reference' data-ref='prop-H-lower-bounds-SAT'></span>
+                        folgt nun $\SAT \not \in \TIME\left(n^{H(n)-1}\right)$.
+                        Wir können nun $s'(n) = \sqrt{H(n)}$ definieren. Da $s'(n) \in o(H(n)-1)$ gilt,
+                        folgt aus <span class='reference' data-ref='lemma-padding-too-short'></span>
+                        folgt, dass $\padding_{n^{s'(n)}}(\SAT)$ nicht in P ist. Da $s'$
+                        gegen unendlich konvergiert, folgt aus
+                        <span class='reference' data-ref='lemma-ladner-diverging-exponent'></span>, dass
+                        $\padding_{n^{s'(n)}}(\SAT)$ nicht NP-vollständig ist. Ladners Theorem
+                        ist somit bewiesen.
+                    </p>
+
+
+                    <p>
+                        Wo im Beweis haben wir eigentlich verwendet, dass wir SAT genommen und ausgepolstert hatten?
+                        Beziehungsweise dass SAT in NP ist? Würde der gleiche Beweis nicht auch mit ganz anderen
+                        Problemen
+                        funktionieren? Die nächsten Übungsaufgaben fordern Sie auf, den Beweis nochmals durchzugehen und
+                        zu verallgemeinern.
+                    </p>
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Beweisen Sie folgende allgemeinere Version von Ladners Theorem: Sei $B$ eine Sprache
+                            mit $B \not \in P$. Dann gibt es eine Sprache $L$, die echt leichter ist als $B$ aber immer
+                            noch nicht in $P$ ist; konkret:
+                        </p>
+                        <ol>
+                            <li>$L \leq_p B$.</li>
+                            <li>$B \not \leq_p L$.</li>
+                            <li>$L \not \in P$.</li>
+                        </ol>
+                        <p>
+                            Gibt es bestimmte Bedingungen, die $B$ erfüllen muss? Muss $B$ entscheidbar sein?
+                        </p>
+                    </div class='numbered-exercise'>
+
+                    <p>
+                        Diese Übungsaufgabe zeigt, dass wir die obere Schranke NP in Ladners Theorem durch alles
+                        Mögliche ersetzen können.
+                        Wie sieht es mit der unteren Schranke aus?
+                    </p>
+
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='exercise-demo-john'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Verallgemeinern Sie die untere Grenze: seien $A, B$ Sprachen mit $B \not \leq_p A$.
+                            Dann gibt es eine Sprache $L$ mit $L \leq_p B$, $B \not \leq_p L$ und $L \not \leq_p A$.
+                        </p>
+                        <p>
+                            Jetzt brauchen Sie wohl irgendwelche Bedingungen an $B$. Welche?
+                        </p>
+                    </div class='numbered-exercise'>
+
+
+
+
+                </div class='subChapter'>
+
+            </div class='chapter'>
+
+
+        </div class="content">
+    </div class="rightSideWrapper">
+
+
+    <div id="navigation-links">
+    </div>
+
+
+
+</body>
+<script>
+    var chaptersStartAt = 3;
+    var subChaptersStartAt = 200;
+</script>
+<script type="text/javascript" src="../javascript/table-of-contents.js"></script>
+<script type="text/javascript" src="../javascript/number-my-theorems.js"></script>
+
+</html>

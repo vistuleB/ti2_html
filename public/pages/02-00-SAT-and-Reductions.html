@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="data:,">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Berechenbarkeit und Kreativität</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lecture-notes.css" />
+    <link rel="stylesheet" type="text/css" href="../Course.css" />
+    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>-->
+    <!-- <script type=”text/javascript”
+        src=”http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML”></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+
+
+    <script>
+        MathJax = {
+            loader: { load: ['ui/lazy'] },
+            tex: {
+                tags: 'ams',
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+
+    </script>
+
+
+
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+
+
+
+
+    <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    -->
+    <!-- <script type="text/javascript" src="script.js"></script> -->
+
+</head>
+
+
+
+<body>
+
+    <div id='mathjax-definitions' style="display:none">
+        \(
+        \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+        \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+        \newcommand{\R}{\mathbb{R}}
+        \newcommand{\Z}{\mathbb{Z}}
+        \newcommand{\N}{\mathbb{N}}
+        \newcommand{\Q}{\mathbb{Q}}
+        \newcommand{\cin}{c_{\rm in}}
+        \newcommand{\cout}{c_{\rm out}}
+        \newcommand{\maj}{\textnormal{Maj}}
+        \newcommand{\xor}{\oplus}
+        \newcommand{\depth}{\textnormal{depth}}
+        \newcommand{\poly}{\textnormal{poly}}
+        \)
+    </div id='mathjax-definitions'>
+
+
+
+    <div id="rightSideWrapper">
+
+
+        <div class="content">
+            <div class='chapter'>
+                <h1 class='hidden-title'>
+                    <span class='chapterTitle'></span>
+                </h1>
+
+                <p>
+                    Boolesche Formeln in konjunktiver Normalform, kurz CNFs, haben wir bereits
+                    kennengelernt. Hier ist eine:
+                </p>
+                \begin{align}
+                (x \vee y \vee \bar{z}) \wedge (\bar{x} \vee \bar{y}) \wedge (y \vee z)
+                \wedge (\bar{x} \vee \bar{y} \vee z) \ .
+                \label{cnf-example}
+                \end{align}
+                <p>
+                    Jede CNF hat eine zugrunde liegende Variablenmenge $V$. Hier zum Beispiel
+                    ist $V = \{x, y, z\}$.
+                    Ein fundamentales Problem der Algorithmik und der Komplexitätstheorie ist, für
+                    eine gegebene CNF eine <em>erfüllende Belegung</em> zu finden - also
+                    eine Funktion $\alpha: V \rightarrow \{0,1\}$, unter der die Formel
+                    zu $1$ auswertet. Oft betrachten wir statt diesem <em>Suchproblem</em>
+                    auch das entsprechende <em>Entscheidungsproblem</em>: gibt es eine
+                    erfüllende Belegung?
+                </p>
+
+
+                <div class='well well-lg numbered-exercise container'>
+                    <p><span class='numbered-title' id='put-unique-name-here' data-label-title='Problem'>Problem</span>
+                        (<span style="font-variant: small-caps;">Satisfiability</span>, kurz SAT)
+                        Gegeben eine Boolesche Formel in konjunktiver Normalform (eine CNF). Gibt
+                        es eine Belegung, die sie erfüllt?
+                    </p>
+                </div class='numbered-exercise'>
+
+                <p>
+                    Wenn wir Algorithmen für SAT erforschen, dann unterscheiden wir zwei Parameter:
+                    die Anzahl der Variablen, meist mit $n$ bezeichnet, und die Anzahl der Klauseln,
+                    oft $m$ genannt. In (\ref{cnf-example}) wäre also $n=3$ und $m=4$.
+                    Manchmal spielt auch die Gesamtlänge eine Rolle, also die Gesamtzahl der Literale;
+                    wir schreiben dies als $|F|$.
+                    In (\ref{cnf-example}) gilt also $|F|=10$.
+                </p>
+
+                <div class='well container theorem'>
+                    <p><span class='numbered-title' id='put-unique-name-here'
+                            data-label-title='Beobachtung'>Beobachtung</span> Wenn eine CNF $F$ und eine
+                        Belegung $\alpha: V \rightarrow \{0,1\}$ ihrer $n$ Variablen gegeben ist, dann
+                        können wir in $O(n \cdot |F|)$ Schritten entscheiden, ob $F$ erfüllt ist.</p>
+                </div class='well container theorem'>
+                <p>
+                    Drei Schleifen reichen aus: die äußerste über alle Klauseln $C$ von $F$; die mittlere über
+                    alle Literale $l$ von $C$; die innerste, um den Wert $\alpha(l)$ zu bestimmen.
+                    Je nachdem, wie $\alpha$ gegeben ist, kriegt man das auch in $O(|F| \log n)$ oder sogar
+                    $O(|F|)$ Schritten hin. Jedenfalls: es geht effizient.
+                    Wir können nun SAT entscheiden, indem wir alle $2^n$ Belegungen $\alpha: V \rightarrow \{0,1\}$
+                    durchgehen und jeweils den obigen Check ausführen.
+                </p>
+
+                <div class='well container theorem'>
+                    <p><span class='numbered-title' id='put-unique-name-here' data-label-title='Theorem'>Theorem</span>
+                        Wir können SAT in $2^n \cdot |F| \cdot n$ Schritten entscheiden.</p>
+                </div class='well container theorem'>
+
+                <p>
+                    Geht es besser? Darüber ist in der Tat recht wenig bekannt. Ein bisschen besser ja.
+                    Aber wir kennen keinen Algorithmus mit einer Laufzeit von $O(1.99^n)$,
+                    geschweige denn einen effizienten, also mit einer Laufzeit von $\poly(n |F|)$.
+                </p>
+
+                <h3>
+                    $k$-SAT
+                </h3>
+
+                <p>
+                    Eine $k$-CNF ist eine CNF, in der jede Klausel höchstens $k$ Literale hat.
+                    Die Formel in (\ref{cnf-example}) ist also eine 3-CNF (und technisch gesehen
+                    auch eine 4-CNF und eine 23-CNF, aber keine 2-CNF). Das Problem
+                    $k$-SAT ist das gleiche wie SAT, nur dass die Eingabeformeln $k$-CNFs sein müssen.
+                    Das Problem $k$-SAT ist erstens interessant, weil wir es exponentiell schneller als in $2^n$
+                    Schritten lösen können und zweitens, weil viele andere Problem sich als Erfüllbarkeitsproblem
+                    von $k$-CNFs mit kleinem $k$ schreiben lassen.
+                </p>
+
+                <div class='well container theorem'>
+                    <p><span class='numbered-title' id='put-unique-name-here' data-label-title='Theorem'>Theorem</span>
+                        Man kann $3$-SAT in $O(1.913^n)$ Schritten entscheiden.
+                    </p>
+                </div class='well container theorem'>
+
+                <div class='well container'>
+                    <p><strong>Beweis.</strong>
+                        Wir geben einen rekursiven Algorithmus. Die Idee ist,
+                        dass wir rekursiv alle Belegungen durchprobieren, aber backtracken, sobald
+                        wir einer leeren Klausel $\Box$ begegnen, da dieser Teil des Rekursionsbaumes
+                        dann sicherlich eine Sackgasse darstellt.</p>
+
+                    <div class="alg well container">
+                        <p>Algorithm <strong>recursiveSAT</strong>$(F)$</p>
+                        <ol>
+                            <li><tt>if</tt> $F$ contains the empty clause $\Box$: <tt>return False</tt></li>
+                            <li><tt>if</tt> $F$ contains no clauses: <tt>return True</tt></li>
+                            <li>let $C$ be a clause in $F$ and let the $k \leq 3$ variables
+                                in $C$ be called $x_1, \dots, x_k$.
+                            </li>
+                            <li>
+                                <tt>for each $\beta \in \{0,1\}^{\{x_1, \dots, x_k\}}$
+                                    mit $C|_{\beta} \ne \Box$:
+                                </tt>:
+                                <ol>
+                                    <li>
+                                        <tt>if</tt> recursiveSAT($F|_{\beta}$) <tt>== True: return True</tt>
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>
+                                <tt>return False</tt>
+                            </li>
+                        </ol>
+                    </div>
+                    <p>
+                        Dieser Algorithmus ist effizienter als $2^n$ weil die Schleife in Punkt 4
+                        nur $2^k-1$ mal durchlaufen wird. Für
+                        eine formale Analyse sei $L(F)$ die Anzahl der
+                        "Blätter" im Rekursionsbaum von $\textnormal{recursiveSAT}(F)$, also
+                        wie oft in den Zeilen 1 und 2 bereits <tt>return</tt> ausgeführt wird.
+                        Die Gesamtlaufzeit ist höchstens polynomieller größer als $L(F)$.
+                    </p>
+
+                    <div class='well container-fluid subtheorem'>
+                        <p><span>Behauptung:</span> $L(F) \leq 7^{n/3}$. </p>
+                    </div class='well container subtheorem'>
+                    <div class='well container-fluid subtheorem'>
+                        <p><strong>Beweis.</strong> Wir verwenden Induktion über $n$.
+                            Wenn $n = 0$ dann ist entweder $F=1$ oder $F = \Box$ und es gilt $L(F) = 1$.
+                            Sei $n \geq 1$ und sei $k$ die Größe der Klausel, die der Algorithmus
+                            in Punkt 3 wählt. Jede Formel $F|_{\beta}$ in Punkt 4.1 hat $n-k$
+                            Variable, und somit gilt
+                        </p>
+
+                        \begin{align*}
+                        L(F) & = \sum_{ \beta \in \{0,1\}^{\{x_1, \dots, x_k\}}} L\left(F|_{\beta}\right) \\
+                        & \leq \left(2^k - 1\right) 7^{(n-k)/3} \tag{nach Induktion} \\
+                        & = 7^{n/3} \cdot \frac{2^k-1}{7^{k/3}}
+                        \end{align*}
+                        <p>
+                            Der Ausdruck $\frac{2^k-1}{7^{k/3}}$ ist $1$ für $k=3$ und kleiner für $k=1$ und $k=2$.
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+                    </div class='proof'>
+                    <p>
+                        Wir folgern, dass recursiveSAT eine Laufzeit von $O\left(7^{n/3} \poly(|F|) \right)$ hat.
+                        <span class='qed'>\(\square\)</span>
+                    </p>
+                </div class='proof'>
+
+
+                <p>
+                    Diese Idee funktioniert natürlich für jedes $k \in \N$, allerdings
+                    wird der Abstand zum trivialen $2^n$ immer kleiner (konvergiert gegen 0). Für $3$-SAT können Sie
+                    die obige Idee weiterführen und mit recht elementaren Mitteln (und einem
+                    schlauen Trick, den <em>Autarkien</em>), zu einer Laufzeit von
+                    $O(1.619^n)$ gelangen (Monien und Speckenmeyer, 1985).
+                    Ein noch besserer Algorithmen erreichen eine Laufzeit von $O(1.334^n)$, in
+                    dem er einen bestimmten <em>Random Walk</em> auf der Menge $\{0,1\}^V$ ausführt (Schöning, 1999).
+                    Der derzeit beste bekannte Algorithmus ist der nach seinen Autoren benannte PPSZ;
+                    er ist auch randomisiert und erreicht eine Laufzeit von $O(1.308^n)$
+                    (Paturi, Pudlák, Saks und Zane, 2005). All diese Algorithmen funktionieren
+                    für jedes $k$ (ich habe die Laufzeiten der Einfachheit halber nur für $k=3$ angegeben),
+                    allerdings verschwindet die Verbesserung gegenüber $2^n$ mit steigendem $k$;
+                    ob dies so sein muss, und wenn ja, mit welcher Rate sie schrumpft, ist offen
+                    und auch Gegenstand derzeitiger Forschung.
+                </p>
+
+                <h3>
+                    Heuristiken
+                </h3>
+
+                <p>
+                    Wir kennen zur Zeit keinen Algorithmus, der SAT in seiner Allgemeinheit
+                    löst und im Worst Case wesentlich schneller ist als $2^n$. Ganz anders
+                    sieht es in der Praxis aus: es gibt SAT-Solver, die die meisten
+                    in der Praxis auftretenden CNFs erstaunlich schnell lösen; von
+                    Formeln mit zehntausenden von Variablen ist dabei oft die Rede. Von Prinzip
+                    her basieren SAT-Solver auf ähnlichen Ideen wie obiges recursiveSAT;
+                    allerdings versuchen sie zum Beispiel, gezielt kleine Klauseln $C$ herbeizuführen,
+                    aus vergangenen Sackgassen zu lernen um zukünftige zu erkennen und viele
+                    Optimierungen mehr.
+                    SAT-Solver sind relevant, weil sich viele schwierige Probleme (z.B. aus Hardware-Design,
+                    Planning, Optimierung, etc.) als CNF-Formeln codieren und dann
+                    (hoffentlich) mit SAT-Solvern lösen lassen.
+                </p>
+
+
+
+                <h3>Literatur</h3>
+
+                <ul>
+                    <li>
+                        Burkhard Monien and Ewald Speckenmeyer. "Solving satisfiability in less than 2n steps."
+                        <em>Discrete Applied Mathematics</em> 10.3 (1985): 287-295.
+                    </li>
+                    <li>
+
+                        Ramamohan Paturi, Pavel Pudlák, Michael E. Saks, and Francis Zane, "An improved exponential-time
+                        algorithm for
+                        k-SAT", Journal of the ACM, vol. 52, no. 3, pp. 337–364 (electronic), 2005.
+                    </li>
+                    <li>
+                        Uwe Schöning. A probabilistic algorithm for k-SAT and constraint satisfaction problems. In
+                        <em>FOCS'99: Proceedings of the 40th Annual Symposium on Foundations of Computer Science</em>,
+                        page 410,
+                        Washington, DC, USA, 1999. IEEE Computer Society.
+                    </li>
+                </ul>
+
+            </div class='chapter'>
+
+
+        </div class="content">
+    </div class="rightSideWrapper">
+
+
+    <div id="navigation-links">
+    </div>
+
+
+
+</body>
+<script>
+    var chaptersStartAt = 3;
+    var subChaptersStartAt = 200;
+</script>
+<script type="text/javascript" src="../javascript/table-of-contents.js"></script>
+<script type="text/javascript" src="../javascript/number-my-theorems.js"></script>
+
+</html>

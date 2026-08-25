@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="data:,">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Berechenbarkeit und Kreativität</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lecture-notes.css" />
+    <link rel="stylesheet" type="text/css" href="../Course.css" />
+    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>-->
+    <!-- <script type=”text/javascript”
+        src=”http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML”></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+
+
+    <script>
+        MathJax = {
+            tex: {
+                tags: 'ams',
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+
+
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+
+
+
+
+    <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    -->
+    <!-- <script type="text/javascript" src="script.js"></script> -->
+
+</head>
+
+
+
+<body>
+
+    <div id='mathjax-definitions' style="display:none">
+        \(
+        \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+        \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+        \newcommand{\R}{\mathbb{R}}
+        \newcommand{\Z}{\mathbb{Z}}
+        \newcommand{\N}{\mathbb{N}}
+        \newcommand{\Q}{\mathbb{Q}}
+        \newcommand{\cin}{c_{\rm in}}
+        \newcommand{\cout}{c_{\rm out}}
+        \newcommand{\maj}{\textnormal{Maj}}
+        \newcommand{\xor}{Oplus}
+        \newcommand{O}{\mathcal{O}}
+        \newcommand{\qquery}{q_{\rm query}}
+        \newcommand{\qyes}{q_{\rm yes}}
+        \newcommand{\qno}{q_{\rm no}}
+        \newcommand{\depth}{\textnormal{depth}}
+        \newcommand{\padding}{\textnormal{padding}}
+        \newcommand{\poly}{\textnormal{poly}}
+        \newcommand{\NTIME}{\textsf{NTIME}}
+        \newcommand{\TIME}{\mathsf{TIME}}
+        \newcommand{\EXP}{\mathsf{EXP}}
+        \newcommand{\NEXP}{\mathsf{NEXP}}
+        \newcommand{\P}{\mathsf{P}}
+        \newcommand{\SAT}{\mathsf{SAT}}
+        \newcommand{\expcomp}{\mathsf{E{\small XP}C{\small OMP}}}
+        \newcommand{\bin}{\mathsf{bin}}
+        \newcommand{\NP}{\mathsf{NP}}
+        \newcommand{\NPC}{\mathsf{NPC}}
+        \newcommand{\halt}{\mathsf{H{\small ALT}}}
+        \newcommand{\enc}{\textnormal{enc}}
+        \newcommand{\pfrac}[2]{\left(\frac{#1}{#2}\right)}
+        \)
+    </div id='mathjax-definitions'>
+
+
+
+    <div id="rightSideWrapper">
+
+
+        <div class="content">
+            <div class='chapter'>
+
+
+                <div class='subChapter'>
+                    <h1 class='hidden-title'>
+                        <span class='subChapterTitle'></span>
+                    </h1>
+
+                    <p>
+                        Wir können Turingmaschinen mächtiger machen, indem wir ihr
+                        Blackbox-Zugriff auf eine feste Funktion $O: \Sigma^* \rightarrow \{0,1\}$,
+                        das so-genannte Orakel, gewähren. Formal ist eine Orakel-Maschine $M$
+                        eine Turingmachine mit einem zusätzlichen <em>Orakelband</em> und
+                        drei Zuständen $\qquery$, $\qyes$ und $\qno$. Für eine beliebige Sprache
+                        $O \subseteq \Sigma^*$ (in äquivalenter Sichtweise eine Funktion $O: \Sigma^* \rightarrow
+                        \{0,1\}$)
+                        erhalten wir nun die Maschine $M^O$, die sich
+                        sich wie eine übliche Turingmaschine verhält, mit folgendem Zusatz: wenn
+                        sie sich in dem Zustand $\qquery$ befindet, dann wird das Orakel mit
+                        dem Inhalt $w$ des Orakelbandes als Eingabe aufgerufen; falls $w \in O$, dann
+                        wechselt die Maschine in den Zustand $\qyes$; falls $w \not \in O$, in $\qno$. Dies
+                        zählt als <em>ein</em> Schritt in der Berechnung von $M^O$.
+                        Orakelmaschinen machen natürlich nur dann Spaß, wenn die Orakelfunktion $O$ etwas
+                        tut, was $M$ nicht schon selbst könnte. Wenn zum Beispiel $O$ selbst unentscheidbar ist.
+                        Oder $M$ eine polynomiell beschränkte Maschine ist und $O$ etwas berechnet, dass wir
+                        (vielleicht) nicht effizient berechnen können.
+                    </p>
+                    <p>
+                        Sei $\mathcal{R}$ die Menge aller entscheidbaren Sprachen. Wir wissen bereits, dass
+                        $\halt \not \in \mathcal{R}$ gilt.
+                        Wir betrachten nun Turingmaschinen mit der Sprache $\halt$ als Orakel. Sie können
+                        also Fragen der Form <em>Akzeptiert $M$ das Wort $w$</em> entscheiden, indem
+                        sie das Wort $\enc(M)w$ auf ihr Orakelband schreiben. Folgerichtig sei $\mathcal{R}^{\halt}$ die
+                        Menge der Sprachen, für die es eine Orakelmaschine $M^{\halt}$ gibt, die sie
+                        entscheidet. Trivialerweise gilt nun $\halt \in \mathcal{R}^{\halt}$.
+                    </p>
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Sei $\exists \halt$ die Sprache
+                        </p>
+                        \begin{align*}
+                        \exists \halt := \{ \enc(M)x \ | \ M \textnormal{ ist eine Turingmaschine und } \exists y \in
+                        \Sigma^*: \enc(M)x\texttt{;}y \in \halt \} \ .
+                        \end{align*}
+                        <p>
+                            Zeigen Sie, dass $\exists \halt \in \mathcal{R}^{\halt}$. Genauer: geben Sie eine Reduktion
+                            von $\exists \halt$ auf $\halt$ an.
+                        </p>
+                        <details>
+                            <summary>
+                                <a class='btn btn-primary'>Tip</a>
+                            </summary>
+                            Sie müssen in einer Schleife durch eine unendliche Menge von Paaren
+                            gehen,
+                            ähnlich wie in Cantors Beweis, dass $\N \cong \N \times \N$.</p>
+                        </details>
+
+                    </div class='numbered-exercise'>
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='exercise-for-all-halt'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Wir definieren
+                            \begin{align*}
+                            \forall \halt := \{ \enc(M)x \ | \ M \textnormal{ ist eine Turingmaschine und } \forall y
+                            \in \Sigma^*: \enc(M)x\texttt{;}y \in \halt \} \ .
+                            \end{align*}
+                            Zeigen Sie, dass $\overline{\halt} \leq \forall \halt$. In Worten: entwerfen Sie eine
+                            Reduktion,
+                            die als Eingabe das Paar $(\enc(M),x)$ nimmt und
+                            als Ausgabe ein Paar $(\enc(M'), x')$ erzeugt, so dass
+                            $M$ genau dann $x$ nicht akzeptiert, wenn $M'$ für alle $y$ das Paar $(x',y)$ akzeptiert.
+                        </p>
+                        <details>
+                            <summary>
+                                <a class='btn btn-primary'>Tip</a>
+                            </summary>
+                            Sie können sogar $x = x'$ wählen. Stellen Sie sich $y$ als natürliche
+                            Zahl
+                            $t \in \N$ vor. vor. Was könnte $M'(x,t)$ sinnvollerweise tun?
+                        </details>
+                    </div class='numbered-exercise'>
+
+
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Sei $\halt^{\halt}$ die Sprache
+                            \begin{align*}
+                            \halt^{\halt} := \{ \enc(M)x \ | \ M \textnormal{ ist eine Orakelmaschine und } M^{\halt}
+                            \textnormal{ akzeptiert } x\}
+                            \end{align*}
+                        <p>
+                            Zeigen Sie, dass $\halt^{\halt} \not \in \mathcal{R}^{\halt}$.
+                        </p>
+                        <details>
+                            <summary>
+                                <a class='btn btn-primary'>Tip</a>
+                            </summary>
+                            Das sollte ganz normal mit Diagonalisierung gehen.
+                        </details>
+                    </div class='numbered-exercise'>
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='exercise-exists-forall-halt'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Wir definieren
+                            \begin{align*}
+                            \exists \forall \halt := \{ \enc(M)x \ | \ M \textnormal{ ist eine Turingmaschine und }
+                            \exists y \forall z \in \Sigma^*: \enc(M)x\texttt{;}y\texttt{;}z \in \halt \} \ .
+                            \end{align*}
+                            Zeigen Sie, dass $\halt^{\halt} \leq \exists \forall \halt$ gilt.
+                        </p>
+
+                        <details>
+                            <summary>
+                                <a class='btn btn-primary'>Tip</a>
+                            </summary>
+                            Das Wort $y$ sollte eine Liste sein mit Einträgen sein, die die Form
+                            Form $(i, 1, t_i)$ haben, was bedeutet, dass der $i$-te Orakelaufruf (der ja der Form
+                            $\enc(M')w \in \halt$ ist) innerhalb von $t_i$ Schritten mit $1$ beantwortet werden kann
+                            (dass also $M'$ innerhalb
+                            von $t_i$ Schritten auf $w$ terminiert und akzeptiert); oder die Form $(i, 0)$, was
+                            bedeutet,
+                            dass der $i$-te Orakelaufruf eine $0$ zurückliefert.
+                            Welche Rolle spielt nun $z$? Denken Sie an das $t$ in <span class='reference'
+                                data-ref='exercise-for-all-halt'></span>.
+                            </p>
+                        </details>
+                    </div class='numbered-exercise'>
+
+                    <p>
+                        Wenn Sie dieses Spielchen weiterspielen und mehrere $\forall$- bzw. $\exists$-Quantoren erlauben
+                        und
+                        Sprachen wie
+                    </p>
+                    \begin{align*}
+                    \{x \ | \ \exists y_1 \forall y_2 \exists y_3 \dots \forall y_k: x;y_1;...;y_k \in \halt\}
+                    \end{align*}
+                    <p>
+                        definieren, dann erhalten Sie die sogenannte <a
+                            href="https://de.wikipedia.org/wiki/Arithmetische_Hierarchie">arithmetische Hierarchie</a>
+                        und den Begriff des <a href="https://de.wikipedia.org/wiki/Turinggrad">Turinggrads.</a>
+                        Dies ist aber Bestandteil der <em>Berechenbarkeitstheorie</em>, nicht der Kompelxitätstheorie.
+                        Für unsere Zwecke ist es interessanter, zu untersuchen, was man in beschränkter Zeit mit einem
+                        Orakel tun kann und was nicht.
+                    </p>
+
+                    <h3>
+                        Warum Orakel?
+                    </h3>
+
+                    <p>
+                        Die zentrale offene Frage der Komplexitätstheorie ist ob $\P \ne \NP$ gilt. Dies ist nach einem
+                        halben Jahrhundert immer noch weit offen. Warum ist diese Frage so schwierig?
+                        Wenn wir die Beweise der letzten Kapitel betrachten, wie zum Beispiel den von
+                        Ladners Theorem (<span class='reference' data-ref='theorem-ladner'></span>), oder
+                        seine schwächere Variante: wenn $\EXP \ne \NEXP$, dann gibt es ein $L \in \NP \setminus (\P \cup
+                        \NPC)$, dann haben wir diese durch schlaue Kombinationen aus Padding- und
+                        Diagonalisierungsargumenten und ein paar einfachen Algorithmen zusammengestrickt haben.
+                        Es wäre ja denkbar, dass eine gxeniale Kombination solcher Argumente schließlich zu $\P \ne \NP$
+                        führt. Der Begriff der Orakelmaschine hilft uns nun zu zeigen, dass "diese solche Argumente"
+                        definitiv nicht ausreichen werden, um $\P \ne \NP$ oder $\P = \NP$ zu zeigen. Hierfür
+                        müssen wir erklären, was man mit "solche Argumente" meint.
+                    </p>
+                    <p>
+                        Das zentrale Objekt hinter unserem Begriff von effizienter Berechenbarkeit ist ja die
+                        Turingmaschine. Jetzt fragen wir uns: welche Eigenschaften von Turingmaschinen haben wir
+                        denn in unseren bisherigen Beweisen (Hierarchiesätze, <span class='reference'
+                            data-ref='theorem-ladner'></span>,
+                        <span class='reference' data-ref='theorem-mahaney'></span>) überhaupt verwendet?
+                        Das sind vor Allem zwei Kerneigenschaften:
+                    </p>
+                    <ol>
+                        <li>
+                            Jede Turingmaschine $M$ kann als endlicher String $\enc(M)$ codiert werden.
+                        </li>
+                        <li>
+                            Es gibt eine universelle Turingmaschine $U$, die jede Turingmaschine simulieren kann, also
+                            $U(\enc(M)x) = M(x)$, und zwar effizient, also mit polynomiellen Overhead.
+                        </li>
+                    </ol>
+                    <p>
+                        Nicht alle Modelle einer Rechenmaschine erfüllen beide Begingungen. Zwei Beispiele
+                        haben wir bereits in <span class='reference' data-ref='exercise-eval-fsm-not-regular'></span>
+                        und <span class='reference' data-ref='exercise-eval-primrec-not-primrec'></span> kennengelernt.
+                        Endliche Automaten lassen
+                        sich codieren, aber es gibt keinen "Universellen Endlichen Automaten":
+                    </p>
+                    <div class='well well-lg container'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Beobachtung'>Beobachtung.</span>
+                            Zeigen Sie: die Sprache
+                        </p>
+                        \begin{align*}
+                        \{ \enc(A)x \ | \ \textnormal{$A$ ist endlicher Automat und $A(x) = 1$}\}
+                        \end{align*}
+                        ist selbst nicht regulär.
+                    </div class='numbered-exercise'>
+                    <p>
+                        Primitive Rekursion erfüllt es auch nicht. Zwar können
+                        wir jede primitiv-rekursive Funktion $f: \N^k \rightarrow \N$ als endlichen
+                        Bitstring codieren, was wir ja auch getan haben, zum Beispiel die Funkion
+                        $(x,y) \mapsto x+y$ als
+                        <tt>PrimRec (p0, Comp(succ,p0))</tt>
+                        in <a href="../../TI-2/lecture-notes/03-00-Computability-NaturalNumbers.html">Kapitel 4 aus
+                            Theoretische Informatik II</a>, aber die Funktion
+                    </p>
+                    \begin{align*}
+                    {\rm eval}: \N \times \N & \rightarrow \N \\
+                    (c,x) & \mapsto \begin{cases}
+                    f(x) & \textnormal{ falls $f$ primitiv-rekursiv ist und $\enc(f)=c$} \\
+                    0 & \textnormal{ else.}
+                    \end{cases}
+                    \end{align*}
+                    <p>
+                        ist selbst nicht primitiv-rekursiv.
+                    </p>
+                    <div class='well well-lg container'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Übungsaufgabe'>Beobachtung.</span>
+                            ${\rm eval}$ ist nicht primitiv-rekursiv ist.
+                        </p>
+                    </div class='numbered-exercise'>
+
+
+
+                    <p>
+                        Boolesche Schaltkreise erfüllen die erste Bedingung nicht. Wir können zwar einen Schaltkreis $C$
+                        codieren; aber um eine Funktion $f: \{0,1\}^* \rightarrow \{0,1\}$ zu berechnen, brauchen wir
+                        eine Familie $\mathcal{C} = (C_0, C_1, C_2, \dots)$ von Schaltkreisen, und die können wir nicht
+                        endlich codieren. Dafür erfüllen Schaltkreise zumindest irgendwie die zweite Bedingung.
+                    </p>
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Sei $\enc(C)$ eine "vernünftige" Codierung von Schaltkreisen. Zeigen Sie, dass es
+                            für jedes $n$ und $m$ einen Evaluierer-Schaltkreis $E$ gibt mit $n+m$ Eingängen und
+                            zwei Ausgängen und
+                        </p>
+                        \begin{align*}
+                        E(c,x) = \begin{cases}
+                        1 C(x) & \textnormal{ falls es einen Schaltkreis $C$ mit $n$ Eingängen gibt und $c = \enc(C)$
+                        und $|c| = m$} \\
+                        00 & \textnormal {sonst.}
+                        \end{cases}
+                        \end{align*}
+                        <p>
+                            Weiterhin ist $E$ polynomiell in $n$ und $m$.
+                        </p>
+                    </div class='numbered-exercise'>
+
+                    <p>
+                        Wir könnten nun unser Berechnungsmodell, die Turingmaschinen, nehmen und Varianten davon bilden,
+                        die aber immer noch beide Bedingungen (Codierbarkeit und universelle Maschine) erfüllen. Für
+                        jede Variante können wir das Analogon zu $\P$ und $\NP$ definieren (da müssten wir noch einen
+                        dritten
+                        Punkt hinzufügen, nämlich dass es für unser Modell den Begriff der Laufzeit gibt, und der
+                        Begriff muss dann gewisse plausible Eigenschaften haben).
+                        Wenn wir nun eine Variation finden, für die $\P = \NP$ gilt, und eine andere, für die $\P \ne
+                        \NP$ gilt,
+                        dann haben wir immerhin gezeigt, dass eine Lösung der offenen Frage P vs. NP irgendwelche
+                        Eigenschaften von Turingmaschinen verwenden muss, die über die Bedingungen 1 und 2 hinausgehen;
+                        die also
+                        nicht unter unseren Variationen erhalten bleiben.
+                        Unsere Varianten sind nun die Orakelmaschinen: wenn wir statt Turingmaschinen Orakelmaschinen
+                        betrachten, dann können wir sie codieren (beachten Sie, dass $\enc(M)$ nur die Orakelmaschine,
+                        nicht
+                        aber das Orakel selbst codiert) und simulieren. Es gibt also eine universelle Orakelmaschine
+                        $U$, so dass
+                    </p>
+                    \begin{align*}
+                    U^O(\enc(M),x) = M^O(x)
+                    \end{align*}
+                    <p>
+                        für alle Eingabewörter $x$, alle Turingmaschinen $M$ und alle Orakel $O$ gilt. Auch eine
+                        nichtdeterministische universelle
+                        Orakelmaschine gibt es,
+                        da müssen wir einfach neben dem $x$ noch ein weiteres Wort $z$ als Zertifikat übergeben, und es
+                        muss
+                    </p>
+                    \begin{align*}
+                    U^O(\enc(M),x,z) = M^O(x,z)
+                    \end{align*}
+                    <p>
+                        für alle $M$, $x$, $z$ und $O$ gelten. Mit $\TIME^O(t)$ bzw. $\NTIME^O(t)$ bezeichnen wir nun
+                        die Menge aller Sprachen $L$, für die es eine deterministische bzw. nichtdeterministische
+                        Orakelmaschine
+                        gibt, die $L$ in Zeit $O(t(n))$ entscheidet. Die Klassen $\P^O$ und $\NP^O$ sind dann analog
+                        dazu definiert, also
+                    </p>
+                    \begin{align*}
+                    \P^O & := \bigcup_{k \geq 1} \TIME^O(n^k) \\
+                    \NP^O & := \bigcup_{k \geq 1} \NTIME^O(n^k) \\
+                    \end{align*}
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Zeigen Sie, dass viele Resultate aus den vergangenen Kapiteln, zum Beispiel das
+                            Zeithierarchietheorem,
+                            auch für Orakelmaschinen gilt. Also $\TIME^O(s) \subseteq \TIME^O(t)$ wenn
+                            $s(n) \log s(n) \in o(t(n))$ gilt.
+                        </p>
+                    </div class='numbered-exercise'>
+
+                    <p>
+                        Ohne das jetzt formal axiomatisieren zu wollen: wenn wir ein Theorem XYZ über
+                        Komplexitätsklassen
+                        beweisen
+                        und dafür nur die Eigenschaften 1 und 2 von Turingmaschinen verwenden (also Codierbarkeit und
+                        universelle Turingmaschine), dann wird dieses Resultat auch dann gelten, wenn wir unseren
+                        Maschinen Zugang zu einem Orakel $O$ verschaffen; es gilt also auch
+                        <em>relativ zu jedem Orakel</em>. Man sagt, das Theorem XYZ <em>relativisiert</em>. Das nächste
+                        Theorem zeigt nun, dass $\P = \NP$ bzw. $\P \ne \NP$ (welches davon halt wahr ist) eben
+                        <em>nicht</em>
+                        relativisiert; es gibt eine Orakelwelt, in der $\P=\NP$ gilt, und eine andere, in der $\P \ne
+                        \NP$ gilt.
+                        Wir müssen also, um $\P \stackrel{?}{=} \NP$ zu lösen, tiefer in Turingmaschinen hineinschauen.
+                    </p>
+
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='theorem-p-np-oracles'
+                                data-label-title='Theorem'>Theorem</span>
+                            (<A href="#baker-gill-solovay">Baker, Gill und Solovay 1975</A>). Es gibt
+                            ein Orakel $A$ mit $\P^A = \NP^A$ und ein anderes Orakel $B$ mit $\P^B \ne \NP^B$.</p>
+                    </div class='well container theorem'>
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Wir beweisen beide Teile des Theorems separat.
+
+                        </p>
+
+                        <p><strong>Teil I: ein Orakel $A$ mit $\P^A = \NP^A$.</strong>
+                            Wir brauchen ein Orakel, dass den Unterschied zwischen
+                            Determinismus und Nichtdeterminismus hinfällig macht. Wir wissen ja bereits,
+                            dass man eine nichtdeterministische Berechnung von $t$ Schritten mit $c^t$ deterministischen
+                            Schritten simulieren kann. Geben wir nun unseren Turingmaschinen also Zugriff auf ein
+                            Orakel, dass exponentielle Berechnung in <em>einem</em> Schritt ausführen kann.
+                            Konkret definieren wir die Sprache $\expcomp$ (exponential computation)
+                        </p>
+                        \begin{align*}
+                        \expcomp := \{ (\enc(M),x,1^n) \ | M(x)=1 \textnormal{ und $M$ läuft maximal $2^n$ Schritte}\}
+                        \end{align*}
+                        <p>
+                            Diese Sprache ist natürlich in exponentieller Zeit entscheidbar, also $\expcomp \in \EXP$.
+                            Umgekehrt gilt
+                        </p>
+                        \begin{align}
+                        \EXP \subseteq P^{\expcomp}
+                        \label{eq-exp-in-expcomp}
+                        \end{align}
+                        <p>
+                            Denn sei $L \in \TIME\left(2^{n^k}\right)$ und sei $M$ die Turingmaschine, die in Zeit
+                            $O(2^{n^k})$ läuft.
+                            Die ausgestopfte Version $L' \padding_{n^k} (L)$ ist in $\TIME(2^n)$, und somit gibt es
+                            eine Turingmaschine $M'$, die $L'$ in $2^n$ Schritten entscheidet. Wir bilden nun das
+                            Tripel $(\enc(M'), x1^{n^k}, n^k)$ und sehen
+                        </p>
+                        \begin{align*}
+                        x \in L \Longleftrightarrow (\enc(M'), x1^{n^k}, n^k) \in \expcomp \ .
+                        \end{align*}
+                        <p>
+                            Wir können also $x \in L$ mit einem Orakelaufruf entscheiden. Als zweites behaupten
+                            wir</p>
+
+                        \begin{align}
+                        \NP^{\expcomp} \subseteq \EXP
+                        \label{eq-np-expcomp-in-exp}
+                        \end{align}
+                        <p> dass gilt. Sei $L \in \NP^{\expcomp}$ und sei $M$ die
+                            dazugehörige nichtdeterministische Turingmaschine, also</p>
+                        \begin{align*}
+                        x \in L \Longleftrightarrow \exists z: M^{\expcomp}(x,z) = 1
+                        \end{align*}
+                        <p>
+                            Wir können nun in einer exponentiell langen Schleife über alle möglichen Zertifikate
+                            $z$ iterieren; für jedes solche simulieren wir die Berechnung von $M^{\expcomp}(x,z)$. Falls
+                            diese das
+                            Orakel anfragt: $w \stackrel{?}{\in} \expcomp$, dann mit einem Query-Wort der Länge
+                            höchstens $|x|^l$, da $M$ selbst polynomielle Laufzeit hat.
+                            Die Orakelanfrage können wir natürlich selbst beantworten (also ohne Orakel), indem
+                            wir $w \stackrel{?}{\in} \expcomp$ selbst in $2^{n^l}$ Schritten entscheiden.
+                        </p>
+                        <p>
+                            Wir können also (\ref{eq-exp-in-expcomp}) and (\ref{eq-np-expcomp-in-exp}) kombinieren und
+                            erhalten
+                        </p>
+                        \begin{align*}
+                        \NP^{\expcomp} \subseteq \EXP \subseteq \P^{\expcomp} .
+                        \end{align*}
+                        <p>
+                            Da trivialerweise $\P^{\expcomp} \subseteq \NP^{\expcomp}$ gilt, müssen beide
+                            gleich sein. Dies zeigt Teil 1 des Theorems.
+                        </p>
+
+
+                        <p><strong>Teil II: ein Orakel $B$ mit $\P^B \ne \NP^B$.</strong>
+                            Dies erfordert mehr als nur Padding-Argumente. Außerdem hat das Orakel $B$ keine
+                            schöne und kompakte Beschreibung wie im Teil I, sondern muss sorgfältig per
+                            (Sie erraten's) Diagonalisierung konstruiert werden.
+                            Für ein beliebiges Orakel $O$ definieren wir die "unäre Projektion" von $O$:
+                        </p>
+                        \begin{align*}
+                        U_O := \{1^n \ | \ \textnormal{ es gibt ein $w \in O$ mit $|w|=n$}\} \ .
+                        \end{align*}
+                        <p>
+                            Offensichtlich ist $U_O \in \NP^O$ für jedes Orakel $O$. Unsere nichtdeterministische
+                            Turingmaschine kann einfach das Wort $w$ passender Länge raten und mit einem Orakelaufruf
+                            verifizieren. Wir konstruieren nun $B$ derart, dass $U_B \not \in P^B$ sichergestellt ist.
+                            Sogar noch mehr: keine Turingmaschine kann $U_B$ innerhalb von $2^{n-1}$ Schritten
+                            entscheiden. Sei $M_1, M_2, \dots$ eine Aufzählung aller Orakelmaschinen.
+                            Wir gehen phasenweise vor und nutzen Phase $i$ (für $i \in \N$)
+                            um sicherzustellen, dass Maschine $M_i^B$ die Sprache $U_B$ nicht
+                            in $2^{n-1}$ Schritten entscheidet.
+                            Wir unterhalten eine "Färbung" der Menge $\Sigma^*$ mit den
+                            Farben $0$, $1$ und neutral. Wenn Wort $w$ die Farbe $0$ hat,
+                            dann bedeutet dies $w \not \in B$; $1$ bedeutet $w \in B$; und
+                            neutral bedeutet, dass wir uns noch nicht festgelegt haben. Anfangs
+                            sind alle Wörter neutral gefärbt; eine "echte" Färbung, also mit $0$ oder $1$,
+                            wird nie rückgängig gemacht oder geändert.
+                            In jeder Phase färben wir endlich viele bislang neutral gefärbte Elemente mit $0$ und $1$.
+                        </p>
+                        <p>Wir beschreiben nun Phase $i$. Sei $n \in \N$ das kleinste $n$, für das
+                            alle Elemente in $\Sigma^n$ neutral gefärbt sind; da nur endlich viele Elemente
+                            Farbe $0$ oder $1$ haben, gibt es ein solches.
+                            Wir lassen nun $M_i$ auf $1^n$ laufen, und zwar für $2^{n-1}$ Schritte. Jedes Mal,
+                            wenn es $w \stackrel{?}{\in} B$ fragt, tun wir folgendes:
+                        </p>
+                        <ul>
+                            <li>Falls $w$ die Farbe $1$ hat, dann füttern wir $M_i$ ein Ja als Antwort.</li>
+                            <li>Falls $w$ die Farbe $0$ hat, dann füttern wir $M_i$ ein Nein als Antwort.</li>
+                            </li>
+                            <li>Falls $w$ neutral gefärbt ist, dann färben wir es $0$ und füttern
+                                $M_i$ ein Nein als Antwort.
+                            </li>
+                        </ul>
+                        <p>
+                            Wir tun dies, bis $M_i$ hält oder $2^{n-1}$ Schritte getan hat. Zu diesem Zeitpunkt
+                            enthält $\Sigma^n$ kein Element mit Farbe $1$ und mindestens $|\Sigma^n| - 2^{n-1} \geq
+                            2^{n-1}$ neutral gefärbte
+                            Elemente. Wenn nun $M_i$ hält und $1$ ausgibt (akzeptiert), dann färben wir
+                            alle neutralen Wörter in $\Sigma^n$ mit $0$.
+                            Falls $M_i$ hält und $0$ ausgibt (ablehnt) oder aber nach $2^{n-1}$ noch
+                            nicht gehalten hat, dann wählen wir ein neutral gefärbtes Element aus $\Sigma^n$
+                            und färben es $1$; alle anderen Elemente aus $\Sigma^n$ erhalten die Farbe $0$.
+                        </p>
+                        <p>
+                            Sei $B_i$ die Menge der Elemente mit Farbe $1$ nach Phase $i$. Es gilt $B_i \subseteq
+                            B_{i+1}$. Wir setzen $B := \bigcup_{i \geq 1} B_i$. Sei $n_i$ das $n$, welches wir uns
+                            in Phase $i$ gewählt haben. Es gilt nun per Konstruktion von $B$:
+                        </p>
+                        \begin{align*}
+                        M_i^B \textnormal{ akzeptiert } 1^{n_i} \textnormal{ in $2^{n_i-1}$ Schrittten }
+                        & \Longrightarrow B \cap \Sigma^{n_i} = \emptyset \Longrightarrow 1^{n_i} \not \in U_B \\
+                        M_i^B \textnormal{ tut dies nicht} & \Longrightarrow \left|B \cap \Sigma^n\right| = 1
+                        \Longrightarrow 1^{n_i} \in U_B
+                        \end{align*}
+                        <p>
+                            Jede Maschine $M_i^B$ macht also auf dem Eingabewort $1^{n_i}$ einen Fehler. Somit steht
+                            fest:
+                            keine Maschine entscheidet $U_B$ in $2^{n-1}$ Schritten. Für jedes
+                            $t(n) \in o(2^n)$ gilt also $U_B \not \in \TIME^B(t)$. Insbesondere gilt dies
+                            für jedes Polynom, und somit: $U_B \not \in P^B$.
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+                    </div class='proof'>
+
+                    <p>
+                        Sie werden erkennen, dass das Orakel $B$, das wir konstruiert haben, extrem dünn ist: für
+                        jedes $n \in \N$ gibt es maximal <em>ein</em> Wort dieser Länge. Wir schauen uns
+                        jetzt in den nächsten Übungen an, was man mit dünnen Sprachen machen als Orakel anstellen
+                        kann und was nicht.
+                    </p>
+
+
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='exercise-sparse-oracle-and-polynomial-circuits'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Eine Sprache $O \subseteq \Sigma^*$ heißt <em>dünn</em> wenn es gibt $c, k \in \N$ mit
+                            $|O \cap \Sigma^n| \leq c n^k$ für alle $n \geq 1$.
+                            Zeigen Sie:
+                        </p>
+                        <ol>
+                            <li>Wenn $O$ dünn ist und $L \in \P^O$ gilt, dann hat $L$ polynomiell große Schaltkreise.
+                            </li>
+                            <li>
+                                Wenn $L$ polynomiell große Schaltkreise hat, dann gibt es ein dünnes Orakel $O$
+                                mit $L \in P^O$.
+                            </li>
+                        </ol>
+                        <p>
+                            <em>Polynomiell große Schaltkreise</em> heißt, dass es Konstanten $c'$ und $l$ und eine
+                            Folge $C_1, C_2, \dots$ von
+                            Schaltkreisen gibt, wobei $C_n$ genau $n$ Eingaben und maximal $c' n^{l}$ Gatter hat und
+                            $x \in L \Longleftrightarrow C_{|x|} (x) = 1$.
+                        </p>
+                        <details>
+                            <summary>
+                                <a class='btn btn-primary'>Tip</a>
+                            </summary>
+                            Für Punkt 1 verwenden Sie <span class='reference' data-ref='theorem-tms-to-circuits'></span>
+                            (also das Cook-Levin-Theorem), um eine Turingmaschine in einen Schaltkreis umzuwandeln.
+                            Leider hat Ihr Schaltkreis jetzt "Orakelgatter", die Fragen der Form $w \stackrel{?}{\in} O$
+                            stellen.
+                            Zeigen Sie, wie
+                            man Orakelgatter
+                            mit einem polynomiell großen Schaltkreis implementieren kann.
+                            Für Punkt 2: Zeigen Sie, wie man die Schaltkreisfamilie $(C_n)_{n \in \N}$ in ein Orakel
+                            packen kann.
+                            Also eine Sprache $O$ definiert, so dass Sie mit Anfragen $w \stackrel{?}{\in} O$ den
+                            Schaltkreis
+                            $C_n$ konstruieren können, und zwar mit polynomiell vielen Anfragen.
+                        </details>
+                    </div class='numbered-exercise'>
+
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='exercise-extremely-sparse-oracle'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Eine Sprache $K$ heißt <em>extrem dünn</em> falls $|K \cap \Sigma^n| = 1$. Zeigen Sie:
+                            falls $L$ dünn ist, dann gibt es eine extrem dünne Sprache $K$ mit $L \in P^K$, also
+                            einen Algorithmus, der die Frage $y \in L$ mit Hilfe von polynomiell Antworten auf Fragen $x
+                            \in K$ beantwortet.
+                        </p>
+                        <details>
+                            <summary>
+                                <a class='btn btn-primary'>Tip</a>
+                            </summary>
+                            Verwenden Sie Padding, um die Wörter $y \in L$ so auszustopfen, so dass alle
+                            dann unterschiedliche Länge haben.
+                        </details>
+                        <p>
+                            Zeigen Sie das gleiche mit einer <em>unären</em> Sprache $K \subseteq \{1\}^*$.
+                        </p>
+                        <details>
+                            <summary>
+                                <a class='btn btn-primary'>Tip</a>
+                            </summary>
+                            Ordnen Sie jeder Länge $n$ ein Interval $I_n \subseteq \N$
+                            der
+                            Länge $n$ zu. Mittels $1^i \in K$ oder $1^i \not \in K$ können Sie mit einer
+                            natürlichen Zahl
+                            ein Bit codieren und somit mit dem Interval $I_n$ ganze $n$ Bits.
+                        </details>
+                    </div class='numbered-exercise'>
+
+
+
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='exercise-get-rid-of-unary-oracle'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Zeigen Sie: wenn $\P = \NP$ gilt, dann gilt auch $\P^O = \NP^O$ für jede unäre Sprache.
+                            (<a href="#long-selman">Long und Selman, 1986</a>).
+                        </p>
+                        <details>
+                            <summary>
+                                <a class='btn btn-primary'>Tip</a>
+                            </summary>
+                            Sei $L \in \NP^O$. Es gibt also eine nichtdeterministische Orakelmaschine $M$ mit
+                            polynomieller Laufzeit, so dass
+                            \begin{align*}
+                            x \in L \Longleftrightarrow \exists y: M^O(x,y) = 1
+                            \end{align*}
+                            Gegeben $x$, bauen Sie nun $M$ um in eine Maschine $M'$ <em>ohne</em> Orakel, die das
+                            gleiche tut, also
+                            $M'(x,y) = M^O(x,y)$ für alle $x,y$. Erreichen Sie, dass $M'$ keine Orakelfragen mehr
+                            stellen muss, indem Sie alle möglichen Fragen bereits tätigen und fest in
+                            den Quelltext von $M'$ codieren.
+                            Die Frage, ob es ein $y$ gibt mit $M'(x,y)=1$ ist nun
+                            eine NP-Frage (ohne Orakel) und somit in P.
+                        </details>
+                    </div class='numbered-exercise'>
+
+
+                    <h3>
+                        Literatur
+                    </h3>
+                    <ul>
+                        <li id="baker-gill-solovay">
+                            Theodore Baker, John Gill, and Robert Solovay. "Relativizations of the $\P \stackrel{?}{=}
+                            \NP$ question."
+                            <em>SIAM Journal on computing</em> 4.4 (1975): 431-442.
+
+                        </li>
+                        <li id="long-selman">
+                            Timothy J. Long, and Alan L. Selman. "Relativizing complexity classes with sparse oracles."
+                            <em>Journal of the ACM (JACM)</em> 33.3 (1986): 618-627.
+                        </li>
+                    </ul>
+                </div class='subChapter'>
+
+            </div class='chapter'>
+
+
+        </div class="content">
+    </div class="rightSideWrapper">
+
+
+    <div id="navigation-links">
+    </div>
+
+
+
+</body>
+<script>
+    var chaptersStartAt = 3;
+    var subChaptersStartAt = 200;
+</script>
+<script type="text/javascript" src="../javascript/table-of-contents.js"></script>
+<script type="text/javascript" src="../javascript/number-my-theorems.js"></script>
+
+</html>

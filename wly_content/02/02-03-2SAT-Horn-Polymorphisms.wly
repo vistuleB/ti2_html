@@ -1,0 +1,755 @@
+|> html
+    |> head
+        |> link
+            rel=icon
+            href=data:,
+        |> meta
+            http-equiv=Content-Type
+            content=text/html; charset=utf-8
+        |> title
+            Berechenbarkeit und Kreativität
+        |> meta
+            name=viewport
+            content=width=device-width, initial-scale=1
+        |> link
+            rel=stylesheet
+            href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css
+        |> link
+            rel=stylesheet
+            type=text/css
+            href=../../lecture-notes.css
+        |> link
+            rel=stylesheet
+            type=text/css
+            href=../Course.css
+        |> script
+            src=https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
+        |> script
+            src=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js
+        |> script
+
+            MathJax = {
+            tex: {
+            tags: 'ams',
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+            fontCache: 'global'
+            }
+            };
+        |> script
+            type=text/javascript
+            id=MathJax-script
+            async=
+            src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js
+    |> body
+        |> div
+            id=mathjax-definitions
+            style=display:none
+            \(
+            \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+            \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+            \newcommand{\R}{\mathbb{R}}
+            \newcommand{\Z}{\mathbb{Z}}
+            \newcommand{\N}{\mathbb{N}}
+            \newcommand{\Q}{\mathbb{Q}}
+            \newcommand{\cin}{c_{\rm in}}
+            \newcommand{\cout}{c_{\rm out}}
+            \newcommand{\maj}{\textnormal{Maj}}
+            \newcommand{\xor}{\oplus}
+            \newcommand{\depth}{\textnormal{depth}}
+            \newcommand{\poly}{\textnormal{poly}}
+            \newcommand{\uc}{\textnormal{uc}}
+            \newcommand{\satequiv}{\equiv_{\rm SAT}}
+            \newcommand{\nae}{\textnormal{nae}}
+            \newcommand{\maj}{\textnormal{maj}}
+            \newcommand{\and}{\textnormal{and}}
+            \)
+        |> div
+            id=rightSideWrapper
+            |> div
+                class=content
+                |> div
+                    class=chapter
+                    |> div
+                        class=subChapter
+                        |> h1
+                            class=hidden-title
+                            |> span
+                                class=subChapterTitle
+                        In diesem Kapitel lernen wir zwei eingeschränkte Varianten von SAT kennen,
+                        die wir effizient lösen können.
+                        |> Definition
+                            \ Eine Horn-Klausel
+                            ist eine Klausel, in der höchstens eine Variable nicht negiert vorkommt, also
+                            \begin{align*}
+                            (\bar{x}_1 \vee \bar{x}_2 \vee \dots \vee \bar{x}_{k-1} \vee x_k)
+                            \tag{wobei $k=1$ erlaubt ist}
+                            \end{align*}
+                            oder
+                            \begin{align*}
+                            (\bar{y}_1 \vee \bar{y}_2 \vee \dots \vee \bar{y}_{k})
+                            \tag{wobei $k=1$ und $k=0$ auch erlaubt sind}
+                            \end{align*}
+                            Eine Horn-Formel ist eine CNF-Formel, die nur aus Horn-Klauseln besteht.
+                        Horn-Formeln sind trotz Ihrer Einfachheit interessant, weil sie einfache Implikationen
+                        ausdrücken können;
+                        so kann man $(\bar{x}_1 \vee \bar{x}_2 \vee \dots \vee \bar{x}_{k-1} \vee x_k)$ lesen als
+                        \begin{align*}
+                        (x_1 \wedge \dots \wedge x_{k-1}) \rightarrow x_k
+                        \end{align*}
+                        |> Theorem
+                            \ Horn-SAT
+                            kann in polynomieller Zeit entschieden werden.
+                        |> div
+                            class=well container
+                            *Beweis.* Der Beweis ist fast enttäuschend einfach. Er beruht auf zwei
+                            Beobachtungen.
+
+                            *Beobachtung 1.* Wenn in einer Horn-Formel alle Klauseln mindestens
+                            Größe 2 haben, dann ist sie erfüllbar. Warum? Jede Klausel mit mindestens zwei Literalen
+                            enthält mindestens ein negiertes Literal; wir können also alle Variable auf $0$ setzen.
+
+                            *Beobachtung 2.* Wenn $F$ eine Horn-Formel ist und $b \in \{0,1\}$ ein
+                            Wahrheitswert, dann ist $F|_{x=b}$ auch eine Horn-Formel. Warum? Eine Variable durch einen
+                            Wahrheitswert zu ersetzen kann eine Klausel erfüllen (und somit verschwinden lassen) oder
+                            schrumpfen lassen; es kommen jedoch nie Literale hinzu, und somit enthält keine Klausel
+                            von $F|_{x=b}$ mehr als ein positives Literal.
+
+                            Aus diesen Beobachtungen ergibt sich ein Algorithmus wie von selbst: (1) falls $F$ leer ist,
+                            gib 
+                            |> tt
+                                True
+                            \ zurück; (2) falls $F$ die leere Klausel enthält, gibt 
+                            |> tt
+                                False
+                            zurück;
+                            (3) falls in $F$ alle Klauseln mindestens Größe zwei haben, gib 
+                            |> tt
+                                True
+                            \ zurück;
+                            ansonsten nimm eine 1-Klausel $(l)$ und setze auf $F|_{l=1}$ rekursiv fort.
+                            |> span
+                                class=qed
+                                \(\square\)
+                        $2$-SAT ist SAT beschränkt auf 2-CNFs, also auf Formeln, in denen jede Klausel aus maximal zwei
+                        Literalen besteht. 
+                        |> Theorem
+                            \ 2-SAT kann in
+                            polynomieller Zeit gelöst werden.
+                        |> div
+                            class=well container
+                            *Erster Beweis (Resolution).*
+                            Wenn wir zwei Klauseln $C$ und $D$ haben und eine Variable $x$, die in $C$Q positiv und in
+                            $D$ negativ vorkommen, also $C = C' \vee x$ und $D = D' \vee \bar{x}$, dann gilt
+                            \begin{align*}
+                            (C' \vee x) \wedge (D' \vee \bar{x}) \Rightarrow (C' \vee D') \ ,
+                            \end{align*}
+                            wie man leicht per Fallunterscheidung sieht. Somit gilt auch
+                            \begin{align*}
+                            (C' \vee x) \wedge (D' \vee \bar{x}) \equiv (C' \vee x) \wedge (D' \vee y) \wedge (C' \vee D')
+                            \end{align*}
+                            Die Klausel $(C' \vee D')$ heißt der _Resolvent von $C$ und $D$_. Der Punkt ist nun:
+                            wenn $C$ und $D$ jeweils höchstnes zwei Literale haben, dann gilt das auch für den
+                            Resolventen. Der logische Schritt, aus $C$ und $D$ die neue Klausel $C' \vee D'$ abzuleiten,
+                            heißt
+                            _Resolution_.
+
+                            *Abgeschlossenheit.* Eine Formel $C_1 \wedge \dots \wedge C_m$ heißt
+                            abgeschlossen, wenn sie
+                            zu je zwei ihrer Klauseln bereits den Resolventen enthält, sollte es denn einen geben. Wenn
+                            man
+                            also per Resolution keine neuen Klauseln herbeiführen kann.
+                            |> div
+                                class=well container-fluid subtheorem
+                                |> span
+                                    class=numbered-title
+                                    id=put-unique-name-here
+                                    data-label-title=Beobachtung
+                                    Beobachtung
+                                \ Wenn $F$ abgeschlossen ist, $x$
+                                eine Variable und $b \in \{0,1\}$ ein Wahrheitswert, dann ist $F|_{x=b}$ auch
+                                abgeschlossen. 
+                            |> div
+                                class=well container-fluid subtheorem
+                                *Beweis.*
+                                Der Einfachheit halber betrachten wir den Fall $b=0$.
+                                Betrachten wir einen Resolventen zweier Klauseln in $F|_{x=0}$. Es gibt also Klauseln
+                                \begin{align*}
+                                (C' \vee y), (D' \vee \bar{y})
+                                \end{align*}
+                                in $F|_{x=0}$; ihr Resolvent ist $C' \vee D'$. Nun sehen wir aber: zu der Klausel $C =
+                                C' \vee y$ in $F|_{x=0}$ muss
+                                es eine "Elternklausel" $\hat{C}$ in $F$ geben mit $\hat{C}|_{x=0} = C$. Es gilt also
+                                entweder $\hat{C} = C = C' \vee y$
+                                ($C$ gab es bereits in $F$) oder $\hat{C} = C \vee x = C' \vee x \vee y$, und $C$ ist
+                                aus $C \vee x$ mittels $[x \mapsto 0]$ hervorgegangen. Das gleiche gilt für $D$. In
+                                jedem Fall gibt es in $F$ Klauseln
+                                \begin{align*}
+                                C' \vee y \textnormal{ (vielleicht $\vee x$)} \\
+                                D' \vee \bar{y} \textnormal{ (vielleicht $\vee x$)} \ .
+                                \end{align*}
+                                Diese haben einen Resolventen
+                                \begin{align*}
+                                C' \vee D' \textnormal{ (vielleicht $\vee x$)} \ .
+                                \end{align*}
+                                Da $F$ abgeschlossen ist, gilt $ C' \vee D' \textnormal{ (vielleicht $\vee x$)} \in F$
+                                und
+                                somit
+                                \begin{align*}
+                                F' \ni \left(C' \vee D' \textnormal{ (vielleicht $\vee x$)} \right)|_{x=0} = C' \vee D' \ .
+                                \end{align*}
+                                Der Resolvent $C' \vee D'$ von $C$ und $D$ ist also bereits in $F|_{x=0}$. Dies gilt für
+                                jedes Klauselpaar, und somit
+                                ist $F|_{x=0}$ abgeschlossen.
+                                |> span
+                                    class=qed
+                                    \(\square\)
+                            *Beobachtung:* eine abgeschlossene Formel $F$, die nicht die leere Klausel
+                            $\Box$
+                            enthält, ist erfüllbar. Warum? Wir zeigen dies per Induktion. Wenn $n=0$ ist dann muss $F$
+                            leer
+                            und somit konstant $1$ sein. Wenn $F$ keine $1$-Klausel enthält, dann nehmen wir eine
+                            beliebige
+                            Variable und betrachten $F|_{x=0}$. Nach der obigen Behauptung ist $F|_{x=0}$ abgeschlossen.
+                            Da $F$ nicht die $1$-Klausel $(x)$ enthält, enthält $F|_{x=0}$ nicht die leere Klausel
+                            $\Box$ und ist nach Induktionshypothese erfüllbar.
+                            Falls $F$ eine $1$-Klausel $(x)$ enthält, dann kommt $(\bar{x})$ nicht vor: denn sonst
+                            wäre ja $\Box$ der Resolvent von $(x)$ und $(\bar{x})$ und per Abgeschlossenheit auch in
+                            $F$;
+                            wir setzen also $F|_{x=1}$ und erhalten wiederum eine abgeschlossene Formel ohne $\Box$.
+
+                            Hier ist nun unser effizienter Algorithmus: (1) Solange $F$ nicht abgeschlossen ist, bilde
+                            einen neuen Resolventen und füge ihn hinzu. (2) Sei $F'$ die abgeschlossene Formel am Ende
+                            dieses Prozesses; wenn $\Box \in F'$, dann geben wir 
+                            |> tt
+                                False
+                            \ zurück; ansonsten ist
+                            $F'$ per
+                            Beobachtung erfüllbar, und wir geben 
+                            |> tt
+                                True
+                            \ zurück.
+
+                            Korrekt ist dieser Algorithmus immer, auch für allgemeine CNFs. Ist er aber effizient? Wenn
+                            $F$ eine
+                            2-CNF ist, dann haben alle gebildeten Resolventen maximal zwei Literale. Über $n$ Variablen
+                            gibt es eine leere Klausel $\Box$, $2n$ viele $1$-Klauseln und $4 \cdot {n \choose 2} $
+                            viele $2$-Klauseln.
+                            Insgesamt also $4 {n \choose 2} + 2n + 1 = 2n^2 + 1$ Klauseln. Der Prozess endet also
+                            nach maximal $2n^2 + 1$ Resolutionsschritten mit einer abgeschlossenen Formel und hat also
+                            polynomielle Laufzeit.
+                            |> span
+                                class=qed
+                                \(\square\)
+                        |> div
+                            class=well container
+                            *Zweiter Beweis (rekursiver Algorithmus).*
+                            Wenn $F$ eine $1$-Klausel $(l)$ enthält, dann ist $F$ erfüllbar genau dann, wenn $F|_{l=1}$
+                            erfüllbar ist.
+                            Wir können also guten Gewissens $l$ auf $1$ setzen und mit $F|_{l=1}$ weitermachen. Wenn man
+                            das
+                            wiederholt, bis die Formel keine $1$-Klauseln mehr enthält, dann nennt man das _Unit
+                            Clause Reduction_.
+                            Sei $\uc(F)$ die Formel, die man per Unit Clause Reduction aus $F$ erhält.
+                            Ihre Klauseln können die Größen $0, 2, 3, \dots$ haben, aber natürlich nie $1$.
+                            Weiterhin gilt:
+                            \begin{align*}
+                            F \satequiv \uc(F) \ .
+                            \end{align*}
+                            Das gilt ganz allgemein für CNFs, nicht nur für $2$-CNFs.
+                            Sei nun $F$ unsere $2$-CNF.
+                            Unser Algorithmus nimmt eine beliebige Variable $x$ und
+                            berechnet $F_0 := \uc\left(F|_{x=0}\right)$. Falls $F_0$ die leere Klausel enthält, dann ist
+                            $F_0$ unerfüllbar.
+                            Die einzige Chance ist also, $x$ auf $1$ zu setzen. In anderen Worten: $F \satequiv
+                            F|_{x=1}$. Unser Algorithmus kann nun also rekursiv auf $F|_{x=1}$ fortsetzen.
+
+                            Falls $F_0 = \uc\left(F|_{x=0}\right)$ nicht die leere Klausel enthält, dann besteht es
+                            nur aus $2$-Klauseln; größere gibt es ja nicht in $F$, und sie können auch nicht durch $[x
+                            \mapsto 0]$ oder die Unit Clause Reduction entstehen. Als Klauselmenge betrachtet ist $F_0$
+                            also
+                            eine Teilmenge von $F$. Was bedeutet dies? Jede Belegung, die $F$ erfüllt, erfüllt auch
+                            $F_0$. Wenn also $F$ erfüllbar ist, dann ist es auch $F_0$. Umgekehrt: wenn $F_0$ erfüllbar
+                            ist,
+                            dann wegen $F_0 = \uc\left(F|_{x=0}\right) \satequiv F_{x=0}$ auch $F_{x=0}$; dann auch $F$,
+                            weil
+                            wir zur erfüllenden Belegung von $F|_{x=0}$ einfach $[x=0]$ hinzufügen. Also: $F_0 \satequiv
+                            F$ und
+                            wir können rekursiv auf $F_0$ fortsetzen.
+
+                            Beachten Sie, dass die Rekursion nie verzweigt; wir setzen rekursiv auf $F_0$ oder
+                            $F|_{x=1}$ fort, aber
+                            nie auf beiden. Da jeder rekursive Aufruf die Anzahl der Variablen um mindestens 1
+                            reduziert,
+                            haben wir insgesamt maximal $n$ rekursive Aufrufe; jeder rekursive Aufruf führt $\uc(\cdot)$
+                            aus;
+                            wenn sie es geschickt anstellen, kriegen Sie $\uc$ in $O(n)$ Zeit implementiert. Insgesamt
+                            ergibt
+                            dies eine Laufzeit von $O(n^2)$.
+                            |> span
+                                class=qed
+                                \(\square\)
+                        |> h3
+                            Gadget-Reduktionen
+                        Können wir 3-SAT auf Horn-SAT oder 2-SAT reduzieren? Falls das ginge, dann könnten wir 3-SAT in
+                        polynomieller
+                        Zeit lösen und mit Hilfe
+                        weiterer Reduktionen auch 
+                        |> span
+                            style=font-variant: small-caps;
+                            Circuit SAT, 3-Colorability,
+                            Independent Set,
+                            Hamilton Path, Hamilton Cycle
+                        \ und vieles mehr. Die Mehrheit der Fachwelt glaubt also:
+                        eher nicht. Können wir beweisen, dass es keine solche Reduktion gibt? Das können wir zur Zeit
+                        auch
+                        nicht; wir können aber zeigen, dass "Gadget-Reduktionen", wie wir sie im vorherigen Kapitel
+                        oft gesehen haben, nicht funktionieren. Der Begriff Gadget-Reduktion ist nicht wirklich
+                        formal definiert. Wenn wir sagen, dass eine Reduktion $f: 3$-SAT $\leq_p L \subseteq \Sigma^*$
+                        eine Gadget-Reduktion
+                        ist, dann meinen wir meistens, dass wir für jede Klausel oder jede Variable von $F$ ein
+                        kleines Bauteil (ein Gadget) in der Zielmenge $\Sigma^*$ konstruieren und die Bauteile nach
+                        recht einfachen Regeln verbunden werden.
+
+                        In den nächsten paar Übungen werden Sie aufgefordert, per Gadget-Reduktion von $3$-SAT auf
+                        andere eingeschränkte SAT-Probleme zu zeigen, dass letztere NP-vollständig sind.
+                        |> Exercise
+                            Eine Klausel heißt _monoton_, wenn alle Literale positiv
+                            oder alle negativ sind.
+                            Geben Sie eine Reduktion von SAT auf
+                            |> span
+                                style=font-variant: small-caps;
+                                Monotone SAT
+                            \ an.
+
+                            *Hinweis:* Die Formel, die bei der Reduktion
+                            |> span
+                                style=font-variant: small-caps;
+                                3-Colorability $\leq_p$ 3-SAT
+                            \ entsteht,
+                            ist bereits monoton. Zeigen Sie aber, dass es auch "direkt" geht, durch eine
+                            Reduktion von SAT auf 
+                            |> span
+                                style=font-variant: small-caps;
+                                Monotone SAT
+                            .
+                        |> Exercise
+                            Eine $(3,3)$-CNF ist eine 3-CNF-Formel, in der jede Variable in höchstens
+                            drei Klauseln auftritt. Das dazugehörige Entscheidungsproblem nennen wir
+                            (3,3)-SAT. Zeigen Sie 3-SAT $\leq_p$ (3,3)-SAT.
+                        |> Exercise
+                            *(Exercise 3.24 aus Hubie Chens Artikel, siehe unten)*
+                            Sei $f(x,y,z)$ die Boolesche Funktion definiert als
+                            \begin{align*}
+                            f(x,y,z) = (x \leftrightarrow y) \vee (y \leftrightarrow z) \ .
+                            \end{align*}
+                            Die zwei Input-Tripel, auf denen $f$ eine $0$ ausgibt, sind also
+                            $(0,1,0)$ undd $(1,0,1)$. Wenn also die Mitte anders ist.
+
+                            Eine Middle-Not-Alone-CNF ist eine Konjunktion von Ausdrücken der Form
+                            $f(x,y,z)$, also zum Beispiel 
+                            \begin{align*}
+                            f(x,y,z) \wedge f(y,x,w) \wedge f(0,w,z) \wedge f(w,1,z) \wedge \dots
+                            \end{align*}
+                            Sei 
+                            |> span
+                                style=font-variant: small-caps;
+                                MiddleNotAlone-SAT
+                            das entsprechende Entscheidungsproblem, ob die Formel erfüllbar ist.
+                            Zeigen Sie, dass $3$-SAT $\leq_p$ 
+                            |> span
+                                style=font-variant: small-caps;
+                                MiddleNotAlone-SAT
+                            \ gilt.
+                        |> h3
+                            Polymorphismen und Schaefers Theorem
+                        Betrachten wir die Boolesche Funktion $\nae: \{0,1\}^3 \rightarrow \{0,1\}$, definiert
+                        als $\nae(x,y,z) := (x \vee y \vee z) \wedge (\bar{x} \vee \bar{y} \vee \bar{z})$; es verbietet
+                        also, dass
+                        die drei Variablen alle gleich sind, und $\nae$ steht in der Tat für _not all equal_.
+                        |> Problem
+                            Ein 3-NAE-Constraint über einer Variablenmenge $V = \{x_1, \dots, x_n\}$ ist ein Ausdruck
+                            der Form $\nae(u, v, w)$, mit $u, v, w \in V \cup \bar{V} \cup \{0,1\}$.
+                            Eine $3$-NAE-Formel ist eine Konjunktion $F = C_1 \wedge \dots \wedge C_m$
+                            aus
+                            3-NAE-Constraints. Das Problem $3$-NAE-SAT ist das dazugehörige Entscheidungsproblem, ob
+                            $F$ erfüllbar ist.
+
+                            Ein Constraint $\nae(u,v,w)$ mit $u,v,w \in V \cup \{0,1\}$, also ohne negierte Variable,
+                            heißt _monoton_. Wenn alle Constraints von $F$ monoton sind, dann nennen wir $F$ eine
+                            monotone $3$-NAE-Formel und das entsprechende Entscheidungsproblem
+                            |> span
+                                style=font-variant: small-caps;
+                                Montone 3-NAE-SAT
+                            .
+                        |> Theorem
+                            |> span
+                                style=font-variant: small-caps;
+                                3-SAT $\leq_p $ 3-NAE-SAT
+                            .
+                        |> div
+                            class=well container
+                            *Beweis.*
+                            Wir geben eine Gadget-Reduktion von 3-SAT auf 3-NAE-SAT und dann. Sei
+                            $C = (l_1 \vee l_2 \vee l_3)$
+                            eine Klausel. Wir führen eine neue Variable $z$ ein und ersetzen $C$ durch
+                            \begin{align*}
+                            \nae(l_1, l_2, z) \wedge \nae(l_3, \bar{z}, 0)
+                            \end{align*}
+                            Dies ist nicht äquivalent, es gilt aber:
+                            \begin{align*}
+                            l_1 \vee l_2 \vee l_3 \Longleftrightarrow \exists z \in \{0,1\}:\ \nae(l_1, l_2, z) \wedge
+                            \nae(l_3, \bar{z}, 0)
+                            \end{align*}
+                            In der Tat: (1) Wenn die linke Seite $0$ ist, betrachten wir $z$; wenn (1.a) $z=0$ gilt,
+                            dann ist
+                            $\nae(l_1, l_2, z)$ verletzt; wenn (1.b) $z=1$ ist, dann ist $\nae(l_3, \bar{z}, 0)$
+                            verletzt.
+                            (2) Wenn die linke Seite $1$ ist, dann ist (2.a) die Disjunktion $l_1 \vee l_2$ gleich $1$.
+                            Dann können wir $z$ auf $0$ setzen und erfüllen beide Constraints auf der rechten Seite;
+                            oder (2.b) die Disjunktion $l_1 \vee l_2$ ist $0$ und $l_3$ ist $1$; dann setzen wir $z$ auf
+                            $1$
+                            und erfüllen die rechte Seite.
+
+                            Wir wiederholen dies für jede Klausel $C_i$ von $F$, wobei wir jedes mal eine "frische"
+                            Variable
+                            $z_i$ verwenden. Wir erhalten eine 3-NAE-Formel $F'$ mit $F \satequiv F'$.
+                            |> span
+                                class=qed
+                                \(\square\)
+                        Die Reduktion im Beweis konstruiert eine Formel $F'$ mit $F' \satequiv F$, was für den Begriff
+                        der Reduktion ausreicht.
+                        Aber sie tut dies auf eine bestimmte Weise. Das Quell-Constraint $(l_1 \vee l_2 \vee l_3)$ wird
+                        durch
+                        eine Reihe von Ziel-Constraints ersetzt, mit der Eigenschaft
+                        \begin{align}
+                        l_1 \vee l_2 \vee l_3 \Longleftrightarrow \exists z \in \{0,1\}:\ \nae(l_1, l_2, z) \wedge \nae(l_3,
+                        \bar{z}, 0)
+                        \label{3-nae-cnf-defines-3-clause}
+                        \end{align}
+                        Das ist ähnlich wie in der Reduktion von SAT auf 3-SAT. Dort ersetzen wir z.B. die 4-Klausel
+                        $(a \vee b \vee c \vee d)$ durch $(\bar{z} \vee a \vee b) \wedge (z \vee a \vee b)$, denn es
+                        gilt
+                        \begin{align}
+                        (a \vee b \vee c \vee d) \Longleftrightarrow (\bar{z} \vee a \vee b) \wedge (z \vee a \vee b)
+                        \label{3-cnf-defines-4-clause}
+                        \end{align}
+                        Die 4-Klausel lässt sich zwar nicht als $3$-CNF schreiben, aber per
+                        (\ref{3-nae-cnf-defines-3-clause})
+                        durch eine 3-CNF _definieren_. Genauso lässt sich eine beliebige 3-Klausel per
+                        (\ref{3-cnf-defines-4-clause}) 3-NAE-Klauseln definieren.
+                        Weiterhin lässt sich eine 3-NAE-Klausel durch _monotone_ NAE-Klauseln definieren, zum
+                        Beispiel
+                        \begin{align}
+                        \nae(x,\bar{y}, z) \Longleftrightarrow \exists y':\ \nae(x,y',z) \wedge \nae(y, y') \ .
+                        \label{monotone-nae-defines-nae}
+                        \end{align}
+                        Auf der rechten Seite kommen keine negierten Variablen vor; die (positive) Variable $y'$ spielt
+                        die Rolle von $\bar{y}$, und $\nae(y,y')$ erzwingt, dass $y'$ und $\bar{y}$ den gleichen Wert
+                        annehmen.
+                        Analog geht
+                        \begin{align*}
+                        \nae(x,\bar{y}, \bar{z}) \Longleftrightarrow \exists y', z':\ \nae(x,y',z') \wedge \nae(y, y')
+                        \wedge \nae(z,z')\ .
+                        \end{align*}
+                        und genau so für $\nae(\bar{x}, \bar{y}, \bar{z})$ und alle Permutationen dieser
+                        3-NAE-Constraints.
+                        Daraus folgt:
+                        |> Theorem
+                            3-NAE-SAT $\leq_p$ 
+                            |> span
+                                style=font-variant: small-caps;
+                                Monotone 3-NAE-SAT
+                            .
+                        Ein (Schönheits-) Fehler ist noch, dass (\ref{monotone-nae-defines-nae}) Constraints
+                        enthält, die nur zwei Variable enthalten, wo wir doch $\nae: \{0,1\}^3 \rightarrow \{0,1\}$
+                        definiert haben.
+                        |> Exercise
+                            Flicken Sie den Schönheitsfehler. Denken Sie daran, Sie dürfen in den Constraints auch die
+                            Konstanten Werte $0$ und $1$ verwenden.
+                        Wir können jetzt genau definieren, was wir im obigen Sinne mit _definieren_ meinen.
+                        |> Definition
+                            \ Sei $\mathcal{B}$ eine Menge Boolescher
+                            Funktionen. Ein $\mathcal{B}$-Constraint über eine Variablenmenge $V = \{x_1, \dots, x_n\}$
+                            ist
+                            ein Ausdruck der Form
+                            \begin{align*}
+                            f(u_1, \dots, u_k)
+                            \end{align*}
+                            wobei $f \in \mathcal{B}$ eine $k$-stellige Booelsche Funktion ist und $u_1, \dots, u_k \in
+                            V \cup \{0,1\}$. Eine $\mathcal{B}$-Formel über $V$ ist eine Konjunktion $C_1 \wedge \dots
+                            \wedge C_m$ aus $\mathcal{B}$-Constraints über $V$.
+
+                            $\mathcal{B}$-SAT ist das entsprechende Entscheidungsproblem, ob die $\mathcal{B}$-Formel
+                            erfüllbar ist.
+                        Wenn zum Beispiel $\mathcal{B}$ die Menge aller Booleschen Funktionen $\{0,1\}^3 \rightarrow
+                        \{0,1\}$ ist,
+                        die bei genau einem der acht Eingabetripeln 0 ausgeben und bei allen anderen 1, dann gilt
+                        $|\mathcal{B}|=8$ und ein $\mathcal{B}$-Constraint ist genau eine 3-Klausel und eine
+                        $\mathcal{B}$-Formel ist eine CNF, in der jede Klausel _genau_ drei Literale hat.
+                        |> Definition
+                            \ Sei $\mathcal{B}$ eine Menge von
+                            Booleschen Funktionen. Eine Funktion $f: \{0,1\}^V \rightarrow \{0,1\}$ heißt
+                            _primitiv positiv definierbar_ mit $\mathcal{B}$ (oder einfach pp-definierbar) wenn
+                            es Menge $W$ von "Hilfsvariablen" gibt und eine $\mathcal{B}$-Formel $G$ gibt mit
+                            \begin{align*}
+                            f(x)=1 \Longleftrightarrow \exists y \in \{0,1\}^W: G(x,y)=1 \ .
+                            \end{align*}
+                            für alle $x \in \{0,1\}^V$.
+                        |> Observation
+                            \ Seien $\mathcal{B}_1$ und
+                            $\mathcal{B}_2$ Mengen Boolescher Funktionen. Wenn jede Funktion $f \in \mathcal{B}_1$
+                            pp-definierbar mit $\mathcal{B}_2$ ist, dann gilt
+                            $\mathcal{B}_1$-SAT $\leq_p$ $\mathcal{B}_2$-SAT.
+                        |> div
+                            class=well container
+                            *Beweis.*
+                            Sei $F = C_1 \wedge \dots \wedge C_m$ die $\mathcal{B}_1$-Formel. Sei $V_i \subseteq V$ die
+                            Variablenmenge, auf die $C_i$ zugrefit. Für $x \in \{0,1\}^V$ sei
+                            $x^{(i)} := x|_{V_i}$ die Projektion auf $V_i$, also die Werte, die $C_i$ "sieht". Wir
+                            können $F$ also etwas expliziter schreiben als 
+                            \begin{align*}
+                            F(x) = \bigwedge_{i=1}^m C_i(x^{(i)})
+                            \end{align*}
+                            Nach Voraussetzung
+                            gibt es für jedes $C_i$ Mengen $W_i$ von Hilfsvariablen und eine $\mathcal{B}_2$-Formel
+                            $G_i$ mit
+                            \begin{align*}
+                            C_1(x^{(i)}) \Longleftrightarrow \exists y^{(i)} \in \{0,1\}^{W_i}: G_i(x^{(i)}, y^{(i)}) \ .
+                            \end{align*}
+                            Wenn wir die $W_i$ alle disjunkt wählen, dann gilt auch
+                            \begin{align*}
+                            \bigwedge_{i=1}^m C_i(x^{(i)}) \Longleftrightarrow
+                            \exists y^{(1)} \in \{0,1\}^{W_1}, y^{(2)} \in \{0,1\}^{W_2}, \dots, y^{(m)} \in \{0,1\}^{W_m} :
+                            \bigwedge_{i=1}^m G_i(x^{(i)}, y^{(i)}) \ .
+                            \end{align*}
+                            Links steht $F$ selbst; am rechten Rand steht
+                            $G := \bigwedge_{i=1}^m G_i(x^{(i)}, y^{(i)})$, eine $\mathcal{B}_2$-Formel. Wir sehen nun:
+                            $F$ ist genau dann erfüllbar, wenn $G$ es ist.
+                            |> span
+                                class=qed
+                                \(\square\)
+                        Wir können nun zusammenfassend sagen:
+                        |> ul
+                            |> li
+                                Jede boolesche Funktion kann als CNF geschrieben werden.
+                            |> li
+                                Jede Klausel $(l_1 \vee \dots \vee l_k)$ ist pp-definierbar mit $3$-Klauseln.
+                            |> li
+                                Jede 3-Klausel ist pp-definierbar mit NAE-Constraints
+                            |> li
+                                Jedes NAE-Constraint ist pp-definierbar mit monotonen NAE-Constraints
+                        Die pp-Definierbarkeit kann man verketten, und somit ist jede $k$-Klausel pp-definierbar mit
+                        monotonen NAE-Constraints. Das ist im Prinzip der Kern hinter der Reduktion
+                        |> span
+                            style=font-variant: small-caps;
+                            SAT $\leq_p$ Monotone 3-NAE-SAT
+                        .
+                        |> h3
+                            Für Horn-SAT und 2-SAT geht das nicht
+                        Wir kommen nun zu der Haupterkenntnis dieses Kapitels. Auch wenn wir nicht wissen, ob
+                        3-SAT $\leq_p$ 2-SAT gilt, so können wir doch sagen: mit diesen einfachen Gadget-Reduktionen
+                        wird
+                        es nicht funktionieren. Nämlich:
+                        |> Theorem
+                            Die Funktion $(x \vee y \vee z)$ ist nicht pp-definierbar mit 2-Klauseln.
+                        |> div
+                            class=well container
+                            *Beweis.*
+                            Wir nehmen an, dass $(x\vee y \vee z)$ pp-definierbar mit 2-Klauseln ist und leiten
+                            einen Widerspruch her. Sei also $F$ eine beliebige $2$-CNF über der Variablenmenge
+                            $\{x, y, z, w_1, \dots, w_n\}$ mit
+                            \begin{align*}
+                            (x \vee y \vee z) \equiv \exists \vec{w} \in \{0,1\}^n: F(x,y,z, \vec{w})
+                            \end{align*}
+                            gilt. Wir sehen, dass die Tripel $(001), (010), (100)$ die linke
+                            Seite wahrmachen und somit auch die rechte. Es gibt also Tupel $\vec{a}, \vec{b}, \vec{c}
+                            \in \{0,1\}^n$
+                            mit
+                            \begin{align*}
+                            F(0,0,1,& \ a_1,\dots, a_n) = 1 \\
+                            F(0,1,0,& \ b_1,\dots, b_n) = 1 \\
+                            F(0,0,1,& \ c_1,\dots, c_n) = 1 \\
+                            \end{align*}
+                            Sei $\alpha := (0,0,1,\vec{a}), \beta := (0, 1, 0, \vec{b}), \gamma := (0, 0, 1, \vec{c})$.
+                            Die Majority-Funktion $\maj: \{0,1\}^3 \rightarrow \{0,1\}$ gibt $1$ zurück, wenn mindestens
+                            zwei
+                            ihrer Eingabebits $1$ sind. Wir können $\maj$ verallgemeinern auf Tripel von
+                            $n$-Bit-Vektoren, indem
+                            wir es bitweise anwenden:
+                            \begin{align*}
+                            \maj\left(\begin{bmatrix}
+                            u_1 & u_2 & \dots & u_n \\
+                            v_1 & v_2 & \dots & v_n \\
+                            w_1 & w_2 & \dots & w_n \\
+                            \end{bmatrix}\right)
+                            =
+                            [\maj(u_1, v_1, w_1), \maj(u_2, v_2, w_2), \dots, \maj(u_n, v_n, w_n)]
+                            \end{align*}
+                            schreiben aber im Alltag lieber einfach $\maj(\vec{u}, \vec{v}, \vec{w})$. Betrachten wir
+                            nun
+                            $\delta := \maj(\alpha, \beta,\gamma) \in \{0,1\}^{3+n}$. Dieses $\delta$ setzt $x, y, z$
+                            allesamt
+                            auf $0$ und verletzt somit die linke Seite. Wir behaupten nun, dass $\delta$ die rechte
+                            Seite erfüllt.
+                            |> div
+                                class=well container-fluid subtheorem
+                                |> span
+                                    class=numbered-title
+                                    id=put-unique-name-here
+                                    data-label-title=Behauptung
+                                    Behauptung.
+                                \ Sei $C$ eine $2$-Klausel und
+                                $\vec{u}, \vec{v}, \vec{w}$ Belegungen mit $C(\vec{u}) = C(\vec{v}) = C(\vec{w}) = 1$.
+                                Dann gilt auch $C(\maj(\vec{u}, \vec{v}, \vec{w})) = 1$.
+                            |> div
+                                class=well container-fluid subtheorem
+                                *Beweis.* Das ist eine einfache Fallunterscheidung. Sei $C = (s \vee t)$.
+                                Jede
+                                der Belegungen $\vec{u}$, $\vec{v}$, $\vec{w}$ setzt eine der beiden Literale auf $1$.
+                                Also muss es ein Literal aus $s$ unt $t$ geben, das von mindestens zwei der Belegungen
+                                auf $1$ gesetzt wird, also ohne Beschränkung der Allgemeinheit $\vec{u}(s) = \vec{v}(s)
+                                = 1$.
+                                Somit gilt auch $\maj(\vec{u}, \vec{v}, \vec{w})(s) = \maj(\vec{u}(s), \vec{v}(s),
+                                \vec{w}(s)) =
+                                \maj(1,1, \vec{w}(s)) = 1$. Also erfüllt auch $\maj(\vec{u}, \vec{v}, \vec{w})$ die
+                                Klausel $C$.
+                                |> span
+                                    class=qed
+                                    \(\square\)
+                            Aus der Behauptung folgt nun: wenn $\alpha, \beta, \gamma$ alle die 2-CNF $F$ erfüllen, also
+                            alle ihre 2-Klauseln, dann folgt aus der Behauptung, dass auch $\delta := \maj(\alpha,
+                            \beta,\gamma)$ alle Klauseln erfüllt, also ganz $F$. Hier ist der Widerspruch: $\delta$
+                            verletzt die linke Seite (es setzt $x,y,z$ alle auf $0$), erfüllt aber die rechte Seite.
+                            |> span
+                                class=qed
+                                \(\square\)
+                        In diesem Kontext sagt man, dass die Funktion $\maj$ ein _Polymorphismus_ von 2-Klauseln
+                        ist, aber nicht von $3$-Klauseln. Die Existenz dieses Polymorphismus verhindert, dass man eine
+                        $3$-Klausel mit 2-Klauseln
+                        pp-definieren kann. Ähnlich geht das mit Horn-Klauseln:
+                        |> Theorem
+                            Die Funktion $(x \vee y \vee z)$ ist nicht pp-definierbar mit Horn-Klauseln.
+                        |> div
+                            class=well container
+                            *Beweis.*
+                            Analog zur Majority-Funktion im vorherigen Beweis müssen wir eine Funktion finden,
+                            die ein "Polymorphimus" für Horn-Klauseln ist aber nicht für $(x \vee y \vee z)$ (ohne
+                            genau definiert zu haben, was ein Polymorphismus ist, ich weiß).
+
+                            Betrachten wir die Funktion $\and: \{0,1\}^2 \rightarrow \{0,1\}$, definiert
+                            als $\and(u,v) = u \wedge v$. Analog zu oben können wir $\and$ bitweise anwenden:
+                            $\and(\vec{u}, \vec{v}) = (u_1 \wedge v_1, \dots, u_n \wedge v_n)$. Ich behaupte:
+                            $\and$ ist ein Polymorphismus von $2$-Klauseln aber nicht von $(x \vee y \vee z)$.
+
+                            *Beobachtung:* $\and$ ist kein Polymorphismus von $(x \vee y \vee z)$ und
+                            auch nicht von $(x \vee y)$. Dies ist einfach zu sehen: $(100)$ und $(010)$ erfüllen
+                            beide die Klausel $(x \vee y \vee z)$, aber $\and(100, 010) = (000)$ tut das nicht.
+
+                            *Beobachtung:* $\and$ ist ein Polymorphimus von Horn-Klauseln.
+                            Sei $C$ eine Horn-Klausel. Wenn $C$ rein negativ ist, also
+                            \begin{align*}
+                            C = (\bar{x}_1 \vee \dots \vee \bar{x}_k)
+                            \end{align*}
+                            und $\alpha, \beta$ sie erfüllen, dann erfüllt $\alpha$ mindestens ein Literal, also
+                            $\alpha(x_i) = 0$. Dann gilt auch $\and(\alpha,\beta) (x_i) = \alpha(x_i) \wedge \beta(x_i)
+                            = 0$
+                            und es erfüllt $C$ Wenn $C$ ein positives Literal hat, also
+                            \begin{align*}
+                            C = (\bar{x}_1 \vee \dots \vee \bar{x}_{k-1} \vee x_k)
+                            \end{align*}
+                            Wenn $\alpha$ oder $\beta$ eines der $x_1,\dots,x_{k-1}$ auf $0$ setzt,
+                            dann tut dies auch $\and(\alpha,\beta)$. Ansonsten, wenn $\alpha(x_i) = \beta(x_i) = 1$ für
+                            alle $1 \leq i \leq k-1$, dann muss $\alpha(x_k) = \beta(x_k) = 1$ gelten, da beide ja $C$
+                            erfüllen.
+                            Also setzt $\and(\alpha,\beta)$ die Variable $x_k$ auch auf $1$ und erfüllt $C$.
+
+                            Zusammengefasst folgt daraus, dass $(x \vee y \vee z)$ nicht pp-definierbar mit
+                            Horn-Klauseln ist.
+                            |> span
+                                class=qed
+                                \(\square\)
+                        |> Theorem
+                            *(Schaefers Dichotomie-Theorem).* Sei $\mathcal{B}$ eine Menge Boolescher
+                            Funktionen.
+                            Dann
+                            gilt
+                            |> ol
+                                type=I
+                                |> li
+                                    Das Problem $\mathcal{B}$-SAT ist effizient lösbar oder
+                                |> li
+                                    SAT $\leq_p \mathcal{B}$-SAT.
+                            In der Tat gilt Punkt I, falls
+                            |> ol
+                                |> li
+                                    jedes $f \in \mathcal{B}$ sich als $2$-CNF schreiben lässt (maximal zwei Literale pro
+                                    Klausel);
+                                |> li
+                                    jedes $f \in \mathcal{B}$ sich als Horn-CNF schreiben lässt (maximal ein positives
+                                    Literal pro Klausel);
+                                |> li
+                                    jedes $f \in \mathcal{B}$ sich als Anti-Horn-CNF schreiben lässt (d.h maximal ein
+                                    negatives Literal pro Klausel);
+                                |> li
+                                    jedes $f \in \mathcal{B}$ sich als Gleichungssystem $A \vec{x} = \vec{b}$ über ${\rm
+                                    GF}(2)$ schreiben lässt;
+                                |> li
+
+                                    $f(\vec{1})=1$ für jedes $f \in \mathcal{B}$ gilt;
+                                |> li
+
+                                    $f(\vec{0})=1$ für jedes $f \in \mathcal{B}$ gilt;
+                            Die effizienten Algorithmen sind dabei jeweils: (1) Der obige $2$-SAT-Algorithmus;
+                            (2) der Horn-SAT-Algorithmus; (3) das Analog dazu; (4) Gaussche Eliminierung; (5) alle
+                            Variable auf $1$ setzen; (6) alle Variable auf $0$ setzen.
+
+                            In allen anderen Fällen, wenn $\mathcal{B}$ also nicht in eine der obigen sechs Kategorien
+                            fällt,
+                            ist jede $3$-Klausel pp-definierbar mit $\mathcal{B}$ und es gilt somit
+                            SAT $\leq_p$ $\mathcal{B}$-SAT.
+                        Das Theorem schließt nicht die Möglichkeit aus, dass es für SAT selbst einen effizienten
+                        Algorithmus gibt (beachte das Wort "oder" in Punkt I, welches nicht ausschließt, dass beide
+                        Sätze wahr sind).
+
+                        Ich verzichte hier auf einen Beweis von Schaefers Theorem, da das den Rahmen dieser Vorlesung
+                        sprengen würde und verweise auf 
+                        |> a
+                            href=#hubie-chen
+                            Hubie Chens Arikel von 2006
+                        .
+                        Die ganze Maschinerie und alle Fragestellungen lassen sich verallgemeinern für auf
+                        Constraint Satisfaction Problems (CSP); dies sind im Prinzip Probleme, bei denen die Variablen
+                        mehr als zwei Werte annehmen dürfen; ein Constraint ist also eine Funktion
+                        $f: \{1,\dots, d\}^k \rightarrow \{0,1\}$. Die zu Schaefers Theorem analoge
+                        _Dichotomie-Vermutung für CSP_ war lange Zeit ein offenes und
+                        konnte erst 2017 bewiesen werden (
+                        |> a
+                            href=#zhuk
+                            Zhuk 2020
+                        )
+                        |> h3
+                            Literatur
+                        |> ul
+                            |> li
+                                id=hubie-chen
+                                Hubie Chen (2006). A rendezvous of logic, complexity, and algebra. _ACM
+                                SIGACT News_,
+                                37(4),
+                                85-114.
+                            |> li
+                                id=zhuk
+                                Dmitriy Zhuk (2020). A proof of the CSP dichotomy conjecture. _Journal of the ACM
+                                (JACM)_, 67(5), 1-78.
+        |> div
+            id=navigation-links
+    |> script
+        var chaptersStartAt = 3;
+        var subChaptersStartAt = 200;
+    |> script
+        type=text/javascript
+        src=../javascript/table-of-contents.js
+    |> script
+        type=text/javascript
+        src=../javascript/number-my-theorems.js

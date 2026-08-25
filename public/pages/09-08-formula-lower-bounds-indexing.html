@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="data:,">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Berechenbarkeit und Kreativität</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lecture-notes.css" />
+    <link rel="stylesheet" type="text/css" href="../Course.css" />
+    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>-->
+    <!-- <script type=”text/javascript”
+        src=”http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML”></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+    <script>
+        MathJax = {
+            loader: { load: ['ui/lazy'] },
+            tex: {
+                tags: 'ams',
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+
+    </script>
+
+
+
+
+
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+
+
+
+
+    <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    -->
+    <!-- <script type="text/javascript" src="script.js"></script> -->
+
+</head>
+
+
+
+<body>
+
+    <div id='mathjax-definitions' style="display:none">
+        \(
+        \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+        \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+        \newcommand{\R}{\mathbb{R}}
+        \newcommand{\Z}{\mathbb{Z}}
+        \newcommand{\N}{\mathbb{N}}
+        \newcommand{\Q}{\mathbb{Q}}
+        \newcommand{\F}{\mathbb{F}}
+        \newcommand{\cin}{c_{\rm in}}
+        \newcommand{\cout}{c_{\rm out}}
+        \newcommand{\maj}{\textnormal{Maj}}
+        \newcommand{\xor}{\vee}
+        \newcommand{\x}{\mathbf{x}}
+        \newcommand{\y}{\mathbf{y}}
+        \newcommand{\z}{\mathbf{z}}
+        \newcommand{\u}{\mathbf{u}}
+        \newcommand{\v}{\mathbf{v}}
+        \newcommand{\w}{\mathbf{w}}
+        \newcommand{\depth}{\textnormal{depth}}
+        \newcommand{\ind}{\textnormal{ind}}
+        \newcommand{\poly}{\textnormal{poly}}
+        \newcommand{\cube}{\{0,1\}}
+        \newcommand{\fcube}{\cube^n \rightarrow \cube}
+        \newcommand{\pfrac}[2]{\left(\frac{#1}{#2}\right)}
+        \)
+    </div id='mathjax-definitions'>
+
+
+
+    <div id="rightSideWrapper">
+
+
+        <div class="content">
+
+            <div class='chapter'>
+
+
+
+                <div class='subChapter'>
+                    <h1 class='hidden-title'>
+                        <span class='subChapterTitle'></span>
+                    </h1>
+
+                    <p>
+                        In diesem Kapitel werden wir eine untere Schranke von $n^{2-o(1)}$ für
+                        Formeln für eine explizite Funktion beweisen. Für $a = (a_0, a_1, \dots, a_{r-1}) \in \{0,1\}^r$
+                        sei $(a)_2 = \sum_{i=0}^{r-1} a_i 2^{i}$ die natürliche Zahl
+                        in $\{0, \dots, 2^{r}-1\}$, deren Binärdarstellung $a$ ist.
+                        Die Indexing-Funktion $\ind_r: \{0,1\}^r \times \{0,1\}^{n}$ mit $n = 2^r$
+                        ist definiert durch
+                    </p>
+                    \begin{align*}
+                    \ind_r(a_0, \dots a_{r-1},x_0, x_1, \dots, x_{n-1}) = x_{(a)_2} \ .
+                    \end{align*}
+                    <p>
+                        In Worten: $\ind_r$ betrachtet die ersten $r$ Bits ihrer Eingabe, also $a$,
+                        interpretiert diese als natürliche Zahl $i \in [0, n-1]$ und gibt dann $x_i$ zurück.
+                        Man bezeichnet die Funktion auch als die <em>Memory Access Function</em>
+                        (Speicherzugriffsfunktion), weil sie $x$ als Speicher der Größe $n$ interpretiert
+                        und $a$ als die Adresse.
+                    </p>
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Konstruieren Sie einen effizienten Schaltkreis für $\ind_r$, also
+                            zum Beispiel mit $O(n)$ Gattern. Das sollte auch als Formel gehen.
+                        </p>
+                    </div class='numbered-exercise'>
+                    <p>
+                        Das muss ja irgendwie effizient gehen, denn jeder RAM-Chip beinhaltet ja so einen
+                        Schaltkreis in irgendeiner Form. Als nächstes zeigen wir, dass
+                        $L(\ind_r) \geq n^{1 - o(1)}$ ist. Das ist nicht wirklich erstaunlich;
+                        $\ind_r$ hat schließlich $n + \log n$ Eingabevariable und hängt von jeder ab.
+                        Insofern braucht eine Formel auch mindestens $n + \log n$ Blätter. Erstaunlicher
+                        ist vielleicht:
+                    </p>
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='prob-ind-many-r-leaves'
+                                data-label-title='Beobachtung'>Beobachtung</span>
+                            Sei $F$ eine Formel, die $\ind_r(a,x)$ berechnet. Dann
+                            hat $F$ mindestens $n^{1 - o(1)}$ Blätter, die mit einer der $r$ vielen $a$-Variablen
+                            beschriftet sind.</p>
+                    </div class='well container theorem'>
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Nach <span class='reference' data-ref='theorem-shannon-lower-bound'></span> gibt
+                            es eine Funktion $h: \{0,1\}^r \rightarrow \{0,1\}$ mit $L(h) \geq \Omega(2^r / r)
+                            = n^{1 - o(1)}$. Wenn wir die rechte Spalte der Wahrheitstabelle von $h$
+                            als Wort $w \in \{0,1\}^{2^r}$ schreiben, dann sehen wir:
+                        </p>
+                        \begin{align*}
+                        \forall a \in \{0,1\}^r: h(a) = \ind_r (a, w) \ .
+                        \end{align*}
+                        <p>
+                            Sei $\rho$ die partielle Belegung $[x \mapsto w]$, die also die
+                            Variablen $x_0,\dots,x_{n-1}$ durch $w_0, \dots, w_{n-1}$ ersetzt.
+                            Dann ist die Restriktion $(\ind_r)|_{\rho}$ also genau $h$ und
+                            $F|_{\rho}$ berechnet $h$. Daher gilt: $F|_{\rho}$ hat mindestens
+                            $n^{1-o(1)}$ Blätter, und die sind alle mit Variablen $a_0, \dots, a_{r-1}$ beschriftet.
+                            Diese Blätter haben folgerichtig bereits in $F$ existiert.
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+                    </div class='proof'>
+
+                    <p>
+                        Als nächstes kommt ein Trick, wie wir die Formelkomplexität
+                        einer Funktion ver-$n$-fachen können, indem wir die Anzahl
+                        der Variablen ver-$n$-fachen:
+                    </p>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='lemma-replace-input-by-xor'
+                                data-label-title='Lemma'>Lemma</span> Seien $r, n \in \N$ beliebig und
+                            sei $g : \{0,1\}^r \rightarrow \{0,1\}$. Wir definieren eine
+                            neue Funktion $g^{\vee_n} : \{0,1\}^{r \times n} \rightarrow \{0,1\}$ als
+                        </p>
+                        <figure>
+                            <img src='../img/09-boolean-circuits/formula-lower-bounds/formulas-03-01.svg'
+                                style='height:15em'>
+                        </figure>
+                        <p>
+                            also
+                        </p>
+                        \begin{align*}
+                        g^{\vee_n}
+                        \begin{pmatrix}
+                        x^0_0 & x^0_1 & \dots x^0_{n-1} \\
+                        x^1_0 & x^1_1 & \dots x^1_{n-1} \\
+                        & & \vdots & \\
+                        x^{r-1}_0 & x^{r-1}_1 & \dots x^{r-1}_{n-1}
+                        \end{pmatrix} :=
+                        g\left( x^0_0 \vee \dots \vee x^0_{n-1}, x^1_0 \vee \dots \vee x^1_{n-1}, \dots,
+                        x^{r-1}_0 \vee \dots \vee x^{r-1}_{n-1}\right) \ .
+                        \end{align*}
+                        <p>
+                            Dann gilt $L(g^{\vee_n}) = n L(g)$.
+                        </p>
+                    </div class='well container theorem'>
+                    <p>
+                        In Worten: wenn die Funktion $g$ statt jedes Eingabebits $a_i$
+                        die ganze Disjunktion $a^i_0 \vee a^i_{n-1}$ berechnen muss, dann bleibt
+                        auch einer Formel $F$, die das tut, nichts anderes übrig.
+                        Bevor Sie denken, dass das ja irgendwie klar ist, lassen Sie mich
+                        Ihnen zeigen, dass das auch irgendwie falsch sein kann, nämlich wenn
+                        wir <em>Formelgröße</em> durch <em>Schaltkreisgröße</em> ersetzen:
+                        sei $n = r$ und sei $g$ eine Funktion, die mindestens $S(n) \geq n^2$ Gatter benötigt (diese
+                        Funktion gibt es laut Shannon-Schranke). Dann können wir
+                        $g^{\vee_n}$ berechnen, indem wir einfach das obige Bild implementieren. Für die
+                        Oder-Gatter mit Fan-in $n$ brauchen wir jeweils $n-1$ neue Gates, also
+                        insgesamt $n(n-1)$ neue Gates. Für die Berechnung von $g$ können wir
+                        den alten Schaltkreis wiederverwenden und erhalten einen neuen Schaltkreis
+                        mit $S(n) + n(n-1)$ Gattern. Da $S(n) n^2$, so gilt
+                        $S(n) + n(n-1) = O(S(n))$. Die Schaltkreiskomplexität hat sich also
+                        nicht ver-$n$-facht.
+                    </p>
+
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Zuerst die obere Schranke $L(g') \leq n \cdot L(g)$. Sei $G$ eine optimale Formel, die $g$
+                            berechnet, also $L(G) = L(g)$. Wir
+                            ersetzen in $G$ einfach jedes Blatt $a_i$ von durch eine Formel mit $n$
+                            Blättern, die
+                            ein $n$-faches Oder berechnet. Eventuell müssen wir danach noch Negationen
+                            nach unten drücken, was aber die Anzahl der Blätter nicht ändert.
+                        </p>
+                        <p><strong>Untere Schranke: $L(g') \geq n \cdot L(g)$.</strong> Sei $s = L(g)$.
+                            Wir stellen uns die Eingabevariablen $(a^i_j)$ als Matrix mit $r$ Zeilen
+                            und $n$ Spalten vor, wie auch
+                            oben dargestellt. Wir fixieren einen Spaltenindex $0 \leq j \leq n-1$
+                            und setzen alle Variable, die nicht in Spalte $j$ stehen, auf $0$.
+                            Dies ist eine partielle Belegung $\rho_j$, und es gilt
+                        </p>
+                        \begin{align*}
+                        g'|_{\rho_j} (x^0_j, x^1_j, \dots, x^r_j) & =
+                        g'
+                        \begin{pmatrix}
+                        0 & \dots & 0 & x^0_j & 0 & \dots & 0 \\
+                        0 & \dots & 0 & x^1_j & 0 & \dots & 0 \\
+                        & \vdots & & \vdots & & \vdots & \\
+                        0 & \dots & 0 & x^{r-1}_j & 0 & \dots & 0 \\
+                        \end{pmatrix} =
+                        g(x^0_j, x^1_j, \dots, x^r_j)
+                        \end{align*}
+                        <p>
+                            Ganz klar: das Oder von Zeile $i$ ergibt einfach $x^i_j$; und mit
+                            diesem Ergebnis wird dann $g$ aufgerufen. Sei nun $G'$ eine
+                            optimale Formel für $g'$, also $L(G') = L(g')$. Die Restriktion
+                            $G'|_{\rho_j}$ berechnet $g(x^0_j, x^1_j, \dots, x^r_j)$ und
+                            hat daher mindestens $s$ Blätter. Die Beschriftungen stammen
+                            alle aus Spalte $j$. Daher: $G'$ enthält mindestens $s$ Blätter,
+                            deren Beschriftung aus Spalte $j$ stammt; dies gilt für jeden
+                            Spaltenindex $j$, und da jede Variable nur in einer Spalte vorkommt, gilt:
+                            $G'$ hat mindestens $ns$ Blätter. Wie behauptet.
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+                    </div class='proof'>
+                    <p>
+                        Richtig beindruckend ist das aber nicht; wir ver-$n$-fachen die Formelkomplexität,
+                        indem wir jede Variable ver-$n$-fachen. Nun kommt der Trick: wir
+                        wenden dies auf $\ind_r$ an, aber nur auf die ersten $r$ Variablen von $\ind_r$,
+                        auf den Adress-Teil. Wir bauen also $\ind^{\vee_n}_r$:
+                    </p>
+                    <figure>
+                        <img src='../img/09-boolean-circuits/formula-lower-bounds/formulas-04-01.svg'
+                            style='height:15em'>
+                    </figure>
+                    <p>
+                        Wie oben gesehen: es gibt ein $w \in \{0,1\}^n$ so dass,
+                        wenn wir $x$ durch $w$ ersetzen, wir im Prinzip die "schwere" Funktion $h$
+                        erhalten:
+                    </p>
+                    \begin{align*}
+                    \forall a \in \{0,1\}^r: \ind(a,w) = h(a) \ .
+                    \end{align*}
+                    <p>
+                        Sei $\rho$ die partielle Belegung, die $x$ durch $w$ ersetzt und
+                        den $a$-Variablen keinen Wert zuweist.
+                        Dann gilt also $\ind|_{\rho} = h$ und
+                        $L(\ind|_{\rho}) = L(h) \geq \Omega(2^r / r) = n^{1- o(1)}$. Wenn
+                        wir nun $\ind^{\vee_n}$ betrachten, also die in der obigen Abbildung mit
+                        $rn + n$ Eingabevariablen, dann sehen wir $\ind^{\vee_n}|_{\rho} = h^{\vee_n}$ und
+                    </p>
+                    \begin{align*}
+                    L(\ind^{\vee_n}|_{\rho}) & = L(h^{\vee_n}) \\
+                    & \geq n \cdot L(n) \tag{wegen Lemma} \\
+                    & \geq n \cdot n^{1- o(1)}\\
+                    & = n^{2 - o(1)} \ .
+                    \end{align*}
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='theorem-nechiporuk'
+                                data-label-title='Theorem'>Theorem</span> <strong>(Nechiporuk, 1966).</strong>
+                            $L(\ind^{\vee_n}_r) \geq n^{2 - o(1)}$.</p>
+                    </div class='well container theorem'>
+                </div class='subChapter'>
+
+            </div class='chapter'>
+
+        </div class="content">
+    </div class="rightSideWrapper">
+
+    <div id="navigation-links">
+    </div>
+
+
+
+</body>
+<script>
+    var chaptersStartAt = 1;
+    var subChaptersStartAt = 5;
+</script>
+<script type="text/javascript" src="../javascript/table-of-contents.js"></script>
+<script type="text/javascript" src="../javascript/number-my-theorems.js"></script>
+
+</html>

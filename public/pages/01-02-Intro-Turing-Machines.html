@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="data:,">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Berechenbarkeit und Kreativität</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lecture-notes.css" />
+    <link rel="stylesheet" type="text/css" href="../Course.css" />
+    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>-->
+    <!-- <script type=”text/javascript”
+        src=”http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML”></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+
+
+    <script>
+
+        MathJax = {
+            tex: {
+                tags: 'ams',
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+
+    </script>
+
+
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+
+
+
+
+    <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    -->
+    <!-- <script type="text/javascript" src="script.js"></script> -->
+
+</head>
+
+
+
+<body>
+
+    <div id='mathjax-definitions' style="display:none">
+        \(
+        \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+        \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+        \newcommand{\R}{\mathbb{R}}
+        \newcommand{\Z}{\mathbb{Z}}
+        \newcommand{\N}{\mathbb{N}}
+        \newcommand{\Q}{\mathbb{Q}}
+        \newcommand{\cin}{c_{\rm in}}
+        \newcommand{\cout}{c_{\rm out}}
+        \newcommand{\maj}{\textnormal{Maj}}
+        \newcommand{\xor}{\oplus}
+        \newcommand{\depth}{\textnormal{depth}}
+        \newcommand{\poly}{\textnormal{poly}}
+        \newcommand{\qstart}{q_{\rm start}}
+        \newcommand{\qend}{q_{\rm end}}
+        \newcommand{\qaccept}{q_{\rm accept}}
+        \newcommand{\qreject}{q_{\rm reject}}
+        \newcommand{\lsr}{\{\texttt{L}, \texttt{S}, \texttt{R}\}}
+        \newcommand{\state}{\textnormal{state}}
+        \)
+    </div id='mathjax-definitions'>
+
+
+
+    <div id="rightSideWrapper">
+
+
+        <div class="content">
+            <div class='chapter'>
+
+
+                <div class='subChapter'>
+                    <h1 class='hidden-title'>
+                        <span class='subChapterTitle'></span>
+                    </h1>
+
+                    <p>
+                        Eine Turingmaschine besteht aus einem <em>Band</em>, das in Zellen unterteilt ist und
+                        in beide Richtungen unbegrenzt ist,
+                        und einem <em>Schreib-Lese-Kopf</em>.
+                        Dieser befindet sich in jedem Schritt auf einer
+                        Zelle. Wie auch der endliche Automat oder der
+                        Kellerautomat hat die Turingmaschine einen internen <em>Zustand</em>.
+                        In jedem Schritt liest die Maschine das Zeichen, das sich in der aktuellen
+                        Zelle des Bandes befindet (dort, wo der Kopf steht). Abhängig vom gelesenen Zeichen
+                        \(s\) und dem internen Zustand \(q\) schreibt die Turingmaschine ein neues Symbol
+                        \(s'\) in die Zelle, wechselt in einen neuen Zustand \(q'\) und bewegt
+                        den Kopf um maximal eine Zelle, also nach link, rechts, oder gar nicht.
+                    </p>
+                    <figure class='centered-figure well container'>
+                        <a class='left carousel-control-prev-icon' href='#turing-machine-example-01' data-slide='prev'>
+                            <div class='carousel-nav-icon'>
+                                <img src='../img/carousel-prev-icon.svg'>
+                            </div>
+                        </a>
+                        <a class='right carousel-control-next-icon' href='#turing-machine-example-01' data-slide='next'>
+                            <div class='carousel-nav-icon'>
+                                <img src='../img/carousel-next-icon.svg'>
+                            </div>
+                        </a>
+                        <div id='turing-machine-example-01' class='carousel' data-interval='false'
+                            style='display:inline-block'>
+                            <ol class='carousel-indicators'>
+                                <li data-target='#turing-machine-example-01' data-slide-to='1' class='active'></li>
+                                <li data-target='#turing-machine-example-01' data-slide-to='2'></li>
+                                <li data-target='#turing-machine-example-01' data-slide-to='3'></li>
+                                <li data-target='#turing-machine-example-01' data-slide-to='4'></li>
+                                <li data-target='#turing-machine-example-01' data-slide-to='5'></li>
+                                <li data-target='#turing-machine-example-01' data-slide-to='6'></li>
+                                <li data-target='#turing-machine-example-01' data-slide-to='7'></li>
+                                <li data-target='#turing-machine-example-01' data-slide-to='8'></li>
+                            </ol>
+                            <div class='carousel-inner' style='display:inline-block'>
+                                <div class='item active'><img src='../img/01-turing-machines/exampe-1/01.svg'
+                                        style='height:15em'></div>
+                                <div class='item'><img src='../img/01-turing-machines/exampe-1/02.svg'
+                                        style='height:15em'>
+                                </div>
+                                <div class='item'><img src='../img/01-turing-machines/exampe-1/03.svg'
+                                        style='height:15em'>
+                                </div>
+                                <div class='item'><img src='../img/01-turing-machines/exampe-1/04.svg'
+                                        style='height:15em'>
+                                </div>
+                                <div class='item'><img src='../img/01-turing-machines/exampe-1/05.svg'
+                                        style='height:15em'>
+                                </div>
+                                <div class='item'><img src='../img/01-turing-machines/exampe-1/06.svg'
+                                        style='height:15em'>
+                                </div>
+                                <div class='item'><img src='../img/01-turing-machines/exampe-1/07.svg'
+                                        style='height:15em'>
+                                </div>
+                                <div class='item'><img src='../img/01-turing-machines/exampe-1/08.svg'
+                                        style='height:15em'>
+                                </div>
+                            </div class='carousel-inner'>
+                        </div class='carousel'>
+                    </figure>
+
+                    <p>
+                        Sie können sich das Band auch als Magnetband vorstellen, das nach vorn oder nach hinten gespult
+                        wird, anstatt dass der Kopf sich bewegt. Am Anfang steht auf dem Band das
+                        <em>Eingabewort</em> und der Kopf auf dem ersten Symbol dieses Wortes. Die Turingmaschine
+                        wendet
+                        nun ihre Regeln an, bis sie einen
+                        <em>Endzustand</em> erreicht.
+                        Bei <em>Entscheidungsproblemen</em>, wo wir eine Boolesche Antwort aus $\{0,1\}$ erwarten,
+                        wird die Antwort durch den Endzustand angegeben:
+                        der Zustand $\qaccept$ entspricht einer <em>1</em>, der Zustand
+                        $\qreject$ entspricht einer <em>0</em>. Diese zwei Endzustände reichen im Allgemeinen
+                        aus. Wenn wir von der Maschine eine komplexere Ausgabe als Ja/Nein erwarten, so
+                        betrachten wir als <em>Ausgabe der Turingmaschine</em> den Inhalt des Bandes zu dem
+                        Zeitpunkt, da die Maschine den Zustand $\qaccept$ erreicht.
+                        Was brauchen wir also, um so eine Turingmaschine
+                        und ihre Arbeitsweise zu beschreiben?
+                    </p>
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title'>Definition</span><strong>(Turingmaschine).</strong> Eine
+                            Turingmaschine besteht aus folgenden Elementen:</p>
+                        <ol>
+                            <li>Einem endlichen Eingabe-Alphabet \(\Sigma\). Dies sind die Symbole, die für das
+                                Eingabewort in
+                                Frage kommen.
+                            </li>
+                            <li>
+                                Einem endlichen Bandalphabet \(\Gamma\); das sind die Symbole, die auf dem Band
+                                stehen dürfen. Offensichtlich muss \(\Sigma \subseteq \Gamma\) gelten. Jede
+                                Zelle kann genau ein Zeichen aus \(\Gamma\) enthalten. Darüberhinaus
+                                gibt es noch das sogenannte Blanksymbol \(\square \in \Gamma \setminus \Sigma\). Dies
+                                zeigt an, dass die Zelle im Moment leer ist. Im obigen Beispiel ist
+                                die Zelle links vom ersten \(a\) beispielsweise leer.
+                                Am Anfang steht auf dem Band also ein Eingabewort \(w \in \Sigma^*\) und
+                                rechts und links davon unendlich viele \(\square\)-Symbole.
+                            </li>
+                            <li>
+                                Einer endliche Menge \(Q\) an inneren Zuständen. Dies entspricht in etwa
+                                den Prozessor-Registern eines Computers. Ein Zustand \(\texttt{start} \in Q\)
+                                ist der Startzustand, in welchem sich die Maschine zu Beginn befindet.
+                            </li>
+                            <li>Einer Zustandsübergangsfunktion \(\delta\), die sagt, was die Turingmaschine tun soll,
+                                wenn Sie im Zustand \(q\) ist und Zeichen \(s\) liest. Formal:
+                                \begin{align*}
+                                \delta : Q \times \Gamma \rightarrow Q \times \Gamma \times \lsr \ ,
+                                \end{align*}
+                                wobei <tt>L</tt> für <em>gehe eine Zelle nach links</em> steht,
+                                <tt>R</tt> für rechts und <tt>S</tt> für <em>stay</em>, also die Anweisung, den Kopf
+                                nicht zu bewegen.
+                            </li>
+                            <li>
+                                Zwei besonderen Zuständen $\qaccept$ und $\qreject$.
+                            </li>
+                        </ol>
+                    </div class='well container theorem'>
+
+                    <p>
+                        Für die Turingmaschine in dem obigen Beispiel haben wir zwei Regeln gesehen:
+                        \begin{align*}
+                        \delta(q_2, b) & = (q_3, a, \texttt{R}) \\
+                        \delta(q_3, \#) & = (q_4, b, \texttt{L})
+                        \end{align*}
+                    </p>
+
+                    <h3>Was macht eine Turingmaschine?</h3>
+
+                    Sie haben nun wohl bereits eine vage Vorstellung, was eine Turingmaschine macht.
+                    Versuchen wir, es noch weiter zu formalisieren. Um den <em>Gesamtzustand</em> der
+                    Turingmaschine zu beschreiben, also eine vollständige Momentaufnahme, reicht
+                    nicht der aktuelle innere Zustand \(q\); wir brauchen auch den Bandinhalt und insbesondere
+                    die Position, an der sich der Kopf befindet. Das alles zusammen nennt
+                    man die <em>Konfiguration der Turingmaschine</em>. Wir wollen sie mit
+                    uns bereits bekannten mathematischen Begriffen beschreiben.
+                    <figure>
+                        <img loading='lazy' src='../img/01-turing-machines/configuration.svg' style='height:20em'>
+                    </figure>
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='def-TM-configuration'
+                                data-label-title='Theorem'>Definition</span></p>
+                        Die <em>Konfiguration</em> einer Turingmaschine ist ein Element in
+                        \(\Gamma^* \times Q \times \Gamma^*\), also
+                        \begin{align*}
+                        C = u q v
+                        \end{align*}
+                        wobei \(uv \in \Gamma^*\) der Bandinhalt ist, der
+                        Schreib-Lese-Kopf auf dem ersten Zeichen von \(v\) steht und \(q\) der
+                        innere Zustand der Turingmaschine ist. Das \(q\) in \(C\)
+                        kennzeichnet also sowohl die Position des Schreib-Lese-Kopfes auf dem Band
+                        sowie den inneren Zustand
+                        Die Menge aller Konfigurationen ist
+                        \begin{align*}
+                        \mathcal{C} := \Gamma^* \times Q \times \Gamma^*
+                        \end{align*}
+                        Der <em>Zustand einer Konfiguration</em> \(C = uqv\) ist \(q\), also der innere
+                        Zustand, in dem sich die Maschine gerade befindet.
+                        Wir bezeichnen mit $\state(C)$. Formal:
+                        \begin{align*}
+                        \state: \mathcal{C} & \rightarrow Q \\
+                        uqv & \mapsto q \ .
+                        \end{align*}
+                        Eine Konfiguration \(C\) ist
+                        eine <em>akzeptierende Endkonfiguration</em> wenn $\state(C) = \qaccept$ ist;
+                        eine <em>ablehnende Endkonfiguration</em> , wenn $\state(C) = \qreject$ ist.
+                        In beiden Fällen ist \(C\) eine <em>Endkonfiguration</em>.
+                    </div class='well container theorem'>
+                    <p>
+                        Wenn also das Eingabewort \(w \in \Sigma^*\) und $\qstart$ der Startzustand ist, dann ist
+                        \begin{align*}
+                        C_{\rm start} = \qstart{} w
+                        \end{align*}
+                        die <em>Startkonfiguration</em>.
+                    </p>
+
+                    <p>
+                        Formal definiert \(\delta\) nun auch
+                        eine Funktion auf der Menge der Konfigurationen:
+                    </p>
+                    <div class='well container theorem'>
+                        <span class='numbered-title'>Definition</span>
+                        <strong>(erweiterte Zustandsübergangsfunktion)</strong>
+                        Die erweiterte Zustandsübergangsfunktion einer Turingmaschine ist
+                        \begin{align*}
+                        \hat{\delta} : \mathcal{C} \rightarrow \mathcal{C} \
+                        \end{align*}
+                        Sie beschreibt für eine Konfiguration \(C\), welches die Konfiguration
+                        im nächsten Schritt ist.
+                        Per Konvention
+                        legen wir fest, dass
+                        \(\hat{\delta}(C) = C\) gilt, wenn \(C\) eine Endkonfiguration ist.
+
+                    </div class='well container theorem'>
+
+                    Unsere obige Turingmaschine hat beispielsweise die Regeln
+                    \(\delta(q_2,b) = (q_3, a,R)\) und
+                    \(\delta(q_3, \#) = (q_4, b, \texttt{L})\), und somit würden
+                    \begin{align*}
+                    \hat{\delta}(aaAq_2b\#ba) & = aaAaq_3\#ba \\
+                    \hat{\delta}(aaAaq_3\#ba) & = aaAq_4abba \\
+                    \hat{\delta}(abAq_2bba\#) & = abAaq_3ba\# \\
+                    \end{align*}
+                    gelten. Sie sehen:
+                    Die Definition von $\hat{\delta}$ ist nichts wirklich Tiefgründiges, sondern einfach
+                    eine Implementierung der Turingmaschinen-Momentaufnahme mit uns bereits
+                    geläufigen mathematischen "Datenstrukturen" (hier: der Menge $\Gamma^* \times Q \times \Gamma^*$).
+                    Stellen Sie sich einfach
+                    vor, Sie müssten eine Turingmaschine in Java implementieren. Dann würden Sie es wahrscheilich
+                    irgendwie so ähnlich machen.
+
+
+                    <h3>Ausgabekonfiguration einer Turingmaschine</h3>
+
+                    Die Funktion \(\hat{\delta}\) bildet aus einer Konfiguration die
+                    Folgekonfiguration. Wir definieren nun
+                    \begin{align*}
+                    \hat{\delta}^{(i)} (C) := \underbrace{\hat{\delta}(\hat{\delta}(\dots (\hat{\delta}}_{i \textnormal{
+                    mal}} (C) \dots)))
+                    \end{align*}
+                    also die Konfiguration, die die Turingmaschine nach \(i\) Rechenschritten erreicht hat.
+                    Weiterhin definieren wir
+                    \(\hat{\delta}^* (C)\) als die Endkonfiguration, die bei wiederholter
+                    Anwendung von $\hat{\delta}$ schlussendlich erreicht wird.
+                    Hier taucht ein Problem auf: es ist nicht gesagt, dass die Turingmaschine,
+                    von Konfiguration \(C\) beginnend, überhaupt irgendwann in einer Endkonfiguration landen
+                    wird. Daher kann \(\hat{\delta}^*\) auch <tt>undefined</tt> sein:
+                    \begin{align*}
+                    \hat{\delta}^* (C) := \begin{cases}
+                    \hat{\delta}^{(i)} (C) &
+                    \textnormal{ wenn es ein \(i\) gibt, so dass $\hat{\delta}^{(i)} (C)$ eine Endkonfiguration ist} \\
+                    \texttt{undefined} & \textnormal{sonst.}
+                    \end{cases}
+                    \end{align*}
+                    <p>
+                        Nochmal zur Verdeutlichung: wenn $\delta^{(i)}(C)$ eine Endkonfiguration ist,
+                        dann ist auch $\delta^{(j)}(C)$ eine, für jedes $j \geq i$, weil
+                        wir $\hat{\delta}(C') = C'$ für jede Endkonfiguration $C'$ definiert haben.
+                        Es spielt also in der obigen Formulierung
+                        <em>wenn es ein $i$ gibt</em> keine Rolle, welches solche $i$ wir wählen.
+                    </p>
+                    Für ein Eingabewort \(x \in \Sigma^*\) können wir nun das Ergebnis der Berechnung
+                    von Turingmaschine \(M\) auf \(x = x_1 \dots x_n\) definieren:
+                    \begin{align*}
+                    \hat{M}(x) := \hat{\delta}^* (\qstart{} x_1 x_2 x_3 \dots x_n) \ .
+                    \end{align*}
+                    Wir beginnen also mit der Startkonfiguration und lassen die Turingmaschine dann
+                    laufen, bis sie einen Endzustand erreicht. Die erreichte Konfiguration bezeichnen
+                    wir mit \(\hat{M}(x)\). Falls nie ein Endzustand erreicht wird (die Turingmaschine also
+                    endlos läuft),
+                    ist \(\hat{M}(x)\) <tt>undefined</tt>.
+
+
+                    <h2>Sprachen entscheiden</h2>
+                    <p>
+                        Ein <em>Entscheidungsproblem</em> ist eine Funktion \(P : \Sigma^* \rightarrow
+                        \{\texttt{true}, \texttt{false}\}\), beispielsweise: <em>gegeben ein Wort,
+                            stellt dieses Wort ein korrektes Java-Programm dar?</em>
+                        oder <em>gegeben eine Zahl in Dezimalschreibweise, ist dies
+                            eine Primzahl?</em> Eine äquivalente Sichtweise ist die
+                        eines Entscheidungsproblems als <em>Sprache</em> \(L \subseteq \Sigma^*\).
+                        Wir identifizieren \(L\) hier mit der Menge aller Wörter \(x\) mit
+                        \(P(x) = \texttt{true}\). Wenn wir es mit einem Entscheidungsproblem
+                        zu tun haben und dieses mit einer Turingmaschine lösen wollen,
+                        so interessiert uns am Endergebnis \(\hat{M}(x)\) (also der erreichten Endkonfiguration)
+                        nicht der Bandinhalt, sondern nur, ob der Zustand <tt>accept</tt> oder
+                        <tt>reject</tt> ist. Wir definieren daher
+                        \begin{align*}
+                        f_M(x) = \begin{cases}
+                        1 & \textnormal{ falls $\state(\hat{M}(x)) = \qaccept$, wenn also $\hat{M}(x)$
+                        eine akzeptierende Endkonfiguration ist, }\\
+                        0 & \textnormal{ falls $\state(\hat{M}(x)) = \qreject$ ,}\\
+                        \texttt{undefined} & \textnormal{ falls $\hat{M}(x) = \texttt{undefined}$ }
+                        \end{cases}
+                        \end{align*}
+                    </p>
+
+                    <p>
+                        Der Bequemlichkeit halber werden wir oft $M(x)$ statt $f_M(x)$ schreiben. So wie
+                        wir ja auch für einen Schaltkreis $C$ nicht $f_C(x)$ sondern einfach $C(x)$ schreiben,
+                        um den Ausdruck "der Wert des Ausgabegatters von $C$ bei Eingabe $x$" zu notieren.
+                    </p>
+
+
+                    <div class='well container theorem'>
+                        <span class='numbered-title'>Definition</span>
+                        <strong>(Turingmaschine entscheidet eine Sprache)</strong>
+                        Eine Turingmaschine \(M\)
+                        <em>entscheidet</em> die Sprache \(L \subseteq \Sigma^*\) wenn
+                        <ol>
+                            <li>
+                                $M(x) = 1$ für alle \(x \in L\),
+                            </li>
+                            <li>
+                                $M(x) = 0$ für alle \(x \in \Sigma^* \setminus L\).
+                            </li>
+                        </ol>
+                        Insbesondere heißt das, dass \(M\) auf jedem Eingabewort terminiert. Falls wir $L \subseteq
+                        \Sigma^*$
+                        als Funktion $f: \Sigma^* \rightarrow \{0,1\}$ betrachten, dann besagt die Definition einfach,
+                        dass $M(x) = f(x)$ für alle $x \in \Sigma^*$ gilt.
+                        <p>
+                            Eine Sprache \(L\) heißt <em>entscheidbar</em>, wenn
+                            es eine Turingmaschine gibt, die sie entscheidet.
+                        </p>
+                    </div class='well container theorem'>
+
+                    <div class='well container theorem'>
+                        <span class='numbered-title'>Definition</span>
+                        <strong>(Turingmaschine akzeptiert eine Sprache)</strong>
+                        Eine Turingmaschine \(M\) <em>akzeptiert</em> die Sprache
+                        \(L \subseteq \Sigma^*\) wenn
+                        \begin{align*}
+                        x \in L \Longleftrightarrow M(x) = 1
+                        \end{align*}
+                        für alle \(x \in \Sigma^*\) gilt. Das heißt, dass \(M\) für \(x \not \in \Sigma^*\)
+                        entweder irgendwann den Endzustand $\qreject$ erreicht oder
+                        nie einen Endzustand erreicht.
+                        <p>
+                            Eine Sprache \(L \subseteq \Sigma^*\) heißt <em>semi-entscheidbar</em>,
+                            wenn es eine Turingmaschine \(M\) gibt, die \(L\) akzeptiert.
+                        </p>
+                    </div class='well container theorem'>
+
+                    <p>In beiden Definition verlangen wir natürlich, dass
+                        \(\Sigma\) das Eingabealphabet der Turingmaschine ist.
+                    </p>
+                    <h2>Funktionen berechnen</h2>
+
+                    <p>
+                        Oft wollen wir nicht nur eine Sprache \(L \subseteq \Sigma^*\)
+                        entscheiden, sondern eine Funktion \(g: \Sigma_1^* \rightarrow \Sigma_2^*\)
+                        berechnen. Mit einer Turingmaschine heißt das einfach, dass
+                        bei Eingabe \(x \in \Sigma_1^*\) die Turingmaschine in einer
+                        akzeptierenden Endkonfiguration \(C\) landet, und in \(C\) steht
+                        dann \(g(x)\) auf dem Band. Formal müssen wir noch klären, was <em>\(g(x)\) steht
+                            auf dem Band</em> bedeutet.
+                    </p>
+                    </em>
+                    <div class='well container theorem'>
+                        <span class='numbered-title'>Definition</span>
+                        <strong>(Turingmaschine berechnet eine Funktion)</strong>
+                        Seien \(\Sigma_1, \Sigma_2\) zwei endliche Alphabete und
+                        \begin{align*}
+                        g : \Sigma_1^* \rightarrow \Sigma_2^*
+                        \end{align*}
+                        eine Funktion. Eine Turingmaschine \(M\) <em>berechnet die Funktion \(g\)</em>, wenn
+                        <ol>
+                            <li>
+                                \(\Sigma_1\) das Eingabealphabet von \(M\) ist,
+                            </li>
+                            <li>
+                                \(\Sigma_1 \cup \Sigma_2 \subseteq \Gamma\) gilt und
+                                \(\square \in \Gamma \setminus (\Sigma_1 \cup \Sigma_2)\); das Blank-Symbol
+                                ist also weder Teil das Eingabealphabets noch des Ausgabealphabets.
+                            </li>
+                            <li>
+                                $M$ terminiert für jedes $x \in \Sigma^*$.
+                            </li>
+                            <li> In der Endkonfiguration $\hat{M}(x)$ steht auf dem Arbeitsband das
+                                Wort \(g(x) \in \Sigma_2^*\) und der Kopf steht ganz links, also
+                                $\hat{M}(x) = \qaccept{} g(x)$.
+                            </li>
+                        </ol>
+                    </div class='well container theorem'>
+
+
+                    <h3>Beispiele</h3>
+                    <p>
+                        Wir betrachten die Sprache über $\Sigma = \{0,1,c\}$ mit
+                    </p>
+                    \begin{align*}
+                    L := \{ wcw \ | \ w \in \{0,1\}^*\}
+                    \end{align*}
+                    <p>
+                        die also zum Beispiel $0100c0100$ enthält, aber nicht $0100c010$. Wir beschreiben eine
+                        Turingmaschine, die $L$ entscheidet.
+                    </p>
+                    <ol>
+                        <li>Lies das aktuelle Zeichen und speichere es (im Zustand). Markiere es als gelesen, also
+                            ersetze es durch ein $X$.
+                        </li>
+                        <li>Geh nach rechts, bis Du $c$ liest.</li>
+                        <li>Finde das erste Zeichen in $\{0,1\}$, vergleiche es mit dem gespeicherten. Wenn ungleich,
+                            lehne ab; wenn gleich, markiere es als gelesen (ersetze es durch ein $Y$).
+                        </li>
+                        <li>
+                            Gehe wieder zurück bis zum ersten $X$, dann eins nach rechts.
+                        </li>
+                        <li>
+                            Fange nun wieder bei Schritt 1 an. Falls das aktuelle Zeichen $c$ ist, haben wir
+                            das Wort links von $c$ zu Ende gelesen.
+                        </li>
+                        <li>
+                            Überprüfe nun, ob rechts vom $c$ alles weg ist, also nur noch $Y$ stehen bis zum ersten
+                            $\Box$.
+                        </li>
+                    </ol>
+
+
+                    <p>
+                        Auf der Webseite
+                        <a href="https://turingmachinesimulator.com">turingmachinesimulator.com</a>
+                        können Sie Ihre Turingmaschine eingeben und simulieren. Den Text für
+                        die gerade beschriebene finden in <a
+                            href="../code/01-turing-machines/word-c-word.txt">word-c-word.txt</a>.
+                        Generell können Sie Regeln der Form
+                        \begin{align*}
+                        \delta(q,a) = (r, b, D)
+                        \end{align*}
+                        auf turingmachinesimulator.com als
+                    <pre>
+q, a 
+r, b, D </pre>
+                    angeben, wobei die Richtung \(D\) mit den Symbolen <tt>&lt;, -, &gt;</tt> codiert wird.
+                    </p>
+                </div class='subchapter'>
+
+            </div class='chapter'>
+
+
+        </div class="content">
+    </div class="rightSideWrapper">
+
+
+    <div id="navigation-links">
+    </div>
+
+
+
+</body>
+<script>
+    var chaptersStartAt = 3;
+    var subChaptersStartAt = 200;
+</script>
+<script type="text/javascript" src="../javascript/table-of-contents.js"></script>
+<script type="text/javascript" src="../javascript/number-my-theorems.js"></script>
+
+</html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="data:,">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Berechenbarkeit und Kreativität</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lecture-notes.css" />
+    <link rel="stylesheet" type="text/css" href="../Course.css" />
+    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>-->
+    <!-- <script type=”text/javascript”
+        src=”http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML”></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+    <script>
+        MathJax = {
+            loader: { load: ['ui/lazy'] },
+            tex: {
+                tags: 'ams',
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+
+    </script>
+
+
+
+
+
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+
+
+
+
+    <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    -->
+    <!-- <script type="text/javascript" src="script.js"></script> -->
+
+</head>
+
+
+
+<body>
+
+    <div id='mathjax-definitions' style="display:none">
+        \(
+        \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+        \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+        \newcommand{\R}{\mathbb{R}}
+        \newcommand{\Z}{\mathbb{Z}}
+        \newcommand{\N}{\mathbb{N}}
+        \newcommand{\Q}{\mathbb{Q}}
+        \newcommand{\F}{\mathbb{F}}
+        \newcommand{\cin}{c_{\rm in}}
+        \newcommand{\cout}{c_{\rm out}}
+        \newcommand{\maj}{\textnormal{Maj}}
+        \newcommand{\xor}{\oplus}
+        \newcommand{\x}{\mathbf{x}}
+        \newcommand{\y}{\mathbf{y}}
+        \newcommand{\z}{\mathbf{z}}
+        \newcommand{\u}{\mathbf{u}}
+        \newcommand{\v}{\mathbf{v}}
+        \newcommand{\w}{\mathbf{w}}
+        \newcommand{\depth}{\textnormal{depth}}
+        \newcommand{\poly}{\textnormal{poly}}
+        \newcommand{\cube}{\{0,1\}}
+        \newcommand{\fcube}{\cube^n \rightarrow \cube}
+        \newcommand{\pfrac}[2]{\left(\frac{#1}{#2}\right)}
+        \)
+    </div id='mathjax-definitions'>
+
+
+
+    <div id="rightSideWrapper">
+
+
+        <div class="content">
+
+            <div class='chapter'>
+
+
+
+                <div class='subChapter'>
+                    <h1 class='hidden-title'>
+                        <span class='subChapterTitle'></span>
+                    </h1>
+
+
+                    <p><strong>Was zählt als explizite untere Schranke?</strong>
+                        In <span class='reference' data-ref='theorem-shannon-lower-bound'></span>
+                        (der Shannon-Schranke)
+                        haben wir gezeigt, dass es Boolesche Funktionen in $n$ Variablen gibt,
+                        für deren Berechnung man mindestens $\Omega(2^n / n)$ Gatter braucht. Da
+                        sich diese Schranke praktisch mit
+                        <span class='reference' data-ref='theorem-lupanov'></span>
+                        (der Lupanov-Schranke) deckt, könnten wir die Frage nach der Komplexität
+                        von Booleschen Formeln als beantwortet betrachten. Aber wirklich
+                        erhellend ist <span class='reference' data-ref='theorem-shannon-lower-bound'></span> nicht,
+                        da es ja nur die Existenz <em>irgendeiner</em> Funktion beweist. Wir würden
+                        gerne eine ganz konkrete Boolesche Funktion $f$ explizit beschreiben und sagen können:
+                        hier, das $f$ hier, das braucht große Schaltkreise. Das Problem dabei ist,
+                        dass das <em>explizit beschreiben</em> oft ja bereits ein Rezept zur Berechnung
+                        von $f$ beinhaltet, die sich dann in einen effizienten Schaltkreis umsetzen lässt.
+                    </p>
+                    <p>
+                        In diesem Kapitel betrachten wir ganz konkrete Funktionen, die sich
+                        leicht durch einen Schaltkreis realisieren lassen, und zeigen,
+                        dass sie sich zumindest nicht durch kleine <em>Formeln</em> realisieren lassen.
+                        Unsere untere Schranken werden jedoch sehr schwach sein: in unserer stärksten
+                        Schranke werden wir zeigen, dass eine bestimmte (konkret gegebene, durch
+                        kleine Schaltkreise berechenbare) Funktion $f$ Boolesche Formeln der Größe
+                        mindestens $n^{2.5-o(1)}$ benötigt.
+                        Man kann diese Schranke mittlerweile auf $n^{3 - o(1)}$ verbessern; von
+                        einer exponentiellen unteren Schranke (deren Existenz ja die Shannon-Schranke
+                        garantiert) ist man jedoch weit entfernt. Formeln sind
+                        einfacher als Schaltkreise, weil sie schön baumförmig aufgebaut sind.
+                    </p>
+
+                    <p><strong>Boolesche Formeln.</strong>
+                        Eine Boolesche Formel ist ein Schaltkreis, in dem jedes Gatter Fan-out 1 hat.
+                        Wir können wir die Menge der Booleschen Formeln über der Variablenmenge $V$
+                        auch induktiv definieren: (1) jedes $x \in V$ ist eine Formel;
+                        (2) jede Boolesche Konstante $0$ oder $1$ ist eine Formel;
+                        (3) seien $F$ und $G$ Formeln; dann sind auch $(F \wedge G)$, $(F \vee G)$ und $(\neg F)$
+                        Formeln. Die Gestalt der Formel ist ein Binärbaum, allerdings ein nicht notwendigerweise
+                        vollständiger, weil ja die mit $\neg$ beschrifteten Knoten nur ein Kind haben.
+                        Mit Hilfe der deMorganschen Gesetze können wir Negationen
+                        nach unten drücken, also $(\neg (F \vee G))$ durch $( (\neg F) \wedge (\neg G))$ ersetzen
+                        und $(\neg (F \wedge G))$ durch $( (\neg F) \vee (\neg G))$. Die Anzahl der Blätter
+                        und auch der inneren Knoten bleibt unverändert. Wir können nun die folgende alternative
+                        Definition geben: eine Boolesche Formel über der Variablenmenge $V$ ist entweder
+                    </p>
+                    <ol>
+                        <li>ein Literal, also $x$ oder $\neg x$ für ein $x \in V$, oder</li>
+                        <li>eine Konstante $0$ oder $1$ oder </li>
+                        <li>eine Konjunktion $F \wedge G$ zweier Formeln oder</li>
+                        <li>eine Dijsunktion $F \vee G$ zweier Formeln.</li>
+                    </ol>
+                    <p>
+                        Die Struktur ist nun die eines vollständigen Binärbaumes; jeder innere Knoten
+                        hat Label $\wedge$ oder $\vee$ und hat genau zwei Kinder; jedes Blatt ist
+                        ein Literal. Mit $L(F)$ bezeichnen wir die Anzahl der Blätter.
+                    </p>
+
+                    <p><strong>Eine Formel für Parity.</strong>
+                        Falls Sie <span class='reference' data-ref='exercise-build-small-formula-for-parity'></span>
+                        erfolgreich gelöst haben sollten, dann haben Sie gesehen, dass es für
+                        die $n$-Bit-Parity-Funktion
+                    </p>
+                    \begin{align*}
+                    x_1 \oplus x_2 \oplus \dots \oplus x_n
+                    \end{align*}
+                    <p>
+                        eine Formel mit $n^2$ Blättern gibt. Dies ist <em>im Prinzip</em> optimal, aber
+                        dies zu zeigen, ist überraschend schwierig und das Ergebnis einer Forschungslinie,
+                        die sich über Jahrzehnte und mehrere Veröffentlichungen erstreckt. Relativ einfach
+                        und zugänglich ist folgendes Ergebnis, mit dem die sowjetische Mathematikerin
+                        Bella Abramowna Subbotowskaja 1961 die Methode der <em>zufälligen Restriktionen</em>
+                        erfunden hat.
+                    </p>
+
+
+                    <p><strong>Restriktionen.</strong> Sei $V = \{x_1, \dots, x_n\}$ eine Menge
+                        von $n$ Variablen, $f: \{0,1\}^V \rightarrow \{0,1\}$ eine
+                        Boolesche Funktion auf diesen. Eine <em>Belegung</em> der Variablen
+                        ist eine Funktion $\alpha: V \rightarrow \{0,1\}$; eine <em>partielle Belegung</em>
+                        ist Funktion $\rho: V \rightarrow \{0,1,*\}$. Partielle Belegungen
+                        schreiben wir gerne als Vektoren, z.B. $\rho = (1*01*)$; dies stellt dann
+                        die Funktion</p>
+                    \begin{align*}
+                    \begin{array}{c|ccccc}
+                    x & x_1 & x_2 & x_3 & x_4 & x_5 \\ \hline
+                    \rho(x) & 1 & * & 0 & 1 & *
+                    \end{array}
+                    \end{align*}
+                    <p>
+                        dar.
+                        Die Restriktion $f|_{\rho}$ ist
+                        die Funktion, die wir erhalten, wenn wir für jede Variable $x_i$ mit
+                        $\rho(x) \in \{0,1\}$ eben diesen Wert fest einsetzen und nur die Variablen
+                        $y$ mit $\rho(y) = *$ übriglassen. Sei $V' := \{y \in V \ | \ \rho(y) = *\}$. Dann ist
+                        ergibt dies eine Funktion $f|_{\rho}: \{0,1\}^{V'} \rightarrow \{0,1\}$.
+                        Wenn zum Beispiel $n = 5$ und $\rho = (1*01*)$, dann ist
+                    </p>
+                    \begin{align*}
+                    f|_{\rho} : \{0,1\}^{2} & \rightarrow \{0,1\} \\
+                    (x,y) & \mapsto f(0, x, 0, 1, y) \ .
+                    \end{align*}
+                    <p>
+                        Wenn $F$ eine Boolesche Formel mit Fan-in 2 ist und $\rho$ eine partielle Belegung, dann
+                        bezeichne $F|_{\rho}$ die Formel, die wir erhalten, wenn wir für jedes Blatt
+                        $x$ bzw. $\neg x$ mit $\rho(x) \ne *$ den entsprechenden Wert einsetzen
+                        (also $x$ durch $\rho(x)$ und $\neg x$ durch $\neg \rho(x)$ ersetzen) und
+                        folgende Vereinfachungsregeln anwenden:
+                    </p>
+                    <ol>
+                        <li>
+                            Ersetze $0 \wedge F$ und $F \wedge 0$ durch $0$.
+                        </li>
+                        <li>
+                            Ersetze $1 \wedge F$ und $F \wedge 1$ durch $F$.
+                        </li>
+                        <li>
+                            Ersetze $0 \vee F$ und $F \vee 0$ durch $F$.
+                        </li>
+                        <li>
+                            Ersetze $1 \vee F$ und $F \vee 1$ durch $1$.
+                        </li>
+                    </ol>
+                    <p>
+                        Dahinter steckt keine Magie. Es ist genau das, was Sie sowieso machen würden.
+                        Wenn $F$ die Funktion $f$ berechnet, dann berechnet $F|_{\rho}$ die Funktion $f|_{\rho}$.
+                        Für eine Boolesche Formel $F$ bezeichne $L(F)$ die Anzahl ihrer Blätter.
+                        Für eine Boolesche <em>Funktion</em> $f$ bezeichne $L(f)$ die Anzahl der Blätter
+                        in einer kleinsten Booleschen Formel von Fan-in 2 für $f$. Sei zum Beispiel
+                        $F$ die Formel
+                    </p>
+                    <figure>
+                        <img src='../img/09-boolean-circuits/formula-lower-bounds/formula-maj-3.svg'
+                            style='height:10em'>
+                    </figure>
+                    <p>
+                        Es gilt $L(F) = 6$. Die Formel $F$ berechnet die
+                        $3$-Bit-Majority-Funktion $\maj_3$, und somit gilt
+                    </p>
+                    \begin{align*}
+                    L(\maj_3) \leq 6 \ .
+                    \end{align*}
+                    <p>
+                        Subbotowskajas Idee ist nun, dass eine Formel schrumpft, wenn wir
+                        eine Variable $x$ durch eine Konstante ersetzen. Wenn zum Beispiel
+                        $F$ eine Formel mit $s$ Blättern ist und
+                        $t$ ihrer Blätter mit $x$ oder $\neg x$ gelabelt sind, dann
+                        haben $F|_{x \mapsto 1}$ und $F|_{x \mapsto 0}$
+                        höchstens $s-t$ Blätter. Dies allein ist einigermaßen trivial. Die
+                        Beobachtung ist jedoch, dass $F$ deutlich mehr als $t$ Blätter verliert.
+                    </p>
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='lemma-shrinkage' data-label-title='Lemma'>Lemma</span>
+                            <strong>(Schrumpfungslemma).</strong> Sei
+                            $F$ eine Boolesche Formel
+                            mit $n$ Variablen und $L(F) \geq 2$. Dann gibt es eine Variable $x$ und einen
+                            Wert $z \in \{0,1\}$, so dass
+                        </p>
+                        \begin{align*}
+                        L\left(F|_{x \mapsto z}\right) \leq \left(1 - \frac{3}{2} \cdot \frac{1}{n}\right) \cdot L(F)
+                        \end{align*}
+                        gilt.
+                    </div class='well container theorem'>
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Sei $s := L(F)$. Für eine Variable $x$ sei $d(x)$ die Anzahl der Blätter von
+                            $F$, deren Label $x$ oder $\neg x$ ist. Es gilt also $\sum_{x \in V} d(x) = L$.
+                            Sei $x$ die Variable mit größtem $d(x)$-Wert. Es gilt also
+                            $d(x) \geq s/n$. In $F|_{x \mapsto 1}$ verschwinden alle Blätter mit
+                            Label $x$ oder $\neg x$ und somit hat
+                            $F|_{x \mapsto 1}$ höchstens $s - d(x) \leq s - s/n = s(1 - 1/n)$ Blätter. Das
+                            passt von der Form schon mal zu der behaupteten Schranke, allerdings
+                            fehlt der Faktor 3/2.
+                        </p>
+                        <p>
+                            Schauen wir genauer hin und betrachten ein Blatt $u$ mit Label $x$ oder $\neg x$. Da
+                            $L(F) \geq 2$ gilt, hat $u$ einen Elternknoten $v$. Dieser hat ein weiteres Kind $w$;
+                            sei $G$ die Formel, die $w$ repräsentiert. Der Knoten $v$ repräsentiert nun eine
+                            der folgenden vier Formeln:
+                        </p>
+                        <ol type="a">
+                            <li>$(x \vee G)$</li>
+                            <li>$(x \wedge G)$</li>
+                            <li>$((\neg x) \vee G)$</li>
+                            <li>$((\neg x) \wedge G)$</li>
+                        </ol>
+                        <p>
+                            Im Fall (a) und (d) würde $x \mapsto 1$ nicht nur das Blatt $u$ sondern
+                            auch $v$ mitsamt Teilbaum beseitigen und durch eine Konstante ersetzen.
+                            In den Fällen (b) und (c) würde dies für $x \mapsto 0$ geschehen.
+                        </p>
+                        <figure>
+                            <img src='../img/09-boolean-circuits/formula-lower-bounds/formulas-02-01.svg'
+                                style='height:16em'>
+                            <br>
+                            <caption>Wenn wir $x$ auf $1$ setzen, dann verschwindet das mit $x$ beschriftete
+                                Blatt und lässt auch Elternknoten und Geschwisterbaum verschwinden;
+                                das mit $\neg x$ beschriftete Blatt verschwindet auch, aber der
+                                Geschwisterbau $H$ überlebt.
+                            </caption>
+                        </figure>
+                        <p>
+                            Sei nun $a$ die Anzahl der Blätter mit Beschriftung $x$ und Elternknoten $\vee$;
+                            $b$ die mit Beschriftung $x$ und Eltern $\wedge$;
+                            $c$ die mit $\neg x$ und $\vee$; $d$ die mit $\neg x$ und $\wedge$, wie in der Liste oben.
+                            Die Belegung $x \mapsto 1$ vernichtet alle $a+b+c+d$ Blätter plus
+                            die $a+d$ Geschwisterbäume in den Subformeln $(x \vee G)$ und $((\neg x) \vee H)$.
+                            Analog vernichtet die Belegung $x \mapsto 0$ zusätzlich $b+c$ Geschwisterbäume.
+                            Es gilt also
+                        </p>
+                        \begin{align*}
+                        L\left( F|_{x \mapsto 1} \right) & \leq (a + b + c + d) + (a + d) \ ,\\
+                        L\left( F|_{x \mapsto 0} \right) & \leq (a + b + c + d) + (b + c) \ .
+                        \end{align*}
+                        <p>
+                            Der größere der beiden ist mindestens halb so groß wie deren Summe, also
+                            mindestens $\frac{3}{2} (a + b + c + d) = \frac{3}{2} d(x)$, und somit gilt
+                        </p>
+                        \begin{align*}
+                        \min \left( L\left(F|_{x \mapsto 0}\right),L\left(F|_{x \mapsto 1}\right) \right)
+                        \leq s - \frac{3}{2} d(x) \leq s - \frac{3}{2} \cdot \frac{s}{n} \ .
+                        \end{align*}
+                        <p>
+                            Wir wählen nun den Booleschen Wert $z \in \{0,1\}$, der das obige Minimum
+                            realisiert und erhalten die behauptete Schranke.
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+                    </div class='proof'>
+                    <p>
+                        Sei nun $F$ eine Formel, die die $n$-Bit-Parity berechnet.
+                        Wir können nun zeigen, dass $F$ groß ist, indem wir sukzessive Restriktionen
+                        $[x \mapsto z]$ finden, die $F$ (oder das, was davon noch übrig ist) stark schrumpfen
+                        lassen; wenn noch $k$ Variablen übrig sind, muss das verbleibende $F$ immer noch
+                        eine $k$-Bit-Parity berechen, und $F$ muss also immer noch mindestens $k$ Blätter
+                        haben. Da das Lemma zeigt, dass $F$ in jedem Schritt "überraschend stark" schrumpft,
+                        können wir schlussfolgern, dass $F$ zu anfangs "überraschend groß" gewesen sein muss.
+                    </p>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Theorem'>Theorem</span>
+                            <strong>(Subbotowskaja.) </strong> Sei $F$ eine Boolesche Formel
+                            über $V = \{x_1, \dots, x_n\}$, die die Parity-Funktion
+                            $x_1 \oplus \dots \oplus x_n$ berechnet. Dann ist $L(F) \geq n^{3/2}$.
+                        </p>
+                    </div class='well container theorem'>
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Sei $F$ eine solche Formel. Wir setzen $F_n := F$ und definieren eine
+                            Reihe $F_n, F_{n-1}, F_{n-2}, \dots, F_{2}, F_{1}$ mit folgenden Eigenschaften:
+                        </p>
+                        <ol>
+                            <li>
+                                $F_k$ ist eine Boolesche Formel über einer Variablenmenge $V_k \subseteq V$
+                                der Größe $k$.
+                            </li>
+                            <li>
+                                $F_k$ berechnet entweder die Parity $\bigoplus_{x \in V_k} x$ seiner Argumente
+                                oder deren Negation $1 \oplus \bigoplus_{x \in V_k} x$.
+                            </li>
+                            <li>
+                                Für $2 \leq k \leq n$ gilt
+                                $L(F_{k-1}) \leq L(F_k) \cdot \left(1 - \frac{3}{2} \cdot \frac{1}{k}\right)$.
+                            </li>
+                        </ol>
+                        <p>
+                            Wie finden wir diese? Nun ja, wenn $k \geq 2$, dann berechnet $F_k$ eine
+                            $k$-Bit-Parity oder deren Negation; in jedem Fall hängt sie von allen Variablen ab
+                            und hat somit mindestens zwei Blätter: $L(F_k) \geq 2$. Wir können
+                            also das Lemma anwenden und eine Variable $x$ und einen Wert $z \in \{0,1\}$ finden
+                            mit
+                        </p>
+                        \begin{align*}
+                        L\left(F_k|_{x \mapsto z}\right) \leq \left(1 - \frac{3}{2} \cdot \frac{1}{k}\right) \cdot
+                        L(F_k)
+                        \end{align*}
+                        <p>
+                            Wir definieren nun $F_{k-1} := F_k|_{x \mapsto z}$. Diese erfüllt die
+                            behaupteten Eigenschaften 1, 2, 3. Es gilt nun
+                        </p>
+                        \begin{align*}
+                        L(F_1) \leq L(F_n) \cdot \left(1 - \frac{3}{2} \cdot \frac{1}{n}\right) \cdot
+                        \left(1 - \frac{3}{2} \cdot \frac{1}{n-1}\right) \cdot
+                        \left(1 - \frac{3}{2} \cdot \frac{1}{n-2}\right) \cdots
+                        \left(1 - \frac{3}{2}\cdot \frac{1}{3}\right)
+                        \left(1 - \frac{3}{2}\cdot \frac{1}{2}\right) \ .
+                        \end{align*}
+                        <p>
+                            Da dieses Produkt unangenehm auszuwerten ist, behelfen wir uns mit
+                            folgender Abschätzung:
+                        </p>
+                        <div class='well container subtheorem'>
+                            <p><span class='numbered-title' id='prob-1-x'
+                                    data-label-title='Behauptung'>Beobachtung.</span>
+                                $1 - \frac{3}{2} \cdot x \leq (1-x)^{3/2}$ für alle $x \in [0,1]$.</p>
+                        </div class='well container subtheorem'>
+                        <p>
+                            Wir können nun also abschätzen:
+                        </p>
+                        \begin{align*}
+                        L(F_1) & \leq L(F_n) \cdot \left(1 - \frac{3}{2} \cdot \frac{1}{n}\right) \cdot
+                        \left(1 - \frac{3}{2} \cdot \frac{1}{n-1}\right) \cdot
+                        \left(1 - \frac{3}{2} \cdot \frac{1}{n-2}\right) \cdots
+                        \left(1 - \frac{3}{2}\cdot \frac{1}{3}\right)
+                        \left(1 - \frac{3}{2}\cdot \frac{1}{2}\right) \\
+                        & \leq
+                        L(F_n) \cdot \left(1 - \frac{1}{n}\right)^{3/2} \cdot
+                        \left(1 - \frac{1}{n-1}\right)^{3/2} \cdot
+                        \left(1 - \frac{1}{n-2}\right)^{3/2} \cdot
+                        \cdots
+                        \left(1 - \frac{1}{3}\right)^{3/2} \cdot
+                        \left(1 - \frac{1}{2}\right)^{3/2} \\
+                        & = L(F_n) \left( \frac{n-1}{n} \cdot
+                        \frac{n-2}{n-1} \cdot
+                        \frac{n-3}{n-2} \cdot
+                        \cdots
+                        \frac{2}{3} \cdot
+                        \frac{1}{2} \cdot \right)^{3/2} \\
+                        & = L(F) \cdot \pfrac{1}{n}^{3/2}
+                        \end{align*}
+                        <p>
+                            da sich alles andere herauskürzt. Es gilt
+                            also
+                        </p>
+                        \begin{align*}
+                        L(F) \geq n^{3/2} \cdot L(F_1) \ .
+                        \end{align*}
+                        Und $L(F_1) \geq 1$ gilt, weil jede Formel mindestens ein Blatt haben muss.
+                        <span class='qed'>\(\square\)</span>
+                    </div class='proof'>
+
+                    <h3>
+                        Literatur
+                    </h3>
+
+                    <ul>
+                        <li>
+                            Statys Jukna, <em>Boolean Function Complexity</em>, Kapitel 6.
+                        </li>
+                    </ul>
+                </div class='subChapter'>
+
+            </div class='chapter'>
+
+        </div class="content">
+    </div class="rightSideWrapper">
+
+    <div id="navigation-links">
+    </div>
+
+
+
+</body>
+<script>
+    var chaptersStartAt = 1;
+    var subChaptersStartAt = 5;
+</script>
+<script type="text/javascript" src="../javascript/table-of-contents.js"></script>
+<script type="text/javascript" src="../javascript/number-my-theorems.js"></script>
+
+</html>

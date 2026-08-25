@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="data:,">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Berechenbarkeit und Kreativität</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lecture-notes.css" />
+    <link rel="stylesheet" type="text/css" href="../Course.css" />
+    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>-->
+    <!-- <script type=”text/javascript”
+        src=”http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML”></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+
+
+    <script>
+        MathJax = {
+            tex: {
+                tags: 'ams',
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+
+    </script>
+
+
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+
+
+
+
+    <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    -->
+    <!-- <script type="text/javascript" src="script.js"></script> -->
+
+</head>
+
+
+
+<body>
+
+    <div id='mathjax-definitions' style="display:none">
+        \(
+        \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+        \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+        \newcommand{\R}{\mathbb{R}}
+        \newcommand{\Z}{\mathbb{Z}}
+        \newcommand{\N}{\mathbb{N}}
+        \newcommand{\Q}{\mathbb{Q}}
+        \newcommand{\cin}{c_{\rm in}}
+        \newcommand{\cout}{c_{\rm out}}
+        \newcommand{\maj}{\textnormal{Maj}}
+        \newcommand{\xor}{\oplus}
+        \newcommand{\depth}{\textnormal{depth}}
+        \newcommand{\poly}{\textnormal{poly}}
+        \newcommand{\zero}{\textnormal{zero}}
+        \newcommand{\succ}{\textnormal{succ}}
+        \newcommand{\comp}{\textnormal{Comp}}
+        \newcommand{\primrec}{\textnormal{PrimRec}}
+        \newcommand{\pair}{\textnormal{Pair}}
+        \newcommand{\first}{\textnormal{First}}
+        \newcommand{\second}{\textnormal{Second}}
+        \newcommand{\enc}{\textnormal{enc}}
+        \newcommand{\halt}{{\rm H{\small ALT}}}
+        \newcommand{\bhalt}{{\rm T{\small IMED}H{\small ALT}}}
+        \newcommand{\tm}{\textnormal{TM}}
+        \newcommand{\diag}{\textnormal{Diag}}
+        \newcommand{\qaccept}{q_{\rm yes}}
+        \newcommand{\qreject}{q_{\rm no}}
+        \newcommand{\qstart}{q_{\rm start}}
+        \newcommand{\negdiag}{\textnormal{NegDiag}}
+        \newcommand{\bnegdiag}{\textnormal{TimedNegDiag}}
+        \newcommand{\writelambda}{\Sigma \cup \{0, 1, \texttt{#}, \texttt{,}, \texttt{L}, \texttt{S},
+        \texttt{R},\texttt{;}\}}
+        \newcommand{\TIME}{\textnormal{TIME}}
+        \newcommand{\NTIME}{\textnormal{NTIME}}
+        \newcommand{\satequiv}{\equiv_{\rm SAT}}
+        \)
+    </div id='mathjax-definitions'>
+
+
+
+    <div id="rightSideWrapper">
+
+
+        <div class="content">
+
+
+
+            <div class='chapter'>
+                <div class='subChapter'>
+                    <h1 class='hidden-title'>
+                        <span class='subChapterTitle'></span>
+                    </h1>
+
+                    <p>
+                        Im vorherigen Kapitel haben wir gesehen, wie man SAT als Modellierungssprache
+                        verwenden kann, um dann mit Hilfe einens SAT-Solvers eine ganze Reihe
+                        an Problemen zu modellieren und auch zu lösen. Was genau meinen
+                        wir mit <em>Modellierung</em>? Bei einer Modellierung nehmen wir eine
+                        Instanz eines Problems, also z.B. einen Graphen $G$ als Instanz des
+                        Problems <span style="font-variant: small-caps;">3-Colorability</span>;
+                        das Ergebnis der Modellierung ist eine CNF-Formel $F$. Folgende
+                        Bedingungen sollten erfüllt sein:
+                    </p>
+                    <ol>
+                        <li>
+                            Es gibt einen effizienten Algorithmus, der auf Eingabe $G$ die Formel $F$
+                            berechnet. Das impliziert auch, dass $F$ nicht gigantisch groß im Vergleich
+                            zu $G$ sein darf.
+                        </li>
+                        <li>
+                            Falls $G$ 3-färbbar ist, dann soll $F$ erfüllbar sein, und umgekehrt.
+                        </li>
+                        <li>
+                            Aus einer erfüllenden Belegung von $F$ können wir effizient eine $3$-Färbung
+                            von $G$ rekonstruieren.
+                        </li>
+                    </ol>
+
+
+
+                    <p>
+                        Nun formalisieren wir das alles in der Fachterminologie der
+                        Komplexitätstheorie. Als erstes ignorieren wir Punkt 3;
+                        wir sind also nur an einer binären Antwort interessiert (beim SAT-Solver
+                        also <tt>satisfiable</tt> oder <tt>unsatisfiable</tt>).
+                        In anderen Worten: Wir betrachten vorerst nur <em>Entscheidungsprobleme</em>, bei denen
+                        wir eine binäre Antwort erwarten. Im allgemeinen haben wir ein
+                        endliches Eingabealphabet $\Sigma$; Instanzen unseres Problems
+                        (also CNF-Formeln, Graphen, Sudokus) können als Wörter über diesem Alphabet
+                        codiert werden, also als Elemente in $\Sigma^*$ betrachtet werden.
+                        Das Entscheidungsprobleme ist somit eine Boolesche Funktion
+                    </p>
+                    \begin{align*}
+                    \Sigma^* \rightarrow \{0,1\}
+                    \end{align*}
+                    <p>
+                        oder, in einer in der theoretischen Informatik verbreiteteren Sichtweise, eine
+                        Teilmenge
+                    </p>
+                    \begin{align*}
+                    L \subseteq \Sigma^* \ ,
+                    \end{align*}
+                    <p>
+                        auch <em>Sprache</em> genannt. Jede Sprache $L \subseteq \Sigma^*$ definiert
+                        ein Entscheidungsproblem: <em>gegeben eine Instanz $x \in \Sigma^*$, ist $x \in L$?</em>
+                        Eine Reduktion bedeutet nun, ein Problem $L_1$ (z.B. Sudokus)
+                        mithilfe eines weiteren Problems $L_2$ (z.B. SAT) zu lösen.
+                    </p>
+
+
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='definition-polynomial-reduction'
+                                data-label-title='Definition'>Definition</span>
+                            <strong>(Polynomialzeitreduktion).</strong> Seien zwei Sprachen
+                            $L_1 \subseteq \Sigma_1^*$ und $L_2 \subseteq \Sigma_2^*$ gegeben. Eine
+                            Polynomialzeitreduktion von $L_1$ auf $L_2$ ist eine Funktion
+                        </p>
+                        \begin{align*}
+                        f: \Sigma_1^* \rightarrow \Sigma_2^*
+                        \end{align*}
+                        <p>
+                            mit folgenden Eigenschaften:
+                        </p>
+                        <ol>
+                            <li>Es gibt einen polynomiellen Algorithmus, der $f$ berechnet.</li>
+                            <li>
+                                Für alle $x \in \Sigma_1^*$ gilt
+                                \begin{align*}
+                                x \in L_1 \Longleftrightarrow f(x) \in L_2 \ .
+                                \end{align*}
+                            </li>
+                        </ol>
+                        <p>
+                            Wir schreiben dann $L_1 \leq_p L_2$.
+                        </p>
+                    </div class='well container theorem'>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Beobachtung'>Beobachtung</span>
+                            Wenn $L_1 \leq_p L_2$ gilt und wir einen polynomiellen Algorithmus
+                            haben, der $L_2$ entscheidet, dann haben wir auch, der $L_1$ entscheidet.</p>
+                    </div class='well container theorem'>
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Hier ist mein Pseudocode für einen Algorithmus, der $L_1$ entscheidet:
+                        </p>
+                        <pre>
+boolean decide_L2(Sigma2[] y); <span class='comment'>// haben wir, nach Annahme</span>
+Sigma2[] reduce_L1_to_L2(Sigma1[] x); <span class='comment'>// haben wir, nach Annahme</span>
+
+boolean decide_L1(Sigma1[] x) {
+    Sigma2[] y = reduce_L1_to_L2(x_);
+    return decide_L2(y);
+}</pre>
+                        <p>
+                            Das ist genau das, was wir im vorherigen Kapitel getan haben (nur mit
+                            Python-Programmen und auf der Shell).
+                        </p>
+                        <ul>
+                            <li><tt>reduce_L1_to_L2</tt> war mein Python-Programm
+                                <tt><a
+                                        href="../code/sat-solving/sudoku/sat-assignment-to-sudoku-solution.py">sat-assignment-to-sudoku-solution.py</a></tt>
+                            </li>
+                            <li>
+                                <tt>decide_L2</tt> war das Programm <tt>minisat</tt>.
+                            </li>
+                            <li>
+                                <tt>decide_L1</tt> hätten wir als Shell-Skript schreiben können, dass die beiden obigen
+                                kombiniert. Stattdessen
+                                haben wir alles per Hand ausgeführt.
+                            </li>
+                        </ul>
+                        Es fehlt noch eine kurze Rechnung, warum <tt>decide_L1</tt> auch effizient ist. Nach Annahme hat
+                        <tt>reduce_L1_to_L2</tt> eine Laufzeit von $O(n^k)$ und <tt>decide_L2</tt> eine Laufzeit von
+                        $O(n^l)$.
+                        Bei Eingabe $x \in \Sigma_1^*$ mit $|x| = n$ läuft also
+                        <tt>reduce_L1_to_L2(x)</tt> in höchstens $c_1 n^k + d_1$ Schritten, und somit gilt auch $|y|
+                        \leq c_1 n^k + d_1$.
+                        Die Laufzeit von <tt>decide_L2(y)</tt> ist dann höchstens
+                        \begin{align*}
+                        c_2 |y|^l + d_2 \leq c_2 \left(c_1 n^k + d_1 \right)^l + d_2 = O(n^{kl}) \ ,
+                        \end{align*}
+                        was selbst wieder polynomiell ist.
+                        <span class='qed'>\(\square\)</span>
+                    </div class='proof'>
+
+                    <h3>Der Effizienzbegriff</h3>
+                    <p>
+                        Diese unschuldige Beobachtung ist einer der Gründe, warum wir <em>polynomielle Laufzeit</em> als
+                        effizient bezeichnen. Würden wir sagen, <em>alles bis $O(n^2)$ ist effizient</em>, dann
+                        könnte eine effiziente Reduktion mit Laufzeit $O(n^2)$ und ein effizienter
+                        Solver <tt>decide_L2</tt> von Laufzeit $O(n^2)$ eine insgesamt ineffiziente Laufzeit von
+                        $O(n^4)$ ergeben. Die Menge der effizienten Algorihmen soll aber unter Verknüpfung abgeschlossen
+                        sein.
+                        Daher bietet sich $\poly(n)$ an. Alternative Effizienzbegriffe wären z.B.
+                    </p>
+                    <ul>
+                        <li>
+                            <em>Quasilineare</em> Algorithmen mit Laufzeit $O(n \log^k n)$. Dies würde Probleme wie
+                            <span style="font-variant: small-caps;">Minimum Spanning Tree</span>,
+                            <span style="font-variant: small-caps;">Shortest Path</span> und
+                            seit 2022 auch fast
+                            <span style="font-variant: small-caps;">Maximum Flow</span> (<a href="#maxflow-2022">Chen,
+                                Kyng, Liu, Peng,
+                                Gutenberg, and Sachdeva, 2022</a>; nicht ganz quasilinear, aber <em>almost linear</em>).
+
+                            beinhalten.
+                            Allerdings würden die derzeit besten bekannten Algorithmen für Lineares Programmieren,
+                            Matrixmultiplikation
+                            und Primzahltests als ineffizient gelten. Selbst
+                            für so einfache Fragen wie ob ein Graph ein Dreieck besitzt, hätten wir keinen effizienten
+                            Algorithmus.
+                        </li>
+                        <li>
+                            <em>Quasipolynomielle</em> Algorithmen mit Laufzeit $O(n^{\log^k n})$. Hier stellt sich
+                            heraus, dass es recht wenige "natürliche" Probleme gibt, für die wir quasipolynomielle aber
+                            keine polynomiellen Algorithmen kennen. Ein prominentes Beispiel ist
+                            <span style="font-variant: small-caps;">Graph Isomorphism</span>. Ein 2015 angekündigtes
+                            und 2017 korrigiertes Paper (<a href="#babai-2015">Babai 2015</a>) behauptet, einen
+                            quasipolynomiellen Algorithmus
+                            dafür zu geben; die Vollversion befindet sich aber immer noch in der Begutachtungsphase.
+                        </li>
+                    </ul>
+
+                    <h3>
+                        Beispiele von Reduktionen
+                    </h3>
+
+                    <p>
+                        Im letzten Kapitel haben wir mehrere Probleme auf SAT reduziert. In der Fachterminologie
+                        haben wir also gezeigt (bzw. Sie, falls Sie die Übungen gemacht haben):
+                    </p>
+                    <ul>
+                        <li>
+                            <span style="font-variant: small-caps;">3-Colorability $\leq_p$ SAT</span>
+                        </li>
+                        <li>
+                            <span style="font-variant: small-caps;">Perfect Matchin $\leq_p$ SAT</span>
+                        </li>
+                        <li>
+                            <span style="font-variant: small-caps;">Independent Set $\leq_p$ SAT</span>
+                        </li>
+                        <li>
+                            <span style="font-variant: small-caps;">Hamilton Path $\leq_p$ SAT</span>
+                        </li>
+                    </ul>
+
+                    <p>
+                        Sudokus und das Damenproblem habe ich hier nicht aufgeführt. Sudoku krankt daran,
+                        dass es ein endliches Problem ist und somit als "Sprache" $L \subseteq \Sigma^*$ uninteressant;
+                        um es für die Komplexitätstheorie interessant zu machen, müssten wir es Puzzles der Größe $[n^2]
+                        \times [n^2]$
+                        verallgemeinern. Beim Damenproblem ist nicht so klar, was der Input ist und was die Frage;
+                        wenn die Frage nur ist <em>Gibt es eine Lösung</em>, dann ist sie <em>Ja</em> für alle $n \geq
+                        4$ (<a href="#pauls-1874">Pauls, 1874</a>). Um es komplexitätstheoretisch interessant zu machen,
+                        könnten wir zum Beispiel eine Anordnung von $k \leq n$ Damen vorgeben und fragen, ob dieses
+                        Arrangement zu $n$ Damen vervollständigt werden kann. Beide Probleme, also
+                        <span style="font-variant: small-caps;">Generalized Sudoku</span> und
+                        <span style="font-variant: small-caps;">Queen Completion</span> könnten wir dann wie im letzten
+                        Kapitel auf SAT reduzieren.
+                    </p>
+
+
+                    <p>
+                        Ich werde Ihnen nun ein paar weitere, wichtige Reduktionen zeigen.
+                    </p>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='theorem-sat-to-3-sat'
+                                data-label-title='Theorem'>Theorem</span>
+                            SAT $\leq_p$ $3$-SAT.
+                    </div class='well container theorem'>
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Wir starten mit $F_0 := F$ und definieren eine Folge $F_0, F_1, \dots$ von
+                            CNF-Formeln. Sei $F_i$ die derzeit letzte erzeugte CNF-Formel.
+                            Falls $F_i$ eine Klausel $C$ mit vier oder mehr Literalen enthält,
+                            führen wir eine Operation durch, die $C$ durch zwei neue, kleinere Klauseln ersetzt:
+                            sei
+                        </p>
+                        \begin{align*}
+                        C = (u_1 \vee u_2 \vee u_3 \vee u_4 \vee \dots \vee u_k)
+                        \end{align*}
+                        <p>mit $k \geq 4$. Wir führen eine neue, bisher nicht verwendete Variable $z$ ein und
+                            erschaffen die Klauseln
+                        </p>
+                        \begin{align}
+                        C_1 := (\bar{z} \vee u_1 \vee u_2), \quad
+                        C_2 := (z \vee u_3 \vee \dots \vee u_k)
+                        \label{break-clause-into-two}
+                        \end{align}
+                        <p>
+                            Wir entfernen nun $C$ und fügen $C_1$ und $C_2$ ein und erhalten eine neue CNF-Formel
+                            $F_{i+1}$.
+                            Wir sehen nun: wenn $\alpha$ die Formel $F_{i+1}$ erfüllt, dann erfüllt sie auch
+                            $F_i$; umgekehrt wenn die Belegung $\beta$ die Formel $F_i$ erfüllt, dann erfüllt
+                            $\beta$ insbesondere $C$; wir bauen nun eine
+                            neue Belegung, die auch $z$ einen Wert zuweist und dann $C_1$ und $C_2$
+                            erfüllt: falls (1) $\beta$ die Klausel $(u_1 \vee u_2)$ erfüllt,
+                            dann setzen wir $z$ auf $1$, also $\alpha := \beta \cup [z \mapsto 1]$.
+                            Die Belegung $\alpha$ erfüllt nun $C_1$, weil $\beta$ das bereits tut,
+                            und $C_2$, weil $\alpha(z)=1$ ist;
+                            falls jedoch (2) $\beta$ die Klausel $(u_1 \vee u_2)$ nicht erfüllt,
+                            dann muss sie, da sie ja $C$ erfüllt, die Klausel $(u_3 \vee \dots \vee u_k)$
+                            erfüllen und erfüllt somit $C_2$, auch ohne Verwendung von $z$.
+                            Wir setzen nun $z$ auf $0$, also $\alpha := \beta \cup [z \mapsto 0]$ und
+                            erfüllen sowohl $C_1$ als auch $C_2$.
+                            Alle anderen Klauseln sind sowieso erfüllt,
+                            weil $\beta$ sie bereits erfüllt. Wir sehen:
+                        </p>
+                        \begin{align*}
+                        F_i \textnormal{ ist erfüllbar } \Longleftrightarrow F_{i+1} \textnormal{ ist erfüllbar } \ .
+                        \end{align*}
+                        <p>
+                            Die beiden neuen Klauseln $C_1$ und $C_2$ sind jeweils echt kleiner als $C$. Der Prozess
+                            endet irgendwann mit einer Formel $F_t$, in der jede Klausel höchstens drei Literale
+                            hat. Dies ist unser $F'$. Es ist klar, dass $F$ genau dann erfüllbar ist, wenn $F'$
+                            erfüllbar ist,
+                            also
+                        </p>
+                        \begin{align*}
+                        F \in \textnormal{SAT} \Longleftrightarrow F' \in \textnormal{3-SAT} \ .
+                        \end{align*}
+                        <p>
+                            Bleibt noch kurz die Überlegung, warum die Reduktion effizient ist.
+                            Wir können zum Beispiel das "Übergewicht" einer Formel definieren als
+                            \begin{align*}
+                            \textnormal{overweight}(F) = \sum_{C \in F} \max(0, |C| - 3) \ ,
+                            \end{align*}
+                            also alles, was pro Klausel über die erwünschten drei Literate hinausgeht. Jede
+                            Einführung einer neuen Klausel in
+                            (\ref{break-clause-into-two}) reduziert $\textnormal{overweight}$ um 1. Seien $m$ und $m'$
+                            ide
+                            Anzahl der Klauseln in $F$ bzw. $F'$.
+                            \begin{align*}
+                            m' \leq m + \textnormal{overweight}(F) \ .
+                            \end{align*}
+                            Somit ist $F'$ polynomiell in $F$.<span class='qed'>\(\square\)</span>
+                        </p>
+
+                    </div class='proof'>
+
+
+                    <div class='well container demo'>
+                        <p><span class='numbered-title'>Warnhinweis. </span> Die im Beweis konstruierten Formeln $F$
+                            und $F'$
+                            sind <em>nicht</em> äquivalent. Betrachten wir zum Beispiel die $4$-CNF $(a \vee b \vee c
+                            \vee d)$ mit
+                            nur einer Klausel. Obige Reduktion erzeugt daraus
+                        </p>
+                        \begin{align*}
+                        F' := (\bar{z} \vee a \vee b) \wedge (z \vee c \vee d)
+                        \end{align*}
+                        <p>
+                            Die Formeln $F$ und $F'$ sind nicht äquivalent. Die Belegung
+                            $[z \mapsto 1, a \mapsto 0, b \mapsto 0, c \mapsto 0, d \mapsto 1]$ erfüllt $F$ aber nicht
+                            $F'$.
+                        </p>
+                        <div class='well well-lg numbered-exercise container-fluid'>
+                            <p><span class='numbered-title' id='put-unique-name-here'
+                                    data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                                Zeigen Sie: zur Formel $(a \vee b \vee c \vee d)$ gibt es keine äquivalente $3$-CNF.
+                            </p>
+                            <p><strong>Tip:</strong> betrachten Sie die "0-Sensitivität": wenn $F$ eine $3$-CNF ist
+                                $\alpha$ eine nichterfüllende Belegung, also $F(\alpha) = 0$, maximal wieviele
+                                der $|V|$ "Nachbarn" von $\alpha$ können denn überhaupt $F$ erfüllen?
+                            </p>
+                        </div class='numbered-exercise'>
+                        <p>
+                            Es gilt also $F \not \equiv F'$. Wir behaupten ja auch gar nicht, dass $F'$ äquivalent zu
+                            $F$ ist;
+                            wir behaupten nur, dass $F'$ erfüllbar ist genau dann, wenn $F$ es ist. Wir führen eine
+                            neue Schreibweise ein:
+                        </p>
+                        \begin{align*}
+                        F \satequiv F' \ .
+                        \end{align*}
+
+                        <p>Wir werden uns
+                            den Zusammenhang zwischen $F$ und $F'$ in
+                            <a href="blabla">Kapitel blabla</a> noch genauer ansehen.
+                        </p>
+                    </div class='well container demo'>
+                </div>
+                <h3><span style="font-variant: small-caps;">Circuit Satisfiability</span></h3>
+                <p>
+                    Ein Problem werden wir noch als CNF modellieren - also auf SAT reduzieren. Danach schauen wir
+                    weiter.
+                </p>
+                <div class='well well-lg numbered-exercise container'>
+                    <p><span class='numbered-title' id='problem-circuit-sat' data-label-title='Problem'>Problem</span>
+                        (<span style="font-variant: small-caps;">Circuit-SAT</span>). Gegeben
+                        ein Boolescher Schaltkreis $C$ mit $n$ Eingabevariablen und einem
+                        Ausgabegatter. Gibt
+                        es ein $x \in \{0,1\}^n$ mit $C(x) = 1$?
+                    </p>
+                </div class='numbered-exercise'>
+                <p>
+                    Offensichtlich gilt
+                    <span style="font-variant: small-caps;">SAT $\leq_p$ Circuit-SAT</span>
+                    und
+                    <span style="font-variant: small-caps;">3-SAT $\leq_p$ Circuit-SAT</span>, da
+                    CNF-Formeln (und somit auch $3$-CNF-Formeln) Spezialfälle Boolescher Schaltkreise sind.
+                    Überraschender ist, dass man <span style="font-variant: small-caps;">Circuit SAT</span>
+                    auf SAT reduzieren kann, welches sich ja nur mit CNF-Formeln beschäftigt.
+                </p>
+                <div class='well container theorem'>
+                    <p><span class='numbered-title' id='lemma-circuit-to-3-sat' data-label-title='Lemma'>Lemma</span>
+                        <span style="font-variant: small-caps;"> Circuit-SAT $\leq_p$ 3-SAT </span>.
+                    </p>
+                </div class='well container theorem'>
+                <div class='well container'>
+                    <p><strong>Beweis.</strong>
+                        Wir haben also einen Schaltkreis $C$ mit $n$ Eingabe-Variablen und $m$ Gates
+                        gegeben.
+                        Unsere Aufgabe ist es, eine $3$-CNF-Formel $F$ zu bauen, so dass
+                        $F$ genau dann erfüllbar ist, wenn $C$ erfüllbar ist. Wir demonstrieren
+                        die Umformung an einem Beispiel:
+                    </p>
+                    <figure>
+                        <img src='../img/02-sat-and-reductions/circuit-to-3-cnf/circuit-to-3-cnf-01-01.svg'
+                            style='height:16em'>
+                    </figure>
+                    <p>
+                        Ich will zuerst diskutieren, was <em>nicht</em> geht. Der obige Schaltkreis
+                        (so wie jeder) berechnet eine Funktion $f_C: \{0,1\}^n \rightarrow \{0,1\}$.
+                        Das Problem <span style="font-variant: small-caps;">Circuit-SAT</span>
+                        fragt nun, ob $f_C$ nicht die konstante Nullfunktion ist. Wir können im Allgemeinen
+                        $f_C$ <em>nicht</em> als $3$-CNF-Formel schreiben. Obigen Schaltkreis zum Beispiel
+                        nicht. Wir können $f_C$ allgemein als CNF-Formel schreiben mit der
+                        Wahrheitstabellenmethode. Hierfür brauchen wir aber $2^n$ Schritte, und unsere
+                        Reduktion wäre nicht mehr polynomiell. Allerdings muss die $3$-CNF-Formel $F$,
+                        also das Ergebnis der Reduktion, auch nicht äquivalent zu $C$ sein, sondern
+                        nur <em>SAT-äquivalent</em>: $F$ muss genau dann erfüllbar sein, wenn $C$ erfüllbar ist.
+                    </p>
+                    <p>
+                        Wenden wir uns obigem Schaltkreis zu. Wir führen für jedes Gate eine Variable
+                        ein, die seinen Output darstellen soll. Hier sind das $g_1, g_2, \dots, g_{11}$:
+                    </p>
+                    <figure>
+                        <img src='../img/02-sat-and-reductions/circuit-to-3-cnf/circuit-to-3-cnf-01-02.svg'
+                            style='height:16em'>
+                    </figure>
+                    <p>
+                        Die Aussage <em>$g_4$ ist der Output des zweiten OR-Gates von links</em> können wir
+                        nun schreiben als $g_4 \leftrightarrow (x \vee y)$. Das $\leftrightarrow$ ist hierbei
+                        der Boolesche Operator, der Gleichheit testet. Wir tun dies für jedes Gate
+                        und erhalten folgende Formel:
+                    </p>
+                    \begin{align*}
+                    & (g_1 \leftrightarrow (\neg x)) \quad \wedge \\
+                    & (g_2 \leftrightarrow (\neg y)) \quad \wedge \\
+                    & (g_3 \leftrightarrow (g_1 \vee g_2)) \quad \wedge \\
+                    & (g_4 \leftrightarrow (x \vee y)) \quad \wedge \\
+                    & (g_5 \leftrightarrow (g_3 \wedge g_4)) \quad \wedge \\
+                    & (g_6 \leftrightarrow (\neg z)) \quad \wedge \\
+                    & (g_7 \leftrightarrow (\neg w)) \quad \wedge \\
+                    & (g_8 \leftrightarrow (g_6 \vee g_7)) \quad \wedge \\
+                    & (g_9 \leftrightarrow (z \vee w)) \quad \wedge \\
+                    & (g_{10} \leftrightarrow (g_8 \wedge g_9)) \quad \wedge \\
+                    & (g_{11} \leftrightarrow (g_{5} \vee g_{10}))\\
+                    & (g_{11})
+                    \end{align*}
+                    <p>
+                        Die ersten 11 Teilausdrücke stellen sicher, dass jedes $g_i$ den "richtigen" Wert
+                        annimmt. Mit dem letzten Teilausdruck $(g_{11})$ drücken wir aus, dass wir
+                        wollen, dass der Schaltkreis $1$ ausgibt. Es gilt nun:
+
+                    </p>
+                    <ol>
+                        <li>
+                            Wenn eine Belegung der Variablen $(x, y, z, w, g_1, \dots, g_{11})$ die Formel
+                            $F$ erfüllt, dann haben alle Variablen $g_i$ den Wert, den das entsprechende
+                            Gate ausgibt, und somit gilt $C(x,y,z,w) = 1$.
+                        </li>
+                        <li>
+                            Falls $C(x,y,z,w) = 1$ gilt, dann können wir $g_i$ auf den Output-Wert des
+                            $i$-ten Gates setzen und erhalten eine Belegung
+                            der Variablen $(x, y, z, w, g_1, \dots, g_{11})$, die $F$ erfüllt.
+                        </li>
+                    </ol>
+                    <p>
+                        Im allgemeinen gilt also für jedes $x \in \{0,1\}^n$:
+                    </p>
+                    \begin{align*}
+                    C(x) = 1 \Longleftrightarrow \exists g \in \{0,1\}^m: F(x,g) = 1 .
+                    \end{align*}
+                    <P>
+                        Die obige Formel ist nicht in konjunktiver Normalform, da jeder
+                        Teilausdruck Operatoren wie $\leftrightarrow$ etc. enthält. Jeder
+                        Teilausdruck ist aber in sich eine Formel mit drei Variablen; somit
+                        können wir eine Wahrheitstabelle mit $8$ Zeilen anlegen und ihn in
+                        eine äquivalente 3-CNF-Formel mit maximal $8$ Klauseln umformen.
+                        Die schlussendliche $3$-CNF-Formel hat somit $n + m$ Variable (die Eingabevariablen
+                        von $C$ plus eine für jedes Gate) und maximal $8m + 1$ Klauseln, von denen
+                        jede höchstens drei Variable enthält.<span class='qed'>\(\square\)</span>
+                    </P>
+
+                </div class='proof'>
+
+                <p>
+                    Vereinfacht ausgedrückt gibt uns diese Reduktion gibt uns ein Anwendungsgebiet für SAT-Solver:
+                    Hardware-Verifikation. Stellen wir uns vor, ein Hardwarehersteller hat bisher
+                    eine bestimmte Funktionalität als ineffizienten, aber bewährten und übersichtlichen
+                    Schaltkreis implementiert. Sie schlagen nun einen hoch optimierten Schaltkreis vor
+                    und behaupten, der tut das gleiche, nur schneller, mit weniger Energie und weniger
+                    Herstellungskosten.
+                </p>
+                <figure>
+                    <img src='../img/02-sat-and-reductions/circuit-to-3-cnf/two-circuits.svg' style='height:20em'>
+                </figure>
+                <p>
+                    Wir bauen daraus folgenden großen Schaltkreis mit nur einem Ausgabegatter:
+                </p>
+                <figure>
+                    <img src='../img/02-sat-and-reductions/circuit-to-3-cnf/two-circuits-comparator.svg'
+                        style='height:30em'>
+                </figure>
+                <p>
+                    Es gilt nun: wenn die beiden Schaltkreise <em>nicht</em> äquivalent sind (es also
+                    einen Fehler gibt),
+                    dann ist der untere Schaltkreis erfüllbar, und umgekehrt. Wir können nun
+                    den großen Schaltkreis zu einer CNF reduzieren und per SAT-Solver zu lösen
+                    versuchen.
+                </p>
+
+                <h3>Reduktionen ohne SAT als Ziel</h3>
+
+                <p>
+                    Bisher haben wir allerlei Probleme auf SAT reduziert, also als CNF modelliert.
+                    Nun zeigen wir, dass es auch anders geht. Als erstes sehen wir, dass wir
+                    ein SAT-Problem als Färbbarkeitsproblem modellieren können.
+                </p>
+
+                <div class='well container theorem'>
+                    <p><span class='numbered-title' id='theorem-3-col-to-sat' data-label-title='Theorem'>Theorem</span>
+                        <span style="font-variant: small-caps;">SAT $\leq_p$ 3-Colorability</span>.
+                    </p>
+                </div class='well container theorem'>
+                <div class='well container'>
+                    <p><strong>Beweis.</strong>
+                        Uns ist eine 3-CNF-Formel $F$
+                        gegeben. Wir müssen jetzt einen Graphen $G = (V,E)$ bauen,
+                        der die Aussage <em>$F$ ist erfüllbar</em> irgendwie in seiner
+                        3-Färbbarkeit oder eben Nicht-3-Färbbarkeit codiert. Dies ist schwieriger, weil
+                        Aussagen sich eben leicht als aussagenlogische Formeln (daher der Name) und somit dann CNFs
+                        schreiben lassen, aber nicht so einfach als Graphfärbungsprobleme.
+                    </p>
+                    <p>
+                        Als ersten Schritt legen wir fest, dass die drei Farben nicht $1, 2, 3$ sein sollen,
+                        sondern <tt>True, False, Neutral</tt>.
+                    </p>
+                    <figure class='centered-figure well container-fluid'>
+                        <a class='left carousel-control-prev-icon' href='#3-sat-to-3-col' data-slide='prev'>
+                            <div class='carousel-nav-icon'>
+                                <img src='../img/carousel-prev-icon.svg'>
+                            </div>
+                        </a>
+                        <a class='right carousel-control-next-icon' href='#3-sat-to-3-col' data-slide='next'>
+                            <div class='carousel-nav-icon'>
+                                <img src='../img/carousel-next-icon.svg'>
+                            </div>
+                        </a>
+                        <div id='3-sat-to-3-col' class='carousel' data-interval='false'
+                            style='display:inline-block;width:100%'>
+                            <ol class='carousel-indicators'>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='1' class='active'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='2'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='3'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='4'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='5'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='6'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='7'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='8'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='9'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='10'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='11'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='12'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='13'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='14'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='15'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='16'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='17'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='18'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='19'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='20'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='21'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='22'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='23'></li>
+                                <li data-target='#3-sat-to-3-col' data-slide-to='24'></li>
+                            </ol>
+                            <div class='carousel-inner' style='display:inline-block'>
+                                <div class='item active'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-01.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-02.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-03.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-04.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-05.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-06.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-07.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-08.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-09.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-10.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-11.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-12.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-13.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-14.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-15.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-16.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-17.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-18.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-19.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-20.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-21.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-22.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-23.svg'
+                                        style='width:100%'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/sat-to-col/sat-to-col-01-24.svg'
+                                        style='width:100%'></div>
+                            </div class='carousel-inner'>
+                        </div class='carousel'>
+                    </figure>
+                    <p>
+                        Wir wiederholen die beschriebene Konstruktion für jede Klausel in $F$.
+                        Wir erhalten einen Graphen $G$, der genau dann $3$-färbbar ist, wenn
+                        $F$ erfüllbar ist.
+                        Als kostenlose Zugabe erhalten wir, dass wir eine gültige $3$-Färbung von $G$
+                        leicht in eine erfüllende Belegung von $F$ übersetzen können und umgekehrt.
+
+                        <span class='qed'>\(\square\)</span>
+                    </p>
+                </div class='proof'>
+
+                <p>
+                    Erinnern Sie sich an <span style="font-variant: small-caps;">Independent Set</span>: gegeben
+                    ein Graph $G$ und eine Zahl $k$, gibt es eine unabhängige Menge $X \subseteq V$ mit
+                    $|X| \geq k$?
+                </p>
+                <div class='well container theorem'>
+                    <p><span class='numbered-title' id='put-unique-name-here' data-label-title='Theorem'>Theorem</span>
+                        <span style="font-variant: small-caps;">3-SAT $\leq_p$ Independent Set</span>.
+                    </p>
+                </div class='well container theorem'>
+                <div class='well container'>
+                    <p><strong>Beweis.</strong>
+                        Gegeben sei eine 3-CNF-Formel $F$ mit $n$ Variablen und $m$ Klauseln. Wir
+                        bauen folgenden Graphen $G$:
+                    </p>
+                    <figure>
+                        <img src='../img/02-sat-and-reductions/sat-to-independent-set/3sat-to-IS.svg'
+                            style='height:20em'>
+                    </figure>
+                    <p>
+                        und setzen $k:=n+m$. Wir müssen nun folgendes zeigen:
+                    </p>
+                    \begin{align*}
+                    F \textnormal{ ist erfüllbar} \Longleftrightarrow
+                    G \textnormal{ hat eine unabhängige Menge der Größe $k$}
+                    \end{align*}
+                    <p>
+                        Falls $\alpha$ eine erfüllende Belegung von $F$ ist,
+                        dann gibt es folgende unabhängige Menge der Größe $k$:
+                    </p>
+                    <ul>
+                        <li>
+                            Für jede Variable $x$ nehmen wir $x$ in $I$ auf, falls $\alpha(x)=1$ ist,
+                            ansonsten $\bar{x}$.
+                        </li>
+                        <li>
+                            Für jede Klausel $C = (u \vee v \vee w)$ gibt es ein erfülltes Literal,
+                            sagen wir $u$. Dieser entspricht dem Klauselknoten $u_C$, der mit
+                            mit dem Literalknoten $\bar{u}$ verbunden.
+                            Da $\alpha(u) = 1$ und $\alpha(\bar{u}) = 0$ ist, ist $u \not \in I$ und
+                            wir können $u_C$ in $I$ aufnehmen.
+                        </li>
+                        <li>
+                            Unsere Menge $I$ enthält $n$ Literalknoten und $m$ Klauselknoten,
+                            also insgesamt $k$ Knoten.
+                        </li>
+                    </ul>
+                    <p>
+                        Für die Gegenrichtung nehmen wir an, dass $I$ eine unabhängige Menge von $G$ ist und $|I| =
+                        n+m$ gilt. Da $I$ pro Literalpaar und pro Klauseldreieck höchstens
+                        einen Knoten enthalten kann, enthält $I$ <em>genau</em> einen
+                        pro Literalpaar und Klauseldreieck. Wir definieren nun eine
+                        Belegung $\alpha$ wie folgt: wenn für eine Variable $x$ der
+                        Literalknoten $x$ in $I$ ist, setzen wir $\alpha(x)=1$; falls
+                        $\bar{x}$ in $I$ ist, setzen wir $\alpha(x)=0$.
+                    </p>
+                    <p>
+                        Wir behaupten nun, dass $\alpha$ die Formel $F$ erfüllt. Sei
+                        $C= (u \vee v \vee w)$ eine beliebige Klausel von $F$.
+                        Nach obiger Überlegung enthält $I$ genau einen Klauselknoten von $C$,
+                        sagen wir $u_C$. Das heißt somit, dass der Literalknoten
+                        $\bar{u}$ nicht in $I$ ist - sonst wäre $I$ ja nicht unabhängig.
+                        Somit muss $u \in I$ gelten und $\alpha(u) = 1$, und $\alpha$ erfüllt $C$.
+                        <span class='qed'>\(\square\)</span>
+                    </p>
+                </div class='proof'>
+
+
+
+                <h3><span style="font-variant: small-caps;">Hamilton Path</span>
+                    und <span style="font-variant: small-caps;">Hamilton Cycle</span></h3>
+
+                <P>
+                    Sei $G = (V,E)$ ein Graph. Ein <em>Hamiltonscher Kreis</em> ist ein
+                    Kreis, der durch alle Knoten geht. Es muss ein <em>Kreis</em>
+                    sein; Kantenzüge, die einen Knoten mehrmals durchlaufen, sind also
+                    nicht erlaubt. Hier sehen Sie einen Graphen mit Hamiltonschem Kreis:
+                </P>
+                <figure class='centered-figure well container'>
+                    <a class='left carousel-control-prev-icon' href='#isosahedron-has-HC' data-slide='prev'>
+                        <div class='carousel-nav-icon'>
+                            <img src='../img/carousel-prev-icon.svg'>
+                        </div>
+                    </a>
+                    <a class='right carousel-control-next-icon' href='#isosahedron-has-HC' data-slide='next'>
+                        <div class='carousel-nav-icon'>
+                            <img src='../img/carousel-next-icon.svg'>
+                        </div>
+                    </a>
+                    <div id='isosahedron-has-HC' class='carousel' data-interval='false' style='display:inline-block'>
+                        <ol class='carousel-indicators'>
+                            <li data-target='#isosahedron-has-HC' data-slide-to='1' class='active'></li>
+                            <li data-target='#isosahedron-has-HC' data-slide-to='2'></li>
+                        </ol>
+                        <div class='carousel-inner' style='display:inline-block'>
+                            <div class='item active'><img img
+                                    src='../img/02-sat-and-reductions/hamilton-path-and-cycle/hamilton-01-01.svg'
+                                    style='height:20em'></div>
+                            <div class='item'><img img
+                                    src='../img/02-sat-and-reductions/hamilton-path-and-cycle/hamilton-01-02.svg'
+                                    style='height:20em'></div>
+                        </div class='carousel-inner'>
+                    </div class='carousel'>
+                </figure>
+                <p>
+                    Ein <em>Hamiltonscher Pfad</em> ist ein Pfad mit $|V|$ Knoten.
+                    Auch hier gilt: kein Knoten darf mehrfach besucht werden.
+                    Der untere Graph, der <em>Petersen-Graph</em>, hat keinen
+                    Hamiltonschen Kreis, dafür aber einen Hamiltonschen Pfad:
+                </p>
+                <figure>
+                    <img src='../img/02-sat-and-reductions/hamilton-path-and-cycle/hamilton-02-01.svg'
+                        style='height:20em'>
+                </figure>
+
+                <p>
+                    Wir definieren nun die zwei entsprechenden Entscheidungsprobleme:
+                </p>
+                <div class='well well-lg numbered-exercise container'>
+                    <p><span class='numbered-title' id='problem-hamilton-cycle'
+                            data-label-title='Problem'>Problem</span>
+                        <span style="font-variant: small-caps;">(Hamilton Cycle).</span> Gegeben
+                        ein Graph $G=(V,E)$, gibt es in $G$ einen Kreis der Länge $|V|$, der
+                        also durch alle Knoten geht?
+                    </p>
+                </div class='numbered-exercise'>
+                <div class='well well-lg numbered-exercise container'>
+                    <p><span class='numbered-title' id='problem-hamilton-cycle'
+                            data-label-title='Problem'>Problem</span>
+                        <span style="font-variant: small-caps;">(Hamilton Path).</span> Gegeben
+                        ein Graph $G=(V,E)$, gibt es in $G$ einen Pfad der Länge $|V|-1$, der
+                        also alle $|V|$ Knoten enthält?
+                    </p>
+                </div class='numbered-exercise'>
+
+                <div class='well container theorem'>
+                    <p><span class='numbered-title' id='theorem-ham-cycle-to-path'
+                            data-label-title='Theorem'>Theorem</span>
+                        <span style="font-variant: small-caps;">Hamilton Cycle $\leq_p$ Hamilton Path</span>
+                    </p>
+                </div class='well container theorem'>
+
+                <div class='well container'>
+                    <p><strong>(Falscher) Beweis.</strong>
+                        Tasten wir uns langsam heran. Wir stellen uns vor, eine
+                        Bibliotheksfunktion <tt>has_hamilton_path(G)</tt> zu haben und
+                        wollen mithilfe dieser eine neue Funktion <tt>has_hamilton_cycle(G)</tt>
+                        schreiben.
+                    </p>
+                    <p>
+                        Sei $u$ ein beliebiger Knoten. Wir wissen: wenn $G$ einen Hamiltonschen
+                        Kreis hat, dann besucht dieser auch $u$ und im Anschluss einen Nachbarnknoten
+                        $v$, also mit $\{u,v\} \in E$. Der Graph $G' := G - \{u,v\}$, in welchem
+                        wir diese Kante löschen, besitzt somit einen Hamiltonschen Pfad.
+                        Allerdings kann es sein, dass $G'$ sowieso einen Hamiltonschen Pfad
+                        besitzt, der allerdings nicht $u$ und $v$ als Endknoten hat, so dass
+                        er sich mit $\{u,v\}$ nicht zu einem Hamiltonschen Kreis schließt.
+                        Wir müssen irgendwie die Frage beantworten können: besitzt
+                        $G'$ einen Hamiltonschen Pfad, der $u$ und $v$ als Start- bzw. Endknoten hat?
+                        Dies ist einfach: wir können neue Knoten $s$ und $t$
+                        und die Kanten $\{s,u\}$ und $\{t,v\}$ einführen. Da $s$ und $t$ nun
+                        Grad $1$ haben, muss ein Hamiltonscher Pfad, wenn er denn existiert,
+                        $u$ und $v$ als Endknoten haben. Sei also $G'' := G' + \{s,u\} + \{t,v\}$.
+                    </p>
+                    <div class='well container-fluid subtheorem'>
+                        <p><strong>Beobachtung:</strong> $G$ hat genau dann einen Hamiltonschen Kreis durch
+                            die Kante $\{u,v\}$, wenn
+                            $G''$ einen Hamiltonschen Pfad hat.</p>
+                    </div class='well container theorem'>
+                    <figure class='centered-figure well container-fluid'>
+                        <a class='left carousel-control-prev-icon' href='#ham-cycle-to-path' data-slide='prev'>
+                            <div class='carousel-nav-icon'>
+                                <img src='../img/carousel-prev-icon.svg'>
+                            </div>
+                        </a>
+                        <a class='right carousel-control-next-icon' href='#ham-cycle-to-path' data-slide='next'>
+                            <div class='carousel-nav-icon'>
+                                <img src='../img/carousel-next-icon.svg'>
+                            </div>
+                        </a>
+                        <div id='ham-cycle-to-path' class='carousel' data-interval='false' style='display:inline-block'>
+                            <ol class='carousel-indicators'>
+                                <li data-target='#ham-cycle-to-path' data-slide-to='1' class='active'></li>
+                                <li data-target='#ham-cycle-to-path' data-slide-to='2'></li>
+                            </ol>
+                            <div class='carousel-inner' style='display:inline-block'>
+                                <div class='item active'><img img
+                                        src='../img/02-sat-and-reductions/hamilton-path-and-cycle/hamilton-03-01.svg'
+                                        style='height:20em'></div>
+                                <div class='item'><img img
+                                        src='../img/02-sat-and-reductions/hamilton-path-and-cycle/hamilton-03-02.svg'
+                                        style='height:20em'></div>
+                            </div class='carousel-inner'>
+                        </div class='carousel'>
+                    </figure>
+
+                    <p>
+                        Woher wollen wir allerdings wissen, ob der Kreis in $G$ (wenn es ihn denn
+                        gibt) überhaupt durch $\{u,v\}$ geht? Vielleicht gibt es ja einen,
+                        aber keinen durch $\{u,v\}$, so dass dann <tt>has_hamilton_path($G''$)</tt>
+                        mit <tt>False</tt> antwortet, obwohl wir gerne ein <tt>True</tt> hätten.
+                        Um das zu verhindern, können wir ja <em>alle</em> Nachbarn von $u$
+                        durchprobieren. Wenn einer klappt, dann haben wir unseren Kreis;
+                        wenn es überhaupt einen Kreis gibt, dann klappt es auch mit einem Nachbarn
+                        (in der Tat: sogar mit zweien).
+                    </p>
+                    <pre class='listing container-fluid'>
+<code>def has_hamilton_cycle(G):</code>
+<code>    u = ein beliebiger Knoten</code>
+<code>    for v in neighbors[u]:</code>
+<code>        H = G - {u,v} + {s,u} + {t,v}</code>
+<code>        if has_hamilton_path(H):</code>
+<code>            return True</code>
+<code>    return False</code></pre>
+                    <p>
+                        Falls nun <tt>has_hamilton_path</tt> polynomielle Laufzeit $O(n^k)$ hat,
+                        so hat <tt>has_hamilton_cycle</tt> eine Laufzeit von $O(n^{k+1})$, auch
+                        polynomiell.
+
+                        <span class='qed'>\(\square\)</span>
+                    </p>
+                </div class='proof'>
+
+                <p>
+                    Was ist nun an diesem Beweis falsch? Nun, der Begriff der Reduktion,
+                    dem wir uns ja mit der Notation $\leq_p$ verpflichten, verlangt, dass wir
+                    auf Eingabe $G$ <em>einen</em> Graphen $G'$ bauen, mit der Eigenschaft,
+                    dass $G$ genau dann einen Hamiltonschen Kreis hat, wenn $G'$ einen
+                    Hamiltonschen Pfad hat. Uns steht also genau <em>ein</em> Aufruf von
+                    <tt>has_hamilton_path</tt> zu. Aber ganz wertlos ist der obige
+                    Beweis dennoch nicht, zeigt er doch, dass ein
+                    effizienter Algorithmus für <span style="font-variant: small-caps;">Hamilton Path</span>
+                    sich auch für <span style="font-variant: small-caps;">Hamilton Cycle</span> verwenden lässt.
+                    Der Fachbegriff für das, was unsere obige Funktion
+                    <tt>has_hamilton_cycle</tt> tut, nennt sich <em>Cook-Reduktion</em>, nach
+                    Stephen Cook, einem der Väter der Klasse NP.
+                    Eine Reduktion, die dem strengen Reduktionsbegriff folgt,
+                    also <span class='reference' data-ref='definition-polynomial-reduction'></span>,
+                    nennt man in Abgrenzung dazu <em>Karp-Reduktion</em> nach Richard Karp,
+                    ein weiterer NP-Vater.
+                </p>
+
+                <div class='well well-lg numbered-exercise container'>
+                    <p><span class='numbered-title' id='put-unique-name-here'
+                            data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                        Geben Sie einen "richtigen" Beweis für
+                        <span class='reference' data-ref='theorem-ham-cycle-to-path'></span>, also
+                        eine Karp-Reduktion.
+                    </p>
+                </div class='numbered-exercise'>
+                <div class='well well-lg numbered-exercise container'>
+                    <p><span class='numbered-title' id='put-unique-name-here'
+                            data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                        Zeigen Sie <span style="font-variant: small-caps;">Hamilton Path $\leq_p$ Hamilton
+                            Cycle</span>. Wenn es Ihnen einfacher scheint, geben Sie erst einmal
+                        eine Cook-Reduktion.
+                    </p>
+                </div class='numbered-exercise'>
+
+
+                <div class='well container demo'>
+                    <p><span class='numbered-title'>Ohne Beweis.</span> In
+                        <span class='reference' data-ref='exercise-Hamilton-path-to-SAT'></span> sollten
+                        Sie eine Reduktion von <span style="font-variant: small-caps;">Hamilton Path</span>
+                        auf SAT zeigen. Das war einigermaßen einfach. Es geht auch umgekehrt:
+                        <span style="font-variant: small-caps;">SAT $\leq_p$ Hamilton Path</span>.
+                        Für den Beweis braucht man ausgeklügelte Klausel-Gadgets. Wenn es Sie interessiert,
+                        dann finden Sie mit einer kurzen Google-Suche sicherlich Material dazu.
+                    </p>
+
+                </div class='well container demo'>
+
+                <h3>
+                    <span style="font-variant: small-caps;">Graph Isomorphism</span>
+                </h3>
+
+                <p>
+                    Seien $G_1 = (V_1, E_1)$ und $G_2 = (V_2, E_2)$ zwei Graphen.
+                    Eine Funktion $\phi: V_1 \rightarrow V_2$ heißt <em>Graphisomorphismus</em> von
+                    $G_1$ nach $G_2$,
+                    wenn $\phi$ bijektiv ist und
+                </p>
+                \begin{align}
+                \forall u, v \in V_1: \{u,v\} \in E_1 \Longleftrightarrow \{\phi(u), \phi(v)\} \in E_2 \ .
+                \label{isomorphism}
+                \end{align}
+                <p>
+                    Wenn $\phi$ also $G_1$-Kanten auf $G_2$-Kanten und Nichtkanten auf Nichtkanten
+                    abbildet. Zwei Graphen $G_1, G_2$ heißen <em>isomorph</em>, wenn es einen
+                    Isomorphismus von $\phi$ von $G_1$ nach $G_2$ gibt. Wir schreiben dann
+                    auch $G_1 \cong G_2$.
+                </p>
+
+                <div class='well well-lg numbered-exercise container'>
+                    <p><span class='numbered-title' id='put-unique-name-here' data-label-title='Problem'>Problem</span>
+                        (<span style="font-variant: small-caps;">Graph Isomorphism</span>). Gegeben
+                        zwei Graphen $G_1$ und $G_2$, gilt $G_1 \cong G_2$?
+                    </p>
+                </div class='numbered-exercise'>
+
+                <p>
+                    Wie oben bereits erwähnt, gibt es (wahrscheinlich) einen quasipolynomiellen Algorithmus
+                    für <span style="font-variant: small-caps;">Graph Isomorphism</span>
+                    (<a href="babai-215">Babai 2015</a>).
+                </p>
+
+                <div class='well well-lg numbered-exercise container'>
+                    <p><span class='numbered-title' id='put-unique-name-here'
+                            data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                        Zeigen Sie, dass
+                        <span style="font-variant: small-caps;">Graph Isomorphism $\leq$ SAT</span> gilt.
+                        Erschaffen Sie hierfür für jedes Paar $(u,v) \in V_1 \times V_2$ eine Variable $x_{uv}$ mit der
+                        Bedeutung
+                    </p>
+                    \begin{align*}
+                    x_{uv} = 1 \Longleftrightarrow \phi(u) = v \ .
+                    \end{align*}
+                    <p>
+                        Schreiben Sie dann Klauseln, die garantieren, dass das codierte $\phi$ tatsächlich eine
+                        bijektive Funktion ist und (\ref{isomorphism}) gilt.
+                    </p>
+                </div class='numbered-exercise'>
+
+
+
+
+                <h3>Literatur</h3>
+
+                <ul>
+                    <li id="maxflow-2022">Li Chen, Rasmus Kyng, Yang P. Liu, Richard Peng, Maximilian Probst
+                        Gutenberg,
+                        and Sushant Sachdeva (2025).
+                        Maximum flow and minimum-cost flow in almost-linear time. <em>Journal of the ACM</em>,
+                        72(3), 1-103.</li>
+                    <li id="babai-2015">
+                        László Babai. Graph isomorphism in quasipolynomial time.
+                        <em>Proceedings of the forty-eighth annual ACM symposium on Theory of Computing</em>, 2016.
+                    </li>
+                    <li id="pauls-1874">
+                        E. Pauls. Das Maximalproblem der Dame auf dem Schachbrete. <em>Deutsche Schachzeitung</em>,
+                        1874.
+                    </li>
+                </ul>
+
+
+
+
+
+            </div class='subChapter'>
+
+
+
+
+        </div class='chapter'>
+
+
+
+
+    </div class="content">
+    </div class="rightSideWrapper">
+
+    <div id="navigation-links">
+    </div>
+
+
+
+</body>
+<script>
+    var chaptersStartAt = 4;
+    var subChaptersStartAt = 6;
+</script>
+<script type="text/javascript" src="../javascript/table-of-contents.js"></script>
+<script type="text/javascript" src="../javascript/number-my-theorems.js"></script>
+
+</html>

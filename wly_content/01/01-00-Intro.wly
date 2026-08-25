@@ -1,0 +1,88 @@
+|> html
+    |> head
+        |> link
+            rel=icon
+            href=data:,
+        |> meta
+            http-equiv=Content-Type
+            content=text/html; charset=utf-8
+        |> title
+            Berechenbarkeit und Kreativität
+        |> meta
+            name=viewport
+            content=width=device-width, initial-scale=1
+        |> link
+            rel=stylesheet
+            href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css
+        |> link
+            rel=stylesheet
+            type=text/css
+            href=../../lecture-notes.css
+        |> link
+            rel=stylesheet
+            type=text/css
+            href=../Course.css
+        |> script
+            src=https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
+        |> script
+            src=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js
+        |> script
+
+            MathJax = {
+            loader: { load: ['ui/lazy'] },
+            tex: {
+            tags: 'ams',
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+            fontCache: 'global'
+            }
+            };
+        |> script
+            type=text/javascript
+            id=MathJax-script
+            async=
+            src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js
+    |> body
+        |> div
+            id=mathjax-definitions
+            style=display:none
+            \(
+            \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+            \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+            \newcommand{\R}{\mathbb{R}}
+            \newcommand{\Z}{\mathbb{Z}}
+            \newcommand{\N}{\mathbb{N}}
+            \newcommand{\Q}{\mathbb{Q}}
+            \newcommand{\cin}{c_{\rm in}}
+            \newcommand{\cout}{c_{\rm out}}
+            \newcommand{\maj}{\textnormal{Maj}}
+            \newcommand{\xor}{\oplus}
+            \newcommand{\depth}{\textnormal{depth}}
+            \newcommand{\poly}{\textnormal{poly}}
+            \)
+        |> div
+            id=rightSideWrapper
+            |> div
+                class=content
+                |> div
+                    class=chapter
+                    |> h1
+                        class=hidden-title
+                        |> span
+                            class=chapterTitle
+                    Endliche Funktionen $\Sigma_1^n \rightarrow \Sigma_2^m$.
+                    Unendliche Probleme $\Sigma_1^* \rightarrow \Sigma_2^*$
+                    bzw. Entscheidungsprobleme $\Sigma^* \rightarrow \{0,1\}$
+                    bzw. Sprachen $L \subseteq \Sigma^*$.
+        |> div
+            id=navigation-links
+    |> script
+        var chaptersStartAt = 3;
+        var subChaptersStartAt = 200;
+    |> script
+        type=text/javascript
+        src=../javascript/table-of-contents.js
+    |> script
+        type=text/javascript
+        src=../javascript/number-my-theorems.js

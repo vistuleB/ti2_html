@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="data:,">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Berechenbarkeit und Kreativität</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../lecture-notes.css" />
+    <link rel="stylesheet" type="text/css" href="../Course.css" />
+    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>-->
+    <!-- <script type=”text/javascript”
+        src=”http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML”></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+
+
+    <script>
+        MathJax = {
+            tex: {
+                tags: 'ams',
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+
+
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+
+
+
+
+    <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    -->
+    <!-- <script type="text/javascript" src="script.js"></script> -->
+
+</head>
+
+
+
+<body>
+
+    <div id='mathjax-definitions' style="display:none">
+        \(
+        \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+        \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+        \newcommand{\R}{\mathbb{R}}
+        \newcommand{\Z}{\mathbb{Z}}
+        \newcommand{\N}{\mathbb{N}}
+        \newcommand{\Q}{\mathbb{Q}}
+        \newcommand{\cin}{c_{\rm in}}
+        \newcommand{\cout}{c_{\rm out}}
+        \newcommand{\maj}{\textnormal{Maj}}
+        \newcommand{\xor}{\oplus}
+        \newcommand{\depth}{\textnormal{depth}}
+        \newcommand{\poly}{\textnormal{poly}}
+        \newcommand{\NTIME}{\textnormal{NTIME}}
+        \newcommand{\TIME}{\textnormal{TIME}}
+        \newcommand{\EXP}{\textnormal{EXP}}
+        \newcommand{\P}{\mathsf{P}}
+        \newcommand{\NP}{\mathsf{NP}}
+        \newcommand{\SAT}{\mathsf{SAT}}
+        \newcommand{\NEXP}{\textnormal{NEXP}}
+        \)
+    </div id='mathjax-definitions'>
+
+    <div class='container'>
+        <div class='row'>
+            <div class='col-sm-6'>
+
+            </div>
+            <div class='col-sm-6'>
+
+            </div>
+        </div>
+    </div class='container'>
+
+
+    <div id="rightSideWrapper">
+
+
+        <div class="content">
+            <div class='chapter'>
+
+
+                <div class='subChapter'>
+                    <h1 class='hidden-title'>
+                        <span class='subChapterTitle'></span>
+                    </h1>
+
+                    <p>Dem aufmerksamen Leser wird nicht entgangen sein, dass wir den Begriff der
+                        Polynomialzeitreduktion eingeführt und verwendet haben, ohne
+                        über Turingmaschinen zu sprechen. Eine
+                        intuitive Vorstellung davon, was effizientes Berechnen bedeutet, war bis jetzt
+                        völlig ausreichend. Das ändert sich nun. Rekapitulieren wir:
+                        die Entscheidungsprobleme (also <em>Sprachen</em>), die wir
+                        in den vergangenen Kapiteln kennengelernt haben, kamen fast alle in zwei Gruppen:
+                    </p>
+
+                    <ol>
+                        <li>Probleme, die wir effizient lösen können:
+                            <ul>
+                                <li>2-SAT</li>
+                                <li>Horn-SAT</li>
+                                <li><span style="font-variant: small-caps;">Perfect Matching</span></li>
+                            </ul>
+                        </li>
+                        <li>
+                            Probleme $L$, für die wir aktuell keinen effizienten Algorithmus
+                            kennen, die wir aber auf SAT reduzieren können (also $L \leq_p$ SAT), und
+                            auf die wir SAT reduzieren können (also SAT $\leq_p L$):
+                            <ul>
+                                <li>
+                                    Sudoku
+                                </li>
+                                <li>
+                                    das Damenproblem
+                                </li>
+                                <li><span style="font-variant: small-caps;">3-Colorability</span></li>
+                                <li><span style="font-variant: small-caps;">Independent Set</span></li>
+                                <li><span style="font-variant: small-caps;">Hamilton Cycle</span> und
+                                    <span style="font-variant: small-caps;">Hamilton Path</span>
+                                </li>
+                                <li>
+                                    <span style="font-variant: small-caps;">3-NAE-SAT</span>
+                                </li>
+                                <li>
+                                    <span style="font-variant: small-caps;">Monotone 3-NAE-SAT</span>
+                                </li>
+
+                            </ul>
+
+
+                            <p>
+                                Für <span style="font-variant: small-caps;">Hamilton Cycle</span>
+                                <span style="font-variant: small-caps;">Hamilton Path</span> habe
+                                ich SAT $\leq_p L$ nicht gezeigt, sondern Sie auf Google verwiesen.
+                                Für
+                                Sudoku müssen wir das Problem von $9 \times 9$ auf Puzzle der Größe
+                                $n^2 \times n^2$ verallgemeinern und für das Damenproblem müssen wir
+                                zulassen, dass manche Damen bereits gesetzt sind.
+                            </p>
+                        </li>
+                        <li>
+                            Manche Probleme, die wir kennengelernt haben, fallen in keine der beiden
+                            Kategorien:
+                            </p>
+
+
+                            <ul>
+                                <li>
+                                    <span style="font-variant: small-caps;">Graph Isomorphism</span>. Weder
+                                    kennen wir einen effizienten Algorithmus, noch kennen wir eine
+                                    Polynomialzeitreduktion
+                                    <span style="font-variant: small-caps;">SAT $\leq_p $ Graph Isomorphism</span>.
+                                    Allerdings können wir es auf SAT reduzieren. Es ist also "leichter" als SAT zu sein.
+                                </li>
+                                <li>
+                                    Sokoban. Weder kennen wir einen effizienten Algorithmus, noch
+                                    kennen wir eine Polynomialzeitreduktion auf SAT. Wir kennen umgekehrt
+                                    aber eine Reduktion SAT $\leq_p$ Sokoban
+                                    (<a href="#fryers-greene">Fryers und Greene 1995</a>,
+                                    <a href="#dor-zwick">Dor und Zwick 1999</a>). Sokoban scheint
+                                    also "schwieriger" als SAT zu sein.
+                                </li>
+                                <li>
+                                    <span style="font-variant: small-caps;">Halt</span> aus
+                                    <a href="../../TI-2/vorlesungsskript.html">Theoretischer Informatik II</a>.
+                                    Es ist unentscheidbar, und somit wissen wir, dass
+                                    <span style="font-variant: small-caps;">Halt $\not \leq_p$ SAT</span> gilt. Die
+                                    Gegenrichtung <span style="font-variant: small-caps;">SAT $\leq_p$ Halt</span> ist
+                                    recht einfach zu zeigen. Wir können irgendeinen SAT-Algorithmus nehmen und
+                                    ihn als Turingmaschine $M$ implementieren. Für eine CNF-Formel $F$ gilt dann
+                                    $F \in$ SAT $\Longleftrightarrow M\texttt{;}F \in$ <span
+                                        style="font-variant: small-caps;">Halt</span>
+                                </li>
+                            </ul>
+                    </ol>
+
+
+                    <p>
+                        Probleme der Gruppe 1 bilden den Hauptfokus der Algorithmik.
+                    </p>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Definition'>Definition</span>
+                            <strong>(Komplexitätsklasse P)</strong>. P ist die Klasse aller Sprachen
+                            $L \subseteq \Sigma^*$, die wir effizient, also in polynomieller Zeit, entscheiden
+                            können.
+                        </p>
+                    </div class='well container theorem'>
+
+                    <p>
+                        Das P steht für <em>polynomiell</em>.
+                        Probleme aus Gruppen 1 und 2 und auch
+                        <span style="font-variant: small-caps;">Graph Isomorphism</span>
+                        haben eine "syntaktische" Gemeinsamkeit: sie sind alle
+                        formuliert nach dem Motto
+                    </p>
+                    <p style="text-align: center;">
+                        <em>Gegeben eine Instanz $x$, gibt es eine Lösung $y$, die zu $x$ passt.</em>
+                    </p>
+                    <p>
+                        Die "Lösung" wäre eben die erfüllende Belegung; das perfekte Matching;
+                        der Hamiltonsche Kreis etc. Bei allen Problemen ist es
+                        leicht, zu erkennen, ob das $y$ denn wirklich eine Lösung ist.
+                    </p>
+
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Definition'>Definition</span>
+                            <strong>(Komplexitätsklasse NP)</strong>. NP ist die Klasse aller Sprachen
+                            $L \subseteq \Sigma^*$, so dass es eine konstante $k \in \N$ und
+                            einen effizienten "Verifizierungsalgorithmus $A$
+                            gibt, so dass für alle $x \in \Sigma^*$
+                        </p>
+                        \begin{align*}
+                        x \in L \Longleftrightarrow \exists z \in \Sigma^*: |z| \leq |x|^k \textnormal{ und } A(x,z)=1
+                        \end{align*}
+                        <p>
+                            gilt. Man nennt $z$ auch das <em>Zertifikat</em>.
+                        </p>
+                    </div class='well container theorem'>
+
+                    <p>
+                        NP steht für <em>nichtdeterministisch polynomiell</em>, weil das genau
+                        die Probleme sind, die man von einer nichtdeterministischen Turingmaschine
+                        in polynomieller Zeit entschieden werden. Die Maschine $M$
+                        schreibt in einer ersten Phase ein Zertifikat $z$ auf ein zweites Band;
+                        dann führt sie den Verifizierungsalgorithmus $A$ aus.
+                        Ich persönlich finde nichtdeterministische Turingmaschinen aber verwirrender
+                        und halte mich lieber an den Begriff des effizienten Verifizierungsalgorithmus.
+                        Für alle obigen Probleme ist es leicht, diesen Algorithmus zu beschreiben.
+                        Für <span style="font-variant: small-caps;">Hamilton Path</span> nimmt
+                        $A$ als ersten Eingabeparameter den Graphen $G=(V,E)$ selbst und als zweiten
+                        eine Folge von Knoten. Er überprüft, ob die Folge tatsächlich die Länge $|V|$ hat
+                        und einen Pfad in $G$ bildet.
+                    </p>
+
+                    <p>
+                        Für Sokoban könnten wir versuchen, die Lösung, also die Schrittfolge des
+                        Lagerhausverwalters als Zertifikat $z$ zu definieren. Das Problem dabei ist,
+                        dass es Sokoban-Puzzle gibt, bei denen die kürzeste Schrittfolge $z$, die
+                        zum Erfolg führt, exponentiell lang in der Größe des Puzzles ist.
+                    </p>
+
+                    <p>
+                        Beachten Sie, dass P $\subseteq $ NP gilt, also jedes P-Problem $L$ auch in NP ist: da es einen
+                        effizienten Algorithmus $A(x)$ gibt, der $L$ entscheidet, können wir
+                        einen Verifizierungsalgorithmus $B(x,y)$ schreiben, der $y$ ignoriert und $A(x)$
+                        aufruft. Allerdings gibt es für gewisse P-Probleme, z.B.
+                        <span style="font-variant: small-caps;">Perfect Matching</span> einen ganz
+                        einfache Verifizierungsalgorithmus: $x$ ist der Graph, $z$ ist eine Menge von Kanten;
+                        $A(x,z)$ schaut, ob $z$ tatsächlich ein perfektes Matching in $x$ ist;
+                        aber die effizienten Algorithmen, die wir kennen (z.B. <a href="#edmonds">Edmonds Blossom
+                            Algorithmus</a>).
+                    </p>
+
+                    <p>
+                        Manche Probleme sind in NP, aber das Zertifikat ist nicht auf den ersten
+                        Blick klar.
+                    </p>
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Problem'>Problem</span>
+                            (<span style="font-variant: small-caps;">No Small Factor</span>).
+                            Gegeben Zahlen $x, k \in \N$ in Binärdarstellung.
+                            Ist jeder Faktor von $x$ größer als $k$?
+                        </p>
+                    </div class='numbered-exercise'>
+
+                    <p>
+                        Ist das in NP? Was wäre hierfür das Zertifikat? Ein Faktor $y | x $ mit $y \leq k$
+                        wäre ja gerade ein Zertifikat für $(x,k) \not \in $
+                        <span style="font-variant: small-caps;">No Small Factor</span>. Tatsächlich ist
+                        es in NP. Das Zertifikat ist die Primfaktorisierung $x = p_1 \cdot p_2 \cdots p_s$ von $x$.
+                        Der Zertifizierungsalgorithmus $A(x, (p_1, p_2, \dots, p_s))$ führt folgende Schritte aus:
+                    </p>
+                    <ol>
+                        <li>Er überprüft, ob $p_1 \cdot p_2 \cdots p_s$ wirklich gleich $x$ ist;</li>
+                        <li>ob wirklich jedes $p_i$ größer ist als $k$</li>
+                        <li>ob wirklich jedes $p_i$ eine Primzahl ist.</li>
+                    </ol>
+                    <p>
+                        Dass Punkt 3 effizient durchführbar ist, ist allerdings erst seit
+                        <a href="#agrawal">Agrawal, Kayal und Saxena 2004</a> bekannt.
+                        Des Weiteren müssen wir noch wissen, dass die Primfaktorzerlegung $x = p_1\cdot p_2 \cdots p_s$
+                        (bis auf Umordnung) eindeutig ist, es also keine Alternativzerlegung $x = q_1 \cdot q_2 \cdots
+                        q_t$ mit $q_1 \leq k$ gibt. Dies ist so und ist bereits seit Euklid (ca. 300 vor Christus)
+                        bekannt, ist aber dennoch nicht offensichtlich.
+                    </p>
+
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Vermutung'>Vermutung</span>
+                            P $\ne$ NP.</p>
+                    </div class='well container theorem'>
+
+                    <p>
+                        Die Vermutung besagt also, dass es Probleme (Sprachen) gibt,
+                        die wir nicht effizient entscheiden können, aber
+                        effizient verifizieren. Diese Vermutung ist unbewiesen offen und
+                        gilt als wichtigstes offenes Problem der theoretischen
+                        Informatik schlechthin und eines der wichtigsten der Mathematik
+                        überhaupt.
+                    </p>
+
+
+                    <h3>NP-Vollständigkeit: alles reduziert zu 3-SAT</h3>
+
+                    <p>
+                        In den vergangenen Kapiteln haben wir alle möglichen Probleme auf SAT
+                        reduziert (bei manchen wie Sokoban sind wir aber gescheitert).
+                        Als nächstens werden wir sehen: jedes Problem in NP lässt sich auf
+                        SAT reduzieren.
+                    </p>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='theorem-3-sat-np-complete'
+                                data-label-title='Theorem'>Theorem</span>
+                            <strong>(Cook-Levin und Karp)</strong>
+                            Sei $L \in \Sigma^*$. Wenn $L$ in NP ist, dann gilt $L \leq_p $ 3-SAT.
+                        </p>
+                    </div class='well container theorem'>
+
+                    <div class='well container'>
+                        <p><strong>Beweis.</strong>
+                            Wir werden $L \leq_p $ <span style="font-variant: small-caps;">Circuit SAT</span> zeigen.
+                            Zusammen mit <span class='reference' data-ref='lemma-circuit-to-3-sat'></span>
+                            ergibt dies die Reduktion von $L$ nach $3$-SAT.
+                            Des weiteren nehmen wir an, dass $\Sigma = \{0,1\}$ gilt; ansonsten
+                            müssen wir eine geeignete Codierung $c: \Sigma \rightarrow \{0,1\}^*$ festlegen.
+                            Uns ist also $w \in \{0,1\}^*$ gegeben, und wir wollen einen Schaltkreis
+                            $C$ bauen, so dass $w \in L$ genau dann gilt, wenn $C$ erfüllbar ist.
+                            Sei $A$ der Verifizierungsalgorithmus für $L$. Dieser Algorithmus $A$ nimmt
+                            zwei Eingabeparameter $w, z \in \Sigma^*$ und läuft in polynomieller Zeit,
+                            und es gilt
+                        </p>
+                        \begin{align*}
+                        w \in L \Longleftrightarrow \exists z \in \Sigma^* : |z| = |w|^k \textnormal{ und } A(w,z) =
+                        1
+                        \end{align*}
+                        <p>
+                            Hier haben wir das $\leq |w|^k$ in der Definition von NP durch $= |w|^k$ ersetzt.
+                            Es ist nicht besonders schwer zu sehen, dass das in Ordnung ist (z.B. könnte
+                            $A$ alle Präfixe von $z$ durchprobieren).
+                            Wir schreiben $A$ als Turingmaschine mit einem Eingabeband und
+                            einem Zertifikatband. Sei $n = |w|$ und $m = n^k$. Wenn wir
+                            uns auf Eingaben der Länge $n$ und Zertifikate der Länge $m$ beschränken,
+                            dann berechnet die Turingmaschine eine Funktion
+                        </p>
+                        \begin{align*}
+                        f_{L,n,m} : \{0,1\}^{n} \times \{0,1\}^m & \rightarrow \{0,1\} \\
+                        (x,z) & \mapsto A(x,z) \ .
+                        \end{align*}
+                        <p>
+                            Die Turingmaschine läuft in polynomieller Zeit in $n$ und $m$,
+                            also in maximal $t(n) = O(n^l)$ Schritten.
+                            Nach <span class='reference' data-ref='theorem-tms-to-circuits'></span> gibt es
+                            einen Schaltkreis $C(x,z)$ polynomieller Größe, genauer gesagt $O(n^{2l})$, der
+                            $f_{L,n,m}$ berechnet. Die
+                            Turingmaschine in <span class='reference' data-ref='theorem-tms-to-circuits'></span>
+                            hat nur ein Eingabeband; die gleiche Konstruktion funktioniert natürlich auch
+                            für Turingmaschinen mit zwei Eingabebändern, und die Eingabe des konstruierten Schaltkreises
+                            ist dementsprechend zweigeteilt.
+                            Wenn wir nun das uns gegebene $w \in \{0,1\}^n$ fest in $C$ verdrahten,
+                            erhalten wir einen neuen Schaltkreis $C'(z) = C(w,z)$ mit $m$ Eingabebits.
+                            Es gilt nun
+                        </p>
+                        \begin{align*}
+                        w \in L \Longleftrightarrow \exists z \in \{0,1\}^m: C'(z) = 1 \ ,
+                        \end{align*}
+                        <p>
+                            also genau dann, wenn $C'$ erfüllbar ist. Das ist die gewünschte Reduktion.
+                            Wenn man den Beweis von <span class='reference' data-ref='theorem-tms-to-circuits'></span>
+                            nochmal überfliegt, sieht man auch, dass man die Reduktion in polynomieller Zeit
+                            implementieren kann.
+                            <span class='qed'>\(\square\)</span>
+                        </p>
+                    </div class='proof'>
+
+
+                    <p>
+                        Die Eigenschaft, dass man <em>jede</em> Sprache $L \in $ NP auf
+                        3-SAT reduzieren kann, heißt NP-Vollständigkeit.
+                    </p>
+
+                    <div class='well container theorem'>
+                        <p><span class='numbered-title' id='put-unique-name-here'
+                                data-label-title='Definition'>Definition</span>
+                            Eine Sprache $K$ ist NP-schwierig,
+                            wenn man jede Sprache $L \in $ NP auf $K$ reduzieren kann: $L \leq_p K$.
+                            Sie heißt <em>NP-vollständig</em>, wenn sie zusätzlich selbst in NP ist.</p>
+                    </div class='well container theorem'>
+
+
+
+                    <ul>
+                        <li>
+                            Folgende Probleme, die wir in den vergangenen Kapitel gesehen haben, sind
+                            NP-vollständig:
+                            <span style="font-variant: small-caps;">Circui SAT, 3-SAT, 3-Colorability, Independent Set,
+                                Hamilton Cycle, Hamilton Path.
+                            </span>
+                            Sie sind in gewissem Sinne "genau so schwierig" wie 3-SAT.
+                        </li>
+                        <li>
+                            Folgende sind in NP, aber vermutlich nicht NP-schwierig:
+                            <span style="font-variant: small-caps;">Perfect Matching, 2-SAT, Horn-SAT, No Small
+                                Factor</span>. Sie sind vermutlich "einfacher" als 3-SAT.
+                        </li>
+                        <li>
+                            Folgende sind NP-schwierig, aber vermutlich nicht selbst in NP:
+                            Sokoban, Hex. Sie sind vermutlich "schwieriger" als SAT.
+                        </li>
+                        <li>
+                            Folgende Probleme sind NP-schwierig, aber beweisbar nicht selbst in NP:
+                            das Halteproblem, das Postsche Korrespondenzproblem.
+                        </li>
+                    </ul>
+
+                    <h3>Übungen</h3>
+
+                    <p>Auf die folgenden Übungen bin ich in <a href="https://scottaaronson.blog/?p=392">Scott Aaronsons
+                            Blog</a> gestoßen.</p>
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='exercise-Aaronson-explicit-alg-for-SAT'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Entwerfen Sie eine Turingmaschine $M$ mit folgender Eigenschaft:
+                            falls P=NP gelten sollte und $F$ eine beliebige erfüllbare
+                            CNF ist, dann findet $M(F)$ in polynomieller Zeit eine erfüllende Belegung.
+                        </p>
+                        <p><strong>Hinweis:</strong> Die Turingmaschine $M$ muss <em>explizit</em> sein, sie müssten
+                            Sie also hier und jetzt niederschreiben können. So etwas wie <em>weil $\P = \NP$ gilt,
+                                gibt es einen Algorithmus $A$, der SAT entscheidet; $M$ verwendet nun $A$ als
+                                Subroutine</em> zählt nicht, weil Sie ja das fiktive (oder zumindest unbekannte) $A$
+                            nicht niederschreiben können.</p>
+
+                        <p><strong>Tip:</strong> Der Algorithmus ist ziemlich unsinnig, so ein wenig wie
+                            der Affe, der Shakespeares Werke tippt, wenn er lange genug an einer Schreibmaschine sitzt.
+                        </p>
+
+                        <p><strong>Anschlussfrage:</strong> Wie effizient ist Ihr Algorithmus $M$? Konkret: falls
+                            $\SAT \in \TIME(n^k)$ ist, welche Laufzeit hat $M$? Können Sie das optimieren?</p>
+                    </div class='numbered-exercise'>
+
+                    <div class='well well-lg numbered-exercise container'>
+                        <p><span class='numbered-title' id='exercise-Aaronson-wrong-alg-for-SAT'
+                                data-label-title='Übungsaufgabe'>Übungsaufgabe</span>
+                            Ich gebe Ihnen einen Algorithmus $A$ (mit Quelltext) und behaupte,
+                            er würde 3-SAT in polynomieller Zeit finden (konkret: in maximal $C \cdot |F|^k$ Schritten).
+                            Andreas Goerdt verrät Ihnen allerdings, dass das so nicht stimmt und er insbesondere
+                            auf Instanzen mit $n$ Variablen nicht immer richtig ist.
+                        </p>
+                        <p>
+                            Zeigen Sie, wie man mit diesem Wissen (also Kenntnis des Quelltexts und Kenntnis von $n$)
+                            in polynomialler Zeit in $n$ eine CNF bauen kann, auf der mein Algorithmus
+                            die falsche Antwort liefert.
+                        </p>
+                        <p><strong>Tip:</strong>
+                            Legen Sie ein Format fest, mit dem Sie eine 3-CNF-Formel $F$ mit $n$ Variablen
+                            als Bitvektor in $\{0,1\}^{m}$ mit $m = {n \choose 3}$ codieren können.
+                            Können Sie nun einen Schaltkreis $C$ bauen mit $m$ Eingabebits und $n$ Ausgabebits,
+                            der im Prinzip $A$ simuliert, zumindest auf 3-CNFs mit $n$ Variablen?
+
+                            Bauen Sie nun einen Schaltkreis $C'$, der genau dann $1$ ausgibt, wenn $C$ einen Fehler
+                            gemacht hat.
+                            Warnung: der Schaltkreis $C'$ nimmt als Eingabe nicht nur eine 3-CNF-Formel, d.h.
+                            er braucht tatsächlich mehr als ${n \choose 3}$ Eingabebits.
+                        </p>
+
+                        <p>
+                            Laut Aaronson stammt das von Gutfreund, Shaltiel, Ta-Shma, allerdings funktioniert sein
+                            Link nicht. Wenn jemand die richtige Referenz kennt, gerne mich kontaktieren!
+                        </p>
+
+
+                    </div class='numbered-exercise'>
+
+
+
+                    <h3>Literatur</h3>
+
+                    <ul>
+                        <li id="agrawal">
+                            Manindra Agrawal, Neeraj Kayal , and Nitin Saxena. PRIMES is in P. <em>Annals of
+                                mathematics</em>
+                            (2004): 781-793.
+                        </li>
+                        <li id="dor-zwick">
+                            Dorit Dor and Uri Zwick (1999). Sokoban and other motion planning problems.
+                            <em>Computational Geometry</em>, 13(4), 215-228.
+                        </li>
+                        <li id="edmonds">
+                            Jack Edmonds. Paths, trees, and flowers.
+                            <em>Canadian Journal of mathematics</em>, 17, 449-467.
+                        </li>
+                        <li id="fryers-greene">
+                            Michael Fryers and Michael Greene (1995), Sokoban, <em>Eureka (54): 25–32</em>
+                            (<a
+                                href="https://web.archive.org/web/20240905040633/https://www.archim.org.uk/eureka/archive/Eureka-54.pdf#page=28">pdf</a>)
+                        </li>
+                    </ul>
+
+                </div class='chapter'>
+
+
+            </div class="content">
+        </div class="rightSideWrapper">
+
+
+        <div id="navigation-links">
+        </div>
+
+
+
+</body>
+<script>
+    var chaptersStartAt = 3;
+    var subChaptersStartAt = 200;
+</script>
+<script type="text/javascript" src="../javascript/table-of-contents.js"></script>
+<script type="text/javascript" src="../javascript/number-my-theorems.js"></script>
+
+</html>

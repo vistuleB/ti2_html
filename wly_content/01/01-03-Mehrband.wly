@@ -1,0 +1,809 @@
+|> html
+    |> head
+        |> link
+            rel=icon
+            href=data:,
+        |> meta
+            http-equiv=Content-Type
+            content=text/html; charset=utf-8
+        |> title
+            Berechenbarkeit und Kreativität
+        |> meta
+            name=viewport
+            content=width=device-width, initial-scale=1
+        |> link
+            rel=stylesheet
+            href=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css
+        |> link
+            rel=stylesheet
+            type=text/css
+            href=../../lecture-notes.css
+        |> link
+            rel=stylesheet
+            type=text/css
+            href=../Course.css
+        |> script
+            src=https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
+        |> script
+            src=https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js
+        |> script
+
+            MathJax = {
+            tex: {
+            tags: 'ams',
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+            fontCache: 'global'
+            }
+            };
+        |> script
+            type=text/javascript
+            id=MathJax-script
+            async=
+            src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js
+    |> body
+        |> div
+            id=mathjax-definitions
+            style=display:none
+            \(
+            \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+            \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+            \newcommand{\step}[1]{\stackrel{#1}{\rightarrow}}
+            \newcommand{\Step}[1]{\stackrel{#1}{\Longrightarrow}}
+            \newcommand{\R}{\mathbb{R}}
+            \newcommand{\Z}{\mathbb{Z}}
+            \newcommand{\N}{\mathbb{N}}
+            \newcommand{\Q}{\mathbb{Q}}
+            \newcommand{\cin}{c_{\rm in}}
+            \newcommand{\cout}{c_{\rm out}}
+            \newcommand{\maj}{\textnormal{Maj}}
+            \newcommand{\xor}{\oplus}
+            \newcommand{\depth}{\textnormal{depth}}
+            \newcommand{\poly}{\textnormal{poly}}
+            \newcommand{\zero}{\textnormal{zero}}
+            \newcommand{\succ}{\textnormal{succ}}
+            \newcommand{\comp}{\textnormal{Comp}}
+            \newcommand{\primrec}{\textnormal{PrimRec}}
+            \newcommand{\pair}{\textnormal{Pair}}
+            \newcommand{\first}{\textnormal{First}}
+            \newcommand{\second}{\textnormal{Second}}
+            \newcommand{\enc}{\textnormal{enc}}
+            \newcommand{\halt}{{\rm H{\small ALT}}}
+            \newcommand{\bhalt}{{\rm T{\small IMED}H{\small ALT}}}
+            \newcommand{\tm}{\textnormal{TM}}
+            \newcommand{\diag}{\textnormal{Diag}}
+            \newcommand{\qaccept}{q_{\rm yes}}
+            \newcommand{\qreject}{q_{\rm no}}
+            \newcommand{\qstart}{q_{\rm start}}
+            \newcommand{\negdiag}{\textnormal{NegDiag}}
+            \newcommand{\bnegdiag}{\textnormal{TimedNegDiag}}
+            \newcommand{\writelambda}{\Sigma \cup \{0, 1, \texttt{#}, \texttt{,}, \texttt{L}, \texttt{S},
+            \texttt{R},\texttt{;}\}}
+            \newcommand{\TIME}{\textnormal{TIME}}
+            \newcommand{\lsr}{\{\texttt{L}, \texttt{S}, \texttt{R}\}}
+            \)
+        |> div
+            id=rightSideWrapper
+            |> div
+                class=content
+                |> div
+                    class=chapter
+                    |> div
+                        class=subChapter
+                        |> h1
+                            class=hidden-title
+                            |> span
+                                class=subChapterTitle
+                        |> h2
+                            Turingmaschinen mit mehreren Bändern
+                        Im letzten Teilkapitel ist Ihnen bestimmt aufgefallen, dass es auffallend lästig ist,
+                        selbst für einfache Sprachen wie
+                        \begin{align*}
+                        \{a^n b^n c^n \ | \ n \geq 0 \}
+                        \end{align*}
+                        oder
+                        \begin{align*}
+                        \{wcw \ | \ w \in \{a,b\}^*\}
+                        \end{align*}
+                        Turingmaschinen zu programmieren. Ein Grund dafür ist, dass die Maschine nur an einer Position
+                        des Bandes
+                        lesen und schreiben kann und man deswegen ständig zwischen verschiedenen Stellen hin- und
+                        herfahren muss.
+                        Es bietet sich daher an, an etwas allgemeineres Modell einer Rechenmaschine zu definieren,
+                        das dann auch leichter zu programmieren ist. Dies ist die _Mehrband-Turingmaschine_.
+
+                        Eine Mehrband-Turingmaschine ist wie eine Turingmaschine, nur dass sie statt einem
+                        \(k\) viele Bänder und somit auch \(k\) viele Schreib-Lese-Köpfe hat. Die
+                        Zustandsübergangsfunktion \(\delta\) hat somit auch die Signatur
+                        \begin{align*}
+                        \delta : Q \times \Gamma^k \rightarrow Q \times \Gamma^k \times \lsr^k
+                        \end{align*}
+                        |> figure
+                            class=centered-figure well container
+                            |> a
+                                class=left carousel-control-prev-icon
+                                href=#tm-multitape
+                                data-slide=prev
+                                |> div
+                                    class=carousel-nav-icon
+                                    |> img
+                                        src=../img/carousel-prev-icon.svg
+                            |> a
+                                class=right carousel-control-next-icon
+                                href=#tm-multitape
+                                data-slide=next
+                                |> div
+                                    class=carousel-nav-icon
+                                    |> img
+                                        src=../img/carousel-next-icon.svg
+                            |> div
+                                id=tm-multitape
+                                class=carousel
+                                data-interval=false
+                                style=display:inline-block
+                                |> ol
+                                    class=carousel-indicators
+                                    |> li
+                                        data-target=#tm-multitape
+                                        data-slide-to=1
+                                        class=active
+                                    |> li
+                                        data-target=#tm-multitape
+                                        data-slide-to=2
+                                    |> li
+                                        data-target=#tm-multitape
+                                        data-slide-to=3
+                                    |> li
+                                        data-target=#tm-multitape
+                                        data-slide-to=4
+                                    |> li
+                                        data-target=#tm-multitape
+                                        data-slide-to=5
+                                |> div
+                                    class=carousel-inner
+                                    style=display:inline-block
+                                    |> div
+                                        class=item active
+                                        |> img
+                                            src=../img/01-turing-machines/example-3-multitape/01.svg
+                                            style=height:21em
+                                    |> div
+                                        class=item
+                                        |> img
+                                            src=../img/01-turing-machines/example-3-multitape/02.svg
+                                            style=height:21em
+                                    |> div
+                                        class=item
+                                        |> img
+                                            src=../img/01-turing-machines/example-3-multitape/03.svg
+                                            style=height:21em
+                                    |> div
+                                        class=item
+                                        |> img
+                                            src=../img/01-turing-machines/example-3-multitape/04.svg
+                                            style=height:21em
+                                    |> div
+                                        class=item
+                                        |> img
+                                            src=../img/01-turing-machines/example-3-multitape/05.svg
+                                            style=height:21em
+                        |> Example
+                            Entwerfen wir nun eine Turingmaschine für die Palindromsprache
+                            \begin{align*}
+                            L := \{ w \in \{a,b\}^* \ | \ w = w^R \} \ ,
+                            \end{align*}
+                            In 
+                            |> a
+                                href=./04-01-Turing-machines-examples.html#example-palindromes
+                                Beispiel 4.2.2
+                            haben wir dafür eine Einband-Turingmaschine geschrieben. Deren Nachteil war, dass sie
+                            ständig zwischen dem linken und rechten Rand hin-und-herlaufen musste.
+                            Bauen wir nun eine Mehrband-Turingmaschine. Diese arbeitet in drei einfachen und kurzen
+                            Phasen:
+                            |> ol
+                                |> li
+                                    |> tt
+                                        copy
+                                    : kopiert das \(w\) auf das zweite Band
+                                |> li
+                                    |> tt
+                                        rewind
+                                    : bewegt den Kopf des ersten Bandes zurück zum Anfang
+                                |> li
+                                    |> tt
+                                        compare
+                                    : schaut, ob erstes und zweites Band den gleichen Inhalt haben.
+                            Den "Quelltext" für 
+                            |> a
+                                href=https://turingmachinesimulator.com
+                                turingmachinesimulator.com
+                            finden Sie in
+                            |> a
+                                href=../code/turing machines/palindrome-multiple-tapes.txt
+                                palindrome-multiple-tapes.txt
+                            .
+                        |> Exercise
+                            Schreiben Sie eine Mehrband-Turingmaschine, die Binärzahlen addiert. Wenn
+                            also beispielsweise 
+                            |> tt
+                                1010+110
+                            \ auf dem ersten Band (Eingabeband) steht,
+                            dann soll nach Abschluss der Berechnung das Ergebnis auf dem Ausgabeband stehen,
+                            also 
+                            |> tt
+                                10000
+                            .
+                            *Tip.* Verwenden Sie drei Bänder. Sei der Bandinhalt \(x+y\). In einer ersten
+                            Phase kopieren Sie \(x\) auf das zweite Band. In der nächsten Phase gehen Sie ans Ende von
+                            \(y\).
+                            Dann addieren Sie nach den Regeln der Binäraddition. Ob "1 gemerkt" gilt oder nicht, können
+                            Sie in Ihrem internen Zustand speichern. Eine Regel wäre also zum Beispiel:
+                            |> pre
+                                carry1, 0, 0, _ 
+                                carry0, 0, 0, 1, <, <, < 
+                                carry1, 0, 1, _ 
+                                carry1, 0, 1, 0, <, <, < 
+                            Ein lästiges Detail ist, dass \(y\) kürzer sein könnte als \(x\) und Sie daher
+                            in das 
+                            |> tt
+                                +
+                            \ reinlaufen könnten; wenn \(x\) kürzer ist als \(y\), dann könnten
+                            Sie auf dem zweiten Band in ein \(\square\) reinlaufen. Wie ist dieser Fall zu behandeln?
+                        *Berechnete Sprache, berechnete Funktion.*
+                        Die Begriffe des Akzpetierens und Ablehnens definieren wir genau wie für die
+                        Einband-Turingmaschinen. Eine formale Definition der Konfiguration ersparen wir uns jedoch.
+                        Wenn unsere Mehrband-Turingmaschine nicht nur akzeptieren / ablehnen, sondern etwas
+                        _berechnen_ soll, also eine Funktion
+                        \begin{align*}
+                        f : \Sigma_1 \rightarrow \Sigma_2 \ ,
+                        \end{align*}
+                        dann bauen wir sie per Konvention so, dass sie ein designiertes Ausgabeband hat, auf dem
+                        nach Abschluss der Berechnung das Ausgabewort \(f(x)\) steht.
+                        |> h2
+                            Einband-Maschinen können Mehrband-Maschinen simulieren
+                        Es stellt sich heraus, dass mehrere Bänder zwar ein praktisches Feature sind, aber nicht
+                        wirklich mehr Ausdruckskraft verlangen; was eine Mehrband-Turingmaschine schafft,
+                        schafft eine Einband-Turingmaschine auch.
+                        |> Theorem
+                            *(Einband-Turingmaschine simuliert
+                            Mehrband-Turingmaschine)*.
+                            Sei \(M\) eine Turingmaschine mit \(k\) Bändern, wovon eines ein designiertes
+                            Ausgabeband ist. Dann gibt es
+                            eine Einband-Turingmaschine \(M'\) mit folgenden Eigenschaften:
+                            |> ol
+                                |> li
+                                    \(M'(x)\) akzeptiert/lehnt ab/terminiert nicht genau dann, wenn
+                                    \(M(x)\) akzeptiert/ablehnt/nicht terminiert.
+                                |> li
+                                    Wenn \(M(x)\) akzeptiert und \(y\) der Bandinhalt des Ausgabebandes
+                                    ist, dann akzeptiert \(M'(x)\) auch, und der Bandinhalt (des einzigen Bandes, es gibt
+                                    ja nur eins) ist \(y\).
+                            In anderen Worten: \(M'\) simuliert \(M\).
+                        |> div
+                            class=well container
+                            *Beweis.*
+                            Der erste Trick ist, dass wir die \(k\) Bänder von \(M\) "zusammenkleben" in ein
+                            neues Band, in welcher jede Zelle \(k\) Symbole enthalten kann:
+                            |> figure
+                                |> img
+                                    loading=lazy
+                                    src=../img/01-turing-machines/example-3-multitape/multitape-to-onetape.svg
+                                    style=height:12em
+                            Das Problem sind nun die Köpfe. Wenn wir diese Idee naiv umsetzen würden, hätte unsere
+                            Maschine \(M'\) zwar ein Band, dafür drei Köpfe auf diesem:
+                            |> figure
+                                |> img
+                                    loading=lazy
+                                    src=../img/01-turing-machines/example-3-multitape/multitape-to-onetape-three-heads.svg
+                                    style=height:15em
+                            Wir lösen dies, indem wir die Kopfpositionen in das Band selbst reinschreiben:
+                            |> figure
+                                |> img
+                                    loading=lazy
+                                    src=../img/01-turing-machines/example-3-multitape/multitape-to-onetape-one-head.svg
+                                    style=height:12em
+                            Das neue Bandalphabet ist also nicht \(\Gamma^k\) sondern
+                            \((\Gamma \times \{\texttt{head}, \texttt{nohead}\} )^k\). Wo steht nun aber denn der
+                            Kopf von \(M'\)? Jetzt kommt der schwierige Teil: um _einen_ Schritt von \(M\) zu
+                            simulieren,
+                            muss \(M'\) von ganz links nach ganz rechts laufen und alle Informationen über die \(k\)
+                            \(M\)-Köpfe sammeln. Dann von rechts nach links gehen und die ausführen.
+                            |> figure
+                                class=centered-figure well container
+                                |> a
+                                    class=left carousel-control-prev-icon
+                                    href=#one-simulates-multi
+                                    data-slide=prev
+                                    |> div
+                                        class=carousel-nav-icon
+                                        |> img
+                                            src=../img/carousel-prev-icon.svg
+                                |> a
+                                    class=right carousel-control-next-icon
+                                    href=#one-simulates-multi
+                                    data-slide=next
+                                    |> div
+                                        class=carousel-nav-icon
+                                        |> img
+                                            src=../img/carousel-next-icon.svg
+                                |> div
+                                    id=one-simulates-multi
+                                    class=carousel
+                                    data-interval=false
+                                    style=display:inline-block
+                                    |> ol
+                                        class=carousel-indicators
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=1
+                                            class=active
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=2
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=3
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=4
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=5
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=6
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=7
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=8
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=9
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=10
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=11
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=12
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=13
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=14
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=15
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=16
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=17
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=18
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=19
+                                        |> li
+                                            data-target=#one-simulates-multi
+                                            data-slide-to=20
+                                    |> div
+                                        class=carousel-inner
+                                        style=display:inline-block
+                                        |> div
+                                            class=item active
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/01-01.svg
+                                                style=height:19em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/02-01.svg
+                                                style=height:19em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/02-02.svg
+                                                style=height:19em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/02-03.svg
+                                                style=height:19em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/02-04.svg
+                                                style=height:19em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/02-05.svg
+                                                style=height:19em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/02-06.svg
+                                                style=height:19em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/02-07.svg
+                                                style=height:19em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/02-08.svg
+                                                style=height:19em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/03-01.svg
+                                                style=height:19em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/03-02.svg
+                                                style=height:19em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/04-01.svg
+                                                style=height:19em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/04-02.svg
+                                                style=height:19em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/04-03.svg
+                                                style=height:19em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/04-04.svg
+                                                style=height:19em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/05-01.svg
+                                                style=height:19em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/05-02.svg
+                                                style=height:19em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/06-01.svg
+                                                style=height:19em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/07-01.svg
+                                                style=height:19em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/one-simulates-multi/08-01.svg
+                                                style=height:19em
+                            Wir müssen also die Zustandsmenge deutlich erweitern; so muss sie speichern können,
+                            ob wir ein Symbol bereits gelesen haben; ob wir ein Symbol bereits geschrieben haben und
+                            ob wir den Kopf bereits entsprechend verschoben haben. Für eine Rechtsverschiebung
+                            müssen wir uns zusätzlich noch merken, dass wir sie gerade durchführen und für welches
+                            Band. All dies ist viel, aber immer noch endlich. Wir können alles in einer
+                            endlichen Zustandsmenge \(Q'\) speichern.
+
+                            Wenn der \(M\)-Zustand (der natürlich auch im \(M'\)-Zustand gespeichert ist),
+                            |> tt
+                                accept
+                            erreicht hat, dann macht \(M'\) noch eine Aufräumphase, in welcher sie alle Symbole,
+                            die nicht zum Ausgabeband gehören, durch \(\square\) ersetzt. Dann wechselt sie in
+                            ihren eigenen akzeptierenden Zustand 
+                            |> tt
+                                accept'
+                            .
+                            |> span
+                                class=qed
+                                \(\square\)
+                        |> Exercise
+                            Schreiben Sie eine Mehrband-Turingmaschine, die aus dem Eingabewort
+                            $a^m \mathtt{*} b^n \in \{a,b, \texttt{*}\}^*$ ein Ausgabewort $c^{mn}$ berechnet und dies
+                            auf das Ausgabeband schreibt. Also im Prinzip Multiplikation von
+                            unär codierten natürlichen Zahlen implementiert.
+                        |> Exercise
+                            Schreiben Sie eine Mehrband-Turingmaschine, die Binärzahlen addieren kann!
+                            Auf Eingabe 
+                            |> tt
+                                10110+11
+                            \ beispielsweise soll sie 
+                            |> tt
+                                11001
+                            \ auf das
+                            Ausgabeband schreiben.
+                        Ein fundamentale Datenstruktur beim Programmieren sind _Dictionaries_, die
+                        Key-Value-Paare speichern:
+                        |> pre
+                            class=container
+                            |> code
+                                class=terminalPrompt
+                                python -i
+                            \ 
+                            |> code
+                                class=pythonPrompt
+
+                                dict = {"karl" : 42, "eva" : 35, "werner" : 20}
+                            |> code
+                                class=pythonPrompt
+                                dict["eva"]
+                            |> code
+                                class=terminalOutput
+                                35
+                            |> code
+                                class=pythonPrompt
+                        Im Zweifelsfall sind diese als Hashmaps oder Rot-Schwarz-Bäume oder B-Bäume implementiert.
+                        Hier interessiert uns nicht so sehr die Laufzeit, sondern einfach die Funktionalität.
+                        Können wir für Dictionaries eine Turingmaschine implementieren?
+                        |> Exercise
+                            Schreiben Sie auf 
+                            |> a
+                                href=https://turingmachinesimulator.com
+                                turingmachinesimulator.com
+                            eine Mehrband-Turingmaschine, die Inputs der Form
+                            \begin{align*}
+                            k [ k_1 : v_1; k_2 : v_2; \dots ; k_n : v_n ]
+                            \end{align*}
+                            entgegennimmt, für \(k, k_1, \dots, k_n, v_1, \dots, v_n \in \{0,1\}^n \),
+                            also \(\Sigma = \{0,1, \texttt{:}, \texttt{;}, \texttt{[}, \texttt{]}\}\) und akzeptiert, wenn
+                            es ein \(i\) gibt mit \(k = k_i\) und in diesem Falle \(v_i\) auf das Ausgabeband schreibt.
+                            *Tip:* Kopieren Sie erst einmal den gesuchten Schlüssel \(k\) auf
+                            das zweite Band. Dann können Sie bequem den Schlüssel \(k_i\) auf dem
+                            ersten Band mit dem auf dem zweiten Band vergleichen.
+                            Wenn Sie es sich einfach machen wollen, nehmen Sie einfach mal an, dass
+                            alle Schlüssel gleiche Länge haben. Das erspart Ihnen gefühlt 20 Zeilen
+                            im Programmcode der Turingmaschine.
+                        |> h2
+                            Nichtdeterministische Turingmaschinen
+                        Bereits im Kapitel über reguläre Sprachen haben wir gesehen, dass
+                        Nichtdeterminismus hilfreich ist, wenn wir Dinge beschreiben wollen,
+                        auch wenn es kein realistisches Modell für Rechenmaschinen darstellt.
+                        Die Sprache aller Wörter über $\{a,b\}$, die das Teilwort
+                        \(aababaa\) enthalten, kann man beispielsweise leicht
+                        mit dem folgenden Automaten beschreiben:
+                        |> figure
+                            |> img
+                                loading=lazy
+                                src=../img/01-turing-machines/nondeterminism/aababaa.svg
+                                style=height:6em
+                        Es ist klar, was dieser Automat erlaubt. Einen deterministischen Automaten für die
+                        gleiche Sprache zu entwerfen (ohne systematisch über den nichtdeterministischen zu gehen)
+                        wird schnell chaotisch, und Sie werden sich in den vielen Fallunterscheidungen verlieren.
+
+                        Andererseits haben wir für endliche Automaten gezeigt, dass die deterministischen und
+                        nichtdeterministischen Varianten
+                        tatsächlich gleichmächtig sind (Potenzmengenkonstruktion). Für die Kellerautomaten,
+                        die für kontextfreie Sprachen relevant sind, galt das nicht (einen Beweis
+                        haben wir allerdings in der Vorlesung nicht durchgenommen). Wie sieht es nun für
+                        Turingmaschinen aus?
+
+                        Um nichtdeterministische Turingmaschinen zu definieren, müssen wir die
+                        Zustandsübergangsfunktion
+                        \(\delta\) zu einer Zustandsübergangsrelation machen. Statt
+                        \(\delta: Q \times \Gamma \rightarrow Q \times \Gamma \times \lsr\) also nun
+                        \begin{align*}
+                        \delta \subseteq (Q \times \Gamma) \times (Q \times \Gamma \times \lsr) \ .
+                        \end{align*}
+                        Und statt \(\delta(q,x) = (r,y,\texttt{D})\) schreiben wir nun \((q,x) \step{\delta}
+                        (r,y,\texttt{D})\). Wir beschränken uns zunächst auf Einband-Turingmaschinen.
+                        Für Konfigurationen \(C \in \Gamma^* \times Q \times\Gamma^*\) haben wir keine
+                        erweiterte Zustandsübergangsfunktion \(\delta(C) = C'\), wo \(C'\) die Folgekonfiguration ist,
+                        sondern eine erweiterte Zustandsübergangsrelation:
+                        \begin{align*}
+                        C \Step{} C'
+                        \end{align*}
+                        Wobei nun dank Nichtdeterminismus mehrere Folgekonfigurationen \(C'\) geben kann (oder eben mal
+                        auch gar keine). Wir schreiben
+                        \begin{align*}
+                        C \Step{}^* C'
+                        \end{align*}
+                        wenn wir von \(C\) in einer Folge von Schritten nach \(C'\) kommen können, also
+                        \begin{align*}
+                        C = C_0 \Step{} C_1 \Step{} C_2 \Step{} \dots \Step{} C'
+                        \end{align*}
+                        Wir sagen auch: _Die Konfiguration \(C'\) ist von \(C\) aus erreichbar_.
+
+                        Für ein Eingabewort \(x\) sei \(C_x := \qstart x\) die Startkonfiguration.
+                        Eine nichtdeterministische Turingmaschine _akzeptiert_ \(x\), wenn es eine
+                        akzeptierende Endkonfiguration \(C_{\rm accept}\) gibt mit
+                        \begin{align*}
+                        C_x \Step{}^* C_{\rm accept}
+                        \end{align*}
+                        wenn es also (mindestens) eine akzeptierende Konfiguration gibt, die von \(C_x\) aus erreichbar
+                        ist.
+                        Dabei kann es _mehrere_ erreichbare akzeptierende Konfigurationen geben,
+                        Es kann sogar eine ablehnende Konfiguration
+                        \(C_x \Step{}^* C_{\rm reject}\) geben. Spielt keine Rolle: solange es
+                        einen Weg \(C_x \Step{}^* C_{\rm accept}\) gibt, sagen wir,
+                        dass \(M\) das Eingabewort akzeptiert.
+                        |> Definition
+                            *(Akzeptieren und Entscheiden bei nichtdeterministischen Turingmaschinen).*
+                            Eine nichtdeterministische Turingmaschine \(M\) akzeptiert die Sprache \(L\) wenn
+                            \begin{align*}
+                            x \in L \Longleftrightarrow M \textnormal { akzeptiert } x
+                            \end{align*}
+                            Für jedes \(x \not \in L\) gibt es also keine akzeptierende Konfiguration \(C\) mit
+                            \(C_x \Rightarrow C\).
+                            Die Turingmaschine \(M\) _entscheidet_ die Sprache \(L\), wenn sie sie akzeptiert
+                            und es keine unendlich langen Ketten
+                            \begin{align*}
+                            C_x \Step{} C_1 \Step{} C_2 \Step{} \dots
+                            \end{align*}
+                            gibt.
+                        |> div
+                            class=alert-warning
+                            Oft wird händeringend versucht, zu erklären, was denn eine nichtdeterministische
+                            Turingmaschine
+                            _tut_. Da lesen Sie dann beispielsweise, dass die _alle Möglichkeiten gleichzeitig
+                            ausprobiert_
+                            oder den richtigen Pfad von einem _Engel_ gesagt bekommt oder _errät_.
+                            Ich stelle mir lieber vor, dass eine nichtdeterministische Turingmaschine gar nichts "tut"
+                            sondern
+                            _Spielregeln_ definiert, wie man "ziehen" kann. Man gewinnt, wenn man in einer
+                            akzeptierenden
+                            Konfiguration landet.
+                        |> h3
+                            Deterministische Turingmaschinen simulieren nichtdeterministische
+                        |> Theorem
+                            *(Nichtdeterministische Turingmaschinen deterministisch simulieren).*
+                            Sei \(M\) eine nichtdeterministische Turingmaschine. Dann gibt
+                            es eine deterministische Maschine \(M'\) mit \(L(M) = L(M')\), d.h.
+                            \(M'\) akzeptiert \(x\) genau dann, wenn \(M\) es akzeptiert.
+                        |> div
+                            class=well container
+                            *Beweis.*
+                            Für jedes $(q,x) \in Q \times \Gamma$ gibt es in der nichtdeterministischen Maschine
+                            $M$ eine gewisse Zahl von Tripeln $(r,y,D) \in Q \times \Gamma \times \lsr{}$
+                            $(q,x) \step{\delta} (r,y,D)$. Wir definieren den _Grad_ des Paares eines
+                            Paares $(q,x)$ als
+                            \begin{align*}
+                            \deg(q,x) := \textnormal{Anzahl der } (r,y,D) \textnormal{ mit }
+                            (q,x) \step{\delta} (r,y,D) \ .
+                            \end{align*}
+                            Wenn $\deg(q,x) = 1$ ist für alle $(q,x) \in Q \times \Gamma$, dan ist $\delta$
+                            eine Funktion, und $M$ ist deterministisch. Wenn $\deg(q,x) \leq 1$ gilt,
+                            dann können wir für "Sackgassen", also Paare mit $\deg(q,x) = 0$ eine
+                            einfache Reject-Regel einführen. Solche Turingmaschinen sind also im Prinzip auch
+                            deterministisch. Ganz allgemein definieren wir
+                            \begin{align*}
+                            d := \max_{(q,x) \in Q \times \Gamma} \deg(q,x) \ ,
+                            \end{align*}
+                            den _Maximalgrad_. Diesen können wir für die Turingmaschine $M$
+                            bestimmen, unabhängig von dem Eingabewort $w$. Wenn wir uns die
+                            _erweiterte Übergangsrelation_ $\hat{\delta} \subseteq \mathcal{C} \times
+                            \mathcal{C}$ anschauen, also die Übergangsrelation auf Konfigurationen, dann sehen wir,
+                            dass $\left(\mathcal{C}, \hat{\delta}\right)$ ein unendlicher gerichteter Graph ist.
+                            Jeder Knoten in diesem Graphen hat maximal $d$ ausgehende Kanten.
+                            Wir können jede Kante mit einem Index $0 \leq i \leq d-1$ beschriften,
+                            einer beliebigen aber festen Ordnung für $\delta$ folgend:
+                            |> figure
+                                |> img
+                                    src=../img/01-turing-machines/det-simulates-nondet/det-simulates-nondet-01-01.svg
+                                    style=height:20em
+                            Jeder rote Knoten steht für eine Konfiguration. Ein an
+                            der Startkonfiguration beginnender Kantenzug lässt sich jetzt
+                            mit einem Labeling identifizieren, und jedes Labeling entspricht einem
+                            Kantenzug:
+                            |> figure
+                                class=centered-figure well container
+                                |> a
+                                    class=left carousel-control-prev-icon
+                                    href=#det-simulates-nondet
+                                    data-slide=prev
+                                    |> div
+                                        class=carousel-nav-icon
+                                        |> img
+                                            src=../img/carousel-prev-icon.svg
+                                |> a
+                                    class=right carousel-control-next-icon
+                                    href=#det-simulates-nondet
+                                    data-slide=next
+                                    |> div
+                                        class=carousel-nav-icon
+                                        |> img
+                                            src=../img/carousel-next-icon.svg
+                                |> div
+                                    id=det-simulates-nondet
+                                    class=carousel
+                                    data-interval=false
+                                    style=display:inline-block
+                                    |> ol
+                                        class=carousel-indicators
+                                        |> li
+                                            data-target=#det-simulates-nondet
+                                            data-slide-to=1
+                                            class=active
+                                        |> li
+                                            data-target=#det-simulates-nondet
+                                            data-slide-to=2
+                                        |> li
+                                            data-target=#det-simulates-nondet
+                                            data-slide-to=3
+                                    |> div
+                                        class=carousel-inner
+                                        style=display:inline-block
+                                        |> div
+                                            class=item active
+                                            |> img
+                                                src=../img/01-turing-machines/det-simulates-nondet/det-simulates-nondet-02-01.svg
+                                                style=height:20em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/det-simulates-nondet/det-simulates-nondet-02-02.svg
+                                                style=height:20em
+                                        |> div
+                                            class=item
+                                            |> img
+                                                src=../img/01-turing-machines/det-simulates-nondet/det-simulates-nondet-02-03.svg
+                                                style=height:20em
+                            wobei unsere Konvention ist, dass wir den Kantenzug enden lassen, wenn es
+                            keine passende ausgehende Kante gibt. Wir können jetzt eine neue, deterministische
+                            Turingmaschine $M'$ bauen mit _zwei_ Eingabebändern. Das erste Band
+                            hat Eingabealphabet $\Sigma$ wie $M$, das zweite hat $\Lambda := \{0,1,\dots,d-1\}$.
+                            Auf Eingabe $(x, z) \in \Sigma^* \times \Lambda^*$ simuliert $M'$ nun, was $M$
+                            tun würde, wenn es die Kanten mit Labeling $z$ näme. Formal also
+                            \begin{align*}
+                            \delta_{M'} (q,a,i) := \begin{cases}
+                            (r,b,i,D,R) & \textnormal{ wenn $(r,b,D)$ das $i$-te zu $(q,a)$ passende Tripel in $\delta_M$
+                            ist } \\
+                            (q,a,i, S, S) & \textnormal{ wenn es kein $i$-tes Tripel gibt.}
+                            \end{cases}
+                            \end{align*}
+                            Als nächstes bauen wir eine weitere deterministische Zweiband-Turingmaschine $M''$,
+                            die auf ihrem zweiten Band durch alle Wörter $z \in \Lambda^*$ iteriert und
+                            für jedes die Maschine $M'(x,z)$ ausführt; wenn $M'$ akzeptiert, dann
+                            akzeptiert $M''$, ansonsten schreitet sie zum nächsten $z \in \Lambda^*$ fort.
+                            Hierfür brauchen wir wohl ein drittes Band, damit wir uns das $x$ merken und
+                            nach erfolgloser Kantenzugexploration wieder herstellen können.
+
+                            Wir sehen nun: wenn $x \in L(M)$ gilt, dann gibt es einen Pfad
+                            von der Startkonfiguration $C_x$ zu einer akzeptierenden Endkonfiguration.
+                            Dieser Pfad hat ein Kantenlabeling $z$, und $M'(x,z)$ würde akzeptieren.
+                            Also wird auch $M''(x)$ irgendwann akzeptieren, nämlich nachdem $z$
+                            in der Aufzählung von $\Lambda^*$ drangekommen ist.
+                            Umgekehrt: wenn $M''(x)$ akzeptiert, dann gibt es einen Pfad (bzw. Kantenzug)
+                            von der Startkonfiguration zu einer akzeptierenden Endkonfiguration und somit
+                            gilt $x \in L(M)$. Daher gilt $L(M) = L(M'')$.
+                            |> span
+                                class=qed
+                                \(\square\)
+                        |> Exercise
+                            Bauen Sie $M''$ leicht um, so dass folgende Eigenschaft gilt: wenn $M$
+                            die Sprache $L$ entscheidet (wenn es also im Konfigurationsgraphen keine unendlichen
+                            Kantenzüge gibt), dann entscheidet $M''$ die Sprache $L$.
+                        |> Exercise
+                            Definieren Sie für deterministische und nichtdeterministische Turingmaschinen
+                            den Begriff der _Laufzeit_! Was ist die Laufzeit auf einem konkreten
+                            Eingabewort $x \in \Sigma^*$?
+        |> div
+            id=navigation-links
+    |> script
+        var chaptersStartAt = 4;
+        var subChaptersStartAt = 6;
+    |> script
+        type=text/javascript
+        src=../javascript/table-of-contents.js
+    |> script
+        type=text/javascript
+        src=../javascript/number-my-theorems.js
