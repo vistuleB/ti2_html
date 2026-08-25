@@ -2,7 +2,7 @@ name = "ti2_html"
 version = "1.0.0"
 
 [dependencies]
-vxml = { "path" = "../wly/vxml" }
+vxml = ">= 1.0.3 and < 2.0.0"
 writerly = { "path" = "../wly/writerly" }
 desugaring = { "path" = "../wly/desugaring" }
 

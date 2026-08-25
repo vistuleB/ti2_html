@@ -1,4 +1,5 @@
-import io_lines as io_l
+import desugaring as vr
+import desugaring/core as infra
 import gleam/int
 import gleam/io
 import gleam/list
@@ -7,12 +8,11 @@ import gleam/pair
 import gleam/result
 import gleam/string
 import html_pipeline
-import infrastructure as infra
+import on
 import simplifile
 import vxml.{type VXML} as vp
-import desugaring as vr
+import vxml/io_lines as io_l
 import writerly as wp
-import on
 
 const ins = string.inspect
 
@@ -41,7 +41,10 @@ fn remove_0_at_start(s: String) -> String {
   }
 }
 
-fn splitter(vxml: VXML, file: String) -> Result(List(vr.OutputFragment(Nil, VXML)), a) {
+fn splitter(
+  vxml: VXML,
+  file: String,
+) -> Result(List(vr.OutputFragment(Nil, VXML)), a) {
   let wly_file = file |> string.drop_end(5) <> ".wly"
   Ok([vr.OutputFragment(Nil, wly_file, vxml)])
 }
@@ -138,15 +141,9 @@ fn emitter(
     True -> {
       let _ = simplifile.create_directory(chapter_directory)
       let assert Ok(_) =
-        simplifile.write(
-          chapter_directory <> "/" <> "__parent.wly",
-          "|> Chapter
+        simplifile.write(chapter_directory <> "/" <> "__parent.wly", "|> Chapter
     counter=SectionCtr
-    title_gr="
-          <> title_german
-          <> "\n    title_en="
-          <> title_en,
-        )
+    title_gr=" <> title_german <> "\n    title_en=" <> title_en)
       Nil
     }
   }
@@ -207,31 +204,27 @@ fn directory_files_else_file(
   }
 }
 
-fn ti2_html_bad_html_replacements(
-  content: String,
-) -> String {
+fn ti2_html_bad_html_replacements(content: String) -> String {
   content
   |> string.replace("\\,<", "\\,&lt;")
   |> string.replace(" < ", " &lt; ")
   |> string.replace("\\rt{0.1}<", "\\rt{0.1}&lt;")
 }
 
-fn ti2_html_pre_processor(
-  content: String,
-) -> String {
+fn ti2_html_pre_processor(content: String) -> String {
   content
-  |> vp.expand_html_boolean_attrs
-  |> vp.escape_non_entity_ampersands
+  |> vp.html_repair_expand_boolean_attrs
+  |> vp.html_repair_escape_non_entity_ampersands
   |> ti2_html_bad_html_replacements
-  |> vp.close_html_void_tags
-  |> vp.remove_attrs_from_closing_tags
+  |> vp.html_repair_close_void_tags
+  |> vp.html_repair_remove_attrs_from_closing_tags
 }
 
 fn html_purifying_assembler(
   path: String,
 ) -> Result(#(List(io_l.InputLine), option.Option(a)), simplifile.FileError) {
   use content <- on.ok(simplifile.read(path))
-  let lines = 
+  let lines =
     content
     |> ti2_html_pre_processor
     |> io_l.string_to_input_lines(path, 0)
@@ -242,10 +235,9 @@ pub fn html_to_writerly(
   path: String,
   amendments: vr.CommandLineAmendments,
 ) -> Nil {
-  use #(dir, files) <- on.error_ok(
-    directory_files_else_file(path),
-    fn(e) { io.print("failed to load files from " <> path <> ": " <> ins(e)) },
-  )
+  use #(dir, files) <- on.error_ok(directory_files_else_file(path), fn(e) {
+    io.print("failed to load files from " <> path <> ": " <> ins(e))
+  })
 
   let files =
     files
@@ -266,8 +258,12 @@ pub fn html_to_writerly(
     io.println("")
 
     let parameters =
-      vr.RendererParameters(input_dir: path, output_dir: ".", prettifier_behavior: vr.PrettifierOff)
-      |> vr.amend_renderer_paramaters_by_command_line_amendments(amendments)
+      vr.RendererParameters(
+        input_dir: path,
+        output_dir: ".",
+        prettifier_behavior: vr.PrettifierOff,
+      )
+      |> vr.amend_renderer_parameters_by_command_line_amendments(amendments)
 
     let options =
       vr.vanilla_options()

@@ -1,16 +1,17 @@
 import argv
-import blame.{type Blame} as bl
+import desugaring as vr
+import desugaring/core as infra
+import desugaring/writerly_defaults as wd
 import gleam/io
 import gleam/list
 import gleam/option.{Some}
 import gleam/string
 import html_to_writerly
-import infrastructure as infra
+import on
 import pipeline
 import vxml.{type VXML, Attr}
-import io_lines.{type OutputLine, OutputLine}
-import desugaring as vr
-import on
+import vxml/blame.{type Blame} as bl
+import vxml/io_lines.{type OutputLine, OutputLine}
 
 const ins = string.inspect
 
@@ -59,10 +60,18 @@ fn our_splitter(
 
   Ok(
     list.flatten([
-      [vr.OutputFragment(TOCAuthorSuppliedContent, "vorlesungsskript.html", toc_vxml)],
+      [
+        vr.OutputFragment(
+          TOCAuthorSuppliedContent,
+          "vorlesungsskript.html",
+          toc_vxml,
+        ),
+      ],
       list.index_map(chapter_vxmls, fn(vxml, index) {
-        let assert Some(title_attr) = infra.v_first_attr_with_key(vxml, "title_en")
-        let assert Some(number_attribute) = infra.v_first_attr_with_key(vxml, "number")
+        let assert Some(title_attr) =
+          infra.v_first_attr_with_key(vxml, "title_en")
+        let assert Some(number_attribute) =
+          infra.v_first_attr_with_key(vxml, "number")
         let section_name =
           number_attribute.val
           |> string.split(".")
@@ -70,7 +79,11 @@ fn our_splitter(
           |> string.join("-")
           <> "-"
           <> title_attr.val |> string.replace(" ", "-")
-        vr.OutputFragment(Chapter(index + 1), "lecture-notes/" <> section_name <> ".html", vxml)
+        vr.OutputFragment(
+          Chapter(index + 1),
+          "lecture-notes/" <> section_name <> ".html",
+          vxml,
+        )
       }),
     ]),
   )
@@ -141,35 +154,107 @@ fn toc_emitter(
         OutputLine(blame_us("toc_emitter"), 0, "<!DOCTYPE html>"),
         OutputLine(blame_us("toc_emitter"), 0, "<html>"),
         OutputLine(blame_us("toc_emitter"), 0, "<head>"),
-        OutputLine(blame_us("toc_emitter"), 2, "<link rel=\"icon\" type=\"image/x-icon\" href=\"logo.png\">"),
+        OutputLine(
+          blame_us("toc_emitter"),
+          2,
+          "<link rel=\"icon\" type=\"image/x-icon\" href=\"logo.png\">",
+        ),
         OutputLine(blame_us("toc_emitter"), 2, "<meta charset=\"utf-8\">"),
-        OutputLine(blame_us("toc_emitter"), 2, "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"),
-        OutputLine(blame_us("toc_emitter"), 2, "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">"),
-        OutputLine(blame_us("toc_emitter"), 2, "<link rel=\"stylesheet\" href=\"lecture-notes.css\">"),
-        OutputLine(blame_us("toc_emitter"), 2, "<link rel=\"stylesheet\" type=\"text/css\" href=\"TI.css\" />"),
-        OutputLine(blame_us("toc_emitter"), 2, "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js\"></script>"),
-        OutputLine(blame_us("toc_emitter"), 2, "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\"></script>"),
-        OutputLine(blame_us("toc_emitter"), 2, "<script type=\"text/javascript\" src=\"./mathjax_setup.js\"></script>"),
-        OutputLine(blame_us("toc_emitter"), 2, "<script type=\"text/javascript\" id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js\"></script>"),
+        OutputLine(
+          blame_us("toc_emitter"),
+          2,
+          "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",
+        ),
+        OutputLine(
+          blame_us("toc_emitter"),
+          2,
+          "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">",
+        ),
+        OutputLine(
+          blame_us("toc_emitter"),
+          2,
+          "<link rel=\"stylesheet\" href=\"lecture-notes.css\">",
+        ),
+        OutputLine(
+          blame_us("toc_emitter"),
+          2,
+          "<link rel=\"stylesheet\" type=\"text/css\" href=\"TI.css\" />",
+        ),
+        OutputLine(
+          blame_us("toc_emitter"),
+          2,
+          "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js\"></script>",
+        ),
+        OutputLine(
+          blame_us("toc_emitter"),
+          2,
+          "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\"></script>",
+        ),
+        OutputLine(
+          blame_us("toc_emitter"),
+          2,
+          "<script type=\"text/javascript\" src=\"./mathjax_setup.js\"></script>",
+        ),
+        OutputLine(
+          blame_us("toc_emitter"),
+          2,
+          "<script type=\"text/javascript\" id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js\"></script>",
+        ),
         OutputLine(blame_us("toc_emitter"), 0, "</head>"),
         OutputLine(blame_us("toc_emitter"), 0, "<body>"),
         OutputLine(blame_us("toc_emitter"), 0, "  <div>"),
-        OutputLine(blame_us("toc_emitter"), 0, "    <p><a href=\"index.html\">zur Kursübersicht</a></p>"),
+        OutputLine(
+          blame_us("toc_emitter"),
+          0,
+          "    <p><a href=\"index.html\">zur Kursübersicht</a></p>",
+        ),
         OutputLine(blame_us("toc_emitter"), 0, "  </div>"),
-        OutputLine(blame_us("toc_emitter"), 0, "  <div class=\"container\" style=\"text-align:center;\">"),
-        OutputLine(blame_us("toc_emitter"), 0, "    <div style=\"text-align:center;margin-bottom:4em;\">"),
-        OutputLine(blame_us("toc_emitter"), 0, "      <h1><span class=\"coursename\">Theoretische Informatik 2</span> - Vorlesungsskript</h1>"),
-        OutputLine(blame_us("toc_emitter"), 0, "      <h3>Bachelor-Studium Informatik</h3>"),
-        OutputLine(blame_us("toc_emitter"), 0, "      <h3>Dominik Scheder, TU Chemnitz</h3>"),
+        OutputLine(
+          blame_us("toc_emitter"),
+          0,
+          "  <div class=\"container\" style=\"text-align:center;\">",
+        ),
+        OutputLine(
+          blame_us("toc_emitter"),
+          0,
+          "    <div style=\"text-align:center;margin-bottom:4em;\">",
+        ),
+        OutputLine(
+          blame_us("toc_emitter"),
+          0,
+          "      <h1><span class=\"coursename\">Theoretische Informatik 2</span> - Vorlesungsskript</h1>",
+        ),
+        OutputLine(
+          blame_us("toc_emitter"),
+          0,
+          "      <h3>Bachelor-Studium Informatik</h3>",
+        ),
+        OutputLine(
+          blame_us("toc_emitter"),
+          0,
+          "      <h3>Dominik Scheder, TU Chemnitz</h3>",
+        ),
         OutputLine(blame_us("toc_emitter"), 0, "    </div>"),
-        OutputLine(blame_us("toc_emitter"), 0, "    <div class=\"row content\">"),
-        OutputLine(blame_us("toc_emitter"), 0, "      <div class=\"col-sm-9 text-left\">"),
-        OutputLine(blame_us("toc_emitter"), 0, "        <div id=\"table-of-content-div\">"),
+        OutputLine(
+          blame_us("toc_emitter"),
+          0,
+          "    <div class=\"row content\">",
+        ),
+        OutputLine(
+          blame_us("toc_emitter"),
+          0,
+          "      <div class=\"col-sm-9 text-left\">",
+        ),
+        OutputLine(
+          blame_us("toc_emitter"),
+          0,
+          "        <div id=\"table-of-content-div\">",
+        ),
       ],
       fragment
-      |> infra.v_get_children
-      |> list.map(vxml.vxml_to_html_output_lines(_, 8, 2))
-      |> list.flatten,
+        |> infra.v_get_children
+        |> list.map(vxml.vxml_to_html_output_lines(_, 8, 2))
+        |> list.flatten,
       [
         OutputLine(blame_us("toc_emitter"), 0, "        </div>"),
         OutputLine(blame_us("toc_emitter"), 0, "      </div>"),
@@ -239,7 +324,7 @@ pub fn main() {
           output_dir: "./output",
           prettifier_behavior: vr.PrettifierOff,
         )
-        |> vr.amend_renderer_paramaters_by_command_line_amendments(amendments)
+        |> vr.amend_renderer_parameters_by_command_line_amendments(amendments)
 
       let options =
         vr.vanilla_options()
@@ -247,9 +332,9 @@ pub fn main() {
 
       let renderer =
         vr.Renderer(
-          assembler: vr.default_writerly_assembler(_, options),
+          assembler: wd.default_writerly_assembler(_, options),
           filterer: vr.default_filterer(_, options, []),
-          parser: vr.default_writerly_parser,
+          parser: wd.default_writerly_parser,
           pipeline: pipeline.our_pipeline(),
           splitter: our_splitter,
           emitter: ti2_emitter,

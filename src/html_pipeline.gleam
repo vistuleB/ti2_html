@@ -1,5 +1,5 @@
-import infrastructure as infra
-import desugarer_library as dl
+import desugaring/core as infra
+import desugaring/desugarers as dl
 
 pub fn html_pipeline() -> infra.Pipeline {
   [
@@ -14,11 +14,18 @@ pub fn html_pipeline() -> infra.Pipeline {
       #("strong", "*", "*"),
       #("code", "`", "`"),
     ]),
-    dl.surround_elements_by(#(["i", "b", "strong", "em", "code"], "go23_xU", "go23_xU")),
+    dl.surround_elements_by(#(
+      ["i", "b", "strong", "em", "code"],
+      "go23_xU",
+      "go23_xU",
+    )),
     dl.unwrap_tags_if_no_attributes(["i", "b", "strong", "em", "code"]),
     dl.fold_into_text(#("go23_xU", "")),
     dl.delete_empty_lines(),
-    dl.find_replace__batch__outside([#("&amp;", "&"), #("&lt;", "<"), #("&gt;", ">"), #("&ensp;", "\\ ")], []),
+    dl.find_replace__batch__outside(
+      [#("&amp;", "&"), #("&lt;", "<"), #("&gt;", ">"), #("&ensp;", "\\ ")],
+      [],
+    ),
     dl.add_between(#("p", "p", "WriterlyBlankLine")),
     dl.unwrap("p"),
     dl.ii2_class_well_container_theorem_2_statement(),
