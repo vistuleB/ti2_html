@@ -1,6 +1,6 @@
-import desugarers/div_class_subchapter_to_sub
 import desugaring/core as infra
 import desugaring/desugarers as dl
+import local_desugarers as local_dl
 
 pub fn html_pipeline() -> infra.Pipeline {
   [
@@ -29,8 +29,8 @@ pub fn html_pipeline() -> infra.Pipeline {
     ),
     dl.add_between(#("p", "p", "WriterlyBlankLine")),
     dl.unwrap("p"),
-    dl.ii2_class_well_container_theorem_2_statement(),
-    div_class_subchapter_to_sub.constructor(),
+    local_dl.ii2_class_well_container_theorem_2_statement(),
+    local_dl.div_class_subchapter_to_sub(),
     dl.nuke_ancestors("Sub"),
   ]
 }

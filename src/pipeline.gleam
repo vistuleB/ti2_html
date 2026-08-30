@@ -2,6 +2,7 @@ import desugaring/core as infra
 import desugaring/desugarers as dl
 import desugaring/pipelines as pp
 import gleam/list
+import local_desugarers as local_dl
 
 pub fn our_pipeline() -> infra.Pipeline {
   [
@@ -60,7 +61,10 @@ pub fn our_pipeline() -> infra.Pipeline {
         #("p", "p"),
         #("figure", "p"),
       ]),
-      dl.ii2_generate_table_of_contents_html(#("TOCAuthorSuppliedContent", "li")),
+      local_dl.ii2_generate_table_of_contents_html(#(
+        "TOCAuthorSuppliedContent",
+        "li",
+      )),
       dl.fold_into_text__batch([
         #("MathBlock", ""),
         #("Math", ""),

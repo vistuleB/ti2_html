@@ -29,11 +29,11 @@ fn nodemap(vxml: VXML) -> VXML {
       case core.v_has_class(vxml, "subChapter"), h1_children {
         True, [V(_, "span", _, [T(_, [line]), ..]), ..] ->
           V(
-            authoring.blame(name, 34),
+            authoring.blame(name, 32),
             "Sub",
             [
               Attr(
-                authoring.blame(name, 37),
+                authoring.blame(name, 36),
                 "title",
                 string.trim(line.content),
               ),
@@ -44,4 +44,39 @@ fn nodemap(vxml: VXML) -> VXML {
       }
     _ -> vxml
   }
+}
+
+// 🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊
+// 🌊🌊🌊 tests 🌊🌊🌊🌊
+// 🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊
+
+fn assertive_tests_data() -> List(core.AssertiveTestDataNoParam) {
+  [
+    core.AssertiveTestDataNoParam(
+      source: "
+                <> div
+                  class=subChapter
+                  <> h1
+                    <> span
+                      <>
+                        ' A title '
+                  <>
+                    'contents'
+                ",
+      expected: "
+                <> Sub
+                  title=A title
+                  <>
+                    'contents'
+                ",
+    ),
+  ]
+}
+
+pub fn assertive_tests() {
+  core.assertive_test_collection_from_data_no_param(
+    name,
+    assertive_tests_data(),
+    constructor,
+  )
 }

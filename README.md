@@ -22,3 +22,14 @@ Further documentation can be found at <https://hexdocs.pm/ti2_html>.
 gleam run   # Run the project
 gleam test  # Run the tests
 ```
+
+Local desugarer maintenance:
+
+```sh
+gleam run -- --renumber                 # renumber local blame lines
+gleam run -- --generate                 # regenerate local_desugarers.gleam
+gleam run -- --desugarer-tests          # test every local desugarer
+gleam run -- --desugarer-tests <name>   # test one local desugarer
+gleam run -- --desugarers               # perform all three operations
+gleam run -m local_desugarer_tests       # direct standalone test command
+```

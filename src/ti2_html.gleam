@@ -7,6 +7,7 @@ import gleam/list
 import gleam/option.{Some}
 import gleam/string
 import html_to_writerly
+import local_desugarers
 import on
 import pipeline
 import vxml.{type VXML, Attr}
@@ -285,6 +286,18 @@ fn cli_usage_supplementary() {
 
 pub fn main() {
   let args = argv.load().arguments
+
+  use #(args, maintenance_requested) <- on.error_ok(
+    vr.handle_maintenance_requests(args, local_desugarers.assertive_tests),
+    fn(error) {
+      io.println("maintenance error: " <> error)
+      io.println("")
+    },
+  )
+  use _ <- on.stay(case maintenance_requested {
+    True -> on.Return(Nil)
+    False -> on.Stay(Nil)
+  })
 
   case args {
     ["--parse-html", path, ..rest] -> {
