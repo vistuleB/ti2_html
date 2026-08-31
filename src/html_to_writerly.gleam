@@ -280,7 +280,6 @@ pub fn html_to_writerly(
         writer: vr.default_writer,
         prettifier: vr.empty_prettifier,
       )
-      |> vr.amend_renderer_by_command_line_amendments(amendments)
 
     case vr.run_renderer(renderer, parameters, options) {
       Ok(_) -> Nil

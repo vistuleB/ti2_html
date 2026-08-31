@@ -279,13 +279,20 @@ fn ti2_emitter(
   }
 }
 
-fn cli_usage_supplementary() {
-  io.println("      --prettier")
-  io.println("         -> run npm prettier on emitted content")
+fn cli_usage_supplementary() -> String {
+  let margin = string.repeat(" ", vr.help_message_margin)
+  [
+    margin <> "--prettier",
+    margin <> "  -> run npm prettier on emitted content",
+  ]
+  |> string.join("\n")
 }
 
 pub fn main() {
   let args = argv.load().arguments
+
+  let #(args, help_requested) =
+    vr.handle_help_requests(args, cli_usage_supplementary)
 
   use #(args, maintenance_requested) <- on.error_ok(
     vr.handle_maintenance_requests(args, local_desugarers.assertive_tests),
@@ -294,7 +301,7 @@ pub fn main() {
       io.println("")
     },
   )
-  use _ <- on.stay(case maintenance_requested {
+  use _ <- on.stay(case maintenance_requested || help_requested {
     True -> on.Return(Nil)
     False -> on.Stay(Nil)
   })
@@ -307,7 +314,7 @@ pub fn main() {
           io.println("")
           io.println("command line error: " <> ins(error))
           vr.basic_cli_usage("\nCommand line options (basic):")
-          cli_usage_supplementary()
+          cli_usage_supplementary() |> io.println
         },
       )
 
@@ -327,7 +334,7 @@ pub fn main() {
           io.println("")
           io.println("command line error: " <> ins(error))
           vr.basic_cli_usage("\nCommand line options (basic):")
-          cli_usage_supplementary()
+          cli_usage_supplementary() |> io.println
         },
       )
 
@@ -354,7 +361,6 @@ pub fn main() {
           writer: vr.default_writer,
           prettifier: vr.empty_prettifier,
         )
-        |> vr.amend_renderer_by_command_line_amendments(amendments)
 
       case vr.run_renderer(renderer, parameters, options) {
         Error(error) -> io.println("\nrenderer error: " <> ins(error) <> "\n")
