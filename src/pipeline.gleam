@@ -44,9 +44,9 @@ pub fn our_pipeline() -> infra.Pipeline {
     [
       dl.counters_substitute_and_assign_handles(),
       dl.handles_add_ids(),
-      dl.handles_generate_dictionary("path"),
+      dl.handles_grand_wrapper_generate_dictionary("path"),
       dl.identity(),
-      // dl.handles_substitute(),
+      // dl.handles_grand_wrapper_substitute(),
       dl.concatenate_text_nodes(),
       dl.unwrap_if_no_child_meets_condition(
         #("p", infra.is_t_or_is_one_of(_, ["b", "i", "a", "span"])),
