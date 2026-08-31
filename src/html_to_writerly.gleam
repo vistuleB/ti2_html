@@ -44,9 +44,9 @@ fn remove_0_at_start(s: String) -> String {
 fn splitter(
   vxml: VXML,
   file: String,
-) -> Result(List(vr.OutputFragment(Nil, VXML)), a) {
+) -> Result(#(List(vr.OutputFragment(Nil, VXML)), vr.Feedback), a) {
   let wly_file = file |> string.drop_end(5) <> ".wly"
-  Ok([vr.OutputFragment(Nil, wly_file, vxml)])
+  Ok(#([vr.OutputFragment(Nil, wly_file, vxml)], vr.NoFeedback))
 }
 
 fn remove_line_break_from_end(res: String) -> String {
@@ -107,7 +107,10 @@ fn emitter(
   fragment: vr.OutputFragment(Nil, VXML),
   _prev_file: Option(String),
   _next_file: Option(String),
-) -> Result(vr.OutputFragment(Nil, List(io_l.OutputLine)), String) {
+) -> Result(
+  #(vr.OutputFragment(Nil, List(io_l.OutputLine)), vr.Feedback),
+  String,
+) {
   let vr.OutputFragment(_, filename, vxml) = fragment
   let title_en =
     filename
@@ -165,10 +168,13 @@ fn emitter(
 
   let writerlys = wp.vxml_to_writerlys(vxml)
 
-  Ok(vr.OutputFragment(
-    classifier: Nil,
-    path: chapter_directory <> "/" <> filename,
-    payload: wp.writerlys_to_output_lines(writerlys),
+  Ok(#(
+    vr.OutputFragment(
+      classifier: Nil,
+      path: chapter_directory <> "/" <> filename,
+      payload: wp.writerlys_to_output_lines(writerlys),
+    ),
+    vr.NoFeedback,
   ))
 }
 
@@ -222,13 +228,13 @@ fn ti2_html_pre_processor(content: String) -> String {
 
 fn html_purifying_assembler(
   path: String,
-) -> Result(#(List(io_l.InputLine), option.Option(a)), simplifile.FileError) {
+) -> Result(#(List(io_l.InputLine), vr.Feedback), simplifile.FileError) {
   use content <- on.ok(simplifile.read(path))
   let lines =
     content
     |> ti2_html_pre_processor
     |> io_l.string_to_input_lines(path, 0)
-  Ok(#(lines, option.None))
+  Ok(#(lines, vr.NoFeedback))
 }
 
 pub fn html_to_writerly(

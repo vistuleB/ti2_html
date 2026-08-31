@@ -43,7 +43,10 @@ fn prepend_0(number: String) {
 
 fn our_splitter(
   root: VXML,
-) -> Result(List(vr.OutputFragment(FragmentType, VXML)), Ti2SplitterError) {
+) -> Result(
+  #(List(vr.OutputFragment(FragmentType, VXML)), vr.Feedback),
+  Ti2SplitterError,
+) {
   let chapter_vxmls = infra.descendants_with_tag(root, "section")
   // io.println(
   //   "the number of chapters found was: "
@@ -59,7 +62,7 @@ fn our_splitter(
     },
   )
 
-  Ok(
+  Ok(#(
     list.flatten([
       [
         vr.OutputFragment(
@@ -87,7 +90,8 @@ fn our_splitter(
         )
       }),
     ]),
-  )
+    vr.NoFeedback,
+  ))
 }
 
 fn ti2_section_emitter(
@@ -271,12 +275,16 @@ fn toc_emitter(
 
 fn ti2_emitter(
   pair: vr.OutputFragment(FragmentType, VXML),
-) -> Result(vr.OutputFragment(FragmentType, List(OutputLine)), Ti2EmitterError) {
+) -> Result(
+  #(vr.OutputFragment(FragmentType, List(OutputLine)), vr.Feedback),
+  Ti2EmitterError,
+) {
   let vr.OutputFragment(fragment_type, path, vxml) = pair
-  case fragment_type {
+  use fragment <- on.ok(case fragment_type {
     Chapter(n) -> ti2_section_emitter(path, vxml, fragment_type, n)
     TOCAuthorSuppliedContent -> toc_emitter(path, vxml, fragment_type)
-  }
+  })
+  Ok(#(fragment, vr.NoFeedback))
 }
 
 fn cli_usage_supplementary() -> String {
