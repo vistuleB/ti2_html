@@ -2,6 +2,7 @@ import argv
 import desugaring as vr
 import desugaring/core as infra
 import desugaring/writerly_defaults as wd
+import gleam/dict
 import gleam/io
 import gleam/list
 import gleam/option.{Some}
@@ -297,13 +298,25 @@ fn cli_usage_supplementary() -> String {
 }
 
 pub fn main() {
+  io.println("")
+
   let args = argv.load().arguments
 
-  let #(args, help_requested) =
-    vr.handle_help_requests(args, cli_usage_supplementary)
+  use arguments <- on.error_ok(
+    vr.process_command_line_arguments(args, ["--parse-html", "--prettier"]),
+    fn(error) {
+      io.println("command line error: " <> ins(error))
+      io.println("")
+      vr.basic_cli_usage("Command line options (basic):")
+      cli_usage_supplementary() |> io.println
+    },
+  )
 
-  use #(args, maintenance_requested) <- on.error_ok(
-    vr.handle_maintenance_requests(args, local_desugarers.assertive_tests),
+  let help_requested =
+    vr.handle_help_requests(arguments, cli_usage_supplementary)
+
+  use maintenance_requested <- on.error_ok(
+    vr.handle_maintenance_requests(arguments, local_desugarers.assertive_tests),
     fn(error) {
       io.println("maintenance error: " <> error)
       io.println("")
@@ -314,49 +327,31 @@ pub fn main() {
     False -> on.Stay(Nil)
   })
 
-  case args {
-    ["--parse-html", path, ..rest] -> {
-      use amendments <- on.error_ok(
-        vr.process_command_line_arguments(rest, []),
-        fn(error) {
-          io.println("")
-          io.println("command line error: " <> ins(error))
-          vr.basic_cli_usage("\nCommand line options (basic):")
-          cli_usage_supplementary() |> io.println
-        },
-      )
+  case dict.get(arguments.user_args, "--parse-html") {
+    Ok([path]) -> html_to_writerly.html_to_writerly(path, arguments)
 
-      html_to_writerly.html_to_writerly(path, amendments)
-    }
-
-    ["--parse-html"] -> {
-      io.println("")
+    Ok([]) -> {
       io.println("please provide path to html input")
       io.println("")
     }
 
-    _ -> {
-      use amendments <- on.error_ok(
-        vr.process_command_line_arguments(args, ["--prettier"]),
-        fn(error) {
-          io.println("")
-          io.println("command line error: " <> ins(error))
-          vr.basic_cli_usage("\nCommand line options (basic):")
-          cli_usage_supplementary() |> io.println
-        },
-      )
+    Ok(_) -> {
+      io.println("option '--parse-html' accepts exactly one path")
+      io.println("")
+    }
 
+    Error(_) -> {
       let parameters =
         vr.RendererParameters(
           input_dir: "./wly_content",
           output_dir: "./output",
           prettifier_behavior: vr.PrettifierOff,
         )
-        |> vr.amend_renderer_parameters_by_command_line_amendments(amendments)
+        |> vr.amend_renderer_parameters_by_arguments(arguments)
 
       let options =
         vr.vanilla_options()
-        |> vr.amend_renderer_options_by_command_line_amendments(amendments)
+        |> vr.amend_renderer_options_by_arguments(arguments)
 
       let renderer =
         vr.Renderer(

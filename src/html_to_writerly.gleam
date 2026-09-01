@@ -237,10 +237,7 @@ fn html_purifying_assembler(
   Ok(#(lines, vr.NoFeedback))
 }
 
-pub fn html_to_writerly(
-  path: String,
-  amendments: vr.CommandLineAmendments,
-) -> Nil {
+pub fn html_to_writerly(path: String, arguments: vr.ParsedCLIArguments) -> Nil {
   use #(dir, files) <- on.error_ok(directory_files_else_file(path), fn(e) {
     io.print("failed to load files from " <> path <> ": " <> ins(e))
   })
@@ -253,9 +250,9 @@ pub fn html_to_writerly(
   each_prev_next(files, option.None, fn(file, prev, next) {
     let path = dir <> "/" <> file
     use <- on.eager_false_true(
-      amendments.only_paths
+      arguments.only_paths
       |> list.any(fn(f) { string.contains(path, f) || string.is_empty(f) })
-        || list.is_empty(amendments.only_paths),
+        || list.is_empty(arguments.only_paths),
       Nil,
     )
 
@@ -269,11 +266,11 @@ pub fn html_to_writerly(
         output_dir: ".",
         prettifier_behavior: vr.PrettifierOff,
       )
-      |> vr.amend_renderer_parameters_by_command_line_amendments(amendments)
+      |> vr.amend_renderer_parameters_by_arguments(arguments)
 
     let options =
       vr.vanilla_options()
-      |> vr.amend_renderer_options_by_command_line_amendments(amendments)
+      |> vr.amend_renderer_options_by_arguments(arguments)
 
     let renderer =
       vr.Renderer(
