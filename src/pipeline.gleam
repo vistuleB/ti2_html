@@ -1,17 +1,17 @@
 import desugaring/core as infra
+import desugaring/delimited_syntax as syntax
 import desugaring/desugarers as dl
-import desugaring/pipelines as pp
 import gleam/list
 import local_desugarers as local_dl
 
 pub fn our_pipeline() -> infra.Pipeline {
   [
     [dl.find_replace__outside(#("&ensp;", " "), [])],
-    // pp.normalize_begin_end_align(infra.DoubleDollar),
-    pp.create_mathblock_elements([infra.DoubleDollar], infra.DoubleDollar, [
+    // syntax.normalize_begin_end_align(infra.DoubleDollar),
+    syntax.create_mathblock_elements([infra.DoubleDollar], infra.DoubleDollar, [
       "WriterlyBlankLine",
     ]),
-    pp.create_math_elements(
+    syntax.create_math_elements(
       [infra.BackslashParenthesis],
       infra.BackslashParenthesis,
       infra.BackslashParenthesis,
@@ -38,9 +38,21 @@ pub fn our_pipeline() -> infra.Pipeline {
       dl.unwrap("WriterlyBlankLine"),
       dl.concatenate_text_nodes(),
     ],
-    pp.symmetric_delim_splitting("`", "`", "code", ["MathBlock", "Math", "code"]),
-    pp.symmetric_delim_splitting("_", "_", "i", ["MathBlock", "Math", "code"]),
-    pp.symmetric_delim_splitting("\\*", "*", "b", ["MathBlock", "Math", "code"]),
+    syntax.symmetric_delimiter_pipeline("`", "`", "code", [
+      "MathBlock",
+      "Math",
+      "code",
+    ]),
+    syntax.symmetric_delimiter_pipeline("_", "_", "i", [
+      "MathBlock",
+      "Math",
+      "code",
+    ]),
+    syntax.symmetric_delimiter_pipeline("\\*", "*", "b", [
+      "MathBlock",
+      "Math",
+      "code",
+    ]),
     [
       dl.counters_substitute_and_assign_handles(),
       dl.handles_add_ids(),
