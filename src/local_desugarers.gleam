@@ -1,7 +1,7 @@
 import desugarers/div_class_subchapter_to_sub
 import desugarers/ii2_class_well_container_theorem_2_statement
 import desugarers/ii2_generate_table_of_contents_html
-import desugaring/core
+import desugaring/testing
 
 pub const div_class_subchapter_to_sub = div_class_subchapter_to_sub.constructor
 
@@ -9,7 +9,7 @@ pub const ii2_class_well_container_theorem_2_statement = ii2_class_well_containe
 
 pub const ii2_generate_table_of_contents_html = ii2_generate_table_of_contents_html.constructor
 
-pub const assertive_tests: List(fn() -> core.AssertiveTestCollection) = [
+pub const assertive_tests: List(fn() -> testing.AssertiveTestCollection) = [
   div_class_subchapter_to_sub.assertive_tests,
   ii2_class_well_container_theorem_2_statement.assertive_tests,
   ii2_generate_table_of_contents_html.assertive_tests,
