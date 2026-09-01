@@ -3,7 +3,7 @@ version = "1.0.0"
 
 [dependencies]
 vxml = ">= 1.0.6 and < 2.0.0"
-writerly = { "path" = "../wly/writerly" }
+writerly = ">= 0.1.0 and < 1.0.0"
 desugaring = { "path" = "../wly/desugaring" }
 
 argv = ">= 1.0.2 and < 2.0.0"
