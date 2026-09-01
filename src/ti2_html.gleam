@@ -297,78 +297,93 @@ fn cli_usage_supplementary() -> String {
   |> string.join("\n")
 }
 
+fn handle_parse_html_request(
+  arguments: vr.ParsedCLIArguments,
+) -> Result(Bool, vr.CLIError) {
+  case dict.get(arguments.user_args, "--parse-html") {
+    Ok([path]) -> {
+      html_to_writerly.html_to_writerly(path, arguments)
+      Ok(True)
+    }
+    Ok([]) -> Error(vr.ClientSideError("please provide path to html input"))
+    Ok(_) ->
+      Error(vr.ClientSideError("option '--parse-html' accepts exactly one path"))
+    Error(_) -> Ok(False)
+  }
+}
+
+fn handle_cli_error(error: vr.CLIError) -> Nil {
+  io.println("command line error: " <> vr.cli_error_message(error))
+  io.println("")
+}
+
 pub fn main() {
   io.println("")
 
   let args = argv.load().arguments
 
+  use args <- on.error_ok(vr.read_from_dot_last_command(args), handle_cli_error)
+
   use arguments <- on.error_ok(
     vr.process_command_line_arguments(args, ["--parse-html", "--prettier"]),
-    fn(error) {
-      io.println("command line error: " <> ins(error))
-      io.println("")
-      vr.basic_cli_usage("Command line options (basic):")
-      cli_usage_supplementary() |> io.println
-    },
+    handle_cli_error,
   )
 
-  let help_requested =
-    vr.handle_help_requests(arguments, cli_usage_supplementary)
+  use help_requested <- on.error_ok(
+    vr.handle_help_requests(arguments, cli_usage_supplementary),
+    handle_cli_error,
+  )
 
   use maintenance_requested <- on.error_ok(
     vr.handle_maintenance_requests(arguments, local_desugarers.assertive_tests),
-    fn(error) {
-      io.println("maintenance error: " <> error)
-      io.println("")
-    },
+    handle_cli_error,
   )
+
   use _ <- on.stay(case maintenance_requested || help_requested {
     True -> on.Return(Nil)
     False -> on.Stay(Nil)
   })
 
-  case dict.get(arguments.user_args, "--parse-html") {
-    Ok([path]) -> html_to_writerly.html_to_writerly(path, arguments)
+  use formatting_requested <- on.error_ok(
+    handle_parse_html_request(arguments),
+    handle_cli_error,
+  )
 
-    Ok([]) -> {
-      io.println("please provide path to html input")
-      io.println("")
-    }
+  use _ <- on.stay(case formatting_requested {
+    True -> on.Return(Nil)
+    False -> on.Stay(Nil)
+  })
 
-    Ok(_) -> {
-      io.println("option '--parse-html' accepts exactly one path")
-      io.println("")
-    }
+  use _ <- on.error_ok(vr.write_to_dot_last_command(args), handle_cli_error)
 
-    Error(_) -> {
-      let parameters =
-        vr.RendererParameters(
-          input_dir: "./wly_content",
-          output_dir: "./output",
-          prettifier_behavior: vr.PrettifierOff,
-        )
-        |> vr.amend_renderer_parameters_by_arguments(arguments)
+  {
+    let parameters =
+      vr.RendererParameters(
+        input_dir: "./wly_content",
+        output_dir: "./output",
+        prettifier_behavior: vr.PrettifierOff,
+      )
+      |> vr.amend_renderer_parameters_by_arguments(arguments)
 
-      let options =
-        vr.vanilla_options()
-        |> vr.amend_renderer_options_by_arguments(arguments)
+    let options =
+      vr.vanilla_options()
+      |> vr.amend_renderer_options_by_arguments(arguments)
 
-      let renderer =
-        vr.Renderer(
-          assembler: wd.default_writerly_assembler(_, options),
-          filterer: vr.default_filterer(_, options, []),
-          parser: wd.default_writerly_parser,
-          pipeline: pipeline.our_pipeline(),
-          splitter: our_splitter,
-          emitter: ti2_emitter,
-          writer: vr.default_writer,
-          prettifier: vr.empty_prettifier,
-        )
+    let renderer =
+      vr.Renderer(
+        assembler: wd.default_writerly_assembler(_, options),
+        filterer: vr.default_filterer(_, options, []),
+        parser: wd.default_writerly_parser,
+        pipeline: pipeline.our_pipeline(),
+        splitter: our_splitter,
+        emitter: ti2_emitter,
+        writer: vr.default_writer,
+        prettifier: vr.empty_prettifier,
+      )
 
-      case vr.run_renderer(renderer, parameters, options) {
-        Error(error) -> io.println("\nrenderer error: " <> ins(error) <> "\n")
-        _ -> Nil
-      }
+    case vr.run_renderer(renderer, parameters, options) {
+      Error(error) -> io.println("renderer error: " <> ins(error) <> "\n")
+      _ -> Nil
     }
   }
 }
