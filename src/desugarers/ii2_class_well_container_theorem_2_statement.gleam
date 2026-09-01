@@ -1,9 +1,9 @@
-import desugaring/authoring
-import desugaring/core.{type Desugarer, type DesugarerTransform}
-import desugaring/nodemaps_2_transform as n2t
-import desugaring/testing
 import gleam/string
 import vxml.{type VXML, T, V}
+import vxml_pipeline/authoring
+import vxml_pipeline/core.{type Desugarer, type DesugarerTransform}
+import vxml_pipeline/nodemaps_2_transform as n2t
+import vxml_pipeline/testing
 
 fn inner_param_to_transform(_: InnerParam) -> DesugarerTransform {
   let nodemap: n2t.OneToOneNoErrorNodemap = nodemap

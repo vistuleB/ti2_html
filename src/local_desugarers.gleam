@@ -1,7 +1,7 @@
 import desugarers/div_class_subchapter_to_sub
 import desugarers/ii2_class_well_container_theorem_2_statement
 import desugarers/ii2_generate_table_of_contents_html
-import desugaring/testing
+import vxml_pipeline/testing
 
 pub const div_class_subchapter_to_sub = div_class_subchapter_to_sub.constructor
 

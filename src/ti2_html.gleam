@@ -1,7 +1,4 @@
 import argv
-import desugaring as vr
-import desugaring/core as infra
-import desugaring/writerly_defaults as wd
 import gleam/dict
 import gleam/io
 import gleam/list
@@ -14,6 +11,9 @@ import pipeline
 import vxml.{type VXML, Attr}
 import vxml/blame.{type Blame} as bl
 import vxml/io_lines.{type OutputLine, OutputLine}
+import vxml_pipeline as vr
+import vxml_pipeline/core as infra
+import vxml_pipeline/writerly_defaults as wd
 
 const ins = string.inspect
 

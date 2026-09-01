@@ -1,6 +1,6 @@
-import desugaring/core as infra
-import desugaring/desugarers as dl
 import local_desugarers as local_dl
+import vxml_pipeline/core as infra
+import vxml_pipeline/desugarers as dl
 
 pub fn html_pipeline() -> infra.Pipeline {
   [

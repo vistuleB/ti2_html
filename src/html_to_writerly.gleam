@@ -1,5 +1,3 @@
-import desugaring as vr
-import desugaring/core as infra
 import gleam/int
 import gleam/io
 import gleam/list
@@ -12,6 +10,8 @@ import on
 import simplifile
 import vxml.{type VXML} as vp
 import vxml/io_lines as io_l
+import vxml_pipeline as vr
+import vxml_pipeline/core as infra
 import writerly as wp
 
 const ins = string.inspect

@@ -1,8 +1,8 @@
-import desugaring/core as infra
-import desugaring/delimited_syntax as syntax
-import desugaring/desugarers as dl
 import gleam/list
 import local_desugarers as local_dl
+import vxml_pipeline/core as infra
+import vxml_pipeline/delimited_syntax as syntax
+import vxml_pipeline/desugarers as dl
 
 pub fn our_pipeline() -> infra.Pipeline {
   [
