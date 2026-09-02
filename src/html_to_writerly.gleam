@@ -63,20 +63,26 @@ fn remove_line_break_from_start(res: String) -> String {
   }
 }
 
-fn title_from_vxml(vxml: VXML) -> String {
+fn title_from_vxml(vxml: VXML) -> Result(String, String) {
   let assert vp.V(_, _, _, title) = vxml
-  wp.vxmls_to_writerlys(title)
-  |> wp.writerlys_to_string()
+  use writerlys <- result.try(
+    wp.vxmls_to_writerlys(title) |> result.map_error(ins),
+  )
+  use serialized <- result.try(
+    wp.writerlys_to_string(writerlys) |> result.map_error(ins),
+  )
+  serialized
   |> string.split_once(" ")
   |> result.unwrap(#("", ""))
-  |> pair.second()
+  |> pair.second
   |> remove_line_break_from_start
   |> remove_line_break_from_end
+  |> Ok
 }
 
-fn get_title_internal(vxml: VXML) -> String {
+fn get_title_internal(vxml: VXML) -> Result(String, String) {
   case vxml {
-    vp.T(_, _) -> ""
+    vp.T(_, _) -> Ok("")
     vp.V(_, _, _, children) -> {
       case
         infra.v_children_with_class(vxml, "subChapterTitle"),
@@ -90,14 +96,14 @@ fn get_title_internal(vxml: VXML) -> String {
   }
 }
 
-fn get_title(vxmls: List(VXML)) -> String {
+fn get_title(vxmls: List(VXML)) -> Result(String, String) {
   case vxmls {
-    [] -> ""
+    [] -> Ok("")
     [first, ..rest] -> {
-      let title = get_title_internal(first)
+      use title <- result.try(get_title_internal(first))
       case title |> string.is_empty() {
         True -> get_title(rest)
-        False -> title
+        False -> Ok(title)
       }
     }
   }
@@ -118,7 +124,7 @@ fn emitter(
     |> string.split("-")
     |> list.drop(2)
     |> string.join(" ")
-  let title_german = get_title_internal(vxml)
+  use title_german <- result.try(get_title_internal(vxml))
   let chapter_number_as_string =
     filename |> string.split_once("-") |> result.unwrap(#("", "")) |> pair.first
   let assert True = chapter_number_as_string != ""
@@ -166,13 +172,18 @@ fn emitter(
   //     [construct_left_nav(prev_file), construct_right_nav(next_file), vxml],
   //   )
 
-  let writerlys = wp.vxml_to_writerlys(vxml)
+  use writerlys <- result.try(
+    wp.vxml_to_writerlys(vxml) |> result.map_error(ins),
+  )
+  use output_lines <- result.try(
+    wp.writerlys_to_output_lines(writerlys) |> result.map_error(ins),
+  )
 
   Ok(#(
     vr.OutputFragment(
       classifier: Nil,
       path: chapter_directory <> "/" <> filename,
-      payload: wp.writerlys_to_output_lines(writerlys),
+      payload: output_lines,
     ),
     vr.NoFeedback,
   ))
