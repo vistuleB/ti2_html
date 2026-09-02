@@ -24,7 +24,7 @@ pub fn our_pipeline() -> infra.Pipeline {
         "BookLevelSectionCounter",
         infra.GoBack,
       )),
-      dl.counters_prepend_incrementing_attribute(#(
+      dl.sigil_counters_prepend_incrementing_attribute(#(
         "section",
         "BookLevelSectionCounter",
         infra.GoBack,
@@ -54,7 +54,7 @@ pub fn our_pipeline() -> infra.Pipeline {
       "code",
     ]),
     [
-      dl.counters_substitute(),
+      dl.sigil_counters_substitute__outside(["pre"]),
       dl.writerly_handles_add_ids(),
       dl.writerly_handles_grand_wrapper_generate_dictionary("path"),
       dl.identity(),
