@@ -24,7 +24,7 @@ pub fn our_pipeline() -> infra.Pipeline {
         "BookLevelSectionCounter",
         infra.GoBack,
       )),
-      dl.prepend_counter_incrementing_attribute(#(
+      dl.counters_prepend_incrementing_attribute(#(
         "section",
         "BookLevelSectionCounter",
         infra.GoBack,
@@ -54,11 +54,11 @@ pub fn our_pipeline() -> infra.Pipeline {
       "code",
     ]),
     [
-      dl.counters_substitute_and_assign_handles(),
-      dl.handles_add_ids(),
-      dl.handles_grand_wrapper_generate_dictionary("path"),
+      dl.counters_substitute(),
+      dl.writerly_handles_add_ids(),
+      dl.writerly_handles_grand_wrapper_generate_dictionary("path"),
       dl.identity(),
-      // dl.handles_grand_wrapper_substitute(),
+      // dl.writerly_handles_grand_wrapper_substitute(),
       dl.concatenate_text_nodes(),
       dl.unwrap_if_no_child_meets_condition(
         #("p", infra.is_t_or_is_one_of(_, ["b", "i", "a", "span"])),
