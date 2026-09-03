@@ -1,21 +1,27 @@
 import gleam/list
 import local_desugarers as local_dl
 import vxml_pipeline/core as infra
-import vxml_pipeline/delimited_syntax as syntax
+import vxml_pipeline/delimiter_pipelines as syntax
 import vxml_pipeline/desugarers as dl
 
 pub fn our_pipeline() -> infra.Pipeline {
   [
     [dl.find_replace__outside(#("&ensp;", " "), [])],
     // syntax.normalize_begin_end_align(infra.DoubleDollar),
-    syntax.create_mathblock_elements([infra.DoubleDollar], infra.DoubleDollar, [
-      "WriterlyBlankLine",
-    ]),
-    syntax.create_math_elements(
+    syntax.math_block_pipeline(
+      [infra.DoubleDollar],
+      infra.DoubleDollar,
+      [
+        "WriterlyBlankLine",
+      ],
+      [],
+    ),
+    syntax.inline_math_pipeline(
       [infra.BackslashParenthesis],
       infra.BackslashParenthesis,
       infra.BackslashParenthesis,
       ["WriterlyBlankLine"],
+      [],
     ),
     [
       dl.append_attribute(#(
@@ -38,17 +44,17 @@ pub fn our_pipeline() -> infra.Pipeline {
       dl.unwrap("WriterlyBlankLine"),
       dl.concatenate_text_nodes(),
     ],
-    syntax.symmetric_delimiter_pipeline("`", "`", "code", [
+    syntax.boundary_aware_symmetric_delimiter_pipeline("`", "`", "code", [
       "MathBlock",
       "Math",
       "code",
     ]),
-    syntax.symmetric_delimiter_pipeline("_", "_", "i", [
+    syntax.boundary_aware_symmetric_delimiter_pipeline("_", "_", "i", [
       "MathBlock",
       "Math",
       "code",
     ]),
-    syntax.symmetric_delimiter_pipeline("\\*", "*", "b", [
+    syntax.boundary_aware_symmetric_delimiter_pipeline("\\*", "*", "b", [
       "MathBlock",
       "Math",
       "code",
