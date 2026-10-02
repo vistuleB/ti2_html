@@ -172,11 +172,11 @@ fn emitter(
   //     [construct_left_nav(prev_file), construct_right_nav(next_file), vxml],
   //   )
 
-  use writerlys <- result.try(
-    wp.vxml_to_writerlys(vxml) |> result.map_error(ins),
+  use writerly <- result.try(
+    wp.vxml_to_writerly(vxml) |> result.map_error(ins),
   )
   use output_lines <- result.try(
-    wp.writerlys_to_output_lines(writerlys) |> result.map_error(ins),
+    wp.writerly_to_output_lines(writerly) |> result.map_error(ins),
   )
 
   Ok(#(
